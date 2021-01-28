@@ -10,7 +10,8 @@ public class World : MonoBehaviour, IWorld
     public List<Player> Players { get; set; } = new List<Player>();
 
     public Dictionary<Guid, GameObject> PlayerGameObjectList { get; set; } = new Dictionary<Guid, GameObject>();
-    
+
+				//public WorldHandler m_worldHandler { get; set; }
 
     private long PlayerProcess()
     {
@@ -64,4 +65,6 @@ public class World : MonoBehaviour, IWorld
         //_subscription.Dispose();
         //_subscription2.Dispose();
     }
+				
+
 }
