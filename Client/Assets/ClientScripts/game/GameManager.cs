@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     private void Awake()
     {
-
-        instance = this;
+								playerModel = Resources.Load("PlayerModel") as GameObject;
+								instance = this;
     }
     private void Start()
     {
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour {
         playerObj.transform.rotation = a_rotation;
         if (a_isLocalPlayer == true)
         {
-            GameObject camera = Resources.Load("MyModels/Camera") as GameObject;
+            GameObject camera = Resources.Load("Camera") as GameObject;
             camera.name = "Camera-Id: " + a_guid;
             Instantiate(camera);
             this.camera = camera;
@@ -67,9 +67,9 @@ public class GameManager : MonoBehaviour {
             playerList[index].AddComponent<KeyListener>();
             string camName = "Camera-Id: " + index + "(Clone)";
             GameObject.Find(camName).GetComponent<Camera>().allowDynamicResolution = false;
-            GameObject.Find(camName).GetComponent<PlayerCamera>().target = GameManager.instance.playerList[index].transform;
+												GameObject.Find(camName).GetComponent<PlayerCamera>().target = GameManager.instance.playerList[index].transform;
         }
-        playerList[index].transform.localScale = new Vector3(4f, 4f, 4f);
+        playerList[index].transform.localScale = new Vector3(0.6496f, 0.6496f, 0.6496f);
     }
     public float WrapAngle(float angle)
     {

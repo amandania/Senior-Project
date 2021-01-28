@@ -24,20 +24,17 @@ namespace Engine.Net.Packet.OutgoingPackets
             buffer.WriteInt(_responseCode);
             if(_responseCode == 0)
             {
-                buffer.WriteInt(_player.GetSession().PlayerId.ToString().Length);
-                buffer.WriteString(_player.GetSession().PlayerId.ToString(), Encoding.Default);
-
-                var pos = _player.GetPosition();
-                buffer.WriteFloat(pos.x);
-                buffer.WriteFloat(pos.y);
-                buffer.WriteFloat(pos.z);
+                buffer.WriteInt(_player._Session.PlayerId.ToString().Length);
+                buffer.WriteString(_player._Session.PlayerId.ToString(), Encoding.Default);
+                buffer.WriteFloat(_player.m_position.x);
+                buffer.WriteFloat(_player.m_position.y);
+                buffer.WriteFloat(_player.m_position.z);
 
 
-                var rotation = _player.GetRotation();
-                buffer.WriteFloat(rotation.x);
-                buffer.WriteFloat(rotation.y);
-                buffer.WriteFloat(rotation.z);
-                
+
+                buffer.WriteFloat(_player.m_rotation.x);
+                buffer.WriteFloat(_player.m_rotation.y);
+                buffer.WriteFloat(_player.m_rotation.z);
             }
             return buffer;
         }

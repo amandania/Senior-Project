@@ -19,30 +19,34 @@ public class HandleMapLoaded : IIncomingPackets
 
     public async Task ExecutePacket(Player player, IByteBuffer data)
     {
-        
+								Debug.Log("Player completed map load");
         //load all the game data then finally add the player to the world game
-        await player.GetSession().SendPacket(new SendWorldNpcs(_world)).ConfigureAwait(false);
+        //await player._Session.SendPacket(new SendWorldNpcs(_world)).ConfigureAwait(false);
 
         //send my player to everyone
         //await player._Session.SendPacketToAllButMe(new SendSpawnPlayer(player)).ConfigureAwait(false);
 
 
         //send everyone to me
-        _world.Players.ForEach(_player =>
-        {   
-            if(player.GetSession().PlayerId != _player.GetSession().PlayerId)
-                player.GetSession().SendPacket(new SendSpawnPlayer(_player)).ConfigureAwait(false);
-        });
-
-       
-
-        _world.Players.Add(player);
-        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        _world.m_players.ForEach(_player =>
         {
-            GameObject.Find("NetworkManager").GetComponent<WorldHandler>().SpawnPlayerObject(player);    
+												if (player._Session.PlayerId != _player._Session.PlayerId)
+												{
+															player._Session.SendPacket(new SendSpawnPlayer(_player)).ConfigureAwait(false);
+												}
         });
+
+								
+
+								Debug.Log("Handle map loaded ");
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+								{
+												_world.AddWorldPlayer(player);
+												var createGameObject = GameObject.Find("WorldManager").GetComponent<WorldHandler>().SpawnPlayerObject(player);
+												player.PlayerGameObject = createGameObject;
+								});
         //send me to everyone
-        await player.GetSession().SendPacketToAllButMe(new SendSpawnPlayer(player)).ConfigureAwait(false);
+        await player._Session.SendPacketToAllButMe(new SendSpawnPlayer(player)).ConfigureAwait(false);
 
         
     }

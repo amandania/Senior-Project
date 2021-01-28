@@ -7,13 +7,32 @@ using UnityEngine;
 
 public class World : MonoBehaviour, IWorld
 {
-    public List<Player> Players { get; set; } = new List<Player>();
+				public Transform m_spawnTransform { get; set; }
 
-    public Dictionary<Guid, GameObject> PlayerGameObjectList { get; set; } = new Dictionary<Guid, GameObject>();
+				public List<Player> m_players { get; set; } = new List<Player>();
 
-				//public WorldHandler m_worldHandler { get; set; }
+				public Dictionary<Guid, GameObject> PlayerGameObjectList { get; set; }
 
-    private long PlayerProcess()
+				public void AddWorldPlayer(Player a_player)
+				{
+
+								a_player.m_position = m_spawnTransform.position;
+								a_player.m_rotation = m_spawnTransform.rotation.eulerAngles;
+
+								m_players.Add(a_player);
+				}
+
+				public void SetStartPos(Player a_player)
+				{
+								UnityMainThreadDispatcher.Instance().Enqueue(() =>
+								{
+												a_player.m_position = m_spawnTransform.position;
+												a_player.m_rotation = m_spawnTransform.rotation.eulerAngles;
+								});
+								
+				}
+
+				private long PlayerProcess()
     {
         //var playerList = Players;
 
@@ -22,7 +41,9 @@ public class World : MonoBehaviour, IWorld
         //Dummy return value of select many
         return 0;
     }
-    
+
+
+				
 
     private void Awake()
     {
@@ -35,8 +56,9 @@ public class World : MonoBehaviour, IWorld
 
     public void Start()
     {
-        
-        /*_subscription = Observable
+
+								m_spawnTransform = GameObject.Find("SpawnPart").transform;
+								/*_subscription = Observable
         .Interval(TimeSpan.FromMilliseconds(600))
         .StartWith(-1L)
         .Subscribe(interval => PlayerProcess());
@@ -46,9 +68,10 @@ public class World : MonoBehaviour, IWorld
         .StartWith(-1L)
         .SelectMany(WorldNpcProcess)
         .Subscribe();*/
-        //its not this. let me show u.
-    }
-    
+								//its not this. let me show u.
+				}
+
+   
     
 
     public void SpawnMonsters()
@@ -65,6 +88,4 @@ public class World : MonoBehaviour, IWorld
         //_subscription.Dispose();
         //_subscription2.Dispose();
     }
-				
-
 }

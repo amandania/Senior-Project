@@ -8,15 +8,13 @@ namespace Engine.Interfaces
     //IStartable tells the container to do somthing when this object is referenced
     public interface IWorld : IStartable, IDisposable
     {
-        List<Player> Players { get; set; }
+        //INPCMovement _npcMovement { get; set; }
+        List<Player> m_players { get; set; }
         Dictionary<Guid, GameObject> PlayerGameObjectList { get; set; }
-
-								/*
-								WorldHandler m_worldHandler { get; set; }
-
-								void SetWorldHandler(WorldHandler handler);*/
-
-				}
+								Transform m_spawnTransform { get; set; }
+								void SetStartPos(Player a_player);
+								void AddWorldPlayer(Player player);
+    }
 
 
 }

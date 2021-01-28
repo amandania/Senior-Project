@@ -12,55 +12,51 @@ public class NetworkBuilder : IServerTCP
 {
 
     //Ill leave this class for now.
-    private IEventLoopGroup m_bossgroup = new MultithreadEventLoopGroup();
-    private IEventLoopGroup m_workgroup = new MultithreadEventLoopGroup();
-    private ServerBootstrap m_bootstrap = new ServerBootstrap();
+    private IEventLoopGroup _bossgroup = new MultithreadEventLoopGroup();
+    private IEventLoopGroup _workgroup = new MultithreadEventLoopGroup();
+    private ServerBootstrap _bootstrap = new ServerBootstrap();
 
-    private readonly IConnectionManager m_connectionManager;
-    private readonly ChannelEventHandler m_channelEventHandler;
-    private readonly IWorld m_world;
+    private readonly IConnectionManager _connectionManager;
+    private readonly ChannelEventHandler _channelEventHandler;
+    private readonly IWorld _world;
 
-    public NetworkBuilder(IConnectionManager a_connectionManager, ChannelEventHandler a_channelEventHandler, IWorld a_world)
+    public NetworkBuilder(IConnectionManager connectionManager, ChannelEventHandler channelEventHandler, IWorld world)
     {
-        m_channelEventHandler = a_channelEventHandler;
-        m_connectionManager = a_connectionManager;
-        m_world = a_world;
+        _channelEventHandler = channelEventHandler;
+        _connectionManager = connectionManager;
+        _world = world;
 
-								GameObject.Find("WorldManager").GetComponent<WorldHandler>().SetWorld(m_world);
-								///UnityMainThreadDispatcher.Instance().Enqueue(() =>
-								//{
-								///});
-				}
+    }
 
-    public async Task Initalize(int a_port)
+    public async Task Initalize(int port)
     {
-        m_bootstrap.Group(m_bossgroup, m_workgroup);
-        m_bootstrap.Channel<TcpServerSocketChannel>();
-        m_bootstrap.Option(ChannelOption.SoBacklog, 8192);
-        m_bootstrap.ChildOption(ChannelOption.SoKeepalive, true);
+        _bootstrap.Group(_bossgroup, _workgroup);
+        _bootstrap.Channel<TcpServerSocketChannel>();
+        _bootstrap.Option(ChannelOption.SoBacklog, 8192);
+        _bootstrap.ChildOption(ChannelOption.SoKeepalive, true);
 
         //_bootstrap.Handler(new LoggingHandler("SRV-LSTN", LogLevel.TRACE));
-        m_bootstrap.ChildHandler(new ActionChannelInitializer<IChannel>(channel =>
+        _bootstrap.ChildHandler(new ActionChannelInitializer<IChannel>(channel =>
         {
             //Check docks
             var childPipeline = channel.Pipeline;
-            var playerSession = new PlayerSession(channel, m_world);
+            var playerSession = new PlayerSession(channel, _world);
             channel.GetAttribute(ChannelEventHandler.SESSION_KEY).SetIfAbsent(playerSession);
             //childPipeline.AddLast(new LoggingHandler("SRV-CONN", LogLevel.TRACE));
             childPipeline.AddLast("framing-enc", new LengthFieldPrepender(2));
             childPipeline.AddLast("framing-dec", new LengthFieldBasedFrameDecoder(ushort.MaxValue, 0, 2, 0, 2));
-            childPipeline.AddLast(m_channelEventHandler);
+            childPipeline.AddLast(_channelEventHandler);
         }));
         //_world.SpawnMonsters();
-        Debug.Log("Server is listening on port " + a_port);
-        NetworkManager.channel2 = await m_bootstrap.BindAsync(a_port);
+        Debug.Log("Server is listening on port " + port);
+        NetworkManager.channel2 = await _bootstrap.BindAsync(port);
     }
 
     public void Start()
     {
 
-								//Debug.Log("STARTING");
-								Initalize(5555).ConfigureAwait(false);
+        //Debug.Log("STARTING");
+        Initalize(5555).ConfigureAwait(false);
 
     }
 }

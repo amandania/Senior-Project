@@ -20,23 +20,18 @@ public class HandleLoginResponse : IIncomingPacketHandler
             var playerguid = Guid.Parse(buffer.ReadString(plrIdLength, Encoding.Default));
             var Position = new Vector3(buffer.ReadFloat(), buffer.ReadFloat(), buffer.ReadFloat());
             var Rotation = Quaternion.Euler(buffer.ReadFloat(), buffer.ReadFloat(), buffer.ReadFloat());
-            var raceStringLength = buffer.ReadInt();
-            var genderStringLength = buffer.ReadInt();
-            var umaDataStringLength = buffer.ReadInt();
-            var race = buffer.ReadString(raceStringLength, Encoding.Default);
-            var gender = buffer.ReadString(genderStringLength, Encoding.Default);
-            var umadatastring = buffer.ReadString(umaDataStringLength, Encoding.Default);
 
+												NetworkManager.instance.SendPacket(new SendMapLoaded().CreatePacket());
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
             {
                 SceneManager.LoadSceneAsync("MapScene").completed += (t) =>
                 {
                     Debug.Log("map is loaded.");
-                    NetworkManager.instance.SendPacket(new SendMapLoaded().CreatePacket());
                     GameManager.instance.SpawnPlayer(playerguid, Position, Rotation, true);
                 };
             });
-        }
+
+								}
     }
 
 
