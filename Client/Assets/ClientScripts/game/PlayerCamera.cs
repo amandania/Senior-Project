@@ -1,0 +1,116 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerCamera : MonoBehaviour
+{
+    public Transform target;
+
+    public int mouseButton = 1; // right button by default
+
+    public float distance = 20;
+    public float minDistance = 3;
+    public float maxDistance = 20;
+
+    public float zoomSpeedMouse = 1;
+    public float zoomSpeedTouch = 0.2f;
+    public float rotationSpeed = 2;
+
+    public float xMinAngle = -40;
+    public float xMaxAngle = 80;
+
+    // the target position can be adjusted by an offset in order to foucs on a
+    // target's head for example
+    public Vector3 offset = Vector3.zero;
+
+    // view blocking
+    // note: only works against objects with colliders.
+    public LayerMask viewBlockingLayers;
+
+    // store rotation so that unity never modifies it, otherwise unity will put
+    // it back to 360 as soon as it's < 0, which makes a negative min angle impossible
+    Vector3 rotation;
+
+    public Transform lookPoint = null;
+
+    void Awake()
+    {
+        rotation = transform.eulerAngles;
+    }
+
+    void LateUpdate()
+    {
+        if (!target)
+            return;
+        if (lookPoint != null)
+        {
+            offset = new Vector3(0, 8f, 0);
+        }
+        Vector3 targetPos = target.position + offset;
+
+        // rotation and zoom should only happen if not in a UI right now
+
+        // right mouse rotation if we have a mouse
+        if (lookPoint != null)
+        {
+            Vector3 lookDir = (lookPoint.position) - targetPos;
+            Quaternion q = Quaternion.LookRotation(lookDir);
+            Vector3 tempEuler = q.eulerAngles;
+            q = Quaternion.Euler(new Vector3(Mathf.Clamp(tempEuler.x, 6, 25), tempEuler.y, tempEuler.z));
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, q, Time.deltaTime * 85);
+        }
+        else
+        {
+            if (Input.mousePresent)
+            {
+                if (Input.GetMouseButton(mouseButton))
+                {
+                    // note: mouse x is for y rotation and vice versa
+                    rotation.y += Input.GetAxis("Mouse X") * rotationSpeed;
+                    rotation.x -= Input.GetAxis("Mouse Y") * rotationSpeed;
+                    rotation.x = Mathf.Clamp(rotation.x, xMinAngle, xMaxAngle);
+                    transform.rotation = Quaternion.Euler(rotation.x, rotation.y, 0);
+                }
+
+
+                //(click to move)
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Ray ray = GameObject.Find("Camera-Id: " + NetworkManager.instance.myIndex + "(Clone)").GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit2;
+                    if (Physics.Raycast(ray, out hit2, 2))
+                    {
+                        Debug.Log(hit2.transform.name);
+
+                    }
+                }
+
+            }
+            else
+            {
+                // forced 45 degree if there is no mouse to rotate (for mobile)
+                transform.rotation = Quaternion.Euler(new Vector3(45, 0, 0));
+            }
+        }
+
+        // zoom
+        float speed = Input.mousePresent ? zoomSpeedMouse : zoomSpeedTouch;
+        float step = Utils.GetZoomUniversal() * speed;
+        distance = Mathf.Clamp(distance - step, minDistance, maxDistance);
+      
+
+        // target follow
+        transform.position = targetPos - (transform.rotation * Vector3.forward * distance);
+
+        // avoid view blocking
+        RaycastHit hit;
+        if (Physics.Linecast(targetPos, transform.position, out hit, viewBlockingLayers))
+        {
+            // calculate a better distance (with some space between it)
+            float d = Vector3.Distance(targetPos, hit.point) - 0.1f;
+
+            // set the final cam position
+            transform.position = targetPos - (transform.rotation * Vector3.forward * d);
+        }
+    }
+}
