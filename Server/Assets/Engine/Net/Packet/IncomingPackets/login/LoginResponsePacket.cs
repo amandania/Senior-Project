@@ -44,6 +44,7 @@ public class LoginResponsePacket : Engine.Interfaces.IIncomingPackets
         {
             //Debug.Log("Current size: " + _world.Players.Count);
         }
+								await Task.CompletedTask;
 
     }
 }

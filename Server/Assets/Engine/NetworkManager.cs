@@ -42,10 +42,11 @@ public class NetworkManager : MonoBehaviour {
         // Boot
         builder.RegisterType<ServerBooter>();
 
-        //Auto Startables
-        //transform.gameObject.AddComponent<World>();
+								//Auto Startables
+								//transform.gameObject.AddComponent<World>();
 
-        builder.RegisterType<World>().As<IWorld>().As<IStartable>().SingleInstance();
+								transform.gameObject.AddComponent<World>();
+								builder.RegisterType<World>().As<IWorld>().As<IStartable>().SingleInstance();
         builder.RegisterType<NetworkBuilder>().As<IServerTCP>().As<IStartable>().SingleInstance();
 
         builder.RegisterType<ChannelEventHandler>().SingleInstance();
@@ -60,6 +61,7 @@ public class NetworkManager : MonoBehaviour {
         builder.RegisterType<HandleMovementInput>().As<IIncomingPackets>();
         builder.RegisterType<HandleActionKeys>().As<IIncomingPackets>();
         builder.RegisterType<HandleMapLoaded>().As<IIncomingPackets>();
+								transform.gameObject.AddComponent<WorldHandler>();
 
 								Debug.Log("Game booting up");
     }

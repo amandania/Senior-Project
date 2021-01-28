@@ -78,7 +78,8 @@ public class KeyListener : MonoBehaviour {
             
 
             if(NetworkManager.networkStream.IsWritable) {
-                NetworkManager.instance.SendPacket(new SendMovementPacket(move).CreatePacket());
+																Debug.Log("disabled movement send");
+                //NetworkManager.instance.SendPacket(new SendMovementPacket(move).CreatePacket());
             }
         }
     }

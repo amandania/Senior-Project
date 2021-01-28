@@ -1183,3 +1183,4 @@ C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp.csproj.Co
 C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp.dll
 C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp.pdb
+C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache

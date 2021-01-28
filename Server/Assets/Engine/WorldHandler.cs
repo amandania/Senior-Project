@@ -10,7 +10,7 @@ public class WorldHandler : MonoBehaviour
     private void Awake()
     {
         m_gameWorld = null;
-        //playerModel = Resources.Load("lp_guy") as GameObject;
+        playerModel = Resources.Load("PlayerModel") as GameObject;
     }
     // Use this for initialization
     void Start()

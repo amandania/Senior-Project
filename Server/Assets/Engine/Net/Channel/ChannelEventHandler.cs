@@ -11,92 +11,92 @@ using UnityEngine;
 public class ChannelEventHandler : SimpleChannelInboundHandler<IByteBuffer>
 {
 
-    public static AttributeKey<PlayerSession> SESSION_KEY = AttributeKey<PlayerSession>.ValueOf("sessions.key");
-    private readonly IPacketHandler m_packetHandler;
-    private readonly IWorld m_world;
+				public static AttributeKey<PlayerSession> SESSION_KEY = AttributeKey<PlayerSession>.ValueOf("sessions.key");
+				private readonly IPacketHandler _packetHandler;
+				private readonly IWorld _world;
 
-    public override bool IsSharable => true;
+				public override bool IsSharable => true;
 
-    public ChannelEventHandler(IPacketHandler a_packetHandler, IWorld a_world)
-    {
-        m_packetHandler = a_packetHandler;
-        m_world = a_world;
-    }
+				public ChannelEventHandler(IPacketHandler packetHandler, IWorld world)
+				{
+								_packetHandler = packetHandler;
+								_world = world;
+				}
 
-    public override void ChannelRegistered(IChannelHandlerContext a_context)
-    {
-        PlayerSession session = a_context.Channel.GetAttribute(SESSION_KEY).Get();
-        try
-        {
-            Debug.Log(session.PlayerId + " has registered"); 
-        }
-        catch (Exception e)
-        {
-            Debug.Log(e.Message);
-        }
-    }
+				public override void ChannelRegistered(IChannelHandlerContext context)
+				{
+								PlayerSession session = context.Channel.GetAttribute(SESSION_KEY).Get();
+								try
+								{
+												Debug.Log(session.PlayerId + " has registered");
+								}
+								catch (Exception e)
+								{
+												Debug.Log(e.Message);
+								}
+				}
 
-    public override void ChannelUnregistered(IChannelHandlerContext a_context)
-    {
-        PlayerSession session = a_context.Channel.GetAttribute(SESSION_KEY).Get();
+				public override void ChannelUnregistered(IChannelHandlerContext context)
+				{
+								PlayerSession session = context.Channel.GetAttribute(SESSION_KEY).Get();
 
-        if (session != null)
-        {
-            session.SendPacket(new SendLogout(session._player));   
-            m_world.Players.Remove(session._player);
-            UnityMainThreadDispatcher.Instance().Enqueue(() =>
-            {
-                GameObject.Destroy(m_world.PlayerGameObjectList[session.PlayerId]);
-            });
-                
-            session._channel.CloseAsync();
-            Debug.Log("Deregistered: " + session.PlayerId);
-        }
-    }
+								if (session != null)
+								{
+												session.SendPacket(new SendLogout(session._player));
+												_world.Players.Remove(session._player);
+												UnityMainThreadDispatcher.Instance().Enqueue(() =>
+												{
+																GameObject.Destroy(_world.PlayerGameObjectList[session.PlayerId]);
+												});
 
-    public override void ChannelReadComplete(IChannelHandlerContext a_context)
-    {
-        a_context.Flush();
-        base.ChannelReadComplete(a_context);
-    }
+												session._channel.CloseAsync();
+												Debug.Log("Deregistered: " + session.PlayerId);
+								}
+				}
 
-    public override void ChannelInactive(IChannelHandlerContext a_context)
-    {
-        Debug.Log("inactive.");
-    }
+				public override void ChannelReadComplete(IChannelHandlerContext context)
+				{
+								context.Flush();
+								base.ChannelReadComplete(context);
+				}
 
-    protected override void ChannelRead0(IChannelHandlerContext a_context, IByteBuffer a_message)
-    {
-        try
-        {
-            PlayerSession session = a_context.Channel.GetAttribute(SESSION_KEY).Get();
+				public override void ChannelInactive(IChannelHandlerContext context)
+				{
+								Debug.Log("inactive.");
+				}
 
-            if (session != null)
-            {
-                var copiedBuffer = Unpooled.CopiedBuffer(a_message);
-                Task.Run(async () =>
-                {
-                    int packetId = copiedBuffer.ReadInt();
-                    await HandleData(session._player, packetId, copiedBuffer);
-                    copiedBuffer.Release();
-                });
-            }
-        }
-        catch (Exception e)
-        {
-            Debug.Log($"Error {e}");
-        }
-    }
+				protected override void ChannelRead0(IChannelHandlerContext context, IByteBuffer message)
+				{
+								try
+								{
+												PlayerSession session = context.Channel.GetAttribute(SESSION_KEY).Get();
+
+												if (session != null)
+												{
+																var copiedBuffer = Unpooled.CopiedBuffer(message);
+																Task.Run(async () =>
+																{
+																				int packetId = copiedBuffer.ReadInt();
+																				await HandleData(session._player, packetId, copiedBuffer);
+																				copiedBuffer.Release();
+																});
+												}
+								}
+								catch (Exception e)
+								{
+												Debug.Log($"Error {e}");
+								}
+				}
 
 
-    private Task HandleData(Player a_player, int packetId, IByteBuffer a_data)
-    {
-        return m_packetHandler.GetPacketForType((IncomingPackets)packetId)?.ExecutePacket(a_player, a_data);
-    }
+				private Task HandleData(Player player, int packetId, IByteBuffer data)
+				{
+								return _packetHandler.GetPacketForType((IncomingPackets)packetId)?.ExecutePacket(player, data);
+				}
 
-    public override void ExceptionCaught(IChannelHandlerContext context, Exception exception)
-    {
-        Debug.Log("Exception: " + exception);
-        context.CloseAsync();
-    }
+				public override void ExceptionCaught(IChannelHandlerContext context, Exception exception)
+				{
+								Debug.Log("Exception: " + exception);
+								context.CloseAsync();
+				}
 }

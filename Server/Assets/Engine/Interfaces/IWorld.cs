@@ -10,7 +10,7 @@ namespace Engine.Interfaces
     {
         List<Player> Players { get; set; }
         Dictionary<Guid, GameObject> PlayerGameObjectList { get; set; }
-
+								void AddWorldPlayer(Player player);
 								/*
 								WorldHandler m_worldHandler { get; set; }
 

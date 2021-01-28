@@ -7,25 +7,23 @@ using UnityEngine;
 
 public class World : MonoBehaviour, IWorld
 {
+				public Transform SpawnPosition;
+
     public List<Player> Players { get; set; } = new List<Player>();
 
     public Dictionary<Guid, GameObject> PlayerGameObjectList { get; set; } = new Dictionary<Guid, GameObject>();
 
-				//public WorldHandler m_worldHandler { get; set; }
 
-    private long PlayerProcess()
-    {
-        //var playerList = Players;
-
-        //playerList.AsParallel().WithDegreeOfParallelism(_maxParallelThreads).ForAll(player => player.Process());
-
-        //Dummy return value of select many
-        return 0;
-    }
-    
+				public void AddWorldPlayer(Player player)
+				{
+								player.SetPosition(SpawnPosition.position);
+								player.SetRotation(SpawnPosition.rotation.eulerAngles);
+								Players.Add(player);
+				}
 
     private void Awake()
     {
+								SpawnPosition = GameObject.Find("SpawnPart").transform;
     }
 
     private void FixedUpdate()
