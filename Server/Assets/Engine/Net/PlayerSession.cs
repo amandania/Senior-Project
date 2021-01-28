@@ -1,8 +1,5 @@
 ﻿using DotNetty.Buffers;
-using DotNetty.Handlers.Logging;
-using DotNetty.Transport.Bootstrapping;
 using DotNetty.Transport.Channels;
-using DotNetty.Transport.Channels.Sockets;
 using Engine.Interfaces;
 using System;
 using System.Linq;
@@ -16,10 +13,10 @@ namespace Engine.Net
 
         public readonly IChannel _channel;
         public readonly IWorld _world;
-        public readonly Player _player;
         public NetworkStream _stream;
         private object _lockObject = new object();
         public Guid PlayerId { get; } = Guid.NewGuid();
+        public readonly Player _player;
 
         public PlayerSession(IChannel channel, IWorld world)
         {
@@ -44,9 +41,9 @@ namespace Engine.Net
 
             foreach (var player in _world.Players)
             {
-                if (player._Session._channel.Active && player._Session._channel.IsWritable)
+                if (player.GetSession()._channel.Active && player.GetSession()._channel.IsWritable)
                 {
-                    await player._Session.WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);
+                    await player.GetSession().WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);
                 }
             }
         }
@@ -57,10 +54,10 @@ namespace Engine.Net
             buffer.WriteInt((int)packet.PacketType);
             buffer.WriteBytes(packet.GetPacket());
 
-            var players = _world.Players.Where(player => player._Session.PlayerId != _player._Session.PlayerId);
+            var players = _world.Players.Where(player => player.GetSession().PlayerId != _player.GetSession().PlayerId);
             foreach (var player in players)
             {
-                await player._Session.WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);
+                await player.GetSession().WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);
             }
         }
 

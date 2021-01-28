@@ -21,7 +21,7 @@ namespace Engine.Net.Packet.OutgoingPackets
         {
             IByteBuffer buffer = Unpooled.Buffer();
 
-            buffer.WriteInt(_world.NPCS.Count);
+            /*buffer.WriteInt(_world.NPCS.Count);
 
             _world.NPCS.ForEach(npc =>
             {
@@ -31,7 +31,7 @@ namespace Engine.Net.Packet.OutgoingPackets
                 buffer.WriteFloat(npc._Position.x);
                 buffer.WriteFloat(npc._Position.y);
                 buffer.WriteFloat(npc._Position.z);
-            });
+            });*/
 
             //Debug.Log("Spwaning " + _world.NPCS.Count + " npcs");
             return buffer;

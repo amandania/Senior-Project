@@ -21,7 +21,7 @@ public class HandleMapLoaded : IIncomingPackets
     {
         
         //load all the game data then finally add the player to the world game
-        await player._Session.SendPacket(new SendWorldNpcs(_world)).ConfigureAwait(false);
+        await player.GetSession().SendPacket(new SendWorldNpcs(_world)).ConfigureAwait(false);
 
         //send my player to everyone
         //await player._Session.SendPacketToAllButMe(new SendSpawnPlayer(player)).ConfigureAwait(false);
@@ -30,8 +30,8 @@ public class HandleMapLoaded : IIncomingPackets
         //send everyone to me
         _world.Players.ForEach(_player =>
         {   
-            if(player._Session.PlayerId != _player._Session.PlayerId)
-                player._Session.SendPacket(new SendSpawnPlayer(_player)).ConfigureAwait(false);
+            if(player.GetSession().PlayerId != _player.GetSession().PlayerId)
+                player.GetSession().SendPacket(new SendSpawnPlayer(_player)).ConfigureAwait(false);
         });
 
        
@@ -42,7 +42,7 @@ public class HandleMapLoaded : IIncomingPackets
             GameObject.Find("NetworkManager").GetComponent<WorldHandler>().SpawnPlayerObject(player);    
         });
         //send me to everyone
-        await player._Session.SendPacketToAllButMe(new SendSpawnPlayer(player)).ConfigureAwait(false);
+        await player.GetSession().SendPacketToAllButMe(new SendSpawnPlayer(player)).ConfigureAwait(false);
 
         
     }
