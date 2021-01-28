@@ -60,7 +60,8 @@ public class NetworkManager : MonoBehaviour {
         builder.RegisterType<HandleMovementInput>().As<IIncomingPackets>();
         builder.RegisterType<HandleActionKeys>().As<IIncomingPackets>();
         builder.RegisterType<HandleMapLoaded>().As<IIncomingPackets>();
-        
+
+								Debug.Log("Game booting up");
     }
 
 

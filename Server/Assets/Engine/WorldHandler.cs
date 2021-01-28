@@ -27,6 +27,8 @@ public class WorldHandler : MonoBehaviour
     public void SetWorld(IWorld a_world)
     {
         m_gameWorld = a_world;
+								//m_gameWorld.m_worldHandler = this;
+
         Debug.Log("World was set after network build");
     }
 

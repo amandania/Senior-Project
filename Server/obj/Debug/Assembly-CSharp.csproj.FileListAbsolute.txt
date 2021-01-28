@@ -304,8 +304,6 @@ C:\Users\Admin\Desktop\Capstone V3\CapstoneUnityServer\Temp\bin\Debug\UnityEdito
 C:\Users\Admin\Desktop\Capstone V3\CapstoneUnityServer\Temp\bin\Debug\UnityEditor.UI.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Assembly-CSharp.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Assembly-CSharp.pdb
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Assembly-CSharp.dll.CodeAnalysisLog.xml
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Assembly-CSharp.dll.lastcodeanalysissucceeded
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Autofac.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Boo.Lang.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\DotNetty.Buffers.dll

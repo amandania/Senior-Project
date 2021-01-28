@@ -26,11 +26,11 @@ public class NetworkBuilder : IServerTCP
         m_connectionManager = a_connectionManager;
         m_world = a_world;
 
-        UnityMainThreadDispatcher.Instance().Enqueue(() =>
-        {
-            GameObject.Find("NetworkManager").GetComponent<WorldHandler>().SetWorld(a_world);
-        });
-    }
+								GameObject.Find("WorldManager").GetComponent<WorldHandler>().SetWorld(m_world);
+								///UnityMainThreadDispatcher.Instance().Enqueue(() =>
+								//{
+								///});
+				}
 
     public async Task Initalize(int a_port)
     {
@@ -59,8 +59,8 @@ public class NetworkBuilder : IServerTCP
     public void Start()
     {
 
-        //Debug.Log("STARTING");
-        Initalize(5555).ConfigureAwait(false);
+								//Debug.Log("STARTING");
+								Initalize(5555).ConfigureAwait(false);
 
     }
 }
