@@ -25,19 +25,20 @@ namespace Engine.Net.Packet.OutgoingPackets
             buffer.WriteInt(length);
             buffer.WriteString(guid, Encoding.Default);
             
-            buffer.WriteFloat(_player._OldPosition.x);
-            buffer.WriteFloat(_player._OldPosition.y);
-            buffer.WriteFloat(_player._OldPosition.z);
-            buffer.WriteFloat(_player._OldPosition.rotation.x);
-            buffer.WriteFloat(_player._OldPosition.rotation.y);
-            buffer.WriteFloat(_player._OldPosition.rotation.z);
+            buffer.WriteFloat(_player.m_oldPosition.x);
+            buffer.WriteFloat(_player.m_oldPosition.y);
+            buffer.WriteFloat(_player.m_oldPosition.z);
+            buffer.WriteFloat(_player.m_oldRotation.x);
+            buffer.WriteFloat(_player.m_oldRotation.y);
+            buffer.WriteFloat(_player.m_oldRotation.z);
 
-            buffer.WriteFloat(_player._Position.x);
-            buffer.WriteFloat(_player._Position.y);
-            buffer.WriteFloat(_player._Position.z);
-            buffer.WriteFloat(_player._Position.rotation.x);
-            buffer.WriteFloat(_player._Position.rotation.y);
-            buffer.WriteFloat(_player._Position.rotation.z);
+            buffer.WriteFloat(_player.m_position.x);
+            buffer.WriteFloat(_player.m_position.y);
+            buffer.WriteFloat(_player.m_position.z);
+
+            buffer.WriteFloat(_player.m_rotation.x);
+            buffer.WriteFloat(_player.m_rotation.y);
+            buffer.WriteFloat(_player.m_rotation.z);
 
             return buffer;
         }

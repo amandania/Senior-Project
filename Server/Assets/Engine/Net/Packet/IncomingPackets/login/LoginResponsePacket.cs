@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class LoginResponsePacket : Engine.Interfaces.IIncomingPackets
+public class LoginResponsePacket : IIncomingPackets
 {
     public IncomingPackets PacketType => IncomingPackets.CONNECT_RESPONSE;
 

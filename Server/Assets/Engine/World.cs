@@ -7,12 +7,32 @@ using UnityEngine;
 
 public class World : MonoBehaviour, IWorld
 {
-    public List<Player> Players { get; set; } = new List<Player>();
+				public Transform m_spawnTransform { get; set; }
 
-    public Dictionary<Guid, GameObject> PlayerGameObjectList { get; set; } = new Dictionary<Guid, GameObject>();
-    
+				public List<Player> m_players { get; set; } = new List<Player>();
 
-    private long PlayerProcess()
+				public Dictionary<Guid, GameObject> PlayerGameObjectList { get; set; }
+
+				public void AddWorldPlayer(Player a_player)
+				{
+
+								a_player.m_position = m_spawnTransform.position;
+								a_player.m_rotation = m_spawnTransform.rotation.eulerAngles;
+
+								m_players.Add(a_player);
+				}
+
+				public void SetStartPos(Player a_player)
+				{
+								UnityMainThreadDispatcher.Instance().Enqueue(() =>
+								{
+												a_player.m_position = m_spawnTransform.position;
+												a_player.m_rotation = m_spawnTransform.rotation.eulerAngles;
+								});
+								
+				}
+
+				private long PlayerProcess()
     {
         //var playerList = Players;
 
@@ -23,15 +43,7 @@ public class World : MonoBehaviour, IWorld
     }
 
 
-
-    private async Task<long> WorldNpcProcess(long interval)
-    {
-        /*foreach (var npc in NPCS)
-        {
-            await npc.Process().ConfigureAwait(false);
-        }*/
-        return interval;
-    }
+				
 
     private void Awake()
     {
@@ -44,8 +56,9 @@ public class World : MonoBehaviour, IWorld
 
     public void Start()
     {
-        
-        /*_subscription = Observable
+
+								m_spawnTransform = GameObject.Find("SpawnPart").transform;
+								/*_subscription = Observable
         .Interval(TimeSpan.FromMilliseconds(600))
         .StartWith(-1L)
         .Subscribe(interval => PlayerProcess());
@@ -55,8 +68,8 @@ public class World : MonoBehaviour, IWorld
         .StartWith(-1L)
         .SelectMany(WorldNpcProcess)
         .Subscribe();*/
-        //its not this. let me show u.
-    }
+								//its not this. let me show u.
+				}
 
    
     

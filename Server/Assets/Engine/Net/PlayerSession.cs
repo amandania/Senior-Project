@@ -26,6 +26,7 @@ namespace Engine.Net
             _channel = channel;
             _world = world;
             _player = new Player(this, world);
+												_world.SetStartPos(_player);
         }
 
         public Task SendPacket(IOutGoingPackets packet)
@@ -42,7 +43,7 @@ namespace Engine.Net
             buffer.WriteInt((int)packet.PacketType);
             buffer.WriteBytes(packet.GetPacket());
 
-            foreach (var player in _world.Players)
+            foreach (var player in _world.m_players)
             {
                 if (player._Session._channel.Active && player._Session._channel.IsWritable)
                 {
@@ -57,7 +58,7 @@ namespace Engine.Net
             buffer.WriteInt((int)packet.PacketType);
             buffer.WriteBytes(packet.GetPacket());
 
-            var players = _world.Players.Where(player => player._Session.PlayerId != _player._Session.PlayerId);
+            var players = _world.m_players.Where(player => player._Session.PlayerId != _player._Session.PlayerId);
             foreach (var player in players)
             {
                 await player._Session.WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);

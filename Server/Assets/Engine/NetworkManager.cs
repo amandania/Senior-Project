@@ -48,7 +48,7 @@ public class NetworkManager : MonoBehaviour {
         builder.RegisterType<ServerBooter>();
 
         //Auto Startables
-        transform.gameObject.AddComponent<World>();
+        //transform.gameObject.AddComponent<World>();
         builder.RegisterType<MapData>().As<ILoadMapData>().As<IStartable>().SingleInstance();
         builder.RegisterType<World>().As<IWorld>().As<IStartable>().SingleInstance();
         builder.RegisterType<NetworkBuilder>().As<IServerTCP>().As<IStartable>().SingleInstance();
@@ -66,12 +66,12 @@ public class NetworkManager : MonoBehaviour {
         builder.RegisterType<MovementController>().As<IMovementController>().SingleInstance();
 
         //Packets
+        builder.RegisterType<HandleMapLoaded>().As<IIncomingPackets>();
         builder.RegisterType<LoginResponsePacket>().As<IIncomingPackets>();
         builder.RegisterType<IdleRequest>().As<IIncomingPackets>();
         //builder.RegisterType<InputKeyResponsePacket>().As<IIncomingPackets>();
         builder.RegisterType<HandleMovementInput>().As<IIncomingPackets>();
         builder.RegisterType<HandleActionKeys>().As<IIncomingPackets>();
-        builder.RegisterType<HandleMapLoaded>().As<IIncomingPackets>();
 
         transform.gameObject.AddComponent<WorldHandler>();
     }

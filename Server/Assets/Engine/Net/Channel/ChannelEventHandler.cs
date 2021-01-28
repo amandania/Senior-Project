@@ -43,7 +43,7 @@ public class ChannelEventHandler : SimpleChannelInboundHandler<IByteBuffer>
         if (session != null)
         {
             session.SendPacket(new SendLogout(session._player));   
-            _world.Players.Remove(session._player);
+            _world.m_players.Remove(session._player);
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
             {
                 GameObject.Destroy(_world.PlayerGameObjectList[session.PlayerId]);
@@ -91,6 +91,7 @@ public class ChannelEventHandler : SimpleChannelInboundHandler<IByteBuffer>
 
     private Task HandleData(Player player, int packetId, IByteBuffer data)
     {
+								Debug.Log("incoming packing id: " + packetId + " :" + (_packetHandler.GetPacketForType((IncomingPackets)packetId)) );
         return _packetHandler.GetPacketForType((IncomingPackets)packetId)?.ExecutePacket(player, data);
     }
 

@@ -19,7 +19,7 @@ public class HandleMapLoaded : IIncomingPackets
 
     public async Task ExecutePacket(Player player, IByteBuffer data)
     {
-        
+								Debug.Log("Player completed map load");
         //load all the game data then finally add the player to the world game
         //await player._Session.SendPacket(new SendWorldNpcs(_world)).ConfigureAwait(false);
 
@@ -28,21 +28,23 @@ public class HandleMapLoaded : IIncomingPackets
 
 
         //send everyone to me
-        _world.Players.ForEach(async _player =>
+        _world.m_players.ForEach(_player =>
         {
 												if (player._Session.PlayerId != _player._Session.PlayerId)
 												{
-																await player._Session.SendPacket(new SendSpawnPlayer(_player)).ConfigureAwait(false);
+															player._Session.SendPacket(new SendSpawnPlayer(_player)).ConfigureAwait(false);
 												}
         });
 
-       
+								
 
-        _world.Players.Add(player);
+								Debug.Log("Handle map loaded ");
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
-        {
-            GameObject.Find("NetworkManager").GetComponent<WorldHandler>().SpawnPlayerObject(player);    
-        });
+								{
+												_world.AddWorldPlayer(player);
+												var createGameObject = GameObject.Find("WorldManager").GetComponent<WorldHandler>().SpawnPlayerObject(player);
+												player.PlayerGameObject = createGameObject;
+								});
         //send me to everyone
         await player._Session.SendPacketToAllButMe(new SendSpawnPlayer(player)).ConfigureAwait(false);
 

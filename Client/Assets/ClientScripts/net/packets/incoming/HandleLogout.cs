@@ -17,7 +17,8 @@ public class HandleLogout : IIncomingPacketHandler
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
             GameObject.Destroy(GameManager.instance.playerList[playerguid]);
-        });
+
+								});
         
     }
 

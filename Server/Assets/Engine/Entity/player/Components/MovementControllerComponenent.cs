@@ -4,16 +4,13 @@ using Engine.Net.Packet.OutgoingPackets;
 
 public class MovementControllerComponenent : MonoBehaviour
 {
-    public Animator Animator;
     public CharacterController CharacterController;
     public GameObject PlayerObj;
     public Player player;
 
     private void Awake()
     {
-        Animator = GetComponent<Animator>();
         CharacterController = GetComponent<CharacterController>();
-        Debug.Log("momentcontroller is awake. animitor == null " + (Animator == null));
         PlayerObj = transform.gameObject;
     }
 
@@ -43,7 +40,8 @@ public class MovementControllerComponenent : MonoBehaviour
         float turnAmount = Mathf.Atan2(rotation.x, rotation.z);
         float rotateAngle = turnAmount * RotationSpeed * Time.deltaTime;
         
-        player._OldPosition = player._Position;
+        player.m_oldPosition = player.m_position;
+								player.m_oldRotation = player.m_rotation;
         PlayerObj.transform.Rotate(0, rotateAngle, 0);
 
         if (CharacterController.isGrounded)
@@ -57,12 +55,15 @@ public class MovementControllerComponenent : MonoBehaviour
         moveVector = moveVector * Time.deltaTime;
         CharacterController.Move(moveVector);
 
-        player._Position.x = PlayerObj.transform.position.x;
+								var plrTransform = PlayerObj.transform;
+								player.m_position = plrTransform.position;
+								player.m_rotation = plrTransform.rotation.eulerAngles;
+								/*player._Position.x = PlayerObj.transform.position.x;
         player._Position.y = PlayerObj.transform.position.y;
         player._Position.z = PlayerObj.transform.position.z;
-        player._Position.rotation = PlayerObj.transform.rotation.eulerAngles;
+        player._Position.rotation = PlayerObj.transform.rotation.eulerAngles;*/
 
-        player._Session.SendPacketToAll(new SendMoveCharacter(player)).ConfigureAwait(false);
+								player._Session.SendPacketToAll(new SendMoveCharacter(player)).ConfigureAwait(false);
     }
 
 

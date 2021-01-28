@@ -44,7 +44,7 @@ public class PlayerCamera : MonoBehaviour
             return;
         if (lookPoint != null)
         {
-            offset = new Vector3(0, 8f, 0);
+            offset = new Vector3(0f, 0f, 0f);
         }
         Vector3 targetPos = target.position + offset;
 

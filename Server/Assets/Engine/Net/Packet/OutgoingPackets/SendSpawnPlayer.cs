@@ -26,22 +26,16 @@ namespace Engine.Net.Packet.OutgoingPackets {
             buffer.WriteInt(length);
             buffer.WriteString(guid, Encoding.Default);
 
-            buffer.WriteFloat(_player._Position.x );
-            buffer.WriteFloat(_player._Position.y);
-            buffer.WriteFloat(_player._Position.z);
+            buffer.WriteFloat(_player.m_position.x );
+            buffer.WriteFloat(_player.m_position.y);
+            buffer.WriteFloat(_player.m_position.z);
 
 
-            buffer.WriteFloat(_player._Position.rotation.x);
-            buffer.WriteFloat(_player._Position.rotation.y);
-            buffer.WriteFloat(_player._Position.rotation.z);
+            buffer.WriteFloat(_player.m_rotation.x);
+            buffer.WriteFloat(_player.m_rotation.y);
+            buffer.WriteFloat(_player.m_rotation.z);
+												
 
-            buffer.WriteInt(_player._race.Length);
-            buffer.WriteInt(_player._gender.Length);
-            buffer.WriteInt(_player._umaDataString.Length);
-
-            buffer.WriteString(_player._race, Encoding.Default);
-            buffer.WriteString(_player._gender, Encoding.Default);  
-            buffer.WriteString(_player._umaDataString, Encoding.Default);
             //Debug.Log("Spawning other player with Session Id: {0}" + _player._Session.PlayerId);
 
             return buffer;
