@@ -7,23 +7,34 @@ using UnityEngine;
 
 public class World : MonoBehaviour, IWorld
 {
-				public Transform SpawnPosition;
-
     public List<Player> Players { get; set; } = new List<Player>();
 
     public Dictionary<Guid, GameObject> PlayerGameObjectList { get; set; } = new Dictionary<Guid, GameObject>();
+    
+
+    private long PlayerProcess()
+    {
+        //var playerList = Players;
+
+        //playerList.AsParallel().WithDegreeOfParallelism(_maxParallelThreads).ForAll(player => player.Process());
+
+        //Dummy return value of select many
+        return 0;
+    }
 
 
-				public void AddWorldPlayer(Player player)
-				{
-								player.SetPosition(SpawnPosition.position);
-								player.SetRotation(SpawnPosition.rotation.eulerAngles);
-								Players.Add(player);
-				}
+
+    private async Task<long> WorldNpcProcess(long interval)
+    {
+        /*foreach (var npc in NPCS)
+        {
+            await npc.Process().ConfigureAwait(false);
+        }*/
+        return interval;
+    }
 
     private void Awake()
     {
-								SpawnPosition = GameObject.Find("SpawnPart").transform;
     }
 
     private void FixedUpdate()
@@ -46,7 +57,8 @@ public class World : MonoBehaviour, IWorld
         .Subscribe();*/
         //its not this. let me show u.
     }
-    
+
+   
     
 
     public void SpawnMonsters()
@@ -63,6 +75,4 @@ public class World : MonoBehaviour, IWorld
         //_subscription.Dispose();
         //_subscription2.Dispose();
     }
-				
-
 }

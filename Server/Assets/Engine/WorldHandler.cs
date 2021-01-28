@@ -5,12 +5,11 @@ using Engine.Interfaces;
 public class WorldHandler : MonoBehaviour
 {
     public GameObject playerModel;
-    private IWorld m_gameWorld;
+    private IWorld GameWorld;
 
     private void Awake()
     {
-        m_gameWorld = null;
-        playerModel = Resources.Load("PlayerModel") as GameObject;
+        playerModel = Resources.Load("lp_guy") as GameObject;
     }
     // Use this for initialization
     void Start()
@@ -24,24 +23,21 @@ public class WorldHandler : MonoBehaviour
 
     }
 
-    public void SetWorld(IWorld a_world)
-    {
-        m_gameWorld = a_world;
-								//m_gameWorld.m_worldHandler = this;
-
-        Debug.Log("World was set after network build");
-    }
-
     public void SpawnPlayerObject(Player player)
     {
+        if(GameWorld == null)
+        {
+            GameWorld = player._world;
+        }
+
         GameObject playerObj = Instantiate(playerModel);
-        playerObj.name = "Player: " + player.GetSession().PlayerId;
-        playerObj.transform.position = player.GetPosition();
+        playerObj.name = "Player: " + player._Session.PlayerId;
+        playerObj.transform.position = player._Position.GetVector3();
         playerObj.transform.rotation = Quaternion.Euler(0, 0, 0);
-        player.SetPlayerObject(playerObj);
-
-
-        m_gameWorld.PlayerGameObjectList.Add(player.GetSession().PlayerId, playerObj);
+        playerObj.AddComponent<MovementControllerComponenent>();
+        playerObj.GetComponent<MovementControllerComponenent>().player = player;
+        player.PlayerGameObject = playerObj;
+        GameWorld.PlayerGameObjectList.Add(player._Session.PlayerId, playerObj);
 
 
         StartCoroutine(TransformPlayer(player));
@@ -50,9 +46,10 @@ public class WorldHandler : MonoBehaviour
     IEnumerator TransformPlayer(Player player)
     {
         yield return new WaitForSeconds(1);
-
-        var sessionId = player.GetSession().PlayerId;
-        
-        player.SetRotation(player.GetPlayerModel().transform.rotation.eulerAngles);
+        GameWorld.PlayerGameObjectList[player._Session.PlayerId].GetComponent<MovementControllerComponenent>().CharacterController = GameWorld.PlayerGameObjectList[player._Session.PlayerId].GetComponent<CharacterController>();
+        GameWorld.PlayerGameObjectList[player._Session.PlayerId].GetComponent<MovementControllerComponenent>().Animator = GameWorld.PlayerGameObjectList[player._Session.PlayerId].GetComponent<Animator>();
+        player._Position.rotation = player.PlayerGameObject.transform.rotation.eulerAngles;
+        player.ControllerComponent = GameWorld.PlayerGameObjectList[player._Session.PlayerId].GetComponent<MovementControllerComponenent>();
+        GameWorld.PlayerGameObjectList[player._Session.PlayerId].transform.localScale = new Vector3(4f, 4f, 4f);
     }
 }

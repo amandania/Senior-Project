@@ -24,20 +24,25 @@ namespace Engine.Net.Packet.OutgoingPackets
             buffer.WriteInt(_responseCode);
             if(_responseCode == 0)
             {
-                buffer.WriteInt(_player.GetSession().PlayerId.ToString().Length);
-                buffer.WriteString(_player.GetSession().PlayerId.ToString(), Encoding.Default);
-
-                var pos = _player.GetPosition();
-                buffer.WriteFloat(pos.x);
-                buffer.WriteFloat(pos.y);
-                buffer.WriteFloat(pos.z);
+                buffer.WriteInt(_player._Session.PlayerId.ToString().Length);
+                buffer.WriteString(_player._Session.PlayerId.ToString(), Encoding.Default);
+                buffer.WriteFloat(_player._Position.x);
+                buffer.WriteFloat(_player._Position.y);
+                buffer.WriteFloat(_player._Position.z);
 
 
-                var rotation = _player.GetRotation();
-                buffer.WriteFloat(rotation.x);
-                buffer.WriteFloat(rotation.y);
-                buffer.WriteFloat(rotation.z);
-                
+
+                buffer.WriteFloat(_player._Position.rotation.x);
+                buffer.WriteFloat(_player._Position.rotation.y);
+                buffer.WriteFloat(_player._Position.rotation.z);
+
+                buffer.WriteInt(_player._race.Length);
+                buffer.WriteInt(_player._gender.Length);
+                buffer.WriteInt(_player._umaDataString.Length);
+
+                buffer.WriteString(_player._race, Encoding.Default);
+                buffer.WriteString(_player._gender, Encoding.Default);
+                buffer.WriteString(_player._umaDataString, Encoding.Default);
             }
             return buffer;
         }

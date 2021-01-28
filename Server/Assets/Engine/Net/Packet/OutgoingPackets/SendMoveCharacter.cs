@@ -9,41 +9,35 @@ namespace Engine.Net.Packet.OutgoingPackets
     {
         public OutGoingPackets PacketType => OutGoingPackets.MOVE_CHARACTER;
         
-        private readonly Player m_player;
+        private readonly Player _player;
 
-        public SendMoveCharacter(Player a_player)
+        public SendMoveCharacter(Player player)
         {
-            m_player = a_player;
+            _player = player;
         }
 
         public IByteBuffer GetPacket()
         {
             var buffer = Unpooled.Buffer();
-            String guid = m_player.GetSession().PlayerId.ToString();
+            String guid = _player._Session.PlayerId.ToString();
             int length = guid.Length;
 
             buffer.WriteInt(length);
             buffer.WriteString(guid, Encoding.Default);
+            
+            buffer.WriteFloat(_player._OldPosition.x);
+            buffer.WriteFloat(_player._OldPosition.y);
+            buffer.WriteFloat(_player._OldPosition.z);
+            buffer.WriteFloat(_player._OldPosition.rotation.x);
+            buffer.WriteFloat(_player._OldPosition.rotation.y);
+            buffer.WriteFloat(_player._OldPosition.rotation.z);
 
-            var oldPos = m_player.GetOldPosition();
-            buffer.WriteFloat(oldPos.x);
-            buffer.WriteFloat(oldPos.y);
-            buffer.WriteFloat(oldPos.z);
-
-            var oldRotation = m_player.GetOldRotation();
-            buffer.WriteFloat(oldRotation.x);
-            buffer.WriteFloat(oldRotation.y);
-            buffer.WriteFloat(oldRotation.z);
-
-            var currentPosition = m_player.GetPosition();
-            buffer.WriteFloat(currentPosition.x);
-            buffer.WriteFloat(currentPosition.y);
-            buffer.WriteFloat(currentPosition.z);
-
-            var currentRotation = m_player.GetRotation();
-            buffer.WriteFloat(currentRotation.x);
-            buffer.WriteFloat(currentRotation.y);
-            buffer.WriteFloat(currentRotation.z);
+            buffer.WriteFloat(_player._Position.x);
+            buffer.WriteFloat(_player._Position.y);
+            buffer.WriteFloat(_player._Position.z);
+            buffer.WriteFloat(_player._Position.rotation.x);
+            buffer.WriteFloat(_player._Position.rotation.y);
+            buffer.WriteFloat(_player._Position.rotation.z);
 
             return buffer;
         }

@@ -20,22 +20,28 @@ namespace Engine.Net.Packet.OutgoingPackets {
         public IByteBuffer GetPacket()
         {
             var buffer = Unpooled.Buffer();
-            String guid = _player.GetSession().PlayerId.ToString();
+            String guid = _player._Session.PlayerId.ToString();
             int length = guid.Length;
 
             buffer.WriteInt(length);
             buffer.WriteString(guid, Encoding.Default);
 
-            var position = _player.GetPosition();
-            buffer.WriteFloat(position.x );
-            buffer.WriteFloat(position.y);
-            buffer.WriteFloat(position.z);
+            buffer.WriteFloat(_player._Position.x );
+            buffer.WriteFloat(_player._Position.y);
+            buffer.WriteFloat(_player._Position.z);
 
-            var rotation = _player.GetRotation();
-            buffer.WriteFloat(rotation.x);
-            buffer.WriteFloat(rotation.y);
-            buffer.WriteFloat(rotation.z);
-            
+
+            buffer.WriteFloat(_player._Position.rotation.x);
+            buffer.WriteFloat(_player._Position.rotation.y);
+            buffer.WriteFloat(_player._Position.rotation.z);
+
+            buffer.WriteInt(_player._race.Length);
+            buffer.WriteInt(_player._gender.Length);
+            buffer.WriteInt(_player._umaDataString.Length);
+
+            buffer.WriteString(_player._race, Encoding.Default);
+            buffer.WriteString(_player._gender, Encoding.Default);  
+            buffer.WriteString(_player._umaDataString, Encoding.Default);
             //Debug.Log("Spawning other player with Session Id: {0}" + _player._Session.PlayerId);
 
             return buffer;
