@@ -1,5 +1,4 @@
-﻿using Engine.Entity.npc;
-using Engine.Interfaces;
+﻿using Engine.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
@@ -22,17 +21,7 @@ public class World : MonoBehaviour, IWorld
         //Dummy return value of select many
         return 0;
     }
-
-
-
-    private async Task<long> WorldNpcProcess(long interval)
-    {
-        /*foreach (var npc in NPCS)
-        {
-            await npc.Process().ConfigureAwait(false);
-        }*/
-        return interval;
-    }
+    
 
     private void Awake()
     {
@@ -46,9 +35,6 @@ public class World : MonoBehaviour, IWorld
     public void Start()
     {
         
-
-
-
         /*_subscription = Observable
         .Interval(TimeSpan.FromMilliseconds(600))
         .StartWith(-1L)
@@ -61,22 +47,8 @@ public class World : MonoBehaviour, IWorld
         .Subscribe();*/
         //its not this. let me show u.
     }
-
-    public List<NPC> NPCS { get; set; } = new List<NPC>();
-
-    public void AddWorldNpc(NPC npc)
-    {
-        NPCS.Add(npc);
-        //send packet to everyone that a new npc has spawned.
-    }
-
-    public void RemoveNpcFromWorld(NPC npc)
-    {
-        NPCS.Remove(npc);
-        //send packet to everyone that a new npc has been removed.
-    }
-
-    public INPCMovement _npcMovement { get; set; }
+    
+    
 
     public void SpawnMonsters()
     {

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Autofac;
 using Engine;
 using Serilog;
@@ -8,16 +6,12 @@ using DotNetty.Common.Internal.Logging;
 using Serilog.Extensions.Logging;
 using Engine.Interfaces;
 using Engine.Net.Packet;
-using Engine.DataLoader;
-using Engine.Entity.pathfinding;
-using Engine.Entity.npc.movement;
 using DotNetty.Transport.Channels;
 
 public class NetworkManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-    
         var containerBuilder = new ContainerBuilder();
 
         RegisterDependencies(containerBuilder);
@@ -50,31 +44,23 @@ public class NetworkManager : MonoBehaviour {
 
         //Auto Startables
         //transform.gameObject.AddComponent<World>();
-        builder.RegisterType<MapData>().As<ILoadMapData>().As<IStartable>().SingleInstance();
+
         builder.RegisterType<World>().As<IWorld>().As<IStartable>().SingleInstance();
         builder.RegisterType<NetworkBuilder>().As<IServerTCP>().As<IStartable>().SingleInstance();
 
-        builder.RegisterType<PathFinding>().As<IPathFinding>().SingleInstance();
-
-
         builder.RegisterType<ChannelEventHandler>().SingleInstance();
         builder.RegisterType<ChannelPipeLineHandler>().As<IConnectionManager>().SingleInstance();
-        builder.RegisterType<NPCMovement>().As<INPCMovement>().SingleInstance();
-        builder.RegisterType<MovementController>().As<IMovementController>().SingleInstance();
 
-        //Extra
+        //Register the Packet Handler first before we do the types
         builder.RegisterType<PacketHandler>().As<IPacketHandler>().SingleInstance();
-        builder.RegisterType<MovementController>().As<IMovementController>().SingleInstance();
 
-        //Packets
+        //Incoming Client Packets Type
         builder.RegisterType<LoginResponsePacket>().As<IIncomingPackets>();
         builder.RegisterType<IdleRequest>().As<IIncomingPackets>();
-        //builder.RegisterType<InputKeyResponsePacket>().As<IIncomingPackets>();
         builder.RegisterType<HandleMovementInput>().As<IIncomingPackets>();
         builder.RegisterType<HandleActionKeys>().As<IIncomingPackets>();
         builder.RegisterType<HandleMapLoaded>().As<IIncomingPackets>();
-
-        //transform.gameObject.AddComponent<WorldHandler>();
+        
     }
 
 
