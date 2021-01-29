@@ -14,7 +14,10 @@ namespace Engine.Interfaces
 								Transform m_spawnTransform { get; set; }
 								void SetStartPos(Player a_player);
 								void AddWorldPlayer(Player player);
-    }
+								void RemoveWorldPlayer(Player player);
+								GameObject GetDefaultPlayerModel();
+
+				}
 
 
 }

@@ -7,16 +7,39 @@ using UnityEngine;
 
 public class World : MonoBehaviour, IWorld
 {
+				private GameObject playerModel;
+
 				public Transform m_spawnTransform { get; set; }
 
 				public List<Player> m_players { get; set; } = new List<Player>();
+
+				public void RemoveWorldPlayer(Player a_rmvPlayer)
+				{
+								m_players.Remove(a_rmvPlayer);
+
+								UnityMainThreadDispatcher.Instance().Enqueue(() =>
+								{
+												Destroy(a_rmvPlayer.m_playerGameObject);
+								});
+				}
+
 				public void AddWorldPlayer(Player a_player)
 				{
-
 								a_player.m_position = m_spawnTransform.position;
 								a_player.m_rotation = m_spawnTransform.rotation.eulerAngles;
-
 								m_players.Add(a_player);
+
+
+								Debug.Log("Player hs a default model set on worl? " + (playerModel == null));
+								
+								if (playerModel == null)
+								{
+												playerModel = GetDefaultPlayerModel();
+								}
+
+								a_player.SpawnCharacter(playerModel);
+								Debug.Log("Player hs a default model AFTER set on worl? " + (playerModel == null));
+
 				}
 
 				public void SetStartPos(Player a_player)
@@ -44,7 +67,8 @@ public class World : MonoBehaviour, IWorld
 
     private void Awake()
     {
-    }
+
+				}
 
     private void FixedUpdate()
     {
@@ -55,6 +79,8 @@ public class World : MonoBehaviour, IWorld
     {
 
 								m_spawnTransform = GameObject.Find("SpawnPart").transform;
+								playerModel = Resources.Load("PlayerModel") as GameObject;
+								Debug.Log("found player mode;" + playerModel);
 								/*_subscription = Observable
         .Interval(TimeSpan.FromMilliseconds(600))
         .StartWith(-1L)
@@ -85,4 +111,8 @@ public class World : MonoBehaviour, IWorld
         //_subscription.Dispose();
         //_subscription2.Dispose();
     }
+				public GameObject GetDefaultPlayerModel()
+				{
+								return playerModel != null ? playerModel : Resources.Load("PlayerModel") as GameObject; 
+				}
 }
