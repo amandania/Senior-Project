@@ -68,10 +68,13 @@ public class GameManager : MonoBehaviour {
             string camName = "Camera-Id: " + index + "(Clone)";
             GameObject.Find(camName).GetComponent<Camera>().allowDynamicResolution = false;
 												GameObject.Find(camName).GetComponent<PlayerCamera>().target = GameManager.instance.playerList[index].transform;
-        }
-        playerList[index].transform.localScale = new Vector3(0.6496f, 0.6496f, 0.6496f);
-    }
-    public float WrapAngle(float angle)
+												playerList[index].GetComponent<KeyListener>().cam = GameObject.Find(camName).GetComponent<Camera>();
+
+								}
+
+								//playerList[index].transform.localScale = new Vector3(0.6496f, 0.6496f, 0.6496f);
+				}
+				public float WrapAngle(float angle)
     {
         angle %= 360;
         if (angle > 180)

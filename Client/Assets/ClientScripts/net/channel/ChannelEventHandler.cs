@@ -58,7 +58,7 @@ namespace Assets.ClientScripts.net.channel
                 int packetId = buffer.ReadInt();
                 if(packetId != 5)
                 {
-                    Debug.Log("Packet: " + packetId);
+                    //Debug.Log("Packet: " + packetId);
                 }
                 HandleDataPackets(packetId, buffer);
                 buffer.Release();

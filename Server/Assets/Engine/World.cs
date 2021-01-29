@@ -10,9 +10,6 @@ public class World : MonoBehaviour, IWorld
 				public Transform m_spawnTransform { get; set; }
 
 				public List<Player> m_players { get; set; } = new List<Player>();
-
-				public Dictionary<Guid, GameObject> PlayerGameObjectList { get; set; }
-
 				public void AddWorldPlayer(Player a_player)
 				{
 

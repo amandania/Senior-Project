@@ -25,10 +25,6 @@ public class WorldHandler : MonoBehaviour
 
     public GameObject SpawnPlayerObject(Player player)
     {
-        if(GameWorld == null)
-        {
-            GameWorld = player._world;
-        }
 
         GameObject playerObj = Instantiate(playerModel);
         playerObj.name = "Player: " + player._Session.PlayerId;
@@ -37,22 +33,21 @@ public class WorldHandler : MonoBehaviour
         playerObj.AddComponent<MovementControllerComponenent>();
         playerObj.GetComponent<MovementControllerComponenent>().player = player;
         player.PlayerGameObject = playerObj;
-
 								
+			
 
 
-        StartCoroutine(TransformPlayer(player));
+								StartCoroutine(TransformPlayer(player));
 								return playerObj;
     }
 
     IEnumerator TransformPlayer(Player player)
     {
         yield return new WaitForSeconds(1);
-        //GameWorld.PlayerGameObjectList[player._Session.PlayerId].GetComponent<MovementControllerComponenent>().CharacterController = GameWorld.PlayerGameObjectList[player._Session.PlayerId].GetComponent<CharacterController>();
-        //GameWorld.PlayerGameObjectList[player._Session.PlayerId].GetComponent<MovementControllerComponenent>().Animator = GameWorld.PlayerGameObjectList[player._Session.PlayerId].GetComponent<Animator>();
-        player.m_rotation = player.PlayerGameObject.transform.rotation.eulerAngles;
-        //player.ControllerComponent = GameWorld.PlayerGameObjectList[player._Session.PlayerId].GetComponent<MovementControllerComponenent>();
-								player.PlayerGameObject.transform.localScale = new Vector3(0.6496f, 00.6496f, 0.6496f);
-								Debug.Log("Player spawning :");
+								player.PlayerGameObject.GetComponent<MovementControllerComponenent>().CharacterController = player.PlayerGameObject.GetComponent<CharacterController>();
+								player.m_rotation = player.PlayerGameObject.transform.rotation.eulerAngles;
+        player.ControllerComponent = player.PlayerGameObject.GetComponent<MovementControllerComponenent>();
+
+							//player.PlayerGameObject.transform.localScale = new Vector3(0.6496f, 00.6496f, 0.6496f);
     }
 }

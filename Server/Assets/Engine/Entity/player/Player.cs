@@ -8,11 +8,10 @@ public class Player : Character
     public readonly IWorld _world;
     public CombatManager CombatManager { get; }
     public GameObject PlayerGameObject { get; set; }
-    public MovementControllerComponenent ControllerComponent;
-				
-				public string _race { get; set; }
-    public string _gender { get; set; }
-    public string _umaDataString { get; set; }
+    public MovementControllerComponenent ControllerComponent { get; set; }
+
+
+
     public string _username { get; set; }
     public string _password { get; set; }
 

@@ -30,7 +30,7 @@ public class MovementControllerComponenent : MonoBehaviour
 
     public float Speed = 8.0f;
     public float JumpSpeed = 7.0f;
-    private float Gravity = 20.0f;
+    private float Gravity = 500.0f;
 
     public void Move(Vector3 moveVector)
     {
@@ -58,10 +58,6 @@ public class MovementControllerComponenent : MonoBehaviour
 								var plrTransform = PlayerObj.transform;
 								player.m_position = plrTransform.position;
 								player.m_rotation = plrTransform.rotation.eulerAngles;
-								/*player._Position.x = PlayerObj.transform.position.x;
-        player._Position.y = PlayerObj.transform.position.y;
-        player._Position.z = PlayerObj.transform.position.z;
-        player._Position.rotation = PlayerObj.transform.rotation.eulerAngles;*/
 
 								player._Session.SendPacketToAll(new SendMoveCharacter(player)).ConfigureAwait(false);
     }

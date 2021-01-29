@@ -39,7 +39,6 @@ public class KeyListener : MonoBehaviour {
     {
         _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
-        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
     
 
@@ -65,7 +64,7 @@ public class KeyListener : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (mIsControlEnabled)
+        if (mIsControlEnabled && cam != null)
         {
 
             // Get Input for axis
@@ -79,7 +78,7 @@ public class KeyListener : MonoBehaviour {
 
             if(NetworkManager.networkStream.IsWritable) {
 																//Debug.Log("disabled movement send");
-                //NetworkManager.instance.SendPacket(new SendMovementPacket(move).CreatePacket());
+																NetworkManager.instance.SendPacket(new SendMovementPacket(move).CreatePacket());
             }
         }
     }

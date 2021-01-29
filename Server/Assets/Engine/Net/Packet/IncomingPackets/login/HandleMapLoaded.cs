@@ -42,8 +42,8 @@ public class HandleMapLoaded : IIncomingPackets
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
 								{
 												_world.AddWorldPlayer(player);
-												var createGameObject = GameObject.Find("WorldManager").GetComponent<WorldHandler>().SpawnPlayerObject(player);
-												player.PlayerGameObject = createGameObject;
+											 GameObject.Find("WorldManager").GetComponent<WorldHandler>().SpawnPlayerObject(player);
+												
 								});
         //send me to everyone
         await player._Session.SendPacketToAllButMe(new SendSpawnPlayer(player)).ConfigureAwait(false);
