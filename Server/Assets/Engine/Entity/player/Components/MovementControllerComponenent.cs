@@ -26,9 +26,9 @@ public class MovementControllerComponenent : MonoBehaviour
 
     }
 
-    public float RotationSpeed = 240.0f;
+    public float RotationSpeed = 220.0f;
 
-    public float Speed = 8.0f;
+    public float Speed = 3.0f;
     public float JumpSpeed = 7.0f;
     private float Gravity = 500.0f;
 

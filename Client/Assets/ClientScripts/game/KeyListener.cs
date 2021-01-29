@@ -32,6 +32,8 @@ public class KeyListener : MonoBehaviour {
 
     public float JumpSpeed = 7.0f;
 
+				public bool isSprinting = false;
+
     #endregion
 
     // Use this for initialization
@@ -74,9 +76,11 @@ public class KeyListener : MonoBehaviour {
             // Calculate the forward vector
             Vector3 camForward_Dir = Vector3.Scale(cam.transform.forward, new Vector3(1, 0, 1)).normalized;
             Vector3 move = v * camForward_Dir + h * cam.transform.right;
-            
 
-            if(NetworkManager.networkStream.IsWritable) {
+												//Debug.Log(move.magnitude / (isSprinting ? 1 : 2) );
+												_animator.SetFloat("Speed", move.magnitude / (isSprinting ? 1 : 2));
+
+												if (NetworkManager.networkStream.IsWritable) {
 																//Debug.Log("disabled movement send");
 																NetworkManager.instance.SendPacket(new SendMovementPacket(move).CreatePacket());
             }
