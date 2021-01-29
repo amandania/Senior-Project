@@ -995,3 +995,5 @@ C:\Users\Admin\Desktop\Capstone V3\Capstone Client\Temp\bin\Debug\System.Buffers
 C:\Users\Admin\Desktop\Capstone V3\Capstone Client\Temp\bin\Debug\System.Memory.xml
 C:\Users\Admin\Desktop\Capstone V3\Capstone Client\Temp\bin\Debug\UnityEditor.iOS.Extensions.Xcode.xml
 C:\Users\Admin\Desktop\Capstone V3\Capstone Client\obj\Debug\Assembly-CSharp-Editor.csproj.CopyComplete
+C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp-Editor.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp-Editor.csproj.CoreCompileInputs.cache

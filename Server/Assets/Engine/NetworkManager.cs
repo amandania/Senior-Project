@@ -69,8 +69,9 @@ public class NetworkManager : MonoBehaviour {
         builder.RegisterType<HandleMapLoaded>().As<IIncomingPackets>();
         builder.RegisterType<LoginResponsePacket>().As<IIncomingPackets>();
         builder.RegisterType<IdleRequest>().As<IIncomingPackets>();
-        //builder.RegisterType<InputKeyResponsePacket>().As<IIncomingPackets>();
-        builder.RegisterType<HandleMovementInput>().As<IIncomingPackets>();
+								//builder.RegisterType<InputKeyResponsePacket>().As<IIncomingPackets>();
+								builder.RegisterType<HandleLeftMouseClick>().As<IIncomingPackets>();
+								builder.RegisterType<HandleMovementInput>().As<IIncomingPackets>();
         builder.RegisterType<HandleActionKeys>().As<IIncomingPackets>();
 
         transform.gameObject.AddComponent<WorldHandler>();

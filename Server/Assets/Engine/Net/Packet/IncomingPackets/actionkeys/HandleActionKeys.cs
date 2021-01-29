@@ -35,6 +35,9 @@ public class HandleActionKeys : IIncomingPackets
         {
             Debug.Log("Recieved: " + keys[0]);
         }
+								if (keys.Contains((int)KeyInput.LeftMouseButton)) {
+												Debug.Log("Do attack attemp");
+								}
 
         return Task.CompletedTask;
     }

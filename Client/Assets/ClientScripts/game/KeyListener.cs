@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Assets.ClientScripts.net.packets.outgoing;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class KeyListener : MonoBehaviour {
 
@@ -34,13 +36,16 @@ public class KeyListener : MonoBehaviour {
 
 				public bool isSprinting = false;
 
-    #endregion
+				public MouseInputUIBlocker m_uiBlocker;
 
-    // Use this for initialization
-    void Start()
+				#endregion
+
+				// Use this for initialization
+				void Start()
     {
         _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
+								m_uiBlocker = GetComponent<MouseInputUIBlocker>();
     }
     
 
@@ -60,11 +65,38 @@ public class KeyListener : MonoBehaviour {
     public float networkSendRate = 5;
     public float timeBetweenMovementStart;
     public float timeBetweenMovementEnd;
+				public Vector3 lastMove;
 
-    // Update is called once per frame data
-    
+				private List<int> keys { get; set; } = new List<int>(); 
 
-    void FixedUpdate()
+			
+				
+				private void Update()
+				{
+								var mouseButton1Down = Input.GetMouseButtonDown(0);
+								if (mouseButton1Down && !EventSystem.current.IsPointerOverGameObject()) {
+												Plane playerPlane = new Plane(Vector3.up, this.gameObject.transform.position);
+												Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+												float hitdist = 20.0f;
+												if (playerPlane.Raycast(ray, out hitdist))
+												{
+																Vector3 targetPoint = ray.GetPoint(hitdist);
+																Debug.Log("Clicked target: " +  targetPoint);
+																//Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+																NetworkManager.instance.SendPacket(new SendMouseLeftClick(targetPoint).CreatePacket());
+												}
+								}	
+
+								if (keys.Count > 0)
+								{
+												NetworkManager.instance.SendPacket(new SendActionKeys(keys).CreatePacket());
+												keys.Clear();
+								}
+				}
+				
+
+				// Update is called once per frame data
+				void FixedUpdate()
     {
         if (mIsControlEnabled && cam != null)
         {
@@ -82,6 +114,7 @@ public class KeyListener : MonoBehaviour {
 
 												if (NetworkManager.networkStream.IsWritable) {
 																//Debug.Log("disabled movement send");
+																lastMove = move;
 																NetworkManager.instance.SendPacket(new SendMovementPacket(move).CreatePacket());
             }
         }

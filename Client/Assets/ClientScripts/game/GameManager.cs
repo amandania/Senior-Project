@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour {
     {
 								playerModel = Resources.Load("PlayerModel") as GameObject;
 								instance = this;
-    }
+								
+				}
     private void Start()
     {
         if (instance == null)
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame 
     void Update()
     {
-
+								
     }
 
 
@@ -69,7 +70,8 @@ public class GameManager : MonoBehaviour {
         yield return new WaitForSeconds(0);
         if (a_isLocalPlayer == true)
         {
-            playerList[index].AddComponent<KeyListener>();
+												playerList[index].AddComponent<MouseInputUIBlocker>();
+												playerList[index].AddComponent<KeyListener>();
             string camName = "Camera-Id: " + index + "(Clone)";
             GameObject.Find(camName).GetComponent<Camera>().allowDynamicResolution = false;
 												GameObject.Find(camName).GetComponent<PlayerCamera>().target = GameManager.instance.playerList[index].transform;
