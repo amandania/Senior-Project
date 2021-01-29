@@ -50,7 +50,8 @@ public class NetworkBuilder : IServerTCP
         //_world.SpawnMonsters();
         Debug.Log("Server is listening on port " + port);
         NetworkManager.channel2 = await _bootstrap.BindAsync(port);
-    }
+
+				}
 
     public void Start()
     {

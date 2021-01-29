@@ -6,6 +6,6 @@ namespace Engine.Interfaces
 {
     public interface IMovementController
     {
-        Task Move(Player character, Vector3 moveVector);
+        Task Move(Character character, Vector3 moveVector);
     }
 }

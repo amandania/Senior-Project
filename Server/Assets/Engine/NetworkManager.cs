@@ -11,36 +11,43 @@ using Engine.Net.Packet;
 using Engine.DataLoader;
 using Engine.Entity.pathfinding;
 using DotNetty.Transport.Channels;
+using DotNetty.Buffers;
+using System.Threading.Tasks;
 
 public class NetworkManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-    
-        var containerBuilder = new ContainerBuilder();
+				private IWorld m_world { get; set; }
 
-        RegisterDependencies(containerBuilder);
+				// Use this for initialization
+				void Start () {
+								var containerBuilder = new ContainerBuilder();
 
-        var container = containerBuilder.Build();
+								RegisterDependencies(containerBuilder);
 
-        var loggerConfiguration = new LoggerConfiguration().WriteTo.Debug();
-        loggerConfiguration.MinimumLevel.Verbose();
-        var logger = loggerConfiguration.CreateLogger();
+								var container = containerBuilder.Build();
 
-        Log.Logger = logger;
+								var loggerConfiguration = new LoggerConfiguration().WriteTo.Debug();
+								loggerConfiguration.MinimumLevel.Verbose();
+								var logger = loggerConfiguration.CreateLogger();
 
-        logger.Information("Loading: " + nameof(Start));
+								Log.Logger = logger;
 
-        containerBuilder.RegisterInstance(logger).As<Serilog.ILogger>();
+								logger.Information("Loading: " + nameof(Start));
+
+								containerBuilder.RegisterInstance(logger).As<Serilog.ILogger>();
             
-        //Setup Netty logger
-        InternalLoggerFactory.DefaultFactory.AddProvider(new SerilogLoggerProvider(logger));
+								//Setup Netty logger
+								InternalLoggerFactory.DefaultFactory.AddProvider(new SerilogLoggerProvider(logger));
 
-        //Resolves startables
-        container.Resolve<ServerBooter>();
+								//Resolves startables
+								container.Resolve<ServerBooter>();
 
-        //Debug.Log("BOOTING");
-    }
+								IWorld k;
+								container.TryResolve<IWorld>(out k);
+								Debug.Log("We have world of player count: " + k.m_players.Count);
+								m_world = k;
+								//Debug.Log("BOOTING");
+				}
     public static IChannel channel2;
     private void RegisterDependencies(ContainerBuilder builder)
     {
@@ -77,11 +84,26 @@ public class NetworkManager : MonoBehaviour {
         transform.gameObject.AddComponent<WorldHandler>();
     }
 
+				public async Task SendPacketToAll(IOutGoingPackets packet)
+				{
+								var buffer = Unpooled.Buffer();
+								buffer.WriteInt((int)packet.PacketType);
+								buffer.WriteBytes(packet.GetPacket());
 
-    // Update is called once per frame
-    void Update () {
+								foreach (var player in m_world.m_players)
+								{
+												if (player.m_session._channel.Active && player.m_session._channel.IsWritable)
+												{
+																await player.m_session.WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);
+												}
+								}
+				}
+
+				// Update is called once per frame
+				void Update () {
 		
-	}
+				}
+
     private void OnApplicationQuit()
     {   
         channel2.CloseAsync();

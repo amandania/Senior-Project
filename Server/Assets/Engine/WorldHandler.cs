@@ -5,7 +5,7 @@ using Engine.Interfaces;
 public class WorldHandler : MonoBehaviour
 {
     public GameObject playerModel;
-    private IWorld GameWorld;
+				private NetworkManager network;
 
     private void Awake()
     {
@@ -14,8 +14,8 @@ public class WorldHandler : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
-    }
+								network = GameObject.Find("WorldManager").GetComponent<NetworkManager>();
+				}
 
     // Update is called once per frame
     void Update()
@@ -31,7 +31,7 @@ public class WorldHandler : MonoBehaviour
         playerObj.transform.position = player.m_position;
         playerObj.transform.rotation = Quaternion.Euler(player.m_rotation.x, player.m_rotation.y, player.m_rotation.z);
         playerObj.AddComponent<MovementControllerComponenent>();
-        playerObj.GetComponent<MovementControllerComponenent>().m_player = player;
+        playerObj.GetComponent<MovementControllerComponenent>().m_character = player;
         player.m_playerGameObject = playerObj;
 								
 			
