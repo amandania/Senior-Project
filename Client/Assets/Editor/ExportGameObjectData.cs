@@ -15,15 +15,16 @@ public class ExportGameObjectData : ScriptableObject
     static void ExportGameObjectInfo()
     {
         List<GameObject> children = new List<GameObject>();
+								var mainMap = GameObject.Find("MainMap");
 
-        int count = GameObject.Find("Spawned_GameObjects").transform.childCount;
+								int count = mainMap.transform.childCount;
         int totalGameObjects = 0;
 
 
         for (int i = 0; i < count; i++)
         {
-            totalGameObjects += GameObject.Find("Spawned_GameObjects").transform.GetChild(i).transform.childCount;
-            foreach (Transform t in GameObject.Find("Spawned_GameObjects").transform.GetChild(i).transform)
+            totalGameObjects += mainMap.transform.GetChild(i).transform.childCount;
+            foreach (Transform t in mainMap.transform.GetChild(i).transform)
             {
                 children.Add(t.gameObject);
 
@@ -58,22 +59,10 @@ public class ExportGameObjectData : ScriptableObject
                 float radius = 0;
                 float height = 0;
                 colliderType = (collider.GetType() == typeof(SphereCollider) ? 1 : collider.GetType() == typeof(CapsuleCollider) ? 2 : collider.GetType() == typeof(BoxCollider) ? 3 : -1);
-                switch (colliderType)
-                {
-                    case 1:
-                        //radius only
-                        radius = children[i].transform.GetComponent<SphereCollider>().radius;
-                        break;
-                    case 2:
-                        //capsul gets height and radius
-                        radius = children[i].transform.GetComponent<CapsuleCollider>().radius;
-                        height = children[i].transform.GetComponent<CapsuleCollider>().height;
-                        break;
-                }
-
                 if (colliderType == 1)
                 {
-                    float colliderCenterX = children[i].transform.GetComponent<SphereCollider>().center.x;
+																				radius = children[i].transform.GetComponent<SphereCollider>().radius;
+																				float colliderCenterX = children[i].transform.GetComponent<SphereCollider>().center.x;
                     float colliderCenterY = children[i].transform.GetComponent<SphereCollider>().center.y;
                     float colliderCenterZ = children[i].transform.GetComponent<SphereCollider>().bounds.center.z;
                     // we just add the radius
@@ -86,11 +75,12 @@ public class ExportGameObjectData : ScriptableObject
                     float colliderCenterX = children[i].transform.GetComponent<CapsuleCollider>().center.x;
                     float colliderCenterY = children[i].transform.GetComponent<CapsuleCollider>().center.y;
                     float colliderCenterZ = children[i].transform.GetComponent<CapsuleCollider>().bounds.center.z;
-                    // we just add the radius
-                    data.Add(new ExportData(i, transformX, transformY, transformZ, objectSizeX, objectSizeY, objectSizeZ, colliderCenterX, colliderCenterY, colliderCenterZ, colliderType, radius, height));
+																				radius = children[i].transform.GetComponent<CapsuleCollider>().radius;
+																				height = children[i].transform.GetComponent<CapsuleCollider>().height;
+																				// we just add the radius
+																				data.Add(new ExportData(i, transformX, transformY, transformZ, objectSizeX, objectSizeY, objectSizeZ, colliderCenterX, colliderCenterY, colliderCenterZ, colliderType, radius, height));
 
-                }
-                else
+                } else if(colliderType == 3)
                 {
                     float colliderCenterX = children[i].transform.GetComponent<BoxCollider>().center.x;
                     float colliderCenterY = children[i].transform.GetComponent<BoxCollider>().center.y;
@@ -111,7 +101,7 @@ public class ExportGameObjectData : ScriptableObject
         Dictionary<int, long> indexList = new Dictionary<int, long>();
 
 
-        using (var streamWriter = new BinaryWriter(File.Create(Path.Combine(Application.dataPath, "maps/object.data"))))
+        using (var streamWriter = new BinaryWriter(File.Create(Path.Combine(Application.dataPath, "MapData/object.data"))))
         {
 
             for (int objId = 0; objId < children.Count; objId++)
@@ -149,7 +139,7 @@ public class ExportGameObjectData : ScriptableObject
             }
         }
 
-        using (var streamWriter = new BinaryWriter(File.Create(Path.Combine(Application.dataPath, "maps/object.idx"))))
+        using (var streamWriter = new BinaryWriter(File.Create(Path.Combine(Application.dataPath, "MapData/object.idx"))))
         {
             for(int i = 0; i < indexList.Count; i++)
             {

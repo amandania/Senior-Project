@@ -13,8 +13,8 @@ namespace Engine.DataLoader
         Node[,] grid { get; set; }
         public int penaltyMin = int.MaxValue;
         public int penaltyMax = int.MinValue;
-        public int gridSizeX = 890;
-        public int gridSizeY = 890;
+        public int gridSizeX = 500;
+        public int gridSizeY = 500;
 
         public System.Numerics.Vector2 gridWorldSize { get; } = new System.Numerics.Vector2(2048, 2048);
         public int MaxSize
@@ -175,10 +175,10 @@ namespace Engine.DataLoader
         public void Start()
         {
             grid = new Node[gridSizeX, gridSizeY];
-            _mapDataFileReader = new BinaryReader(File.Open(Path.Combine(Application.dataPath, "MapData/newmapdata.data"), FileMode.Open));
+            _mapDataFileReader = new BinaryReader(File.Open(Path.Combine(Application.dataPath, "MapData/object.data"), FileMode.Open));
 
             //Load indexes
-            using (var streamReader = new BinaryReader(File.Open(Path.Combine(Application.dataPath, "MapData/newmapdata.idx"), FileMode.Open)))
+            using (var streamReader = new BinaryReader(File.Open(Path.Combine(Application.dataPath, "MapData/object.idx"), FileMode.Open)))
             {
                 while (streamReader.BaseStream.Position < streamReader.BaseStream.Length)
                 {
