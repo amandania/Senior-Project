@@ -65,7 +65,7 @@ namespace Engine.Net
             }
         }
 
-        private Task WriteToChannel(IByteBuffer data)
+        public Task WriteToChannel(IByteBuffer data)
         {
             return _channel.WriteAndFlushAsync(data);
         }

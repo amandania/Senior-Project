@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Character
 {
@@ -8,6 +9,10 @@ public class Character
 								m_moveState = "Idle";
     }
 
+				public GameObject m_playerGameObject { get; set; }
+				public MovementControllerComponenent m_MovementComponent { get; set; }
+
+				public Guid m_guid { get; set; }
     public Vector3 m_position { get; set; }
     public Vector3 m_oldPosition { get; set; }
 

@@ -7,11 +7,7 @@ public class Player : Character
     public PlayerSession m_session { get; set; }
     public readonly IWorld m_world;
     public CombatManager m_combatManager { get; }
-
-    public GameObject m_playerGameObject { get; set; }
-
-    public MovementControllerComponenent m_MovementComponent { get; set; }
-
+				
 
 
     public string m_username { get; set; }
