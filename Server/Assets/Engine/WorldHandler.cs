@@ -25,18 +25,14 @@ public class WorldHandler : MonoBehaviour
 
     public GameObject SpawnPlayerObject(Player player)
     {
-
         GameObject playerObj = Instantiate(playerModel);
         playerObj.name = "Player: " + player.m_session.PlayerId;
         playerObj.transform.position = player.m_position;
         playerObj.transform.rotation = Quaternion.Euler(player.m_rotation.x, player.m_rotation.y, player.m_rotation.z);
-        playerObj.AddComponent<MovementControllerComponenent>();
-        playerObj.GetComponent<MovementControllerComponenent>().m_character = player;
+        playerObj.AddComponent<MovementComponent>();
+        playerObj.GetComponent<MovementComponent>().m_Character = player;
+								playerObj.AddComponent<CombatComponent>();
         player.m_playerGameObject = playerObj;
-								
-			
-
-
 								StartCoroutine(TransformPlayer(player));
 								return playerObj;
     }
@@ -44,9 +40,10 @@ public class WorldHandler : MonoBehaviour
     IEnumerator TransformPlayer(Player player)
     {
         yield return new WaitForSeconds(1);
-								player.m_playerGameObject.GetComponent<MovementControllerComponenent>().m_characterController = player.m_playerGameObject.GetComponent<CharacterController>();
+								player.m_playerGameObject.GetComponent<MovementComponent>().m_CharacterController = player.m_playerGameObject.GetComponent<CharacterController>();
 								player.m_rotation = player.m_playerGameObject.transform.rotation.eulerAngles;
-        player.m_MovementComponent = player.m_playerGameObject.GetComponent<MovementControllerComponenent>();
+        
+								//player.m_MovementComponent = player.m_playerGameObject.GetComponent<MovementComponent>();
 
 							//player.PlayerGameObject.transform.localScale = new Vector3(0.6496f, 00.6496f, 0.6496f);
     }

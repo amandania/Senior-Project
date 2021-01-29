@@ -66,11 +66,9 @@ public class NetworkManager : MonoBehaviour {
         builder.RegisterType<ChannelEventHandler>().SingleInstance();
         builder.RegisterType<ChannelPipeLineHandler>().As<IConnectionManager>().SingleInstance();
        // builder.RegisterType<NPCMovement>().As<INPCMovement>().SingleInstance();
-        builder.RegisterType<MovementController>().As<IMovementController>().SingleInstance();
 
         //Extra
         builder.RegisterType<PacketHandler>().As<IPacketHandler>().SingleInstance();
-        builder.RegisterType<MovementController>().As<IMovementController>().SingleInstance();
 
         //Packets
         builder.RegisterType<HandleMapLoaded>().As<IIncomingPackets>();

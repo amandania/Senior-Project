@@ -35,7 +35,7 @@ public class HandleMapLoaded : IIncomingPackets
 								UnityMainThreadDispatcher.Instance().Enqueue(() =>
 								{
 												_world.AddWorldPlayer(a_player);
-												GameObject.Find("WorldManager").GetComponent<WorldHandler>().SpawnPlayerObject(a_player);
+												//GameObject.Find("WorldManager").GetComponent<WorldHandler>().SpawnPlayerObject(a_player);
 								});
 
 				}

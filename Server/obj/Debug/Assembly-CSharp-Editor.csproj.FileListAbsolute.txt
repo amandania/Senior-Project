@@ -580,7 +580,6 @@ C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\SyntaxTree.VisualStu
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Boo.Lang.PatternMatching.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Boo.Lang.Useful.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Unity.CecilTools.dll
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Assembly-CSharp.pdb
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEditor.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.AIModule.xml
