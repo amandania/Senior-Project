@@ -20,7 +20,7 @@ namespace Engine.Net.Packet.OutgoingPackets {
         public IByteBuffer GetPacket()
         {
             var buffer = Unpooled.Buffer();
-            String guid = _player._Session.PlayerId.ToString();
+            String guid = _player.m_session.PlayerId.ToString();
             int length = guid.Length;
 
             buffer.WriteInt(length);

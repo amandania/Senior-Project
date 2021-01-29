@@ -4,14 +4,23 @@ using Engine.Net.Packet.OutgoingPackets;
 
 public class MovementControllerComponenent : MonoBehaviour
 {
-    public CharacterController CharacterController;
-    public GameObject PlayerObj;
-    public Player player;
+    public CharacterController m_characterController;
 
-    private void Awake()
+    public GameObject m_playerObj;
+
+    public Player m_player;
+
+
+				public float m_rotationSpeed = 220.0f;
+				public float m_speed = 3.0f;
+				public float m_jumpSpeed = 7.0f;
+				private float m_gravity = 500.0f;
+
+
+				private void Awake()
     {
-        CharacterController = GetComponent<CharacterController>();
-        PlayerObj = transform.gameObject;
+        m_characterController = GetComponent<CharacterController>();
+        m_playerObj = transform.gameObject;
     }
 
     // Use this for initialization
@@ -26,40 +35,46 @@ public class MovementControllerComponenent : MonoBehaviour
 
     }
 
-    public float RotationSpeed = 220.0f;
-
-    public float Speed = 3.0f;
-    public float JumpSpeed = 7.0f;
-    private float Gravity = 500.0f;
-
-    public void Move(Vector3 moveVector)
+    public void Move(Vector3 a_moveVector)
     {
-        if (moveVector.magnitude > 1f) moveVector.Normalize();
-        Vector3 rotation = PlayerObj.transform.InverseTransformDirection(moveVector);
+        if (a_moveVector.magnitude > 1f) a_moveVector.Normalize();
+        Vector3 rotation = m_playerObj.transform.InverseTransformDirection(a_moveVector);
 
         float turnAmount = Mathf.Atan2(rotation.x, rotation.z);
-        float rotateAngle = turnAmount * RotationSpeed * Time.deltaTime;
-        
-        player.m_oldPosition = player.m_position;
-								player.m_oldRotation = player.m_rotation;
-        PlayerObj.transform.Rotate(0, rotateAngle, 0);
+        float rotateAngle = turnAmount * m_rotationSpeed * Time.deltaTime;
+								float moveSpeed = 0f;
 
-        if (CharacterController.isGrounded)
+								//Debug.Log("moveVector Speed: " + a_moveVector.magnitude);
+								if (a_moveVector.magnitude <= 0)
+								{
+												m_player.m_moveState = "Idle";
+								} else {
+												m_player.m_moveState = "Moving";
+												moveSpeed = a_moveVector.magnitude / (m_player.m_isSprinting ? 1 : 2);
+								}
+
+        m_player.m_oldPosition = m_player.m_position;
+								m_player.m_oldRotation = m_player.m_rotation;
+        m_playerObj.transform.Rotate(0, rotateAngle, 0);
+
+        if (m_characterController.isGrounded)
         {
-            moveVector = PlayerObj.transform.forward * rotation.magnitude;
+            a_moveVector = m_playerObj.transform.forward * rotation.magnitude;
 
-            moveVector *= Speed;
+            a_moveVector *= m_speed;
         }
 
-        moveVector.y -= Gravity * Time.deltaTime;
-        moveVector = moveVector * Time.deltaTime;
-        CharacterController.Move(moveVector);
+        a_moveVector.y -= m_gravity * Time.deltaTime;
+        a_moveVector = a_moveVector * Time.deltaTime;
 
-								var plrTransform = PlayerObj.transform;
-								player.m_position = plrTransform.position;
-								player.m_rotation = plrTransform.rotation.eulerAngles;
 
-								player._Session.SendPacketToAll(new SendMoveCharacter(player)).ConfigureAwait(false);
+        m_characterController.Move(a_moveVector);
+
+								var plrTransform = m_playerObj.transform;
+								m_player.m_position = plrTransform.position;
+								m_player.m_rotation = plrTransform.rotation.eulerAngles;
+
+								m_player.m_session.SendPacketToAll(new SendMoveCharacter(m_player, moveSpeed)).ConfigureAwait(false);
     }
 
 

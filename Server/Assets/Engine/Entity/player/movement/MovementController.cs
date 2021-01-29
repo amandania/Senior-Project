@@ -30,8 +30,8 @@ public class MovementController : IMovementController
        // GameObject plrObj = _world.PlayerGameObjectList[character._Session.PlayerId];
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-												if (character.ControllerComponent != null) {;
-																character.ControllerComponent.Move(moveVector);
+												if (character.m_MovementComponent != null) {;
+																character.m_MovementComponent.Move(moveVector);
 												}
 												//Debug.Log("has controller?" + character.ControllerComponent);
         });

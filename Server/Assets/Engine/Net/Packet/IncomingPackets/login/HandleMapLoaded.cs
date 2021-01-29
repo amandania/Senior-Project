@@ -17,39 +17,28 @@ public class HandleMapLoaded : IIncomingPackets
         _world = world;
     }
 
-    public async Task ExecutePacket(Player player, IByteBuffer data)
+    public async Task ExecutePacket(Player a_player, IByteBuffer data)
     {
-								Debug.Log("Player completed map load");
-        //load all the game data then finally add the player to the world game
-        //await player._Session.SendPacket(new SendWorldNpcs(_world)).ConfigureAwait(false);
-
-        //send my player to everyone
-        //await player._Session.SendPacketToAllButMe(new SendSpawnPlayer(player)).ConfigureAwait(false);
-
-
-        //send everyone to me
-        _world.m_players.ForEach(_player =>
-        {
-												if (player._Session.PlayerId != _player._Session.PlayerId)
-												{
-															player._Session.SendPacket(new SendSpawnPlayer(_player)).ConfigureAwait(false);
-												}
-        });
-
-								
-
-								Debug.Log("Handle map loaded ");
-        UnityMainThreadDispatcher.Instance().Enqueue(() =>
-								{
-												_world.AddWorldPlayer(player);
-											 GameObject.Find("WorldManager").GetComponent<WorldHandler>().SpawnPlayerObject(player);
-												
-								});
         //send me to everyone
-        await player._Session.SendPacketToAllButMe(new SendSpawnPlayer(player)).ConfigureAwait(false);
+        await a_player.m_session.SendPacketToAllButMe(new SendSpawnPlayer(a_player)).ConfigureAwait(true);
+								
+							
+								for (int i = 0; i < _world.m_players.Count; i++)
+								{
+												if (a_player.m_session.PlayerId != _world.m_players[i].m_session.PlayerId)
+												{
+																await a_player.m_session.SendPacket(new SendSpawnPlayer(_world.m_players[i])).ConfigureAwait(true);
+																Debug.Log("Spawn " + _world.m_players[i].m_session.PlayerId + " for \n\t" + a_player.m_session.PlayerId);
+												}
+								}
 
-        
-    }
+								UnityMainThreadDispatcher.Instance().Enqueue(() =>
+								{
+												_world.AddWorldPlayer(a_player);
+												GameObject.Find("WorldManager").GetComponent<WorldHandler>().SpawnPlayerObject(a_player);
+								});
+
+				}
     IEnumerator SetCameraDefaults(Guid index)
     {
         yield return new WaitForSeconds(0);

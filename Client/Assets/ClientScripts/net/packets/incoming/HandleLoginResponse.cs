@@ -21,13 +21,12 @@ public class HandleLoginResponse : IIncomingPacketHandler
             var Position = new Vector3(buffer.ReadFloat(), buffer.ReadFloat(), buffer.ReadFloat());
             var Rotation = Quaternion.Euler(buffer.ReadFloat(), buffer.ReadFloat(), buffer.ReadFloat());
 
-												NetworkManager.instance.SendPacket(new SendMapLoaded().CreatePacket());
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
             {
                 SceneManager.LoadSceneAsync("MapScene").completed += (t) =>
                 {
-                    Debug.Log("map is loaded.");
                     GameManager.instance.SpawnPlayer(playerguid, Position, Rotation, true);
+																				NetworkManager.instance.SendPacket(new SendMapLoaded().CreatePacket());
                 };
             });
 

@@ -24,8 +24,8 @@ namespace Engine.Net.Packet.OutgoingPackets
             buffer.WriteInt(_responseCode);
             if(_responseCode == 0)
             {
-                buffer.WriteInt(_player._Session.PlayerId.ToString().Length);
-                buffer.WriteString(_player._Session.PlayerId.ToString(), Encoding.Default);
+                buffer.WriteInt(_player.m_session.PlayerId.ToString().Length);
+                buffer.WriteString(_player.m_session.PlayerId.ToString(), Encoding.Default);
                 buffer.WriteFloat(_player.m_position.x);
                 buffer.WriteFloat(_player.m_position.y);
                 buffer.WriteFloat(_player.m_position.z);
