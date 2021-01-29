@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour {
     {
 								playerModel = Resources.Load("PlayerModel") as GameObject;
 								instance = this;
-    }
+								
+				}
     private void Start()
     {
         if (instance == null)
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame 
     void Update()
     {
-
+								
     }
 
 
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour {
         if (a_isLocalPlayer == true) {
             NetworkManager.instance.myIndex = a_guid;
         }
-        GameObject playerObj = Instantiate(playerModel);
+        GameObject playerObj = Instantiate<GameObject>(playerModel);
         playerObj.name = "Player: " + a_guid;
         playerObj.transform.position = a_position;
         playerObj.transform.rotation = a_rotation;
@@ -53,9 +54,14 @@ public class GameManager : MonoBehaviour {
 
         playerList.Add(a_guid, playerObj);
         
-        StartCoroutine(SetCameraDefaults(a_guid, a_isLocalPlayer));
 
-        Debug.Log("Player was spawned.");
+								if (a_isLocalPlayer) {
+												Debug.Log("Player was spawned. local player? " + a_isLocalPlayer + ", " + NetworkManager.instance.myIndex + "\n\t" + a_guid);
+												StartCoroutine(SetCameraDefaults(a_guid, a_isLocalPlayer));
+								} else
+								{
+												Debug.Log("Spawn other player" + a_guid);
+								}
     }
 
 
@@ -64,14 +70,18 @@ public class GameManager : MonoBehaviour {
         yield return new WaitForSeconds(0);
         if (a_isLocalPlayer == true)
         {
-            playerList[index].AddComponent<KeyListener>();
+												playerList[index].AddComponent<MouseInputUIBlocker>();
+												playerList[index].AddComponent<KeyListener>();
             string camName = "Camera-Id: " + index + "(Clone)";
             GameObject.Find(camName).GetComponent<Camera>().allowDynamicResolution = false;
 												GameObject.Find(camName).GetComponent<PlayerCamera>().target = GameManager.instance.playerList[index].transform;
-        }
-        playerList[index].transform.localScale = new Vector3(0.6496f, 0.6496f, 0.6496f);
-    }
-    public float WrapAngle(float angle)
+												playerList[index].GetComponent<KeyListener>().cam = GameObject.Find(camName).GetComponent<Camera>();
+
+								} 
+
+								//playerList[index].transform.localScale = new Vector3(0.6496f, 0.6496f, 0.6496f);
+				}
+				public float WrapAngle(float angle)
     {
         angle %= 360;
         if (angle > 180)

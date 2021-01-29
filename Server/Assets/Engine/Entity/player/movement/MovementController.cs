@@ -26,16 +26,19 @@ public class MovementController : IMovementController
 
     public async Task Move(Player character, Vector3 moveVector)
     {
-
-
+								
        // GameObject plrObj = _world.PlayerGameObjectList[character._Session.PlayerId];
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            character.ControllerComponent.Move(moveVector);
-
+												if (character.m_MovementComponent != null) {;
+																character.m_MovementComponent.Move(moveVector);
+												}
+												//Debug.Log("has controller?" + character.ControllerComponent);
         });
 
         //await character._Session.SendPacketToAll(new SendMoveCharacter(character)).ConfigureAwait(false);
+
+
         await Task.CompletedTask;
     }
 

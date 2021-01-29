@@ -35,10 +35,10 @@ public class LoginResponsePacket : IIncomingPackets
             response_code = 1;
         }
 
-        await player._Session.SendPacket(new SendLoginResponse(player, response_code)).ConfigureAwait(false);
+        await player.m_session.SendPacket(new SendLoginResponse(player, response_code)).ConfigureAwait(false);
         if(response_code == 1)
         {
-            await player._Session._channel.CloseAsync().ConfigureAwait(false);
+            await player.m_session._channel.CloseAsync().ConfigureAwait(false);
         }
         if(response_code == 0)
         {

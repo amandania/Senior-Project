@@ -11,6 +11,7 @@ public class SendMovementPacket : IOutgoingPacketSender
     public SendMovementPacket(Vector3 moveVector)
     {
         _moveVector = moveVector;
+								//Debug.Log(moveVector + " is being sent");
     }
 
     public SendMovementPacket(Vector3 moveVector, Vector3 camForwardVector, float time)
@@ -30,7 +31,6 @@ public class SendMovementPacket : IOutgoingPacketSender
 
         //buffer.WriteFloat(_time);
 
-        Debug.Log("sending movement packet");
         return buffer;  
     }   
 

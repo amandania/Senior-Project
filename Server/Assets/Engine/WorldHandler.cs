@@ -25,34 +25,29 @@ public class WorldHandler : MonoBehaviour
 
     public GameObject SpawnPlayerObject(Player player)
     {
-        if(GameWorld == null)
-        {
-            GameWorld = player._world;
-        }
 
         GameObject playerObj = Instantiate(playerModel);
-        playerObj.name = "Player: " + player._Session.PlayerId;
+        playerObj.name = "Player: " + player.m_session.PlayerId;
         playerObj.transform.position = player.m_position;
         playerObj.transform.rotation = Quaternion.Euler(player.m_rotation.x, player.m_rotation.y, player.m_rotation.z);
         playerObj.AddComponent<MovementControllerComponenent>();
-        playerObj.GetComponent<MovementControllerComponenent>().player = player;
-        player.PlayerGameObject = playerObj;
-
+        playerObj.GetComponent<MovementControllerComponenent>().m_player = player;
+        player.m_playerGameObject = playerObj;
 								
+			
 
 
-        StartCoroutine(TransformPlayer(player));
+								StartCoroutine(TransformPlayer(player));
 								return playerObj;
     }
 
     IEnumerator TransformPlayer(Player player)
     {
         yield return new WaitForSeconds(1);
-        //GameWorld.PlayerGameObjectList[player._Session.PlayerId].GetComponent<MovementControllerComponenent>().CharacterController = GameWorld.PlayerGameObjectList[player._Session.PlayerId].GetComponent<CharacterController>();
-        //GameWorld.PlayerGameObjectList[player._Session.PlayerId].GetComponent<MovementControllerComponenent>().Animator = GameWorld.PlayerGameObjectList[player._Session.PlayerId].GetComponent<Animator>();
-        player.m_rotation = player.PlayerGameObject.transform.rotation.eulerAngles;
-        //player.ControllerComponent = GameWorld.PlayerGameObjectList[player._Session.PlayerId].GetComponent<MovementControllerComponenent>();
-								player.PlayerGameObject.transform.localScale = new Vector3(0.6496f, 00.6496f, 0.6496f);
-								Debug.Log("Player spawning :");
+								player.m_playerGameObject.GetComponent<MovementControllerComponenent>().m_characterController = player.m_playerGameObject.GetComponent<CharacterController>();
+								player.m_rotation = player.m_playerGameObject.transform.rotation.eulerAngles;
+        player.m_MovementComponent = player.m_playerGameObject.GetComponent<MovementControllerComponenent>();
+
+							//player.PlayerGameObject.transform.localScale = new Vector3(0.6496f, 00.6496f, 0.6496f);
     }
 }

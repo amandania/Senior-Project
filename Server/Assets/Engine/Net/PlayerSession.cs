@@ -45,9 +45,9 @@ namespace Engine.Net
 
             foreach (var player in _world.m_players)
             {
-                if (player._Session._channel.Active && player._Session._channel.IsWritable)
+                if (player.m_session._channel.Active && player.m_session._channel.IsWritable)
                 {
-                    await player._Session.WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);
+                    await player.m_session.WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);
                 }
             }
         }
@@ -58,10 +58,10 @@ namespace Engine.Net
             buffer.WriteInt((int)packet.PacketType);
             buffer.WriteBytes(packet.GetPacket());
 
-            var players = _world.m_players.Where(player => player._Session.PlayerId != _player._Session.PlayerId);
+            var players = _world.m_players.Where(player => player.m_session.PlayerId != _player.m_session.PlayerId);
             foreach (var player in players)
             {
-                await player._Session.WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);
+                await player.m_session.WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);
             }
         }
 
