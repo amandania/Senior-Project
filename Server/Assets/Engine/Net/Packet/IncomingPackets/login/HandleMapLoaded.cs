@@ -25,10 +25,9 @@ public class HandleMapLoaded : IIncomingPackets
 							
 								for (int i = 0; i < _world.m_players.Count; i++)
 								{
-												if (a_player.m_session.PlayerId != _world.m_players[i].m_session.PlayerId)
+												if (a_player.GetGuid() != _world.m_players[i].GetGuid())
 												{
 																await a_player.m_session.SendPacket(new SendSpawnPlayer(_world.m_players[i])).ConfigureAwait(true);
-																Debug.Log("Spawn " + _world.m_players[i].m_session.PlayerId + " for \n\t" + a_player.m_session.PlayerId);
 												}
 								}
 

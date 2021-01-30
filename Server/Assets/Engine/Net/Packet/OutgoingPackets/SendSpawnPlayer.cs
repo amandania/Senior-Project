@@ -20,20 +20,21 @@ namespace Engine.Net.Packet.OutgoingPackets {
         public IByteBuffer GetPacket()
         {
             var buffer = Unpooled.Buffer();
-            String guid = _player.m_session.PlayerId.ToString();
+												String guid = _player.GetGuid().ToString();
             int length = guid.Length;
 
             buffer.WriteInt(length);
             buffer.WriteString(guid, Encoding.Default);
 
-            buffer.WriteFloat(_player.m_position.x );
-            buffer.WriteFloat(_player.m_position.y);
-            buffer.WriteFloat(_player.m_position.z);
+												Vector3 plrPos = _player.GetPosition();
+            buffer.WriteFloat(plrPos.x );
+            buffer.WriteFloat(plrPos.y);
+            buffer.WriteFloat(plrPos.z);
 
-
-            buffer.WriteFloat(_player.m_rotation.x);
-            buffer.WriteFloat(_player.m_rotation.y);
-            buffer.WriteFloat(_player.m_rotation.z);
+												Vector3 rotation = _player.GetRotation();
+            buffer.WriteFloat(rotation.x);
+            buffer.WriteFloat(rotation.y);
+            buffer.WriteFloat(rotation.z);
 												
 
             //Debug.Log("Spawning other player with Session Id: {0}" + _player._Session.PlayerId);

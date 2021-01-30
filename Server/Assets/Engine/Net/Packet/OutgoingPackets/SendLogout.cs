@@ -18,9 +18,12 @@ namespace Engine.Net.Packet.OutgoingPackets
 
         public IByteBuffer GetPacket()
         {
-            var buffer = Unpooled.Buffer();
-            buffer.WriteInt(_player.m_session.PlayerId.ToString().Length);
-            buffer.WriteString(_player.m_session.PlayerId.ToString(), Encoding.Default);
+												string guid = _player.GetGuid().ToString();
+
+												var buffer = Unpooled.Buffer();
+
+            buffer.WriteInt(guid.Length);
+            buffer.WriteString(guid, Encoding.Default);
             return buffer;
         }
     }

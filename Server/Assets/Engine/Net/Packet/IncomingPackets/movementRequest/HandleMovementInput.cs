@@ -25,9 +25,11 @@ public class HandleMovementInput : IIncomingPackets {
         {
 												UnityMainThreadDispatcher.Instance().Enqueue(() =>
 												{
-																if (player.m_movementComponent != null)
+																var moveComponent = player.GetMovementComponent();
+
+																if (moveComponent != null)
 																{
-																				player.m_movementComponent.Move(moveVector);
+																				moveComponent.Move(moveVector);
 																}
 																//Debug.Log("has controller?" + character.ControllerComponent);
 												});

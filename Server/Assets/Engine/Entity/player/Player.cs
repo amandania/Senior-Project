@@ -15,11 +15,16 @@ public class Player : Character
     {
         m_session = session;
         m_world = world;
-								m_position = new Vector3(0, 0, 0);
-        m_oldPosition = m_position;
-								m_rotation = m_position;
-								m_oldRotation = m_position;
-								m_speedMagnitude = 0f;
+
+								/*
+								SetPosition(spawnPos);
+								SetOldPosition(spawnPos);			
+								
+								SetRotation(eulerSpawnRotation);
+								SetOldRotation(eulerSpawnRotation);*/
+
+								SetMoveAnimSpeed(0f);
+
 								m_isSprinting = false;
     }
 

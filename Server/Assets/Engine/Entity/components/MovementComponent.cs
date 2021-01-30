@@ -58,9 +58,9 @@ public class MovementComponent : MonoBehaviour
 
 								if (a_moveVector.magnitude <= 0)
 								{
-												m_Character.m_moveState = "Idle";
+												m_Character.SetMoveState("Idle");
 								} else {
-												m_Character.m_moveState = "Moving";
+												m_Character.SetMoveState("Moving");
 												if (m_Character.IsPlayer())
 												{
 																var characterAsPlayer = m_Character as Player;
@@ -69,8 +69,9 @@ public class MovementComponent : MonoBehaviour
 												}
 								}
 
-        m_Character.m_oldPosition = m_Character.m_position;
-								m_Character.m_oldRotation = m_Character.m_rotation;
+        m_Character.SetOldPosition(m_Character.GetPosition());
+								m_Character.SetOldRotation(m_Character.GetRotation());
+
         m_PlayerObj.transform.Rotate(0, rotateAngle, 0);
 
         if (m_CharacterController.isGrounded)
@@ -87,8 +88,8 @@ public class MovementComponent : MonoBehaviour
         m_CharacterController.Move(a_moveVector);
 
 								Transform plrTransform = m_PlayerObj.transform;
-								m_Character.m_position = plrTransform.position;
-								m_Character.m_rotation = plrTransform.rotation.eulerAngles;
+								m_Character.SetPosition(plrTransform.position);
+								m_Character.SetRotation(plrTransform.rotation.eulerAngles);
 
 								m_Network.SendPacketToAll(new SendMoveCharacter(m_Character, moveSpeed)).ConfigureAwait(false);
 

@@ -169,6 +169,7 @@ namespace Engine.DataLoader
                 var movementPenalty = _mapDataFileReader.ReadInt32();
                 grid[x, y] = new Node(walkable,
                     new Vector3(worldPositionX, 0, worldPositionY), x, y, movementPenalty);
+																Debug.Log(x + ", " + y + " is walkable:" + walkable);
             }
         }
 
@@ -188,7 +189,6 @@ namespace Engine.DataLoader
                     _mapIndexData.Add(new Tuple<short, short>(x, y), position);
                 }
             }
-            //Debug.Log("Loaded map indexes:" + _mapIndexData.Count);
         }
 
         public void Dispose()

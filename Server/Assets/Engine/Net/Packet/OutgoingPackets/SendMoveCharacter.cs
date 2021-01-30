@@ -2,6 +2,7 @@
 using Engine.Interfaces;
 using System;
 using System.Text;
+using UnityEngine;
 
 namespace Engine.Net.Packet.OutgoingPackets
 {
@@ -21,26 +22,32 @@ namespace Engine.Net.Packet.OutgoingPackets
         public IByteBuffer GetPacket()
         {
             var buffer = Unpooled.Buffer();
-            String guid = (m_character.IsPlayer() ? (m_character as Player).m_session.PlayerId.ToString() : m_character.m_guid.ToString());
+            String guid = m_character.GetGuid().ToString();
             int length = guid.Length;
 
             buffer.WriteInt(length);
             buffer.WriteString(guid, Encoding.Default);
-            
-            buffer.WriteFloat(m_character.m_oldPosition.x);
-            buffer.WriteFloat(m_character.m_oldPosition.y);
-            buffer.WriteFloat(m_character.m_oldPosition.z);
-            buffer.WriteFloat(m_character.m_oldRotation.x);
-            buffer.WriteFloat(m_character.m_oldRotation.y);
-            buffer.WriteFloat(m_character.m_oldRotation.z);
 
-            buffer.WriteFloat(m_character.m_position.x);
-            buffer.WriteFloat(m_character.m_position.y);
-            buffer.WriteFloat(m_character.m_position.z);
 
-            buffer.WriteFloat(m_character.m_rotation.x);
-            buffer.WriteFloat(m_character.m_rotation.y);
-            buffer.WriteFloat(m_character.m_rotation.z);
+												Vector3 charOldPos = m_character.GetOldPosition();
+            buffer.WriteFloat(charOldPos.x);
+            buffer.WriteFloat(charOldPos.y);
+            buffer.WriteFloat(charOldPos.z);
+
+												Vector3 oldRotation = m_character.GetOldRotation();
+            buffer.WriteFloat(oldRotation.x);
+            buffer.WriteFloat(oldRotation.y);
+            buffer.WriteFloat(oldRotation.z);
+
+												Vector3 currentPos = m_character.GetPosition();
+            buffer.WriteFloat(currentPos.x);
+            buffer.WriteFloat(currentPos.y);
+            buffer.WriteFloat(currentPos.z);
+
+												Vector3 currentRotation = m_character.GetRotation();
+            buffer.WriteFloat(currentRotation.x);
+            buffer.WriteFloat(currentRotation.y);
+            buffer.WriteFloat(currentRotation.z);
 
 												buffer.WriteFloat(m_moveSpeed);
 

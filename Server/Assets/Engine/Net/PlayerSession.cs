@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Engine.Net
 {
@@ -19,14 +20,23 @@ namespace Engine.Net
         public readonly Player _player;
         public NetworkStream _stream;
         private object _lockObject = new object();
-        public Guid PlayerId { get; } = Guid.NewGuid();
 
         public PlayerSession(IChannel channel, IWorld world)
         {
             _channel = channel;
             _world = world;
-            _player = new Player(this, world);
-												_world.SetStartPos(_player);
+												
+											 Vector3 pos;
+												Vector3 rot;
+												_player = new Player(this, world);
+												UnityMainThreadDispatcher.Instance().Enqueue(() =>
+												{
+																var transform = _world.m_spawnTransform;
+																pos = transform.position;
+																rot = transform.rotation.eulerAngles;
+																_player.SetPosition(pos);
+																_player.SetRotation(rot);
+												});
         }
 
         public Task SendPacket(IOutGoingPackets packet)
@@ -58,8 +68,8 @@ namespace Engine.Net
             buffer.WriteInt((int)packet.PacketType);
             buffer.WriteBytes(packet.GetPacket());
 
-            var players = _world.m_players.Where(player => player.m_session.PlayerId != _player.m_session.PlayerId);
-            foreach (var player in players)
+            var otherPlayers = _world.m_players.Where(otherPlayer => otherPlayer.GetGuid() != _player.GetGuid());
+            foreach (var player in otherPlayers)
             {
                 await player.m_session.WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);
             }
