@@ -9,7 +9,6 @@ public class Character
 				private Vector3 m_rotation;
 				private Vector3 m_oldRotation;
 
-				private float m_moveAnimSpeed;
 				private string m_moveState;
 
 				private GameObject m_characterModel;
@@ -21,7 +20,6 @@ public class Character
     public Character()
     {
 							m_moveState = "Idle";
-							m_moveAnimSpeed = 0f;
 							m_guid = Guid.NewGuid();
 				}
 
@@ -34,8 +32,15 @@ public class Character
 								}
 								m_characterModel.transform.position = m_position;
 								m_characterModel.transform.rotation = Quaternion.Euler(m_rotation.x, m_rotation.y, m_rotation.z);
-								m_characterModel.AddComponent<CombatComponent>();
-								SetMoveComponent(m_characterModel.AddComponent<MovementComponent>());
+
+								if (m_characterModel.GetComponent<CombatComponent>() == null) {
+												m_characterModel.AddComponent<CombatComponent>();
+								}
+
+								if (m_characterModel.GetComponent<MovementComponent>() == null)
+								{
+												SetMoveComponent(m_characterModel.AddComponent<MovementComponent>());
+								}
 
 								m_rotation = m_characterModel.transform.rotation.eulerAngles;
 				}
@@ -88,15 +93,6 @@ public class Character
 				public void SetRotation(Vector3 a_rotation)
 				{
 								m_rotation = a_rotation;
-				}
-
-				public void SetMoveAnimSpeed(float a_speed)
-				{
-								m_moveAnimSpeed = a_speed;
-				}
-				public float GetMoveAnimSpeed()
-				{
-								return m_moveAnimSpeed;
 				}
 
 				public void SetMoveState(string state)

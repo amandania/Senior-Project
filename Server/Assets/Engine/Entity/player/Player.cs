@@ -22,8 +22,7 @@ public class Player : Character
 								
 								SetRotation(eulerSpawnRotation);
 								SetOldRotation(eulerSpawnRotation);*/
-
-								SetMoveAnimSpeed(0f);
+								
 
 								m_isSprinting = false;
     }
