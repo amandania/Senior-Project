@@ -26,19 +26,12 @@ public class World : MonoBehaviour, IWorld
 				public void AddWorldPlayer(Player a_player)
 				{
 								m_players.Add(a_player);
-
-								Debug.Log("Player hs a default model set on worl? " + (playerModel == null));
-								
 								if (playerModel == null)
 								{
 												playerModel = GetDefaultPlayerModel();
 								}
-
 								a_player.SpawnWorldCharacter(playerModel);
-
-
-								Debug.Log("Player hs a default model AFTER set on worl? " + (playerModel == null));
-
+								
 				}
 				
 				private long PlayerProcess()
@@ -69,6 +62,8 @@ public class World : MonoBehaviour, IWorld
 
 								m_spawnTransform = GameObject.Find("SpawnPart").transform;
 								playerModel = Resources.Load("PlayerModel") as GameObject;
+								
+								
 								/*_subscription = Observable
         .Interval(TimeSpan.FromMilliseconds(600))
         .StartWith(-1L)
@@ -102,5 +97,26 @@ public class World : MonoBehaviour, IWorld
 				public GameObject GetDefaultPlayerModel()
 				{
 								return playerModel != null ? playerModel : Resources.Load("PlayerModel") as GameObject; 
+				}
+
+				public Task LoadMonsters()
+				{
+								bool completed = false;
+								UnityMainThreadDispatcher.Instance().Enqueue(() =>
+								{
+												Transform monsterListTransform = GameObject.Find("Monsters").transform;
+
+												for (int index = 0; index < monsterListTransform.childCount; index++) 
+												{
+																GameObject model = monsterListTransform.GetChild(index).gameObject;
+																Debug.Log("Monster def: " + model.transform.GetChild(0).name + " was loaded");
+												}
+												completed = true;
+												//Debug.Log("Actually completed count on unity thread");
+								});
+
+								while (!completed);
+
+								return Task.CompletedTask;
 				}
 }

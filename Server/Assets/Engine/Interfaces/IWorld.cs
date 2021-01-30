@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Engine.Interfaces
@@ -15,6 +16,9 @@ namespace Engine.Interfaces
 								void AddWorldPlayer(Player player);
 								void RemoveWorldPlayer(Player player);
 								GameObject GetDefaultPlayerModel();
+
+
+								Task LoadMonsters();
 
 				}
 
