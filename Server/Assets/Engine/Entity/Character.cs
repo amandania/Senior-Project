@@ -108,7 +108,7 @@ public class Character
 				public void SetMoveComponent(MovementComponent comp)
 				{
 								m_movementComponent = comp;
-								m_movementComponent.m_Character = this;
+								m_movementComponent.Character = this;
 				}
 
 				public GameObject GetCharModel()
