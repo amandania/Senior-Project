@@ -668,4 +668,3 @@ C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp-Editor.cs
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp-Editor.csproj.CopyComplete
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp-Editor.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp-Editor.pdb
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Assembly-CSharp.pdb

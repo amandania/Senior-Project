@@ -43,13 +43,12 @@ public class Npc : Character
 								var myModel = GetCharModel();
 
 								var currentCombatComp = myModel.GetComponent<CombatComponent>();
-								SetCombatComponent(currentCombatComp == null ? myModel.AddComponent<CombatComponent>() : currentCombatComp);
+								SetCombatComponent(currentCombatComp ?? myModel.AddComponent<CombatComponent>());
 
 								var currentMoveComp = myModel.GetComponent<MovementComponent>();
-								SetMoveComponent(currentMoveComp == null ? myModel.AddComponent<MovementComponent>() : currentMoveComp);
+								SetMoveComponent(currentMoveComp ?? myModel.AddComponent<MovementComponent>());
 
 								var currentDefs = myModel.GetComponent<Definition>();
-
 								if (currentDefs != null)
 								{
 												SetDefinition(currentDefs);
