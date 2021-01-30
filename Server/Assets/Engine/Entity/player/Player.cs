@@ -47,4 +47,15 @@ public class Player : Character
 				{
 								m_isSprinting = a_active;
 				}
+
+				public void SetupGameModel()
+				{
+								var myModel = GetCharModel();
+
+								var currentCombatComp = myModel.GetComponent<CombatComponent>();
+								SetCombatComponent(currentCombatComp == null ? myModel.AddComponent<CombatComponent>() : currentCombatComp);
+
+								var currentMoveComp = myModel.GetComponent<MovementComponent>();
+								SetMoveComponent(currentMoveComp == null ? myModel.AddComponent<MovementComponent>() : currentMoveComp);
+				}
 }

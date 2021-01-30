@@ -31,6 +31,7 @@ public class World : MonoBehaviour, IWorld
 												playerModel = GetDefaultPlayerModel();
 								}
 								a_player.SpawnWorldCharacter(playerModel);
+								a_player.SetupGameModel();
 								
 				}
 				

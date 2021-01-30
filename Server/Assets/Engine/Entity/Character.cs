@@ -12,7 +12,10 @@ public class Character
 				private string m_moveState;
 
 				private GameObject m_characterModel;
+
+
 				private MovementComponent m_movementComponent;
+				private CombatComponent m_combatComponent;
 
 				private Guid m_guid;
 
@@ -32,16 +35,6 @@ public class Character
 								}
 								m_characterModel.transform.position = m_position;
 								m_characterModel.transform.rotation = Quaternion.Euler(m_rotation.x, m_rotation.y, m_rotation.z);
-
-								if (m_characterModel.GetComponent<CombatComponent>() == null) {
-												m_characterModel.AddComponent<CombatComponent>();
-								}
-
-								if (m_characterModel.GetComponent<MovementComponent>() == null)
-								{
-												SetMoveComponent(m_characterModel.AddComponent<MovementComponent>());
-								}
-
 								m_rotation = m_characterModel.transform.rotation.eulerAngles;
 				}
 
@@ -104,11 +97,28 @@ public class Character
 				{
 								return m_moveState;
 				}
+				
 
-				public void SetMoveComponent(MovementComponent comp)
+				public MovementComponent GetMovementComponent()
 				{
-								m_movementComponent = comp;
+								return m_movementComponent;
+				}
+
+				public void SetMoveComponent(MovementComponent a_comp)
+				{
+								m_movementComponent = a_comp;
 								m_movementComponent.Character = this;
+				}
+
+			
+				public CombatComponent GetCombatComponent()
+				{
+								return m_combatComponent;
+				}
+				
+				public void SetCombatComponent(CombatComponent a_comp)
+				{
+								m_combatComponent = a_comp;
 				}
 
 				public GameObject GetCharModel()
@@ -123,10 +133,7 @@ public class Character
 								return m_characterModel;
 				}
 
-				public MovementComponent GetMovementComponent()
-				{
-								return m_movementComponent;
-				}
+				
 	
 				public Guid GetGuid()
 				{
