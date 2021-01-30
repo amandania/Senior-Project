@@ -28,7 +28,7 @@ public class ChannelEventHandler : SimpleChannelInboundHandler<IByteBuffer>
         PlayerSession session = context.Channel.GetAttribute(SESSION_KEY).Get();
         try
         {
-            Debug.Log(session.PlayerId + " has registered"); 
+            Debug.Log(session._player.GetGuid() + " has registered"); 
         }
         catch (Exception e)
         {
@@ -45,7 +45,7 @@ public class ChannelEventHandler : SimpleChannelInboundHandler<IByteBuffer>
             session.SendPacket(new SendLogout(session._player));
 												_world.RemoveWorldPlayer(session._player);
             session._channel.CloseAsync();
-            Debug.Log("Deregistered: " + session.PlayerId);
+            Debug.Log("Deregistered: " + session._player.GetGuid());
         }
     }
 

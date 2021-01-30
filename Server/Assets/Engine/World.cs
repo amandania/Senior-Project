@@ -19,16 +19,13 @@ public class World : MonoBehaviour, IWorld
 
 								UnityMainThreadDispatcher.Instance().Enqueue(() =>
 								{
-												Destroy(a_rmvPlayer.m_playerGameObject);
+												Destroy(a_rmvPlayer.GetCharModel());
 								});
 				}
 
 				public void AddWorldPlayer(Player a_player)
 				{
-								a_player.m_position = m_spawnTransform.position;
-								a_player.m_rotation = m_spawnTransform.rotation.eulerAngles;
 								m_players.Add(a_player);
-
 
 								Debug.Log("Player hs a default model set on worl? " + (playerModel == null));
 								
@@ -37,21 +34,13 @@ public class World : MonoBehaviour, IWorld
 												playerModel = GetDefaultPlayerModel();
 								}
 
-								a_player.SpawnCharacter(playerModel);
+								a_player.SpawnWorldCharacter(playerModel);
+
+
 								Debug.Log("Player hs a default model AFTER set on worl? " + (playerModel == null));
 
 				}
-
-				public void SetStartPos(Player a_player)
-				{
-								UnityMainThreadDispatcher.Instance().Enqueue(() =>
-								{
-												a_player.m_position = m_spawnTransform.position;
-												a_player.m_rotation = m_spawnTransform.rotation.eulerAngles;
-								});
-								
-				}
-
+				
 				private long PlayerProcess()
     {
         //var playerList = Players;
@@ -80,7 +69,6 @@ public class World : MonoBehaviour, IWorld
 
 								m_spawnTransform = GameObject.Find("SpawnPart").transform;
 								playerModel = Resources.Load("PlayerModel") as GameObject;
-								Debug.Log("found player mode;" + playerModel);
 								/*_subscription = Observable
         .Interval(TimeSpan.FromMilliseconds(600))
         .StartWith(-1L)

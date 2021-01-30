@@ -2,6 +2,7 @@
 using Engine.Interfaces;
 using System;
 using System.Text;
+using UnityEngine;
 
 namespace Engine.Net.Packet.OutgoingPackets
 {
@@ -24,17 +25,20 @@ namespace Engine.Net.Packet.OutgoingPackets
             buffer.WriteInt(_responseCode);
             if(_responseCode == 0)
             {
-                buffer.WriteInt(_player.m_session.PlayerId.ToString().Length);
-                buffer.WriteString(_player.m_session.PlayerId.ToString(), Encoding.Default);
-                buffer.WriteFloat(_player.m_position.x);
-                buffer.WriteFloat(_player.m_position.y);
-                buffer.WriteFloat(_player.m_position.z);
+																String guid = _player.GetGuid().ToString();
 
+																buffer.WriteInt(guid.Length);
+                buffer.WriteString(guid, Encoding.Default);
 
+																Vector3 plrPos = _player.GetPosition();
+                buffer.WriteFloat(plrPos.x);
+                buffer.WriteFloat(plrPos.y);
+                buffer.WriteFloat(plrPos.z);
 
-                buffer.WriteFloat(_player.m_rotation.x);
-                buffer.WriteFloat(_player.m_rotation.y);
-                buffer.WriteFloat(_player.m_rotation.z);
+																Vector3 rotation = _player.GetRotation();
+                buffer.WriteFloat(rotation.x);
+                buffer.WriteFloat(rotation.y);
+                buffer.WriteFloat(rotation.z);
             }
             return buffer;
         }

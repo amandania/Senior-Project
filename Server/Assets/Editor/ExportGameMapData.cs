@@ -119,7 +119,6 @@ public class ExportGameObjectData : ScriptableObject
 																streamWriter.Write(node.objectSizeZ);
 
 																streamWriter.Write(node.colliderType);
-
 																if (node.colliderType != -1)
 																{
 																				streamWriter.Write(node.colliderCenterX);

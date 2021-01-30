@@ -40,15 +40,15 @@ public class NetworkManager : MonoBehaviour {
 								InternalLoggerFactory.DefaultFactory.AddProvider(new SerilogLoggerProvider(logger));
 
 								//Resolves startables
-								container.Resolve<ServerBooter>();
 
 								IWorld k;
 								container.TryResolve<IWorld>(out k);
-								Debug.Log("We have world of player count: " + k.m_players.Count);
 								m_world = k;
-								//Debug.Log("BOOTING");
+
+								container.Resolve<ServerBooter>();
 				}
     public static IChannel channel2;
+
     private void RegisterDependencies(ContainerBuilder builder)
     {
         // Boot
@@ -78,8 +78,7 @@ public class NetworkManager : MonoBehaviour {
 								builder.RegisterType<HandleLeftMouseClick>().As<IIncomingPackets>();
 								builder.RegisterType<HandleMovementInput>().As<IIncomingPackets>();
         builder.RegisterType<HandleActionKeys>().As<IIncomingPackets>();
-
-        transform.gameObject.AddComponent<WorldHandler>();
+								
     }
 
 				public async Task SendPacketToAll(IOutGoingPackets packet)
