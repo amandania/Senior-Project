@@ -23,12 +23,12 @@ namespace Engine.Entity.pathfinding
             Node startNode = grid.NodeFromWorldPoint(startPos);
             Node targetNode = grid.NodeFromWorldPoint(targetPos);
            
-            startNode.parent = startNode;
+            startNode.m_parent = startNode;
 
 
-            if (startNode.walkable && targetNode.walkable)
+            if (startNode.m_walkable && targetNode.m_walkable)
             {
-                CustomHeap<Node> openSet = new CustomHeap<Node>(grid.MaxSize);
+                CustomHeap<Node> openSet = new CustomHeap<Node>(grid.m_MaxSize);
                 HashSet<Node> closedSet = new HashSet<Node>();
 
                 openSet.Add(startNode);
@@ -47,17 +47,17 @@ namespace Engine.Entity.pathfinding
 
                     foreach (Node neighbour in grid.GetNeighbours(currentNode))
                     {
-                        if (!neighbour.walkable || closedSet.Contains(neighbour))
+                        if (!neighbour.m_walkable || closedSet.Contains(neighbour))
                         {
                             continue;
                         }
 
-                        int newMovementCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour) + neighbour.movementPenalty;
-                        if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
+                        int newMovementCostToNeighbour = currentNode.m_gCost + GetDistance(currentNode, neighbour) + neighbour.m_movementPenalty;
+                        if (newMovementCostToNeighbour < neighbour.m_gCost || !openSet.Contains(neighbour))
                         {
-                            neighbour.gCost = newMovementCostToNeighbour;
-                            neighbour.hCost = GetDistance(neighbour, targetNode);
-                            neighbour.parent = currentNode;
+                            neighbour.m_gCost = newMovementCostToNeighbour;
+                            neighbour.m_hCost = GetDistance(neighbour, targetNode);
+                            neighbour.m_parent = currentNode;
 
                             if (!openSet.Contains(neighbour))
                                 openSet.Add(neighbour);
@@ -94,7 +94,7 @@ namespace Engine.Entity.pathfinding
             while (currentNode != startNode)
             {
                 path.Add(currentNode);
-                currentNode = currentNode.parent;
+                currentNode = currentNode.m_parent;
             }
             Vector3[] waypoints = SimplifyPath(path);
             Array.Reverse(waypoints);
@@ -109,10 +109,10 @@ namespace Engine.Entity.pathfinding
 
             for (int i = 1; i < path.Count; i++)
             {
-                Vector2 directionNew = new Vector2(path[i - 1].gridX - path[i].gridX, path[i - 1].gridY - path[i].gridY);
+                Vector2 directionNew = new Vector2(path[i - 1].m_gridX - path[i].m_gridX, path[i - 1].m_gridY - path[i].m_gridY);
                 if (directionNew != directionOld)
                 {
-                    waypoints.Add(path[i].worldPosition);
+                    waypoints.Add(path[i].m_worldPosition);
                 }
                 directionOld = directionNew;
             }
@@ -121,8 +121,8 @@ namespace Engine.Entity.pathfinding
 
         int GetDistance(Node nodeA, Node nodeB)
         {
-            int dstX = Math.Abs(nodeA.gridX - nodeB.gridX);
-            int dstY = Math.Abs(nodeA.gridY - nodeB.gridY);
+            int dstX = Math.Abs(nodeA.m_gridX - nodeB.m_gridX);
+            int dstY = Math.Abs(nodeA.m_gridY - nodeB.m_gridY);
 
             if (dstX > dstY)
                 return 6 * dstY + 2 * (dstX - dstY);

@@ -10,6 +10,6 @@ namespace Engine.Interfaces
     {
         Node NodeFromWorldPoint(Vector3 worldPosition);
         List<Node> GetNeighbours(Node node);
-        int MaxSize { get; }
+        int m_MaxSize { get; }
     }
 }

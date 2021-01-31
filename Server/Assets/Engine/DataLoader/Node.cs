@@ -9,53 +9,53 @@ namespace Engine.DataLoader
 {
     public class Node : IItem<Node>
     {
-        public bool walkable;
-        public Vector3 worldPosition;
+        public bool m_walkable;
+        public Vector3 m_worldPosition;
 
-        public short gridX;
-        public short gridY;
-        public int movementPenalty;
+        public short m_gridX;
+        public short m_gridY;
+        public int m_movementPenalty;
 
-        public int gCost;
-        public int hCost;
-        internal Node parent;
-        int heapIndex;
+        public int m_gCost;
+        public int m_hCost;
+        public int m_heapIndex;
+        internal Node m_parent;
 
         public Node(bool _walkable, Vector3 _worldPos, short _gridX, short _gridY, int _penalty)
         {
-            walkable = _walkable;
-            worldPosition = _worldPos;
-            gridX = _gridX;
-            gridY = _gridY;
-            movementPenalty = _penalty;
+            this.m_walkable = _walkable;
+            m_worldPosition = _worldPos;
+            this.m_gridX = _gridX;
+            m_gridY = _gridY;
+            m_movementPenalty = _penalty;
         }
 
-        public int fCost
+        public int m_fCost
         {
             get
             {
-                return gCost + hCost;
+                return m_gCost + m_hCost;
             }
         }
 
-        public int _Index
+        public int m_index
         {
             get
             {
-                return heapIndex;
+                return m_heapIndex;
             }
             set
             {
-                heapIndex = value;
+                m_heapIndex = value;
             }
         }
 
         public int CompareTo(Node nodeToCompare)
         {
-            int compare = fCost.CompareTo(nodeToCompare.fCost);
+            int compare = m_fCost.CompareTo(nodeToCompare.m_fCost);
             if (compare == 0)
             {
-                compare = hCost.CompareTo(nodeToCompare.hCost);
+                compare = m_hCost.CompareTo(nodeToCompare.m_hCost);
             }
             return -compare;
         }

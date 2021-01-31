@@ -3,26 +3,14 @@ using Engine.Interfaces;
 
 public class Npc : Character
 {
-				private readonly IWorld m_world;
 				private Definition m_defs;
 				
-				public Npc(IWorld a_world)
+				public Npc(GameObject a_serverWorldModel)
 				{
-								m_world = a_world;
-				}
-
-				public Npc(IWorld a_world, GameObject a_serverWorldModel)
-				{
-								m_world = a_world;
 								var withTransform = a_serverWorldModel.transform;
 								var model = SetCharModel(a_serverWorldModel);
 								model.transform.position = withTransform.position;
 								model.transform.rotation = withTransform.rotation;
-				}
-
-				public IWorld GetWorld()
-				{
-								return m_world;
 				}
 
 				public Definition GetDefinition()
@@ -54,4 +42,5 @@ public class Npc : Character
 												SetDefinition(currentDefs);
 								}
 				}
+				
 }

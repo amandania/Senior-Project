@@ -1973,9 +1973,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c345d5125cdeb4baf589112a8e7acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RotationSpeed: 220
-  m_Speed: 3
-  m_JumpSpeed: 7
+  State: Idle
+  RotationSpeed: 220
+  MovementSpeed: 3
+  JumpSpeed: 7
 --- !u!114 &114244902861212728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2013,9 +2014,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c345d5125cdeb4baf589112a8e7acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RotationSpeed: 220
-  m_Speed: 3
-  m_JumpSpeed: 7
+  State: Idle
+  RotationSpeed: 220
+  MovementSpeed: 3
+  JumpSpeed: 7
 --- !u!114 &114988414974760598
 MonoBehaviour:
   m_ObjectHideFlags: 1
