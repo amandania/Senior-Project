@@ -14,7 +14,7 @@ public class CustomHeap<T> where T : IItem<T>
 
     public void Add(T item)
     {
-        item._Index = _CurrentItemCount;
+        item.m_index = _CurrentItemCount;
         _Items[_CurrentItemCount] = item;
         SortUp(item);
         _CurrentItemCount++;
@@ -24,7 +24,7 @@ public class CustomHeap<T> where T : IItem<T>
         T first = _Items[0];
         _CurrentItemCount--;
         _Items[0] = _Items[_CurrentItemCount];
-        _Items[0]._Index = 0;
+        _Items[0].m_index = 0;
         SortDown(_Items[0]);
         return first;
     }
@@ -44,15 +44,15 @@ public class CustomHeap<T> where T : IItem<T>
     //When are these methods called? when 
     public bool Contains(T item)
     {
-        return Equals(_Items[item._Index], item);
+        return Equals(_Items[item.m_index], item);
     }
 
     void SortDown(T item)
     {
         while (true)
         {
-            int childLeftIndex = item._Index * 2 + 1;
-            int childRightIndex = item._Index * 2 + 2;
+            int childLeftIndex = item.m_index * 2 + 1;
+            int childRightIndex = item.m_index * 2 + 2;
             int swapId = 0;
 
             if (childLeftIndex < _CurrentItemCount)
@@ -86,7 +86,7 @@ public class CustomHeap<T> where T : IItem<T>
 
     void SortUp(T item)
     {
-        int parent = (item._Index - 1) / 2;
+        int parent = (item.m_index - 1) / 2;
 
         while (true)
         {
@@ -100,24 +100,24 @@ public class CustomHeap<T> where T : IItem<T>
                 break;
             }
 
-            parent = (item._Index - 1) / 2;
+            parent = (item.m_index - 1) / 2;
         }
     }
 
     void Swap(T itemA, T itemB)
     {
-        _Items[itemA._Index] = itemB;
-        _Items[itemB._Index] = itemA;
-        int AIndex = itemA._Index;
-        itemA._Index = itemB._Index;
-        itemB._Index = AIndex;
+        _Items[itemA.m_index] = itemB;
+        _Items[itemB.m_index] = itemA;
+        int AIndex = itemA.m_index;
+        itemA.m_index = itemB.m_index;
+        itemB.m_index = AIndex;
     }
 
 }
 
 public interface IItem<T> : IComparable<T>
 {
-    int _Index
+    int m_index
     {
         get;
         set;

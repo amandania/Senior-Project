@@ -8,34 +8,35 @@ namespace Engine.DataLoader
 {
     public class MapData : ILoadMapData
     {
-        private Dictionary<Tuple<short, short>, long> _mapIndexData = new Dictionary<Tuple<short, short>, long>();
-        private BinaryReader _mapDataFileReader;
-        Node[,] grid { get; set; }
-        public int penaltyMin = int.MaxValue;
-        public int penaltyMax = int.MinValue;
-        public int gridSizeX = 500;
-        public int gridSizeY = 500;
+        private Dictionary<Tuple<short, short>, long> m_mapIndexData = new Dictionary<Tuple<short, short>, long>();
+        private BinaryReader m_mapDataFileReader;
+        Node[,] m_grid { get; set; }
+        public int m_penaltyMin = int.MaxValue;
+        public int m_penaltyMax = int.MinValue;
+        public const int m_gridSizeX = 500;
+        public const int m_gridSizeY = 500;
 
-        public System.Numerics.Vector2 gridWorldSize { get; } = new System.Numerics.Vector2(2048, 2048);
-        public int MaxSize
+        public System.Numerics.Vector2 m_gridWorldSize { get; } = new System.Numerics.Vector2(m_gridSizeX, m_gridSizeY);
+
+        public int m_MaxSize
         {
             get
             {
-                return gridSizeX * gridSizeY;
+                return m_gridSizeX * m_gridSizeY;
             }
         }
         public Node NodeFromWorldPoint(Vector3 worldPosition)
         {
 
 
-            float percentX = (worldPosition.x + gridWorldSize.X / 2) / gridWorldSize.X;
-            float percentY = (worldPosition.z + gridWorldSize.Y / 2) / gridWorldSize.Y;
+            float percentX = (worldPosition.x + m_gridWorldSize.X / 2) / m_gridWorldSize.X;
+            float percentY = (worldPosition.z + m_gridWorldSize.Y / 2) / m_gridWorldSize.Y;
             percentX = Clamp01(percentX);
             percentY = Clamp01(percentY);
 
 
-            short x = (short)Math.Round((double)(gridSizeX - 1) * percentX);
-            short y = (short)Math.Round((double)(gridSizeX - 1) * percentY);
+            short x = (short)Math.Round((double)(m_gridSizeX - 1) * percentX);
+            short y = (short)Math.Round((double)(m_gridSizeX - 1) * percentY);
             return GetOrLoadGrid(x, y);
         }
         public float Clamp01(float value)
@@ -49,12 +50,12 @@ namespace Engine.DataLoader
 
         public Node GetOrLoadGrid(short x, short y)
         {
-            if (grid[x, y] == null)
+            if (m_grid[x, y] == null)
             {
                 LoadGrid(x, y);
             }
 
-            return grid[x, y];
+            return m_grid[x, y];
         }
 
         public List<Node> GetNeighbours(Node node)
@@ -68,10 +69,10 @@ namespace Engine.DataLoader
                     if (x == 0 && y == 0)
                         continue;
 
-                    short checkX = (short) (node.gridX + x);
-                    short checkY = (short) (node.gridY + y);
+                    short checkX = (short) (node.m_gridX + x);
+                    short checkY = (short) (node.m_gridY + y);
 
-                    if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
+                    if (checkX >= 0 && checkX < m_gridSizeX && checkY >= 0 && checkY < m_gridSizeY)
                     {
                         neighbours.Add(GetOrLoadGrid(checkX, checkY));
                     }
@@ -153,21 +154,21 @@ namespace Engine.DataLoader
 
         public void LoadGrid(short x, short y)
         {
-            lock (_mapDataFileReader)
+            lock (m_mapDataFileReader)
             {
-                if (grid[x, y] != null)
+                if (m_grid[x, y] != null)
                 {
                     return;
                 }
 
-                var position = _mapIndexData[new Tuple<short, short>(x, y)];
-                _mapDataFileReader.BaseStream.Position = position;
+                var position = m_mapIndexData[new Tuple<short, short>(x, y)];
+                m_mapDataFileReader.BaseStream.Position = position;
 
-                var walkable = _mapDataFileReader.ReadBoolean();
-                var worldPositionX = _mapDataFileReader.ReadSingle();
-                var worldPositionY = _mapDataFileReader.ReadSingle();
-                var movementPenalty = _mapDataFileReader.ReadInt32();
-                grid[x, y] = new Node(walkable,
+                var walkable = m_mapDataFileReader.ReadBoolean();
+                var worldPositionX = m_mapDataFileReader.ReadSingle();
+                var worldPositionY = m_mapDataFileReader.ReadSingle();
+                var movementPenalty = m_mapDataFileReader.ReadInt32();
+                m_grid[x, y] = new Node(walkable,
                     new Vector3(worldPositionX, 0, worldPositionY), x, y, movementPenalty);
 																Debug.Log(x + ", " + y + " is walkable:" + walkable);
             }
@@ -175,8 +176,8 @@ namespace Engine.DataLoader
 
         public void Start()
         {
-            grid = new Node[gridSizeX, gridSizeY];
-            _mapDataFileReader = new BinaryReader(File.Open(Path.Combine(Application.dataPath, "MapData/object.data"), FileMode.Open));
+            m_grid = new Node[m_gridSizeX, m_gridSizeY];
+            m_mapDataFileReader = new BinaryReader(File.Open(Path.Combine(Application.dataPath, "MapData/object.data"), FileMode.Open));
 
             //Load indexes
             using (var streamReader = new BinaryReader(File.Open(Path.Combine(Application.dataPath, "MapData/object.idx"), FileMode.Open)))
@@ -186,14 +187,14 @@ namespace Engine.DataLoader
                     var x = streamReader.ReadInt16();
                     var y = streamReader.ReadInt16();
                     var position = streamReader.ReadInt64();
-                    _mapIndexData.Add(new Tuple<short, short>(x, y), position);
+                    m_mapIndexData.Add(new Tuple<short, short>(x, y), position);
                 }
             }
         }
 
         public void Dispose()
         {
-            _mapDataFileReader.Dispose();
+            m_mapDataFileReader.Dispose();
         }
 
 
