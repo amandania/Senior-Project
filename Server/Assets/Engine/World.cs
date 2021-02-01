@@ -7,110 +7,13 @@ using UnityEngine;
 
 public class World : MonoBehaviour, IWorld
 {
-				private GameObject playerModel;
+				private GameObject m_playerModel;
 
-				public Transform m_spawnTransform { get; set; }
+				public Transform SpawnTransform { get; set; }
 
-				public List<Player> m_players { get; set; } = new List<Player>();
+				public List<Player> Players { get; set; } = new List<Player>();
 
-				public List<Npc> m_monsters { get; set; } = new List<Npc>();
-
-				public void RemoveCharacter(Character a_character)
-				{
-								if (a_character.IsPlayer()) { 
-											m_players.Remove(a_character.AsPlayer());
-								} else {
-												m_monsters.Remove(a_character.AsNpc());
-								}
-
-								UnityMainThreadDispatcher.Instance().Enqueue(() =>
-								{
-												Destroy(a_character.GetCharModel());
-								});
-				}
-
-				public void AddCharacter(Character a_character)
-				{
-								if (a_character.IsPlayer())
-								{
-												m_players.Add(a_character.AsPlayer());
-												if (playerModel == null)
-												{
-																playerModel = GetDefaultPlayerModel();
-												}
-												a_character.SpawnWorldCharacter(playerModel);
-												a_character.AsPlayer().SetupGameModel();
-								}
-								else
-								{
-												m_monsters.Add(a_character.AsNpc());
-								}
-				}
-				
-				private long PlayerProcess()
-    {
-        //var playerList = Players;
-
-        //playerList.AsParallel().WithDegreeOfParallelism(_maxParallelThreads).ForAll(player => player.Process());
-
-        //Dummy return value of select many
-        return 0;
-    }
-
-
-				
-
-    private void Awake()
-    {
-
-				}
-
-    private void FixedUpdate()
-    {
-        //Debug.Log(Players.Count);   
-    }
-
-    public void Start()
-    {
-
-								m_spawnTransform = GameObject.Find("SpawnPart").transform;
-								playerModel = Resources.Load("PlayerModel") as GameObject;
-								
-								
-								/*_subscription = Observable
-        .Interval(TimeSpan.FromMilliseconds(600))
-        .StartWith(-1L)
-        .Subscribe(interval => PlayerProcess());
-
-        _subscription2 = Observable
-        .Interval(TimeSpan.FromMilliseconds(15))
-        .StartWith(-1L)
-        .SelectMany(WorldNpcProcess)
-        .Subscribe();*/
-								//its not this. let me show u.
-				}
-
-   
-    
-
-    public void SpawnMonsters()
-    {
-        //NPC npc = new NPC(1, new Position(246.2299f, 50.99799f, -617.281f), _npcMovement);
-        //AddWorldNpc(npc);
-        Debug.Log("Spwaned world npcs.");
-
-        
-    }
-
-    public void Dispose()
-    {
-        //_subscription.Dispose();
-        //_subscription2.Dispose();
-    }
-				public GameObject GetDefaultPlayerModel()
-				{
-								return playerModel != null ? playerModel : Resources.Load("PlayerModel") as GameObject; 
-				}
+				public List<Npc> Monsters { get; set; } = new List<Npc>();
 
 				public Task LoadMonsters()
 				{
@@ -119,17 +22,73 @@ public class World : MonoBehaviour, IWorld
 								{
 												Transform monsterListTransform = GameObject.Find("Monsters").transform;
 
-												for (int index = 0; index < monsterListTransform.childCount; index++) 
+												for (int index = 0; index < monsterListTransform.childCount; index++)
 												{
 																GameObject model = monsterListTransform.GetChild(index).gameObject;
+																Npc npc = new Npc(model);
+																AddWorldCharacter(npc);
 																Debug.Log("Monster def: " + model.transform.GetChild(0).name + " was loaded");
 												}
 												completed = true;
 												//Debug.Log("Actually completed count on unity thread");
 								});
 
-								while (!completed);
+								while (!completed) ;
 
 								return Task.CompletedTask;
 				}
+
+				public void AddWorldCharacter(Character a_character)
+				{
+								if (a_character.IsPlayer())
+								{
+												Players.Add(a_character.AsPlayer());
+												if (m_playerModel == null)
+												{
+																m_playerModel = Resources.Load("PlayerModel") as GameObject;
+												}
+												a_character.SpawnWorldCharacter(m_playerModel);
+												a_character.AsPlayer().SetupGameModel();
+								}
+								else
+								{
+												Monsters.Add(a_character.AsNpc());
+								}
+				}
+
+
+				public void RemoveWorldCharacter(Character a_character)
+				{
+								if (a_character.IsPlayer())
+								{
+												Players.Remove(a_character.AsPlayer());
+								}
+								else
+								{
+												Monsters.Remove(a_character.AsNpc());
+								}
+
+								UnityMainThreadDispatcher.Instance().Enqueue(() =>
+								{
+												Destroy(a_character.GetCharModel());
+								});
+				}
+
+    public void Start()
+    {
+								SpawnTransform = GameObject.Find("SpawnPart").transform;
+								m_playerModel = Resources.Load("PlayerModel") as GameObject;
+				}
+
+				public void Dispose()
+				{
+								//_subscription.Dispose();
+								//_subscription2.Dispose();
+								UnityMainThreadDispatcher.Instance().Enqueue(() =>
+								{
+												Destroy(SpawnTransform);
+												Destroy(m_playerModel);
+								});
+				}
+				
 }

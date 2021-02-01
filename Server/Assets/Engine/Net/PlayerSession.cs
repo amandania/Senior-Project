@@ -29,7 +29,7 @@ public class PlayerSession
 								_player = new Player(this, world);
 								UnityMainThreadDispatcher.Instance().Enqueue(() =>
 								{
-												var transform = _world.m_spawnTransform;
+												var transform = _world.SpawnTransform;
 												pos = transform.position;
 												rot = transform.rotation.eulerAngles;
 												_player.SetPosition(pos);
@@ -51,7 +51,7 @@ public class PlayerSession
 								buffer.WriteInt((int)packet.PacketType);
 								buffer.WriteBytes(packet.GetPacket());
 
-								foreach (var player in _world.m_players)
+								foreach (var player in _world.Players)
 								{
 												if (player.m_session._channel.Active && player.m_session._channel.IsWritable)
 												{
@@ -66,7 +66,7 @@ public class PlayerSession
 								buffer.WriteInt((int)packet.PacketType);
 								buffer.WriteBytes(packet.GetPacket());
 
-								var otherPlayers = _world.m_players.Where(otherPlayer => otherPlayer.GetGuid() != _player.GetGuid());
+								var otherPlayers = _world.Players.Where(otherPlayer => otherPlayer.GetGuid() != _player.GetGuid());
 								foreach (var player in otherPlayers)
 								{
 												await player.m_session.WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);

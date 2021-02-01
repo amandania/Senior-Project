@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class MovementComponent : MonoBehaviour
 {
@@ -10,12 +11,16 @@ public class MovementComponent : MonoBehaviour
 
 				private NetworkManager Network { get; set; }
 
+				//Pathfinding data
+				public NavMeshAgent NavAgent { get; set; }
+				public Vector3 PathGoal { get; set; }
+
+				//Main movement related data
 				[Header("Movement Data")]
-				public string State = "Idle";
+				public MovementState State = MovementState.IDLE;
 				public float RotationSpeed = 220.0f;
 				public float MovementSpeed = 3.0f;
 				public float JumpSpeed = 7.0f;
-
 				private readonly float Gravity = 500.0f;
 
 
@@ -28,12 +33,19 @@ public class MovementComponent : MonoBehaviour
     // Use this for initialization
     void Start()
 				{
+								NavAgent = GetComponent<NavMeshAgent>() ?? transform.gameObject.AddComponent<NavMeshAgent>();
 								CharacterController = GetComponent<CharacterController>();
 								Network = GameObject.Find("WorldManager").GetComponent<NetworkManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+				//apply any physics things like Force in here
+				void FixedUpdate()
+				{
+								
+				}
+
+				// Update is called once per frame
+				void Update()
     {
 
     }
@@ -48,11 +60,11 @@ public class MovementComponent : MonoBehaviour
 								float moveSpeed = 0f;
 								if (a_moveVector.magnitude <= 0)
 								{
-												State = "Idle";
+												State = MovementState.IDLE;
 								}
 								else
 								{
-												State = "Moving";
+												State = MovementState.MOVING;
 												if (Character.IsPlayer())
 												{
 																var characterAsPlayer = Character as Player;

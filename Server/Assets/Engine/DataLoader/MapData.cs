@@ -18,7 +18,7 @@ namespace Engine.DataLoader
 
         public System.Numerics.Vector2 m_gridWorldSize { get; } = new System.Numerics.Vector2(m_gridSizeX, m_gridSizeY);
 
-        public int m_MaxSize
+        public int MaxSize
         {
             get
             {
