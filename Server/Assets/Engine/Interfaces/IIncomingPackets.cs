@@ -1,12 +1,9 @@
 ﻿using DotNetty.Buffers;
 using System.Threading.Tasks;
 
-namespace Engine.Interfaces
+public interface IIncomingPackets
 {
-    public interface IIncomingPackets
-    {
-        Task ExecutePacket(Player player, IByteBuffer buffer);
+    Task ExecutePacket(Player player, IByteBuffer buffer);
 
-        IncomingPackets PacketType { get; }
-    }
+    IncomingPackets PacketType { get; }
 }

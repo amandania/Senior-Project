@@ -7,37 +7,37 @@ public class LoginResponsePacket : IIncomingPackets
 {
     public IncomingPackets PacketType => IncomingPackets.CONNECT_RESPONSE;
 
-    private readonly IWorld _world;
+    private readonly IWorld m_world;
 
-    public LoginResponsePacket(IWorld world)
+    public LoginResponsePacket(IWorld a_world)
     {
-        _world = world;
+        m_world = a_world;
     }
 
-    private string _user = "aki";
-    private string _pass = "lol";
+    private readonly string m_user = "aki";
+    private readonly string m_pass = "lol";
 
-    public async Task ExecutePacket(Player player, IByteBuffer data)
+    public async Task ExecutePacket(Player a_player, IByteBuffer a_data)
     {
 
-        var usernameLength = data.ReadInt();
-        var passwordLength = data.ReadInt();
-        var username = data.ReadString(usernameLength, Encoding.Default);
-        var password = data.ReadString(passwordLength, Encoding.Default);
+        var usernameLength = a_data.ReadInt();
+        var passwordLength = a_data.ReadInt();
+        var username = a_data.ReadString(usernameLength, Encoding.Default);
+        var password = a_data.ReadString(passwordLength, Encoding.Default);
 
         int response_code = 0;
 
-        if (!username.Equals(_user) || !password.Equals(_pass))
+        if (!username.Equals(m_user) || !password.Equals(m_pass))
         {
             response_code = 1;
         }
 
-        await player.m_session.SendPacket(new SendLoginResponse(player, response_code)).ConfigureAwait(false);
-        if(response_code == 1)
+        await a_player.Session.SendPacket(new SendLoginResponse(a_player, response_code)).ConfigureAwait(false);
+        if (response_code == 1)
         {
-            await player.m_session._channel.CloseAsync().ConfigureAwait(false);
+            await a_player.Session._channel.CloseAsync().ConfigureAwait(false);
         }
-        if(response_code == 0)
+        if (response_code == 0)
         {
             //Debug.Log("Current size: " + _world.Players.Count);
         }

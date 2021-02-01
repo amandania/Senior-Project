@@ -1,11 +1,9 @@
 ﻿using DotNetty.Common.Utilities;
+using Engine.Interfaces;
 
-namespace Engine.Interfaces
+public interface IPacketHandler
 {
-    public interface IPacketHandler
-    {
 
-        AttributeKey<PlayerSession> SESSION_KEY { get; set; }
-        IIncomingPackets GetPacketForType(IncomingPackets packets);
-    }
+    AttributeKey<PlayerSession> SESSION_KEY { get; set; }
+    IIncomingPackets GetPacketForType(IncomingPackets packets);
 }

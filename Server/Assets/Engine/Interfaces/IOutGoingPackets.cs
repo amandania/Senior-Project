@@ -1,11 +1,8 @@
 ﻿using DotNetty.Buffers;
 
-namespace Engine.Interfaces
+public interface IOutGoingPackets
 {
-    public interface IOutGoingPackets
-    {
-        IByteBuffer GetPacket();
+    IByteBuffer GetPacket();
 
-        OutGoingPackets PacketType { get; }
-    }
+    OutGoingPackets PacketType { get; }
 }

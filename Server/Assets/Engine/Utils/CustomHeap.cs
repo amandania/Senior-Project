@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System;
+﻿using System;
 
 public class CustomHeap<T> where T : IItem<T>
 {
@@ -47,7 +46,7 @@ public class CustomHeap<T> where T : IItem<T>
         return Equals(_Items[item.m_index], item);
     }
 
-    void SortDown(T item)
+    private void SortDown(T item)
     {
         while (true)
         {
@@ -84,7 +83,7 @@ public class CustomHeap<T> where T : IItem<T>
         }
     }
 
-    void SortUp(T item)
+    private void SortUp(T item)
     {
         int parent = (item.m_index - 1) / 2;
 
@@ -104,7 +103,7 @@ public class CustomHeap<T> where T : IItem<T>
         }
     }
 
-    void Swap(T itemA, T itemB)
+    private void Swap(T itemA, T itemB)
     {
         _Items[itemA.m_index] = itemB;
         _Items[itemB.m_index] = itemA;

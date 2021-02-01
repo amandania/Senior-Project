@@ -1,7 +1,5 @@
 ﻿using DotNetty.Buffers;
 using Engine.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -18,9 +16,9 @@ public class HandleLeftMouseClick : IIncomingPackets
 
     public Task ExecutePacket(Player player, IByteBuffer data)
     {
-								Vector3 clickPosition = new Vector3(data.ReadFloat(), data.ReadFloat(), data.ReadFloat());
+        Vector3 clickPosition = new Vector3(data.ReadFloat(), data.ReadFloat(), data.ReadFloat());
 
-								Debug.Log("Player is doing a click  on screen world pos: " + clickPosition);        
+        Debug.Log("Player is doing a click  on screen world pos: " + clickPosition);
         return Task.CompletedTask;
     }
 

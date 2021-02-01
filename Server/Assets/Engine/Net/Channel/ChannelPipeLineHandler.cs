@@ -14,7 +14,7 @@ public class ChannelPipeLineHandler : ChannelInitializer<IChannel>, IConnectionM
 
 
     //main socket init. 
-    protected override void InitChannel(IChannel channel)
+    protected override void InitChannel(IChannel a_channel)
     {
         try
         {

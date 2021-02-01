@@ -1,9 +1,9 @@
 ﻿using DotNetty.Buffers;
 using Engine.Interfaces;
-using System;
 using System.Threading.Tasks;
 
-public class IdleRequest :  IIncomingPackets {
+public class IdleRequest : IIncomingPackets
+{
 
     private readonly IWorld _world;
 
@@ -17,6 +17,6 @@ public class IdleRequest :  IIncomingPackets {
     public async Task ExecutePacket(Player player, IByteBuffer buffer)
     {
 
-								await Task.CompletedTask;
+        await Task.CompletedTask;
     }
 }
