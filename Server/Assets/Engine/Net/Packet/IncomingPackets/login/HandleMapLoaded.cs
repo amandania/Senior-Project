@@ -22,17 +22,17 @@ public class HandleMapLoaded : IIncomingPackets
         await a_player.m_session.SendPacketToAllButMe(new SendSpawnPlayer(a_player)).ConfigureAwait(true);
 								
 							
-								for (int i = 0; i < _world.m_players.Count; i++)
+								for (int i = 0; i < _world.Players.Count; i++)
 								{
-												if (a_player.GetGuid() != _world.m_players[i].GetGuid())
+												if (a_player.GetGuid() != _world.Players[i].GetGuid())
 												{
-																await a_player.m_session.SendPacket(new SendSpawnPlayer(_world.m_players[i])).ConfigureAwait(true);
+																await a_player.m_session.SendPacket(new SendSpawnPlayer(_world.Players[i])).ConfigureAwait(true);
 												}
 								}
 
 								UnityMainThreadDispatcher.Instance().Enqueue(() =>
 								{
-												_world.AddCharacter(a_player);
+												_world.AddWorldCharacter(a_player);
 												//GameObject.Find("WorldManager").GetComponent<WorldHandler>().SpawnPlayerObject(a_player);
 								});
 

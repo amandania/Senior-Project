@@ -8,22 +8,17 @@ public class Character
 
 				private Vector3 m_rotation;
 				private Vector3 m_oldRotation;
-
-				private string m_moveState;
+			
 
 				private GameObject m_characterModel;
-
-
+				
 				private MovementComponent m_movementComponent;
 				private CombatComponent m_combatComponent;
 
 				private Guid m_guid;
-				
-
 
     public Character()
     {
-							m_moveState = "Idle";
 							m_guid = Guid.NewGuid();
 				}
 
@@ -99,16 +94,19 @@ public class Character
 								m_rotation = a_rotation;
 				}
 
-				public void SetMoveState(string state)
+				public MovementState GetMoveState()
 				{
-								m_moveState = state;
-				}
-
-				public string GetMoveState()
-				{
-								return m_moveState;
+								if (m_movementComponent != null) {
+												return m_movementComponent.State;
+								}
+								return MovementState.IDLE;
 				}
 				
+				public void SetMoveState(MovementState moveState) {
+								if (m_movementComponent != null) {
+												m_movementComponent.State = moveState;
+								}
+				}
 
 				public MovementComponent GetMovementComponent()
 				{
@@ -130,6 +128,7 @@ public class Character
 				public void SetCombatComponent(CombatComponent a_comp)
 				{
 								m_combatComponent = a_comp;
+								m_combatComponent.Character = this;
 				}
 
 				public GameObject GetCharModel()
@@ -143,11 +142,10 @@ public class Character
 
 								return m_characterModel;
 				}
-
 				
-	
 				public Guid GetGuid()
 				{
 								return m_guid;
 				}
+				
 }

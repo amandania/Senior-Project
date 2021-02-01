@@ -42,5 +42,5 @@ public class Npc : Character
 												SetDefinition(currentDefs);
 								}
 				}
-				
+
 }

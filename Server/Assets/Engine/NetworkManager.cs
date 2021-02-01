@@ -110,7 +110,7 @@ public class NetworkManager : MonoBehaviour {
 								buffer.WriteInt((int)packet.PacketType);
 								buffer.WriteBytes(packet.GetPacket());
 
-								foreach (var player in m_world.m_players)
+								foreach (var player in m_world.Players)
 								{
 												if (player.m_session._channel.Active && player.m_session._channel.IsWritable)
 												{

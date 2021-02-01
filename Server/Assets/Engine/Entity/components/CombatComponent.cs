@@ -4,7 +4,9 @@ using System;
 
 public class CombatComponent : MonoBehaviour
 {
-				private NetworkManager m_network;
+				private NetworkManager Network;
+
+				public Character Character { get; set; }
 
 				[Header("Combat Data")]
 				public Transform m_characterTransform;
