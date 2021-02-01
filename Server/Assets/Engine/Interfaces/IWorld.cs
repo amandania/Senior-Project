@@ -14,8 +14,6 @@ public interface IWorld : IStartable, IDisposable
 				void AddWorldCharacter(Character a_player);
 				void RemoveWorldCharacter(Character a_player);
 
-				GameObject GetDefaultPlayerModel();
-
 				Task LoadMonsters();
 
 }

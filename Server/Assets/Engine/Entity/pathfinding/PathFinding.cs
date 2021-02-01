@@ -8,11 +8,11 @@ namespace Engine.Entity.pathfinding
 {
     public class PathFinding : IPathFinding
     {
-        public ILoadMapData grid { get; }
+        public ILoadMapData Grid { get; }
         
         public PathFinding(ILoadMapData globalGrid)
         {
-            grid = globalGrid;
+            Grid = globalGrid;
         }
 
         public PathResult FindPath(Vector3 startPos, Vector3 targetPos)
@@ -20,15 +20,15 @@ namespace Engine.Entity.pathfinding
             Vector3[] waypoints = new Vector3[0];
             bool pathSuccess = false;
 
-            Node startNode = grid.NodeFromWorldPoint(startPos);
-            Node targetNode = grid.NodeFromWorldPoint(targetPos);
+            Node startNode = Grid.NodeFromWorldPoint(startPos);
+            Node targetNode = Grid.NodeFromWorldPoint(targetPos);
            
             startNode.m_parent = startNode;
 
 
             if (startNode.m_walkable && targetNode.m_walkable)
             {
-                CustomHeap<Node> openSet = new CustomHeap<Node>(grid.m_MaxSize);
+                CustomHeap<Node> openSet = new CustomHeap<Node>(Grid.MaxSize);
                 HashSet<Node> closedSet = new HashSet<Node>();
 
                 openSet.Add(startNode);
@@ -45,7 +45,7 @@ namespace Engine.Entity.pathfinding
                         break;
                     }
 
-                    foreach (Node neighbour in grid.GetNeighbours(currentNode))
+                    foreach (Node neighbour in Grid.GetNeighbours(currentNode))
                     {
                         if (!neighbour.m_walkable || closedSet.Contains(neighbour))
                         {

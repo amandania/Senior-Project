@@ -56,4 +56,5 @@ public class Player : Character
 								var currentMoveComp = myModel.GetComponent<MovementComponent>();
 								SetMoveComponent(currentMoveComp == null ? myModel.AddComponent<MovementComponent>() : currentMoveComp);
 				}
+				
 }

@@ -143,6 +143,7 @@ public class Character
 								return m_characterModel;
 				}
 				
+
 				public Guid GetGuid()
 				{
 								return m_guid;

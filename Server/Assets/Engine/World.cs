@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class World : MonoBehaviour, IWorld
 {
-				private GameObject playerModel;
+				private GameObject m_playerModel;
 
 				public Transform SpawnTransform { get; set; }
 
@@ -43,16 +43,16 @@ public class World : MonoBehaviour, IWorld
 								if (a_character.IsPlayer())
 								{
 												Players.Add(a_character.AsPlayer());
-												if (playerModel == null)
+												if (m_playerModel == null)
 												{
-																playerModel = GetDefaultPlayerModel();
+																m_playerModel = Resources.Load("PlayerModel") as GameObject;
 												}
-												a_character.SpawnWorldCharacter(playerModel);
+												a_character.SpawnWorldCharacter(m_playerModel);
 												a_character.AsPlayer().SetupGameModel();
 								}
 								else
 								{
-												Monsters.Remove(a_character.AsNpc());
+												Monsters.Add(a_character.AsNpc());
 								}
 				}
 
@@ -77,7 +77,7 @@ public class World : MonoBehaviour, IWorld
     public void Start()
     {
 								SpawnTransform = GameObject.Find("SpawnPart").transform;
-								playerModel = Resources.Load("PlayerModel") as GameObject;
+								m_playerModel = Resources.Load("PlayerModel") as GameObject;
 				}
 
 				public void Dispose()
@@ -87,12 +87,8 @@ public class World : MonoBehaviour, IWorld
 								UnityMainThreadDispatcher.Instance().Enqueue(() =>
 								{
 												Destroy(SpawnTransform);
-												Destroy(playerModel);
+												Destroy(m_playerModel);
 								});
 				}
-
-				public GameObject GetDefaultPlayerModel()
-				{
-								return playerModel != null ? playerModel : Resources.Load("PlayerModel") as GameObject;
-				}
+				
 }
