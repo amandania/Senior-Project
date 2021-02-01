@@ -11,11 +11,39 @@ using DotNetty.Transport.Channels;
 using DotNetty.Buffers;
 using System.Threading.Tasks;
 
+/*NetworkManager*/
+/*
+				NAME: 
+												NetworkManager
+				
+				Description:
+													Networkmanager is the heart of the network
+													Its a Monobehavior class because thats how unity triggers a startup file
+													The purpose of this class is to build the container with all dependencies the game relies on
+													Dependcies include all our Interafaces
+*/
+
 public class NetworkManager : MonoBehaviour {
 
 				private IWorld m_world { get; set; }
 
-				// Use this for initialization
+				public static IChannel channel;
+
+				
+				/*void Start()*/
+				/*
+				NAME
+												Start()
+
+				DESCRIPTION
+												This function will create our Container
+												Then register all our server dependcies (Interfaces) into the container
+												We also create our network logger to track any errors.
+												  Errors are only displayed if Visual Studio is attached to unity
+												We also set our m_world to the registered single instance dependency of IWorld
+												Finally we resolve the container with the ServerBooter to execute our inital threads
+				*/
+				/*void Start()*/
 				void Start () {
 								var containerBuilder = new ContainerBuilder();
 
@@ -35,16 +63,14 @@ public class NetworkManager : MonoBehaviour {
             
 								//Setup Netty logger
 								InternalLoggerFactory.DefaultFactory.AddProvider(new SerilogLoggerProvider(logger));
+								
 
-								//Resolves startables
-
-								IWorld k;
+								IWorld k = m_world;
 								container.TryResolve<IWorld>(out k);
 								m_world = k;
 
 								container.Resolve<ServerBooter>();
 				}
-    public static IChannel channel2;
 
     private void RegisterDependencies(ContainerBuilder builder)
     {
@@ -62,7 +88,7 @@ public class NetworkManager : MonoBehaviour {
 
         builder.RegisterType<ChannelEventHandler>().SingleInstance();
         builder.RegisterType<ChannelPipeLineHandler>().As<IConnectionManager>().SingleInstance();
-       // builder.RegisterType<NPCMovement>().As<INPCMovement>().SingleInstance();
+								//builder.RegisterType<NPCMovement>().As<INPCMovement>().SingleInstance();
 
         //Extra
         builder.RegisterType<PacketHandler>().As<IPacketHandler>().SingleInstance();
@@ -100,6 +126,6 @@ public class NetworkManager : MonoBehaviour {
 
     private void OnApplicationQuit()
     {   
-        channel2.CloseAsync();
+        channel.CloseAsync();
     }
 }

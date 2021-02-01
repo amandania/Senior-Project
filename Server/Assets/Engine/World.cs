@@ -13,26 +13,38 @@ public class World : MonoBehaviour, IWorld
 
 				public List<Player> m_players { get; set; } = new List<Player>();
 
-				public void RemoveWorldPlayer(Player a_rmvPlayer)
+				public List<Npc> m_monsters { get; set; } = new List<Npc>();
+
+				public void RemoveCharacter(Character a_character)
 				{
-								m_players.Remove(a_rmvPlayer);
+								if (a_character.IsPlayer()) { 
+											m_players.Remove(a_character.AsPlayer());
+								} else {
+												m_monsters.Remove(a_character.AsNpc());
+								}
 
 								UnityMainThreadDispatcher.Instance().Enqueue(() =>
 								{
-												Destroy(a_rmvPlayer.GetCharModel());
+												Destroy(a_character.GetCharModel());
 								});
 				}
 
-				public void AddWorldPlayer(Player a_player)
+				public void AddCharacter(Character a_character)
 				{
-								m_players.Add(a_player);
-								if (playerModel == null)
+								if (a_character.IsPlayer())
 								{
-												playerModel = GetDefaultPlayerModel();
+												m_players.Add(a_character.AsPlayer());
+												if (playerModel == null)
+												{
+																playerModel = GetDefaultPlayerModel();
+												}
+												a_character.SpawnWorldCharacter(playerModel);
+												a_character.AsPlayer().SetupGameModel();
 								}
-								a_player.SpawnWorldCharacter(playerModel);
-								a_player.SetupGameModel();
-								
+								else
+								{
+												m_monsters.Add(a_character.AsNpc());
+								}
 				}
 				
 				private long PlayerProcess()

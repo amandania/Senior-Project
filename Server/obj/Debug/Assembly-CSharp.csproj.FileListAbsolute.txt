@@ -574,7 +574,6 @@ C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp.csproj.Co
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp.pdb
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEditor.UI.dll
-C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\com.unity.multiplayer-hlapi.Editor.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\com.unity.multiplayer-hlapi.Runtime.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\com.unity.multiplayer-weaver.Editor.dll

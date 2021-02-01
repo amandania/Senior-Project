@@ -2,32 +2,22 @@
 using System.Threading.Tasks;
 using UnityEngine;
 /// <summary>
-/// 
+/// Main server booter
+/// Its called after the network container is built for network
+/// <see cref="NetworkManager"/>
 /// </summary>
-			
-namespace Engine
+public class ServerBooter
 {
 
-    public class ServerBooter
-    {
-
-								/** Its important to remember this runs on a different thread
-								 **			This includes incoming packets
-								 **			Meaning if i wanted to manipulate a gameobject (this exist on the unity thread)
-								 **			I'd have to dispatch events to the unity thread
-									**
-								 **			------ inline call details ------
-								 **			Initalize() - network thread
-								 **			world.LoadMonsters - runs on network thread waits till unity thread execution is done)
-								 **/
-								public ServerBooter(IWorld world, IServerTCP tcp)
-        {
-												Debug.Log("Load global world data before we boot server up");
-												var s = Task.Run(async () =>
-												{
-																await world.LoadMonsters();
-																await tcp.Initalize(5555).ConfigureAwait(false);
-												});
-								}
-    }
+				//Main constructor
+				//its important to remember unity game objects are on a different thread
+				/// <cref cref="IServerTCP.Initalize"/> is running on a different thread.
+				public ServerBooter(IWorld world, IServerTCP tcp)
+				{
+								var s = Task.Run(async () =>
+								{
+												await world.LoadMonsters();
+												await tcp.Initalize(5555).ConfigureAwait(false);
+								});
+				}
 }
