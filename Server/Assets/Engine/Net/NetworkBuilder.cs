@@ -3,8 +3,6 @@ using DotNetty.Transport.Bootstrapping;
 using DotNetty.Transport.Channels;
 using DotNetty.Transport.Channels.Sockets;
 using Engine.Interfaces;
-using Engine.Net;
-using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -49,7 +47,7 @@ public class NetworkBuilder : IServerTCP
         }));
         //_world.SpawnMonsters();
         Debug.Log("Server is listening on port " + port);
-        NetworkManager.channel2 = await _bootstrap.BindAsync(port);
+        NetworkManager.channel = await _bootstrap.BindAsync(port);
 				}
 
     public void Start()

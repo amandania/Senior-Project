@@ -18,6 +18,7 @@ public class Character
 				private CombatComponent m_combatComponent;
 
 				private Guid m_guid;
+				
 
 
     public Character()
@@ -43,9 +44,19 @@ public class Character
 								return this is Player;
 				}
 
+
 				public Player AsPlayer()
 				{
-								return ((Player)this);
+								return this as Player;
+				}
+
+				public bool IsNpc() {
+							return this is Npc;
+				}
+
+				public Npc AsNpc()
+				{
+								return this as Npc;
 				}
 
 				public Vector3 GetOldPosition()

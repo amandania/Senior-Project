@@ -1,6 +1,5 @@
 ﻿using DotNetty.Buffers;
 using Engine.Interfaces;
-using Engine.Net.Packet.OutgoingPackets;
 using UnityEngine;
 using System.Threading.Tasks;
 using System.Collections;
@@ -33,7 +32,7 @@ public class HandleMapLoaded : IIncomingPackets
 
 								UnityMainThreadDispatcher.Instance().Enqueue(() =>
 								{
-												_world.AddWorldPlayer(a_player);
+												_world.AddCharacter(a_player);
 												//GameObject.Find("WorldManager").GetComponent<WorldHandler>().SpawnPlayerObject(a_player);
 								});
 

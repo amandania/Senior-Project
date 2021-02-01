@@ -2,8 +2,6 @@
 using DotNetty.Common.Utilities;
 using DotNetty.Transport.Channels;
 using Engine.Interfaces;
-using Engine.Net;
-using Engine.Net.Packet.OutgoingPackets;
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -43,7 +41,7 @@ public class ChannelEventHandler : SimpleChannelInboundHandler<IByteBuffer>
         if (session != null)
         {
             session.SendPacket(new SendLogout(session._player));
-												_world.RemoveWorldPlayer(session._player);
+												_world.RemoveCharacter(session._player);
             session._channel.CloseAsync();
             Debug.Log("Deregistered: " + session._player.GetGuid());
         }

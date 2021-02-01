@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using Engine.Net.Packet.OutgoingPackets;
 
 public class MovementComponent : MonoBehaviour
 {

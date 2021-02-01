@@ -1,10 +1,4 @@
-﻿
-using Engine.Net;
-
-namespace Engine.Interfaces
+﻿public interface IClientProvider
 {
-   public interface IClientProvider
-    {
-        PlayerSession[] Clients { get; set; }
-    }
+    PlayerSession[] Clients { get; set; }
 }
