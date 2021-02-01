@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 public class IdleRequest : IIncomingPackets
 {
 
-    private readonly IWorld _world;
+    private readonly IWorld m_world;
 
     public IdleRequest(IWorld world)
     {
-        _world = world;
+        m_world = world;
     }
 
     public IncomingPackets PacketType => IncomingPackets.IDLE;
