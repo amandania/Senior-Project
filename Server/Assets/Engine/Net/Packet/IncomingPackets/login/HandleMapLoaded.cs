@@ -8,11 +8,11 @@ public class HandleMapLoaded : IIncomingPackets
 {
     public IncomingPackets PacketType => IncomingPackets.HANDLE_MAP_LOADED;
 
-    private readonly IWorld _world;
+    private readonly IWorld m_world;
 
     public HandleMapLoaded(IWorld world)
     {
-        _world = world;
+        m_world = world;
     }
 
     public async Task ExecutePacket(Player a_player, IByteBuffer data)
@@ -20,17 +20,17 @@ public class HandleMapLoaded : IIncomingPackets
         //send me to everyone
         await a_player.Session.SendPacketToAllButMe(new SendSpawnPlayer(a_player)).ConfigureAwait(true);
 
-        for (int i = 0; i < _world.Players.Count; i++)
+        for (int i = 0; i < m_world.Players.Count; i++)
         {
-            if (a_player.GetGuid() != _world.Players[i].GetGuid())
+            if (a_player.GetGuid() != m_world.Players[i].GetGuid())
             {
-                await a_player.Session.SendPacket(new SendSpawnPlayer(_world.Players[i])).ConfigureAwait(true);
+                await a_player.Session.SendPacket(new SendSpawnPlayer(m_world.Players[i])).ConfigureAwait(true);
             }
         }
 
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            _world.AddWorldCharacter(a_player);
+            m_world.AddWorldCharacter(a_player);
             //GameObject.Find("WorldManager").GetComponent<WorldHandler>().SpawnPlayerObject(a_player);
         });
 
