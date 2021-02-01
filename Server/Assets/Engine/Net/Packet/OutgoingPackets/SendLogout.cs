@@ -3,28 +3,25 @@ using Engine.Interfaces;
 using System;
 using System.Text;
 
-namespace Engine.Net.Packet.OutgoingPackets
+public class SendLogout : IOutGoingPackets
 {
-    public class SendLogout : IOutGoingPackets
-    {
-        public OutGoingPackets PacketType => OutGoingPackets.SEND_LOGOUT;
-        
-        private Player _player;
+				public OutGoingPackets PacketType => OutGoingPackets.SEND_LOGOUT;
 
-        public SendLogout(Player player)
-        {
-            _player = player;
-        }
+				private Player _player;
 
-        public IByteBuffer GetPacket()
-        {
-												string guid = _player.GetGuid().ToString();
+				public SendLogout(Player player)
+				{
+								_player = player;
+				}
 
-												var buffer = Unpooled.Buffer();
+				public IByteBuffer GetPacket()
+				{
+								string guid = _player.GetGuid().ToString();
 
-            buffer.WriteInt(guid.Length);
-            buffer.WriteString(guid, Encoding.Default);
-            return buffer;
-        }
-    }
+								var buffer = Unpooled.Buffer();
+
+								buffer.WriteInt(guid.Length);
+								buffer.WriteString(guid, Encoding.Default);
+								return buffer;
+				}
 }

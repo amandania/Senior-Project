@@ -1,10 +1,7 @@
 ﻿using DotNetty.Buffers;
 using Engine.Interfaces;
-using Engine.Net.Packet.OutgoingPackets;
-using System;
 using System.Text;
 using System.Threading.Tasks;
-using UnityEngine;
 
 public class LoginResponsePacket : IIncomingPackets
 {

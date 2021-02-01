@@ -1,6 +1,4 @@
 ﻿using Engine.Interfaces;
-using Engine.Net;
-using UnityEngine;
 
 public class Player : Character
 {
