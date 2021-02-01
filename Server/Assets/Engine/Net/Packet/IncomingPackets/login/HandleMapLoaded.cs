@@ -20,7 +20,6 @@ public class HandleMapLoaded : IIncomingPackets
         //send me to everyone
         await a_player.Session.SendPacketToAllButMe(new SendSpawnPlayer(a_player)).ConfigureAwait(true);
 
-
         for (int i = 0; i < _world.Players.Count; i++)
         {
             if (a_player.GetGuid() != _world.Players[i].GetGuid())
