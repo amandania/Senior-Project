@@ -1,43 +1,42 @@
 ﻿using DotNetty.Buffers;
-using Engine.Interfaces;
 using System;
 using System.Text;
 using UnityEngine;
 
 public class SendLoginResponse : IOutGoingPackets
 {
-				public OutGoingPackets PacketType => OutGoingPackets.RESPOSNE_VERIFY;
+    public OutGoingPackets PacketType => OutGoingPackets.RESPOSNE_VERIFY;
 
-				private readonly int _responseCode;
-				private Player _player;
+    private readonly int m_responseCode;
+    private readonly Player m_player;
 
-				public SendLoginResponse(Player player, int responseCode)
-				{
-								_player = player;
-								_responseCode = responseCode;
-				}
+    public SendLoginResponse(Player player, int responseCode)
+    {
+        m_player = player;
+        m_responseCode = responseCode;
+    }
 
-				public IByteBuffer GetPacket()
-				{
-								var buffer = Unpooled.Buffer();
-								buffer.WriteInt(_responseCode);
-								if (_responseCode == 0)
-								{
-												String guid = _player.GetGuid().ToString();
+    public IByteBuffer GetPacket()
+    {
+        var buffer = Unpooled.Buffer();
+        buffer.WriteInt(m_responseCode);
+        if (m_responseCode == 0)
+        {
+            String guid = m_player.GetGuid().ToString();
 
-												buffer.WriteInt(guid.Length);
-												buffer.WriteString(guid, Encoding.Default);
+            buffer.WriteInt(guid.Length);
+            buffer.WriteString(guid, Encoding.Default);
 
-												Vector3 plrPos = _player.GetPosition();
-												buffer.WriteFloat(plrPos.x);
-												buffer.WriteFloat(plrPos.y);
-												buffer.WriteFloat(plrPos.z);
+            Vector3 plrPos = m_player.Position;
+            buffer.WriteFloat(plrPos.x);
+            buffer.WriteFloat(plrPos.y);
+            buffer.WriteFloat(plrPos.z);
 
-												Vector3 rotation = _player.GetRotation();
-												buffer.WriteFloat(rotation.x);
-												buffer.WriteFloat(rotation.y);
-												buffer.WriteFloat(rotation.z);
-								}
-								return buffer;
-				}
+            Vector3 rotation = m_player.Rotation;
+            buffer.WriteFloat(rotation.x);
+            buffer.WriteFloat(rotation.y);
+            buffer.WriteFloat(rotation.z);
+        }
+        return buffer;
+    }
 }

@@ -1,6 +1,5 @@
 ﻿using DotNetty.Handlers.Logging;
 using DotNetty.Transport.Channels;
-using Engine.Interfaces;
 using System;
 using UnityEngine;
 
@@ -14,7 +13,7 @@ public class ChannelPipeLineHandler : ChannelInitializer<IChannel>, IConnectionM
 
 
     //main socket init. 
-    protected override void InitChannel(IChannel channel)
+    protected override void InitChannel(IChannel a_channel)
     {
         try
         {

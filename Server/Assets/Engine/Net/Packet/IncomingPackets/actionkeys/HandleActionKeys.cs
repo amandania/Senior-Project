@@ -1,6 +1,4 @@
 ﻿using DotNetty.Buffers;
-using Engine.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -9,20 +7,20 @@ public class HandleActionKeys : IIncomingPackets
 {
     public IncomingPackets PacketType => IncomingPackets.ACTION_KEYS;
 
-    private readonly IWorld _world;
+    private readonly IWorld m_world;
 
-    public HandleActionKeys(IWorld world)
+    public HandleActionKeys(IWorld a_world)
     {
-        _world = world;
+        m_world = a_world;
     }
 
-    public Task ExecutePacket(Player player, IByteBuffer data)
+    public Task ExecutePacket(Player a_player, IByteBuffer a_data)
     {
-        int keyListSize = data.ReadInt();
+        int keyListSize = a_data.ReadInt();
         byte[] input = new byte[keyListSize];
         for (int i = 0; i < keyListSize; i++)
         {
-            input[i] = data.ReadByte();
+            input[i] = a_data.ReadByte();
         }
 
         List<int> keys = new List<int>();
@@ -35,9 +33,10 @@ public class HandleActionKeys : IIncomingPackets
         {
             Debug.Log("Recieved: " + keys[0]);
         }
-								if (keys.Contains((int)KeyInput.LeftMouseButton)) {
-												Debug.Log("Do attack attemp");
-								}
+        if (keys.Contains((int)KeyInput.LeftMouseButton))
+        {
+            Debug.Log("Do attack attemp");
+        }
 
         return Task.CompletedTask;
     }

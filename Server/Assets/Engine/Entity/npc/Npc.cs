@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Engine.Interfaces;
 
 public class Npc : Character
 {
@@ -31,10 +30,10 @@ public class Npc : Character
 								var myModel = GetCharModel();
 
 								var currentCombatComp = myModel.GetComponent<CombatComponent>();
-								SetCombatComponent(currentCombatComp ?? myModel.AddComponent<CombatComponent>());
+								CombatComponent = currentCombatComp ?? myModel.AddComponent<CombatComponent>();
 
 								var currentMoveComp = myModel.GetComponent<MovementComponent>();
-								SetMoveComponent(currentMoveComp ?? myModel.AddComponent<MovementComponent>());
+								MovementComponent = currentMoveComp ?? myModel.AddComponent<MovementComponent>();
 
 								var currentDefs = myModel.GetComponent<Definition>();
 								if (currentDefs != null)

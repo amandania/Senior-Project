@@ -1,15 +1,13 @@
-﻿using UnityEngine;
-using Autofac;
-using Engine;
-using Serilog;
+﻿using Autofac;
+using DotNetty.Buffers;
 using DotNetty.Common.Internal.Logging;
-using Serilog.Extensions.Logging;
-using Engine.Interfaces;
+using DotNetty.Transport.Channels;
 using Engine.DataLoader;
 using Engine.Entity.pathfinding;
-using DotNetty.Transport.Channels;
-using DotNetty.Buffers;
+using Serilog;
+using Serilog.Extensions.Logging;
 using System.Threading.Tasks;
+using UnityEngine;
 
 /*NetworkManager*/
 /*
@@ -23,15 +21,16 @@ using System.Threading.Tasks;
 													Dependcies include all our Interafaces
 */
 
-public class NetworkManager : MonoBehaviour {
+public class NetworkManager : MonoBehaviour
+{
 
-				private IWorld m_world { get; set; }
+    public IWorld World { get; set; }
 
-				public static IChannel channel;
+    public static IChannel channel;
 
-				
-				/*void Start()*/
-				/*
+
+    /*void Start()*/
+    /*
 				NAME
 												Start()
 
@@ -43,34 +42,35 @@ public class NetworkManager : MonoBehaviour {
 												We also set our m_world to the registered single instance dependency of IWorld
 												Finally we resolve the container with the ServerBooter to execute our inital threads
 				*/
-				/*void Start()*/
-				void Start () {
-								var containerBuilder = new ContainerBuilder();
+    /*void Start()*/
+    private void Start()
+    {
+        var containerBuilder = new ContainerBuilder();
 
-								RegisterDependencies(containerBuilder);
+        RegisterDependencies(containerBuilder);
 
-								var container = containerBuilder.Build();
+        var container = containerBuilder.Build();
 
-								var loggerConfiguration = new LoggerConfiguration().WriteTo.Debug();
-								loggerConfiguration.MinimumLevel.Verbose();
-								var logger = loggerConfiguration.CreateLogger();
+        var loggerConfiguration = new LoggerConfiguration().WriteTo.Debug();
+        loggerConfiguration.MinimumLevel.Verbose();
+        var logger = loggerConfiguration.CreateLogger();
 
-								Log.Logger = logger;
+        Log.Logger = logger;
 
-								logger.Information("Loading: " + nameof(Start));
+        logger.Information("Loading: " + nameof(Start));
 
-								containerBuilder.RegisterInstance(logger).As<Serilog.ILogger>();
-            
-								//Setup Netty logger
-								InternalLoggerFactory.DefaultFactory.AddProvider(new SerilogLoggerProvider(logger));
-								
+        containerBuilder.RegisterInstance(logger).As<Serilog.ILogger>();
 
-								IWorld k = m_world;
-								container.TryResolve<IWorld>(out k);
-								m_world = k;
+        //Setup Netty logger
+        InternalLoggerFactory.DefaultFactory.AddProvider(new SerilogLoggerProvider(logger));
 
-								container.Resolve<ServerBooter>();
-				}
+
+        IWorld k = World;
+        container.TryResolve<IWorld>(out k);
+        World = k;
+
+        container.Resolve<ServerBooter>();
+    }
 
     private void RegisterDependencies(ContainerBuilder builder)
     {
@@ -88,7 +88,7 @@ public class NetworkManager : MonoBehaviour {
 
         builder.RegisterType<ChannelEventHandler>().SingleInstance();
         builder.RegisterType<ChannelPipeLineHandler>().As<IConnectionManager>().SingleInstance();
-								//builder.RegisterType<NPCMovement>().As<INPCMovement>().SingleInstance();
+        //builder.RegisterType<NPCMovement>().As<INPCMovement>().SingleInstance();
 
         //Extra
         builder.RegisterType<PacketHandler>().As<IPacketHandler>().SingleInstance();
@@ -97,35 +97,36 @@ public class NetworkManager : MonoBehaviour {
         builder.RegisterType<HandleMapLoaded>().As<IIncomingPackets>();
         builder.RegisterType<LoginResponsePacket>().As<IIncomingPackets>();
         builder.RegisterType<IdleRequest>().As<IIncomingPackets>();
-								//builder.RegisterType<InputKeyResponsePacket>().As<IIncomingPackets>();
-								builder.RegisterType<HandleLeftMouseClick>().As<IIncomingPackets>();
-								builder.RegisterType<HandleMovementInput>().As<IIncomingPackets>();
+        //builder.RegisterType<InputKeyResponsePacket>().As<IIncomingPackets>();
+        builder.RegisterType<HandleLeftMouseClick>().As<IIncomingPackets>();
+        builder.RegisterType<HandleMovementInput>().As<IIncomingPackets>();
         builder.RegisterType<HandleActionKeys>().As<IIncomingPackets>();
-								
+
     }
 
-				public async Task SendPacketToAll(IOutGoingPackets packet)
-				{
-								var buffer = Unpooled.Buffer();
-								buffer.WriteInt((int)packet.PacketType);
-								buffer.WriteBytes(packet.GetPacket());
+    public async Task SendPacketToAll(IOutGoingPackets packet)
+    {
+        var buffer = Unpooled.Buffer();
+        buffer.WriteInt((int)packet.PacketType);
+        buffer.WriteBytes(packet.GetPacket());
 
-								foreach (var player in m_world.Players)
-								{
-												if (player.m_session._channel.Active && player.m_session._channel.IsWritable)
-												{
-																await player.m_session.WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);
-												}
-								}
-				}
+        foreach (var player in World.Players)
+        {
+            if (player.Session._channel.Active && player.Session._channel.IsWritable)
+            {
+                await player.Session.WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);
+            }
+        }
+    }
 
-				// Update is called once per frame
-				void Update () {
-		
-				}
+    // Update is called once per frame
+    private void Update()
+    {
+
+    }
 
     private void OnApplicationQuit()
-    {   
+    {
         channel.CloseAsync();
     }
 }

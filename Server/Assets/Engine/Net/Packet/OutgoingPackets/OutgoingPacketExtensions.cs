@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 public static class OutgoingPacketExtensions
 {
-				public static Task SendToChannel(this IByteBuffer buffer, IChannel channel)
-				{
-								return channel.WriteAndFlushAsync(buffer);
-				}
+    public static Task SendToChannel(this IByteBuffer buffer, IChannel channel)
+    {
+        return channel.WriteAndFlushAsync(buffer);
+    }
 }

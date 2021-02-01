@@ -7,7 +7,7 @@
     Ctrl,
     Shift,
     Tab,
-				LeftMouseButton,
+    LeftMouseButton,
     //every key above count
     Count
 }

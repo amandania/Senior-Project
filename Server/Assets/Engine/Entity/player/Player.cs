@@ -1,60 +1,53 @@
-﻿using Engine.Interfaces;
-
-public class Player : Character
+﻿public class Player : Character
 {
-    public PlayerSession m_session { get; set; }
+    public PlayerSession Session { get; set; }
 
-				private readonly IWorld m_world;
-				private string m_username { get; set; }
-				private string m_password { get; }
-				private bool m_isSprinting { get; set; } = false;
+    private readonly IWorld m_world;
+    private string Username { get; set; }
+    private string Password { get; }
+    private bool Sprinting { get; set; } = false;
 
     public Player(PlayerSession session, IWorld world)
     {
-        m_session = session;
         m_world = world;
-								m_password = "";
-								m_username = "";
-								m_isSprinting = false;
+        Session = session;
+        Password = "";
+        Username = "";
+        Sprinting = false;
     }
 
-    public void Process()
+    public string GetUserName()
     {
-
+        return Username;
+    }
+    public void SetUserName(string a_user)
+    {
+        Username = a_user;
+    }
+    public string GetPassword()
+    {
+        return Password;
     }
 
-				public string GetUserName()
-				{
-								return m_username;
-				}
-				public void SetUserName(string a_user)
-				{
-								m_username = a_user;
-				}
-				public string GetPassword()
-				{
-								return m_password;
-				}
+    public bool IsSprinting()
+    {
+        return Sprinting;
+    }
 
-				public bool IsSprinting()
-				{
-								return m_isSprinting;
-				}
+    public void SetSprinting(bool a_active)
+    {
+        Sprinting = a_active;
+    }
 
-				public void SetSprinting(bool a_active)
-				{
-								m_isSprinting = a_active;
-				}
+    public void SetupGameModel()
+    {
+        var myModel = GetCharModel();
 
-				public void SetupGameModel()
-				{
-								var myModel = GetCharModel();
+        var currentCombatComp = myModel.GetComponent<CombatComponent>();
+        CombatComponent = currentCombatComp ?? myModel.AddComponent<CombatComponent>();
 
-								var currentCombatComp = myModel.GetComponent<CombatComponent>();
-								SetCombatComponent(currentCombatComp == null ? myModel.AddComponent<CombatComponent>() : currentCombatComp);
+        var currentMoveComp = myModel.GetComponent<MovementComponent>();
+        MovementComponent = currentMoveComp ?? myModel.AddComponent<MovementComponent>();
+    }
 
-								var currentMoveComp = myModel.GetComponent<MovementComponent>();
-								SetMoveComponent(currentMoveComp == null ? myModel.AddComponent<MovementComponent>() : currentMoveComp);
-				}
-				
 }

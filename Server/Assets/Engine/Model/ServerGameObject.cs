@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ServerGameObject {
+public class ServerGameObject
+{
 
     public int ObjectId { get; set; }
     public Vector3 Position { get; set; }
@@ -12,7 +11,7 @@ public class ServerGameObject {
     public float Radius { get; set; }
     public float Height { get; set; }
 
-	public ServerGameObject(int objectId, Vector3 position, Vector3 size, int colliderType)
+    public ServerGameObject(int objectId, Vector3 position, Vector3 size, int colliderType)
     {
         ObjectId = objectId;
         Position = position;

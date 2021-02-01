@@ -1,7 +1,6 @@
 ﻿using DotNetty.Buffers;
 using DotNetty.Common.Utilities;
 using DotNetty.Transport.Channels;
-using Engine.Interfaces;
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -10,20 +9,20 @@ public class ChannelEventHandler : SimpleChannelInboundHandler<IByteBuffer>
 {
 
     public static AttributeKey<PlayerSession> SESSION_KEY = AttributeKey<PlayerSession>.ValueOf("sessions.key");
-    private readonly IPacketHandler _packetHandler;
-    private readonly IWorld _world;
+    private readonly IPacketHandler m_packetHandler;
+    private readonly IWorld m_world;
 
     public override bool IsSharable => true;
 
-    public ChannelEventHandler(IPacketHandler packetHandler, IWorld world)
+    public ChannelEventHandler(IPacketHandler a_packetHandler, IWorld a_world)
     {
-        _packetHandler = packetHandler;
-        _world = world;
+        m_packetHandler = a_packetHandler;
+        m_world = a_world;
     }
 
-    public override void ChannelRegistered(IChannelHandlerContext context)
+    public override void ChannelRegistered(IChannelHandlerContext a_context)
     {
-        PlayerSession session = context.Channel.GetAttribute(SESSION_KEY).Get();
+        PlayerSession session = a_context.Channel.GetAttribute(SESSION_KEY).Get();
         try
         {
             Debug.Log(session._player.GetGuid() + " has registered"); 
@@ -34,39 +33,39 @@ public class ChannelEventHandler : SimpleChannelInboundHandler<IByteBuffer>
         }
     }
 
-    public override void ChannelUnregistered(IChannelHandlerContext context)
+    public override void ChannelUnregistered(IChannelHandlerContext a_context)
     {
-        PlayerSession session = context.Channel.GetAttribute(SESSION_KEY).Get();
+        PlayerSession session = a_context.Channel.GetAttribute(SESSION_KEY).Get();
 
         if (session != null)
         {
             session.SendPacket(new SendLogout(session._player));
-												_world.RemoveWorldCharacter(session._player);
+												m_world.RemoveWorldCharacter(session._player);
             session._channel.CloseAsync();
             Debug.Log("Deregistered: " + session._player.GetGuid());
         }
     }
 
-    public override void ChannelReadComplete(IChannelHandlerContext context)
+    public override void ChannelReadComplete(IChannelHandlerContext a_context)
     {
-        context.Flush();
-        base.ChannelReadComplete(context);
+        a_context.Flush();
+        base.ChannelReadComplete(a_context);
     }
 
-    public override void ChannelInactive(IChannelHandlerContext context)
+    public override void ChannelInactive(IChannelHandlerContext a_context)
     {
         Debug.Log("inactive.");
     }
 
-    protected override void ChannelRead0(IChannelHandlerContext context, IByteBuffer message)
+    protected override void ChannelRead0(IChannelHandlerContext a_context, IByteBuffer a_message)
     {
         try
         {
-            PlayerSession session = context.Channel.GetAttribute(SESSION_KEY).Get();
+            PlayerSession session = a_context.Channel.GetAttribute(SESSION_KEY).Get();
 
             if (session != null)
             {
-                var copiedBuffer = Unpooled.CopiedBuffer(message);
+                var copiedBuffer = Unpooled.CopiedBuffer(a_message);
                 Task.Run(async () =>
                 {
                     int packetId = copiedBuffer.ReadInt();
@@ -82,14 +81,14 @@ public class ChannelEventHandler : SimpleChannelInboundHandler<IByteBuffer>
     }
 
 
-    private Task HandleData(Player player, int packetId, IByteBuffer data)
+    private Task HandleData(Player a_player, int a_packetId, IByteBuffer a_data)
     {
-        return _packetHandler.GetPacketForType((IncomingPackets)packetId)?.ExecutePacket(player, data);
+        return m_packetHandler.GetPacketForType((IncomingPackets)a_packetId)?.ExecutePacket(a_player, a_data);
     }
 
-    public override void ExceptionCaught(IChannelHandlerContext context, Exception exception)
+    public override void ExceptionCaught(IChannelHandlerContext a_context, Exception a_exception)
     {
-        Debug.Log("Exception: " + exception);
-        context.CloseAsync();
+        Debug.Log("Exception: " + a_exception);
+        a_context.CloseAsync();
     }
 }
