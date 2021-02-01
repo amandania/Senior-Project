@@ -1,5 +1,4 @@
 ﻿using DotNetty.Common.Utilities;
-using Engine.Interfaces;
 
 public interface IPacketHandler
 {

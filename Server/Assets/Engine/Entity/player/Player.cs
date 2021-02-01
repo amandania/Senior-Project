@@ -44,10 +44,10 @@
         var myModel = GetCharModel();
 
         var currentCombatComp = myModel.GetComponent<CombatComponent>();
-        SetCombatComponent(currentCombatComp == null ? myModel.AddComponent<CombatComponent>() : currentCombatComp);
+        CombatComponent = currentCombatComp ?? myModel.AddComponent<CombatComponent>();
 
         var currentMoveComp = myModel.GetComponent<MovementComponent>();
-        SetMoveComponent(currentMoveComp == null ? myModel.AddComponent<MovementComponent>() : currentMoveComp);
+        MovementComponent = currentMoveComp ?? myModel.AddComponent<MovementComponent>();
     }
 
 }

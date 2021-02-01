@@ -4,7 +4,6 @@ using DotNetty.Common.Internal.Logging;
 using DotNetty.Transport.Channels;
 using Engine.DataLoader;
 using Engine.Entity.pathfinding;
-using Engine.Interfaces;
 using Serilog;
 using Serilog.Extensions.Logging;
 using System.Threading.Tasks;

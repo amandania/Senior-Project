@@ -1,5 +1,4 @@
 ﻿using DotNetty.Buffers;
-using Engine.Interfaces;
 using System;
 using System.Text;
 using UnityEngine;
@@ -27,22 +26,22 @@ public class SendMoveCharacter : IOutGoingPackets
         buffer.WriteString(guid, Encoding.Default);
 
 
-        Vector3 charOldPos = m_character.GetOldPosition();
+        Vector3 charOldPos = m_character.OldPosition;
         buffer.WriteFloat(charOldPos.x);
         buffer.WriteFloat(charOldPos.y);
         buffer.WriteFloat(charOldPos.z);
 
-        Vector3 oldRotation = m_character.GetOldRotation();
+        Vector3 oldRotation = m_character.OldRotation;
         buffer.WriteFloat(oldRotation.x);
         buffer.WriteFloat(oldRotation.y);
         buffer.WriteFloat(oldRotation.z);
 
-        Vector3 currentPos = m_character.GetPosition();
+        Vector3 currentPos = m_character.Position;
         buffer.WriteFloat(currentPos.x);
         buffer.WriteFloat(currentPos.y);
         buffer.WriteFloat(currentPos.z);
 
-        Vector3 currentRotation = m_character.GetRotation();
+        Vector3 currentRotation = m_character.Rotation;
         buffer.WriteFloat(currentRotation.x);
         buffer.WriteFloat(currentRotation.y);
         buffer.WriteFloat(currentRotation.z);

@@ -1,5 +1,4 @@
-﻿using Engine.Interfaces;
-using UnityEngine;
+﻿using UnityEngine;
 using static Engine.Entity.pathfinding.PathFinding;
 
 public interface IPathFinding

@@ -1,21 +1,20 @@
 ﻿using DotNetty.Buffers;
-using Engine.Interfaces;
 using System.Text;
 
 public class SendLogout : IOutGoingPackets
 {
     public OutGoingPackets PacketType => OutGoingPackets.SEND_LOGOUT;
 
-    private Player _player;
+    private readonly Player m_player;
 
     public SendLogout(Player player)
     {
-        _player = player;
+        m_player = player;
     }
 
     public IByteBuffer GetPacket()
     {
-        string guid = _player.GetGuid().ToString();
+        string guid = m_player.GetGuid().ToString();
 
         var buffer = Unpooled.Buffer();
 

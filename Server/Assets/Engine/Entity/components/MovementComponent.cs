@@ -81,11 +81,11 @@ public class MovementComponent : MonoBehaviour
         float turnAmount = Mathf.Atan2(rotation.x, rotation.z);
         float rotateAngle = turnAmount * RotationSpeed * Time.deltaTime;
 
-								//Debug.Log("moveVector Speed: " + a_moveVector.magnitude);
+        //Debug.Log("moveVector Speed: " + a_moveVector.magnitude);
 
-						
-        Character.SetOldPosition(Character.GetPosition());
-								Character.SetOldRotation(Character.GetRotation());
+
+        Character.OldRotation = Character.Position;
+        Character.OldRotation = Character.OldRotation;
 
         PlayerObj.transform.Rotate(0, rotateAngle, 0);
 
@@ -103,8 +103,8 @@ public class MovementComponent : MonoBehaviour
         CharacterController.Move(a_moveVector);
 
 								Transform plrTransform = PlayerObj.transform;
-								Character.SetPosition(plrTransform.position);
-								Character.SetRotation(plrTransform.rotation.eulerAngles);
+								Character.Position = plrTransform.position;
+								Character.Rotation = plrTransform.rotation.eulerAngles;
 
 								Network.SendPacketToAll(new SendMoveCharacter(Character, moveSpeed)).ConfigureAwait(false);
 

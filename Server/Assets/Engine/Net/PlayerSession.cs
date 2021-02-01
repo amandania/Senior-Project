@@ -1,6 +1,5 @@
 ﻿using DotNetty.Buffers;
 using DotNetty.Transport.Channels;
-using Engine.Interfaces;
 using System.Linq;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -28,8 +27,8 @@ public class PlayerSession
             var transform = _world.SpawnTransform;
             pos = transform.position;
             rot = transform.rotation.eulerAngles;
-            _player.SetPosition(pos);
-            _player.SetRotation(rot);
+            _player.Position = pos;
+            _player.Rotation = rot;
         });
     }
 
