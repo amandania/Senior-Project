@@ -10,7 +10,7 @@ public class Character
 
     public Vector3 Rotation { get; set; }
     public Vector3 OldRotation { get; set; }
-    
+
     public MovementComponent MovementComponent { get; set; }
     public CombatComponent CombatComponent { get; set; }
 
@@ -53,7 +53,7 @@ public class Character
     {
         return this as Npc;
     }
-    
+
     public MovementState GetMoveState()
     {
         if (MovementComponent != null)
