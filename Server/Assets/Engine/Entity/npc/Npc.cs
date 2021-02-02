@@ -29,17 +29,24 @@ public class Npc : Character
 				{
 								var myModel = GetCharModel();
 
-								var currentCombatComp = myModel.GetComponent<CombatComponent>();
-								CombatComponent = currentCombatComp ?? myModel.AddComponent<CombatComponent>();
+								var currentDefs = myModel.GetComponent<Definition>();
+
+        if (currentDefs != null)
+        {
+            SetDefinition(currentDefs);
+        }
+
+        var currentCombatComp = myModel.GetComponent<CombatComponent>();
+        SetCombatComponent(currentCombatComp ?? myModel.AddComponent<CombatComponent>());
+
+        CombatComponent.AttackDistance = m_defs.AttackDistance;
+        CombatComponent.AttackRate = m_defs.AttackRate;
+
 
 								var currentMoveComp = myModel.GetComponent<MovementComponent>();
-								MovementComponent = currentMoveComp ?? myModel.AddComponent<MovementComponent>();
+								SetMoveComponent(currentMoveComp ?? myModel.AddComponent<MovementComponent>());
 
-								var currentDefs = myModel.GetComponent<Definition>();
-								if (currentDefs != null)
-								{
-												SetDefinition(currentDefs);
-								}
+								
 				}
 
 }

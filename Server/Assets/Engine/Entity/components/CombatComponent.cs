@@ -4,22 +4,23 @@ using UnityEngine;
 public class CombatComponent : MonoBehaviour
 {
     private readonly NetworkManager Network; // Access main game network to send potential packets
+    private float m_currentDistanceToAttack;
 
-    public Character Character { get; set; } // Gameobject character owner set during compoent addition/set
-
-    public int AttackDistance { get; set; } = 5; // Required distance to perform attack
-    public int AttackRate { get; set; } = 2; // Default: every 2 seconds we can attack 
-
-    [Header("Combat Data")]
+    [Header("Combat Target Data")]
     public Character TargetCharacter; // Current Main Target, (doesnt neccarily have to be used with Attack(Character))
     public Transform TargetTransform;
 
-    private float DistanceToAttack;
+
+    public Character Character { get; set; } // Gameobject character owner set during compoent addition/set
+    public int AttackDistance { get; set; } = 5; // Required distance to perform attack
+    public int AttackRate { get; set; } = 2; // Default: every 2 seconds we can attack 
+
 
     private Stopwatch AttackStopwatch { get; set; } = new Stopwatch(); // We start it at 2 because this is required attack rate
 
     private void Awake()
     {
+
     }
 
     private void Update()
@@ -46,7 +47,7 @@ public class CombatComponent : MonoBehaviour
 
     public bool CanAttack(Character target)
     {
-        if (!WithinAttackDistance(target.GetCharModel().transform.position, out DistanceToAttack))
+        if (!WithinAttackDistance(target.GetCharModel().transform.position, out m_currentDistanceToAttack))
         {
             return false;
         }
@@ -65,4 +66,5 @@ public class CombatComponent : MonoBehaviour
     {
         return TargetCharacter;
     }
+    
 }

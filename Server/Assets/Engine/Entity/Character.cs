@@ -10,7 +10,7 @@ public class Character
 
     public Vector3 Rotation { get; set; }
     public Vector3 OldRotation { get; set; }
-
+    
     public MovementComponent MovementComponent { get; set; }
     public CombatComponent CombatComponent { get; set; }
 
@@ -54,6 +54,46 @@ public class Character
         return this as Npc;
     }
 
+    public Vector3 GetOldPosition()
+    {
+        return OldPosition;
+    }
+
+    public void SetOldPosition(Vector3 position)
+    {
+        OldPosition = position;
+    }
+
+    public Vector3 GetPosition()
+    {
+        return Position;
+    }
+
+    public void SetPosition(Vector3 position)
+    {
+        Position = position;
+    }
+
+    public Vector3 GetOldRotation()
+    {
+        return OldPosition;
+    }
+
+    public void SetOldRotation(Vector3 a_rotation)
+    {
+        OldRotation = a_rotation;
+    }
+
+    public Vector3 GetRotation()
+    {
+        return Rotation;
+    }
+
+    public void SetRotation(Vector3 a_rotation)
+    {
+        Rotation = a_rotation;
+    }
+
     public MovementState GetMoveState()
     {
         if (MovementComponent != null)
@@ -69,6 +109,25 @@ public class Character
         {
             MovementComponent.State = moveState;
         }
+    }
+
+    public MovementComponent GetMovementComponent()
+    {
+        return MovementComponent;
+    }
+
+    public void SetMoveComponent(MovementComponent a_comp)
+    {
+        a_comp.Character = this;
+        MovementComponent = a_comp;
+    }
+
+    public void SetCombatComponent(CombatComponent a_comp)
+    {
+        a_comp.Character = this;
+        CombatComponent = a_comp;
+
+        //reload combat defs
     }
 
     public GameObject GetCharModel()
