@@ -345,7 +345,6 @@ C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\DotNetty.Handlers.dl
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\DotNetty.Transport.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Microsoft.CSharp.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Microsoft.Extensions.Logging.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Microsoft.Win32.Primitives.dll
@@ -353,9 +352,6 @@ C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\mscorlib.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\netstandard.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\nunit.framework.dll
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Serilog.dll
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Serilog.Extensions.Logging.dll
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Serilog.Sinks.Debug.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\SyntaxTree.VisualStudio.Unity.Bridge.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\System.AppContext.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\System.Buffers.dll
@@ -418,7 +414,6 @@ C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\System.Numerics.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\System.Numerics.Vectors.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\System.ObjectModel.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\System.Reactive.Interfaces.dll
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\System.Reactive.Linq.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\System.Reflection.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\System.Reflection.Emit.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\System.Reflection.Emit.ILGeneration.dll
@@ -612,7 +607,6 @@ C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.WindModu
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.XRModule.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\nunit.framework.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEditor.VR.xml
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Microsoft.Extensions.DependencyInjection.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\System.Buffers.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\System.Memory.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp-Editor.csprojAssemblyReference.cache
@@ -670,4 +664,3 @@ C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.TextCore
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.UnityTestProtocolModule.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.VFXModule.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\nunit.framework.pdb
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Assembly-CSharp.pdb
