@@ -1,21 +1,21 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using System;
 
 public class Definition : MonoBehaviour
 {
-				public string Name;
-				public Image DisplayImageName;
 
-				// Use this for initialization
-				void Start()
-				{
+    [Header("Model Defs")]
+    public string ModelName;
+    public string DisplayName;
 
-				}
+    [Header("Combat Defs")]
+    public int AttackDistance;
+    public int AttackRate;
 
-				// Update is called once per frame
-				void Update()
-				{
+    [Header("Sprite Data")]
+    public Image DisplayImageName;
+    
 
-				}
 }
