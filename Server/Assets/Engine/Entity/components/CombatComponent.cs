@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
 
 public class CombatComponent : MonoBehaviour
@@ -35,6 +36,7 @@ public class CombatComponent : MonoBehaviour
     {
         Network = GameObject.Find("WorldManager").GetComponent<NetworkManager>() as NetworkManager;
         MyAnimator = GetComponent<Animator>();
+        AttackStopwatch.Start();
     }
     private void Update()
     {
@@ -58,13 +60,14 @@ public class CombatComponent : MonoBehaviour
         {
             return;
         }
+       
         if (AttackStopwatch.Elapsed.Seconds < AttackRate)
         {
             UnityEngine.Debug.Log("Cannot attack" + AttackStopwatch.Elapsed.Seconds);
             return;
         }
 
-        PerformAttack(transform.forward + DefaultForwardAttack);
+        PerformAttack(transform.position + (transform.forward + DefaultForwardAttack));
     }
 
     /*void Attack(Vector3 TargetPosition)*/
@@ -123,18 +126,25 @@ public class CombatComponent : MonoBehaviour
         }
         Vector3 distanceVector = (targetPosition - Character.Position);
 
+        
+        //dash to the target 
 
-        transform.LookAt(targetPosition);
-        var forwardDistance = 15;
+        /*UnityEngine.Debug.Log("Do dashbefore loop");
+        float startTime = Time.time; // need to remember this to know how long to dash
+        while (Time.time < startTime + 20f)
+        {
+            transform.Translate(transform.forward * 200 * Time.deltaTime);
+            UnityEngine.Debug.Log("Do dash");
+            // or controller.Move(...), dunno about that script
+        }
+        UnityEngine.Debug.Log("Do dash after loop");*/
 
         //Network.SendPacketToAll(new SendCharacterForce(Character, 0, 0, forwardDistance, ForceMode.Impulse)).ConfigureAwait(false);
         //Network.SendPacketToAll(new SendCharacterCombatStage(Character, CurrentAttackCombo)).ConfigureAwait(false);
 
 
-        Character.MovementComponent.ApplyRigidForceMove(0, 0, forwardDistance, ForceMode.Impulse);
         UnityEngine.Debug.Log("Perform attack");
     }
-
 
     public void ApplyHit(Character attacker)
     {

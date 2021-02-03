@@ -45,13 +45,13 @@ public class MovementComponent : MonoBehaviour
     //apply any physics things like Force in here
     private void FixedUpdate()
     {
-
     }
 
     // Update is called once per frame
     private void Update()
     {
 
+       //CharacterController.Move(new Vector3(0,0,1));
     }
 
     public void Move(Vector3 a_moveVector)
@@ -71,8 +71,7 @@ public class MovementComponent : MonoBehaviour
             State = MovementState.MOVING;
             moveSpeed = a_moveVector.magnitude;
         }
-
-        if (a_moveVector.magnitude > 1f) a_moveVector.Normalize();
+        
         Vector3 rotation = PlayerObj.transform.InverseTransformDirection(a_moveVector);
 
         float turnAmount = Mathf.Atan2(rotation.x, rotation.z);
@@ -106,9 +105,5 @@ public class MovementComponent : MonoBehaviour
         Network.SendPacketToAll(new SendMoveCharacter(Character, moveSpeed)).ConfigureAwait(false);
         //.SendPacketToAll(new SendMoveCharacter(m_character, moveSpeed)).ConfigureAwait(false);
     }
-
-    public void ApplyRigidForceMove(float x, float y, float z, ForceMode mode)
-    {
-        GetComponent<Rigidbody>().AddForce(x,y,z, mode);
-    }
+    
 }
