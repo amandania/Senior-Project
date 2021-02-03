@@ -15,9 +15,20 @@ public class HandleLeftMouseClick : IIncomingPackets
 
     public Task ExecutePacket(Player player, IByteBuffer data)
     {
-        Vector3 clickPosition = new Vector3(data.ReadFloat(), data.ReadFloat(), data.ReadFloat());
-
-        Debug.Log("Player is doing a click  on screen world pos: " + clickPosition);
+        Debug.Log("incoming player left click");
+        if (player.MenuOpen)
+        {
+           //possibly a ui click
+           
+        } else
+        {
+            Debug.Log("perform attack");
+            // has to be attack input
+            UnityMainThreadDispatcher.Instance().Enqueue(() =>
+            {
+                player.CombatComponent.Attack();
+            });
+        }
         return Task.CompletedTask;
     }
 

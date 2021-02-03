@@ -8,16 +8,27 @@ public class PlayerCamera : MonoBehaviour
 
     public int mouseButton = 1; // right button by default
 
+    public bool lockCamera;
+    public float xMouseSensitivity = 3f;
+    public float yMouseSensitivity = 3f;
+    public float yMinLimit = -40f;
+    public float yMaxLimit = 80f;
     public float distance = 20;
     public float minDistance = 3;
     public float maxDistance = 20;
 
     public float zoomSpeedMouse = 1;
     public float zoomSpeedTouch = 0.2f;
-    public float rotationSpeed = 2;
+    public float rotationSpeed = 5f;
 
     public float xMinAngle = -40;
     public float xMaxAngle = 80;
+
+
+    private float mouseY = 0f;
+    private float mouseX = 0f;
+    private float xMinLimit = -360f;
+    private float xMaxLimit = 360f;
 
     // the target position can be adjusted by an offset in order to foucs on a
     // target's head for example
@@ -37,9 +48,17 @@ public class PlayerCamera : MonoBehaviour
     {
         rotation = transform.eulerAngles;
     }
+    private void Update()
+    {
+        if (!target)
+        {
+            return;
+        }
+    }
 
     void LateUpdate()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         if (!target)
             return;
         if (lookPoint != null)
@@ -61,19 +80,12 @@ public class PlayerCamera : MonoBehaviour
         }
         else
         {
+            rotation.y += Input.GetAxis("Mouse X") * rotationSpeed;
+            rotation.x -= Input.GetAxis("Mouse Y") * rotationSpeed;
+            rotation.x = Mathf.Clamp(rotation.x, xMinAngle, xMaxAngle);
+            transform.rotation = Quaternion.Euler(rotation.x, rotation.y, 0);
             if (Input.mousePresent)
             {
-                if (Input.GetMouseButton(mouseButton))
-                {
-                    // note: mouse x is for y rotation and vice versa
-                    rotation.y += Input.GetAxis("Mouse X") * rotationSpeed;
-                    rotation.x -= Input.GetAxis("Mouse Y") * rotationSpeed;
-                    rotation.x = Mathf.Clamp(rotation.x, xMinAngle, xMaxAngle);
-                    transform.rotation = Quaternion.Euler(rotation.x, rotation.y, 0);
-                }
-
-
-                //(click to move)
                 if (Input.GetMouseButtonDown(0))
                 {
                     Ray ray = GameObject.Find("Camera-Id: " + NetworkManager.instance.myIndex + "(Clone)").GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
@@ -84,7 +96,6 @@ public class PlayerCamera : MonoBehaviour
 
                     }
                 }
-
             }
             else
             {
@@ -97,7 +108,7 @@ public class PlayerCamera : MonoBehaviour
         float speed = Input.mousePresent ? zoomSpeedMouse : zoomSpeedTouch;
         float step = Utils.GetZoomUniversal() * speed;
         distance = Mathf.Clamp(distance - step, minDistance, maxDistance);
-      
+
 
         // target follow
         transform.position = targetPos - (transform.rotation * Vector3.forward * distance);
@@ -112,5 +123,18 @@ public class PlayerCamera : MonoBehaviour
             // set the final cam position
             transform.position = targetPos - (transform.rotation * Vector3.forward * d);
         }
+    }
+
+    public float ClampAngle(float angle, float min, float max)
+    {
+        do
+        {
+            if (angle < -360)
+                angle += 360;
+            if (angle > 360)
+                angle -= 360;
+        } while (angle < -360 || angle > 360);
+
+        return Mathf.Clamp(angle, min, max);
     }
 }

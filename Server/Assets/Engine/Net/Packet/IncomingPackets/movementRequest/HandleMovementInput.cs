@@ -27,6 +27,9 @@ public class HandleMovementInput : IIncomingPackets
 
                 if (moveComponent != null)
                 {
+                    if (moveVector.magnitude > 1f)
+                        moveVector.Normalize();
+
                     moveComponent.Move(moveVector);
                 }
                 //Debug.Log("has controller?" + character.ControllerComponent);

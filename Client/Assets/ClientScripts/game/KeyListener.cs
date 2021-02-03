@@ -75,16 +75,8 @@ public class KeyListener : MonoBehaviour {
 				{
 								var mouseButton1Down = Input.GetMouseButtonDown(0);
 								if (mouseButton1Down && !EventSystem.current.IsPointerOverGameObject()) {
-												Plane playerPlane = new Plane(Vector3.up, this.gameObject.transform.position);
-												Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-												float hitdist = 20.0f;
-												if (playerPlane.Raycast(ray, out hitdist))
-												{
-																Vector3 targetPoint = ray.GetPoint(hitdist);
-																Debug.Log("Clicked target: " +  targetPoint);
-																//Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
-																NetworkManager.instance.SendPacket(new SendMouseLeftClick(targetPoint).CreatePacket());
-												}
+            Debug.Log("mouse clicked");
+										  NetworkManager.instance.SendPacket(new SendMouseLeftClick().CreatePacket());
 								}	
 
 								if (keys.Count > 0)

@@ -23,7 +23,7 @@ public class MovementComponent : MonoBehaviour
     [Header("Movement Data")]
     public MovementState State = MovementState.IDLE;
     public float RotationSpeed = 220.0f;
-    public float MovementSpeed = 3.0f;
+    public float MovementSpeed = 7.0f;
     public float JumpSpeed = 7.0f;
     public float Gravity = 500.0f;
 
@@ -45,13 +45,13 @@ public class MovementComponent : MonoBehaviour
     //apply any physics things like Force in here
     private void FixedUpdate()
     {
-
     }
 
     // Update is called once per frame
     private void Update()
     {
 
+       //CharacterController.Move(new Vector3(0,0,1));
     }
 
     public void Move(Vector3 a_moveVector)
@@ -61,7 +61,6 @@ public class MovementComponent : MonoBehaviour
         {
             return;
         }
-        IsControlledMovement = true;
         float moveSpeed = 0f;
         if (a_moveVector.magnitude <= 0)
         {
@@ -70,18 +69,9 @@ public class MovementComponent : MonoBehaviour
         else
         {
             State = MovementState.MOVING;
-            if (Character.IsPlayer())
-            {
-                var characterAsPlayer = Character as Player;
-                moveSpeed = a_moveVector.magnitude / (characterAsPlayer.IsSprinting() ? 1 : 2);
-            }
-            else
-            {
-                moveSpeed = a_moveVector.magnitude;
-            }
+            moveSpeed = a_moveVector.magnitude;
         }
-
-        if (a_moveVector.magnitude > 1f) a_moveVector.Normalize();
+        
         Vector3 rotation = PlayerObj.transform.InverseTransformDirection(a_moveVector);
 
         float turnAmount = Mathf.Atan2(rotation.x, rotation.z);
@@ -113,12 +103,7 @@ public class MovementComponent : MonoBehaviour
         Character.Rotation = plrTransform.rotation.eulerAngles;
 
         Network.SendPacketToAll(new SendMoveCharacter(Character, moveSpeed)).ConfigureAwait(false);
-        IsControlledMovement = false;
         //.SendPacketToAll(new SendMoveCharacter(m_character, moveSpeed)).ConfigureAwait(false);
     }
-
-    public void ApplyRigidForceMove(float x, float y, float z, ForceMode mode)
-    {
-        GetComponent<Rigidbody>().AddForce(x,y,z, mode);
-    }
+    
 }

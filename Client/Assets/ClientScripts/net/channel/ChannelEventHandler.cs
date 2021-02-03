@@ -41,11 +41,9 @@ namespace Assets.ClientScripts.net.channel
             {
                 { (int)IncomingPackets.HANDLE_LOGIN_RESPONSE, new HandleLoginResponse() },
                 { (int)IncomingPackets.HANDLE_MOVE_CHARACTER, new HandleMoveCharacter() },
-                { (int)IncomingPackets.HANDLE_PLAYER_ANIMATION, new HandlePlayerAnimation() },
-                { (int)IncomingPackets.HANDLE_SPAWN_WORLD_NPCS, new HandleWorldNpcSpawns() },
-                { (int)IncomingPackets.HANDLE_MOVE_NPC, new HandleMoveNpc()},
                 { (int)IncomingPackets.HANDLE_SPAWN_PLAYER, new HandleSpawnPlayer() },
                 { (int)IncomingPackets.HANDLE_LOGOUT, new HandleLogout() },
+                { (int)IncomingPackets.HANDLE_TRIGGER_COMABT, new HandleTriggerCombat() },
             };
         }
         
