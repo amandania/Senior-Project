@@ -58,6 +58,7 @@ public class CombatComponent : MonoBehaviour
     {
         if (Character == null)
         {
+            UnityEngine.Debug.Log("no character");
             return;
         }
        
@@ -66,8 +67,9 @@ public class CombatComponent : MonoBehaviour
             UnityEngine.Debug.Log("Cannot attack" + AttackStopwatch.Elapsed.Seconds);
             return;
         }
+        var defaultTargetDistance = transform.position + (transform.forward + DefaultForwardAttack);
 
-        PerformAttack(transform.position + (transform.forward + DefaultForwardAttack));
+        PerformAttack(defaultTargetDistance);
     }
 
     /*void Attack(Vector3 TargetPosition)*/
@@ -118,6 +120,7 @@ public class CombatComponent : MonoBehaviour
     public void PerformAttack(Vector3 targetPosition)
     {
         AttackStopwatch.Reset();
+        AttackStopwatch.Start();
         CurrentAttackCombo += 1;
 
         if (CurrentAttackCombo > MaxCombos)
@@ -125,27 +128,19 @@ public class CombatComponent : MonoBehaviour
             CurrentAttackCombo = 1;
         }
         Vector3 distanceVector = (targetPosition - Character.Position);
-
-        
-        //dash to the target 
-
-        /*UnityEngine.Debug.Log("Do dashbefore loop");
-        float startTime = Time.time; // need to remember this to know how long to dash
-        while (Time.time < startTime + 20f)
-        {
-            transform.Translate(transform.forward * 200 * Time.deltaTime);
-            UnityEngine.Debug.Log("Do dash");
-            // or controller.Move(...), dunno about that script
-        }
-        UnityEngine.Debug.Log("Do dash after loop");*/
-
-        //Network.SendPacketToAll(new SendCharacterForce(Character, 0, 0, forwardDistance, ForceMode.Impulse)).ConfigureAwait(false);
-        //Network.SendPacketToAll(new SendCharacterCombatStage(Character, CurrentAttackCombo)).ConfigureAwait(false);
-
-
-        UnityEngine.Debug.Log("Perform attack");
+        Network.SendPacketToAll(new SendCharacterCombatStage(Character, CurrentAttackCombo)).ConfigureAwait(false);
+        StartCoroutine(HandleDash((distanceVector.magnitude < 20 ? distanceVector.magnitude : 20)));
     }
-
+    private IEnumerator HandleDash(float DashDistance)
+    {
+        float startTime = Time.time;
+        while(Time.time < startTime + .25)
+        {
+            Character.MovementComponent.CharacterController.Move(transform.forward * DashDistance * Time.deltaTime);
+            yield return null;
+        }
+        yield return null;
+    }
     public void ApplyHit(Character attacker)
     {
         LastAttackRecieved.Reset();

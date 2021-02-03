@@ -24,7 +24,10 @@ public class HandleLeftMouseClick : IIncomingPackets
         {
             Debug.Log("perform attack");
             // has to be attack input
-            player.CombatComponent.Attack();
+            UnityMainThreadDispatcher.Instance().Enqueue(() =>
+            {
+                player.CombatComponent.Attack();
+            });
         }
         return Task.CompletedTask;
     }
