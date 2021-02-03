@@ -11,6 +11,8 @@ public class MovementComponent : MonoBehaviour
 
     private NetworkManager Network { get; set; }
 
+    private bool IsControlledMovement { get; set; } = false;
+
     //Pathfinding data
     public NavMeshAgent NavAgent { get; set; }
     public Vector3 PathGoal { get; set; }
@@ -52,11 +54,12 @@ public class MovementComponent : MonoBehaviour
 
     public void Move(Vector3 a_moveVector)
     {
+
         if (CharacterController == null)
         {
             return;
         }
-
+        IsControlledMovement = true;
         float moveSpeed = 0f;
         if (a_moveVector.magnitude <= 0)
         {
@@ -108,7 +111,7 @@ public class MovementComponent : MonoBehaviour
         Character.Rotation = plrTransform.rotation.eulerAngles;
 
         Network.SendPacketToAll(new SendMoveCharacter(Character, moveSpeed)).ConfigureAwait(false);
-
+        IsControlledMovement = false;
         //.SendPacketToAll(new SendMoveCharacter(m_character, moveSpeed)).ConfigureAwait(false);
     }
 

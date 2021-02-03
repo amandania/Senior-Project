@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-public class SendAnimatorChange<T> : IOutGoingPackets
+public class SendAnimatorChange : IOutGoingPackets
 {
     public OutGoingPackets PacketType => OutGoingPackets.SEND_ANIMATION;
 
