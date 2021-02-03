@@ -67,9 +67,17 @@ public class CombatComponent : MonoBehaviour
         }
         Vector3 distanceVector = (target.Position - Character.Position);
 
+
         transform.LookAt(target.Position);
 
+        
+        var forwardDistance = 15;
+        Network.SendPacketToAll(new SendCharacterForce(Character, 0, 0, forwardDistance, ForceMode.Impulse)).ConfigureAwait(false);
         Network.SendPacketToAll(new SendCharacterCombatStage(Character, CurrentAttackCombo)).ConfigureAwait(false);
+
+
+        Character.MovementComponent.ApplyRigidForceMove(0, 0, forwardDistance, ForceMode.Impulse);
+
     }
 
 

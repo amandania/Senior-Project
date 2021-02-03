@@ -58,3 +58,5 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+/Server/Temp/UnityLockfile
+/Client/Temp/UnityLockfile

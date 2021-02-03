@@ -117,8 +117,8 @@ public class MovementComponent : MonoBehaviour
         //.SendPacketToAll(new SendMoveCharacter(m_character, moveSpeed)).ConfigureAwait(false);
     }
 
-    public void ApplyRigidForceMove(Vector3 forceVector, ForceMode mode)
+    public void ApplyRigidForceMove(float x, float y, float z, ForceMode mode)
     {
-        GetComponent<Rigidbody>().AddForce(forceVector.x, forceVector.y, forceVector.z, mode);
+        GetComponent<Rigidbody>().AddForce(x,y,z, mode);
     }
 }
