@@ -71,7 +71,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 0
+  m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 1
   m_OcclusionCulling: 1
@@ -107,15 +107,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   mouseButton: 1
-  distance: 7
-  minDistance: 4
-  maxDistance: 7
+  distance: 5
+  minDistance: 3
+  maxDistance: 20
   zoomSpeedMouse: 1
   zoomSpeedTouch: 0.2
   rotationSpeed: 2
-  xMinAngle: 1
+  xMinAngle: -40
   xMaxAngle: 80
-  offset: {x: 0, y: 1.5, z: 0}
+  offset: {x: 0, y: 1, z: 0}
   viewBlockingLayers:
     serializedVersion: 2
     m_Bits: 0

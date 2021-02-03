@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame 
     void Update()
     {
-								
+      
     }
 
 
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour {
 												playerList[index].AddComponent<KeyListener>();
             string camName = "Camera-Id: " + index + "(Clone)";
             GameObject.Find(camName).GetComponent<Camera>().allowDynamicResolution = false;
-												GameObject.Find(camName).GetComponent<PlayerCamera>().target = GameManager.instance.playerList[index].transform;
+												GameObject.Find(camName).GetComponent<PlayerCamera>().target = (GameManager.instance.playerList[index].transform);
 												playerList[index].GetComponent<KeyListener>().cam = GameObject.Find(camName).GetComponent<Camera>();
 
 								} 

@@ -23,7 +23,7 @@ public class MovementComponent : MonoBehaviour
     [Header("Movement Data")]
     public MovementState State = MovementState.IDLE;
     public float RotationSpeed = 220.0f;
-    public float MovementSpeed = 3.0f;
+    public float MovementSpeed = 7.0f;
     public float JumpSpeed = 7.0f;
     public float Gravity = 500.0f;
 
@@ -61,7 +61,6 @@ public class MovementComponent : MonoBehaviour
         {
             return;
         }
-        IsControlledMovement = true;
         float moveSpeed = 0f;
         if (a_moveVector.magnitude <= 0)
         {
@@ -113,7 +112,6 @@ public class MovementComponent : MonoBehaviour
         Character.Rotation = plrTransform.rotation.eulerAngles;
 
         Network.SendPacketToAll(new SendMoveCharacter(Character, moveSpeed)).ConfigureAwait(false);
-        IsControlledMovement = false;
         //.SendPacketToAll(new SendMoveCharacter(m_character, moveSpeed)).ConfigureAwait(false);
     }
 
