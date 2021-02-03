@@ -28,6 +28,8 @@ public class CombatComponent : MonoBehaviour
 
     public NetworkManager Network { get; set; }
 
+    private GameObject RayTarget;
+
     private void Awake()
     {
 
@@ -100,6 +102,8 @@ public class CombatComponent : MonoBehaviour
 
 				DESCRIPTION
 												This function will perform direct attacks on specfic character target
+            Our client is always going to left click with the nearest targets guid
+            We use this target on server to attemp within distance attack
 				*/
     /*void Attack(Character target)*/
     public void Attack(Character target)
@@ -108,28 +112,42 @@ public class CombatComponent : MonoBehaviour
         {
             return;
         }
-        if (!CanAttack(target))
+        if (AttackStopwatch.Elapsed.Seconds < AttackRate)
         {
             return;
         }
-        //reset our attack timer making it so we have to elapse > attack rate to do again
-        PerformAttack(target.Position);
+        var defaultTargetDistance = transform.position + (transform.forward + DefaultForwardAttack);
+        if (WithinReach(target.GetCharModel().transform.position, out m_reachDistance))
+        {
+            defaultTargetDistance = target.Position;
+            TargetCharacter = target;
+        }
+        PerformAttack(defaultTargetDistance);
     }
 
 
-    public void PerformAttack(Vector3 targetPosition)
+    public void PerformAttack(Vector3 targetGoal)
     {
         AttackStopwatch.Reset();
-        AttackStopwatch.Start();
         CurrentAttackCombo += 1;
 
         if (CurrentAttackCombo > MaxCombos)
         {
             CurrentAttackCombo = 1;
         }
-        Vector3 distanceVector = (targetPosition - Character.Position);
+        Vector3 distanceVector = (targetGoal - Character.Position);
         Network.SendPacketToAll(new SendCharacterCombatStage(Character, CurrentAttackCombo)).ConfigureAwait(false);
-        StartCoroutine(HandleDash((distanceVector.magnitude < 20 ? distanceVector.magnitude : 20)));
+
+        var distance = 0f;
+        if (distanceVector.magnitude > 5 && distanceVector.magnitude < 20)
+        {
+            distance = distanceVector.magnitude;
+        } else if (distanceVector.magnitude > 20)
+        {
+            distance = 20f;
+        }
+        StartCoroutine(HandleDash(distance));
+        AttackStopwatch.Start();
     }
     private IEnumerator HandleDash(float DashDistance)
     {
@@ -139,23 +157,18 @@ public class CombatComponent : MonoBehaviour
             Character.MovementComponent.CharacterController.Move(transform.forward * DashDistance * Time.deltaTime);
             yield return null;
         }
+
+        UnityEngine.Debug.Log(RayTarget + " was hit");
+
         yield return null;
     }
+
+
     public void ApplyHit(Character attacker)
     {
         LastAttackRecieved.Reset();
     }
-
-    public bool CanAttack(Character target)
-    {
-        if (!WithinReach(target.GetCharModel().transform.position, out m_reachDistance))
-        {
-            return false;
-        }
-
-        return AttackStopwatch.Elapsed.Seconds > AttackRate;
-    }
-
+    
 
     public bool WithinReach(Vector3 targetPosition, out float distance)
     {
