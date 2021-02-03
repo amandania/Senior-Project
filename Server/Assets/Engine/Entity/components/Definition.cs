@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using System;
+using UnityEditor.Animations;
 
 public class Definition : MonoBehaviour
 {
@@ -10,12 +10,7 @@ public class Definition : MonoBehaviour
     public string ModelName;
     public string DisplayName;
 
-    [Header("Combat Defs")]
-    public int AttackDistance;
-    public int AttackRate;
-
     [Header("Sprite Data")]
     public Image DisplayImageName;
     
-
 }
