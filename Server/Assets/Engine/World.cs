@@ -12,6 +12,8 @@ public class World : MonoBehaviour, IWorld
 
     public List<Npc> Monsters { get; set; } = new List<Npc>();
 
+    public Dictionary<GameObject, Character> AllGamobjectCharacters { get; set; } = new Dictionary<GameObject, Character>();
+
     public Task LoadMonsters()
     {
         bool completed = false;
@@ -51,6 +53,8 @@ public class World : MonoBehaviour, IWorld
         {
             Monsters.Add(a_character.AsNpc());
         }
+
+        AllGamobjectCharacters.Add(a_character.GetCharModel(), a_character);
     }
 
 
@@ -64,7 +68,7 @@ public class World : MonoBehaviour, IWorld
         {
             Monsters.Remove(a_character.AsNpc());
         }
-
+        AllGamobjectCharacters.Remove(a_character.GetCharModel());
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
             Destroy(a_character.GetCharModel());

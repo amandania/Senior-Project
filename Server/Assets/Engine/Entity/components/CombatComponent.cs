@@ -53,7 +53,6 @@ public class CombatComponent : MonoBehaviour
         }
         //reset our attack timer making it so we have to elapse > attack rate to do again
         AttackStopwatch.Reset();
-        
         PerformAttack(target);
     }
 
