@@ -9,15 +9,21 @@ public class SendCharacterForce : IOutGoingPackets
     public OutGoingPackets PacketType => OutGoingPackets.SEND_CHARACTER_FORCE;
 
     private readonly Character m_character;
-    private readonly Vector3 m_forceDirection;
-    private readonly int m_forceDistance;
+    private readonly float m_xForce;
+    private readonly float m_yForce;
+    private readonly float m_zForce;
+    
+    private readonly ForceMode m_forceMode;
 
-    public SendCharacterForce(Character a_character, Vector3 a_forceDirection, int a_forceDistance)
+    public SendCharacterForce(Character a_character, float a_xForce, float a_yForce, float a_zForce, ForceMode a_mode)
     {
         m_character = a_character;
-        m_forceDirection = a_forceDirection;
-        m_forceDistance = a_forceDistance;
+        m_xForce = a_xForce;
+        m_yForce = a_yForce;
+        m_zForce = a_zForce;
+        m_forceMode = a_mode;
     }
+
     public IByteBuffer GetPacket()
     {
         var buffer = Unpooled.Buffer();
@@ -25,12 +31,14 @@ public class SendCharacterForce : IOutGoingPackets
         int length = guid.Length;
         buffer.WriteInt(length);
         buffer.WriteString(guid, Encoding.Default);
+        buffer.WriteFloat(m_xForce);
+        buffer.WriteFloat(m_yForce);
+        buffer.WriteFloat(m_zForce);
 
-        buffer.WriteFloat(m_forceDirection.x);
-        buffer.WriteFloat(m_forceDirection.y);
-        buffer.WriteFloat(m_forceDirection.z);
+        string forceType = m_forceMode.ToString();
+        buffer.WriteInt(forceType.Length);
+        buffer.WriteString(forceType, Encoding.Default);
 
-        buffer.WriteInt(m_forceDistance);
         return buffer;
     }
 }
