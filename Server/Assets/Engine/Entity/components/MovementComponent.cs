@@ -3,15 +3,17 @@ using UnityEngine.AI;
 
 public class MovementComponent : MonoBehaviour
 {
+    private NetworkManager Network { get; set; }
+    private Rigidbody RigidBody { get; set; }
+    private bool IsControlledMovement { get; set; } = false;
+
     public CharacterController CharacterController { get; set; } // this should be created for the character on the inspector
 
     public GameObject PlayerObj { get; set; }
 
     public Character Character { get; set; }
 
-    private NetworkManager Network { get; set; }
-
-    private bool IsControlledMovement { get; set; } = false;
+    
 
     //Pathfinding data
     public NavMeshAgent NavAgent { get; set; }
@@ -23,7 +25,7 @@ public class MovementComponent : MonoBehaviour
     public float RotationSpeed = 220.0f;
     public float MovementSpeed = 3.0f;
     public float JumpSpeed = 7.0f;
-    private readonly float Gravity = 500.0f;
+    public float Gravity = 500.0f;
 
 
     private void Awake()
@@ -115,5 +117,8 @@ public class MovementComponent : MonoBehaviour
         //.SendPacketToAll(new SendMoveCharacter(m_character, moveSpeed)).ConfigureAwait(false);
     }
 
-
+    public void ApplyRigidForceMove(Vector3 forceVector, ForceMode mode)
+    {
+        GetComponent<Rigidbody>().AddForce(forceVector.x, forceVector.y, forceVector.z, mode);
+    }
 }

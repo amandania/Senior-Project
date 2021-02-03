@@ -68,18 +68,8 @@ public class CombatComponent : MonoBehaviour
         Vector3 distanceVector = (target.Position - Character.Position);
 
         transform.LookAt(target.Position);
-        //this is how we send our animaton replications
-        ReplicateAnimationParse.Add("SetInteger-ComboStage-" + CurrentAttackCombo);
-        ReplicateAnimationParse.Add("SetTrigger-TriggerAttack");
 
-        //we want to send the packet first because, we want to treat this server world as a ghost wolrd (that follows the client)
-        // as best as it can (network synching)
-        Network.SendPacketToAll(new SendAnimatorChange(target, ReplicateAnimationParse)).ConfigureAwait(false);
-        ReplicateAnimationParse.Clear();
-
-        //apply server animator changes
-        MyAnimator.SetInteger("ComboState", CurrentAttackCombo);
-        MyAnimator.SetTrigger("TriggerAttack");
+        Network.SendPacketToAll(new SendCharacterCombatStage(Character, CurrentAttackCombo)).ConfigureAwait(false);
     }
 
 
