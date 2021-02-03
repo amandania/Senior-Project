@@ -28,6 +28,8 @@ public class CombatComponent : MonoBehaviour
 
     public NetworkManager Network { get; set; }
 
+    private GameObject RayTarget;
+
     private void Awake()
     {
 
@@ -129,6 +131,7 @@ public class CombatComponent : MonoBehaviour
         }
         Vector3 distanceVector = (targetPosition - Character.Position);
         Network.SendPacketToAll(new SendCharacterCombatStage(Character, CurrentAttackCombo)).ConfigureAwait(false);
+       
         StartCoroutine(HandleDash((distanceVector.magnitude < 20 ? distanceVector.magnitude : 20)));
     }
     private IEnumerator HandleDash(float DashDistance)
@@ -139,8 +142,13 @@ public class CombatComponent : MonoBehaviour
             Character.MovementComponent.CharacterController.Move(transform.forward * DashDistance * Time.deltaTime);
             yield return null;
         }
+
+        UnityEngine.Debug.Log(RayTarget + " was hit");
+
         yield return null;
     }
+
+
     public void ApplyHit(Character attacker)
     {
         LastAttackRecieved.Reset();
