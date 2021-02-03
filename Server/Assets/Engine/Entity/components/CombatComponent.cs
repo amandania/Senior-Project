@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using UnityEngine;
 
 public class CombatComponent : MonoBehaviour
 {
-    private readonly NetworkManager Network; // Access main game network to send potential packets
     private float m_reachDistance;
+    private Animator MyAnimator;
+    private Vector3 DefaultForwardAttack = new Vector3(0,0,10);
 
     [Header("Combat Target Data")]
     public Character TargetCharacter; // Current Main Target, (doesnt neccarily have to be used with Attack(Character))
@@ -25,8 +25,7 @@ public class CombatComponent : MonoBehaviour
     public Stopwatch AttackStopwatch { get; set; } = new Stopwatch(); // We start it at 2 because this is required attack rate
     public Stopwatch LastAttackRecieved { get; set; } = new Stopwatch(); // 
 
-    private List<string> ReplicateAnimationParse = new List<string>();
-    private Animator MyAnimator;
+    public NetworkManager Network { get; set; }
 
     private void Awake()
     {
@@ -34,6 +33,7 @@ public class CombatComponent : MonoBehaviour
     }
     private void Start()
     {
+        Network = GameObject.Find("WorldManager").GetComponent<NetworkManager>() as NetworkManager;
         MyAnimator = GetComponent<Animator>();
     }
     private void Update()
@@ -41,21 +41,41 @@ public class CombatComponent : MonoBehaviour
 
     }
 
-    public void Attack(Character target)
+    /*void Attack()*/
+    /*
+				NAME
+												Attack()
+
+				DESCRIPTION
+												This function handles a default attack
+            default attacks get nearest target
+            if no target is available we will PerformAttack(Vector3 forwardTargetVector)
+				*/
+    /*void Attack()*/
+    public void Attack()
     {
         if (Character == null)
         {
             return;
         }
-        if (!CanAttack(target))
+        if (AttackStopwatch.Elapsed.Seconds < AttackRate)
         {
+            UnityEngine.Debug.Log("Cannot attack" + AttackStopwatch.Elapsed.Seconds);
             return;
         }
-        //reset our attack timer making it so we have to elapse > attack rate to do again
-        AttackStopwatch.Reset();
-        PerformAttack(target.Position);
+
+        PerformAttack(transform.forward + DefaultForwardAttack);
     }
-    
+
+    /*void Attack(Vector3 TargetPosition)*/
+    /*
+				NAME
+												Attack(Vector3 TargetPosition)
+
+				DESCRIPTION
+												This function will perform an attack with a target vector
+				*/
+    /*void Attack(Vector3 TargetPosition)*/
     public void Attack(Vector3 TargetPosition)
     {
         if (Character == null)
@@ -67,8 +87,34 @@ public class CombatComponent : MonoBehaviour
         }
     }
 
+
+    /*void Attack(Character target)*/
+    /*
+				NAME
+												Attack(Character target)
+
+				DESCRIPTION
+												This function will perform direct attacks on specfic character target
+				*/
+    /*void Attack(Character target)*/
+    public void Attack(Character target)
+    {
+        if (Character == null)
+        {
+            return;
+        }
+        if (!CanAttack(target))
+        {
+            return;
+        }
+        //reset our attack timer making it so we have to elapse > attack rate to do again
+        PerformAttack(target.Position);
+    }
+
+
     public void PerformAttack(Vector3 targetPosition)
     {
+        AttackStopwatch.Reset();
         CurrentAttackCombo += 1;
 
         if (CurrentAttackCombo > MaxCombos)
@@ -79,15 +125,14 @@ public class CombatComponent : MonoBehaviour
 
 
         transform.LookAt(targetPosition);
-
-        
         var forwardDistance = 15;
-        Network.SendPacketToAll(new SendCharacterForce(Character, 0, 0, forwardDistance, ForceMode.Impulse)).ConfigureAwait(false);
-        Network.SendPacketToAll(new SendCharacterCombatStage(Character, CurrentAttackCombo)).ConfigureAwait(false);
+
+        //Network.SendPacketToAll(new SendCharacterForce(Character, 0, 0, forwardDistance, ForceMode.Impulse)).ConfigureAwait(false);
+        //Network.SendPacketToAll(new SendCharacterCombatStage(Character, CurrentAttackCombo)).ConfigureAwait(false);
 
 
         Character.MovementComponent.ApplyRigidForceMove(0, 0, forwardDistance, ForceMode.Impulse);
-
+        UnityEngine.Debug.Log("Perform attack");
     }
 
 

@@ -107,6 +107,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   mouseButton: 1
+  lockCamera: 0
+  xMouseSensitivity: 3
+  yMouseSensitivity: 3
+  yMinLimit: -40
+  yMaxLimit: 80
   distance: 5
   minDistance: 3
   maxDistance: 20

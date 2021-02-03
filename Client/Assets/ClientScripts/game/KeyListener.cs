@@ -75,6 +75,7 @@ public class KeyListener : MonoBehaviour {
 				{
 								var mouseButton1Down = Input.GetMouseButtonDown(0);
 								if (mouseButton1Down && !EventSystem.current.IsPointerOverGameObject()) {
+            Debug.Log("mouse clicked");
 										  NetworkManager.instance.SendPacket(new SendMouseLeftClick().CreatePacket());
 								}	
 

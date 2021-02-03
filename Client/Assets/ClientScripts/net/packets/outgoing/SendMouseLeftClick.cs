@@ -18,6 +18,7 @@ namespace Assets.ClientScripts.net.packets.outgoing
         public IByteBuffer CreatePacket()
 								{
 												IByteBuffer buffer = Unpooled.Buffer();
+            buffer.WriteInt(1);
             return buffer;
         }
 

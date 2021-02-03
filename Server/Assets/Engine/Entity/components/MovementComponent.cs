@@ -69,15 +69,7 @@ public class MovementComponent : MonoBehaviour
         else
         {
             State = MovementState.MOVING;
-            if (Character.IsPlayer())
-            {
-                var characterAsPlayer = Character as Player;
-                moveSpeed = a_moveVector.magnitude / (characterAsPlayer.IsSprinting() ? 1 : 2);
-            }
-            else
-            {
-                moveSpeed = a_moveVector.magnitude;
-            }
+            moveSpeed = a_moveVector.magnitude;
         }
 
         if (a_moveVector.magnitude > 1f) a_moveVector.Normalize();
