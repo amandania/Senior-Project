@@ -39,10 +39,6 @@ public class Npc : Character
         var currentCombatComp = myModel.GetComponent<CombatComponent>();
         SetCombatComponent(currentCombatComp ?? myModel.AddComponent<CombatComponent>());
 
-        CombatComponent.AttackDistance = m_defs.AttackDistance;
-        CombatComponent.AttackRate = m_defs.AttackRate;
-
-
 								var currentMoveComp = myModel.GetComponent<MovementComponent>();
 								SetMoveComponent(currentMoveComp ?? myModel.AddComponent<MovementComponent>());
 

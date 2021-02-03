@@ -1420,7 +1420,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8558360970295565402}
-  - component: {fileID: 7700669763823769598}
   m_Layer: 0
   m_Name: RPG-Character
   m_TagString: Untagged
@@ -1444,25 +1443,6 @@ Transform:
   m_Father: {fileID: 5248667315165471339}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &7700669763823769598
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4701681838233236343}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: e57e9b8cd5e115f4f8d7736473e5c7fd, type: 3}
-  m_Controller: {fileID: 9100000, guid: 19cad8a66bb47bf4f9981605acd71705, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4848334372429899180
 GameObject:
   m_ObjectHideFlags: 0
@@ -2889,8 +2869,11 @@ GameObject:
   - component: {fileID: 5248667315165471339}
   - component: {fileID: 7215355800569682445}
   - component: {fileID: 5565808518163557869}
-  - component: {fileID: 5193504978150895807}
   - component: {fileID: 2599993566973017567}
+  - component: {fileID: 5193504978150895807}
+  - component: {fileID: 794559847}
+  - component: {fileID: 481051227746805672}
+  - component: {fileID: 6415684749434731653}
   m_Layer: 0
   m_Name: PlayerModel
   m_TagString: Player
@@ -2943,6 +2926,24 @@ CapsuleCollider:
   m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 1.25, z: 0}
+--- !u!143 &2599993566973017567
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7754043168059590830}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1.2, z: 0}
 --- !u!195 &5193504978150895807
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2965,24 +2966,58 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
---- !u!143 &2599993566973017567
-CharacterController:
+--- !u!95 &794559847
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7754043168059590830}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.2, z: 0}
+  m_Avatar: {fileID: 9000000, guid: e57e9b8cd5e115f4f8d7736473e5c7fd, type: 3}
+  m_Controller: {fileID: 9100000, guid: 6e60461e98675924eb262c7bf01e483b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &481051227746805672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7754043168059590830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9b3af355b447be468c13cdce3e8fefb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetTransform: {fileID: 0}
+  MinHitDamage: 1
+  MaxHitDamage: 3
+  MaxCombos: 1
+  CurrentAttackCombo: 0
+--- !u!114 &6415684749434731653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7754043168059590830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9c345d5125cdeb4baf589112a8e7acd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  State: 0
+  RotationSpeed: 220
+  MovementSpeed: 3
+  JumpSpeed: 7
 --- !u!1 &7764021199683306896
 GameObject:
   m_ObjectHideFlags: 0

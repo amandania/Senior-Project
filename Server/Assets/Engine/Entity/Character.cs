@@ -13,6 +13,7 @@ public class Character
     
     public MovementComponent MovementComponent { get; set; }
     public CombatComponent CombatComponent { get; set; }
+    private bool InCombat { get { return CombatComponent.LastAttackRecieved.Elapsed.Seconds < 5;  }  }
 
     private readonly Guid m_guid;
 
@@ -126,8 +127,7 @@ public class Character
     {
         a_comp.Character = this;
         CombatComponent = a_comp;
-
-        //reload combat defs
+        
     }
 
     public GameObject GetCharModel()
@@ -147,5 +147,6 @@ public class Character
     {
         return m_guid;
     }
+    
 
 }
