@@ -16,12 +16,12 @@ public class CombatComponent : MonoBehaviour
 
     public int MinHitDamage = 1;
     public int MaxHitDamage = 3;
-    public int MaxCombos = 1;
+    public int MaxCombos = 3;
     public int CurrentAttackCombo = 0;
     public int AttackDistance { get; set; } = 5; // Required distance to perform attack
     public int MaxReachDistance { get; set; } = 10;
 
-    public int AttackRate { get; set; } = 2; // Default: every 2 seconds we can attack 
+    public float AttackRate { get; set; } = .35f; // Default: every 2 seconds we can attack 
 
     public Stopwatch AttackStopwatch { get; set; } = new Stopwatch(); // We start it at 2 because this is required attack rate
     public Stopwatch LastAttackRecieved { get; set; } = new Stopwatch(); // 
