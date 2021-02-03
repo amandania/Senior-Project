@@ -617,12 +617,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3843306395020507161}
-  - component: {fileID: 1262561663739764629}
+  - component: {fileID: 1262561663739764630}
   - component: {fileID: 3860183642171189965}
   - component: {fileID: 1847388509980688511}
   - component: {fileID: 3511840737634318239}
   - component: {fileID: 6454821065455642541}
-  - component: {fileID: 1262561663739764630}
+  - component: {fileID: 1262561663739764629}
+  - component: {fileID: 179534814955467608}
+  - component: {fileID: 7121198886886747358}
   m_Layer: 0
   m_Name: UnarmedHumanMonster
   m_TagString: Player
@@ -645,21 +647,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -135, z: 0}
---- !u!114 &1262561663739764629
-MonoBehaviour:
+--- !u!95 &1262561663739764630
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1592810806766441180}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ee1bc16ef15282458c558dccaee25bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ModelName: UnarmedHumanMonster
-  DisplayName: Human Enemy
-  DisplayImageName: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: e57e9b8cd5e115f4f8d7736473e5c7fd, type: 3}
+  m_Controller: {fileID: 9100000, guid: 35e0191427e917a4ab9ab134cd894a55, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!195 &3860183642171189965
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -730,25 +736,58 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.2, z: 0}
---- !u!95 &1262561663739764630
-Animator:
-  serializedVersion: 3
+--- !u!114 &1262561663739764629
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1592810806766441180}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: e57e9b8cd5e115f4f8d7736473e5c7fd, type: 3}
-  m_Controller: {fileID: 9100000, guid: 35e0191427e917a4ab9ab134cd894a55, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ee1bc16ef15282458c558dccaee25bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAttackable: 0
+  ModelName: UnarmedHumanMonster
+  DisplayName: Enemy
+  AttackDistance: 5
+  AttackRate: 2
+  MinHitDamage: 1
+  MaxHitDamage: 3
+  MaxCombos: 3
+  AnimBehaviors: []
+  DisplayImageName: {fileID: 0}
+--- !u!114 &179534814955467608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592810806766441180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9b3af355b447be468c13cdce3e8fefb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetTransform: {fileID: 0}
+  CurrentAttackCombo: 0
+--- !u!114 &7121198886886747358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592810806766441180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9c345d5125cdeb4baf589112a8e7acd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  State: 0
+  RotationSpeed: 220
+  MovementSpeed: 3
+  JumpSpeed: 7
 --- !u!1 &1602843817242976226
 GameObject:
   m_ObjectHideFlags: 0

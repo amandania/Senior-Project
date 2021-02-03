@@ -20621,6 +20621,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1262561663739764629, guid: b54b670300da6f24f8185f6507689777,
+        type: 3}
+      propertyPath: AnimBehaviors.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1262561663739764629, guid: b54b670300da6f24f8185f6507689777,
+        type: 3}
+      propertyPath: AnimBehaviors.Array.data[0]
+      value: Speed
+      objectReference: {fileID: 0}
+    - target: {fileID: 1262561663739764629, guid: b54b670300da6f24f8185f6507689777,
+        type: 3}
+      propertyPath: AnimBehaviors.Array.data[1]
+      value: GotHit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1262561663739764629, guid: b54b670300da6f24f8185f6507689777,
+        type: 3}
+      propertyPath: AnimBehaviors.Array.data[2]
+      value: CombatState
+      objectReference: {fileID: 0}
+    - target: {fileID: 1262561663739764629, guid: b54b670300da6f24f8185f6507689777,
+        type: 3}
+      propertyPath: AnimBehaviors.Array.data[3]
+      value: CanAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 1262561663739764629, guid: b54b670300da6f24f8185f6507689777,
+        type: 3}
+      propertyPath: AnimBehaviors.Array.data[4]
+      value: TriggerAttack
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b54b670300da6f24f8185f6507689777, type: 3}
 --- !u!1001 &863930255412254503
