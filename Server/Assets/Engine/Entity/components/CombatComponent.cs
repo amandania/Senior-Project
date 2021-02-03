@@ -53,10 +53,21 @@ public class CombatComponent : MonoBehaviour
         }
         //reset our attack timer making it so we have to elapse > attack rate to do again
         AttackStopwatch.Reset();
-        PerformAttack(target);
+        PerformAttack(target.Position);
+    }
+    
+    public void Attack(Vector3 TargetPosition)
+    {
+        if (Character == null)
+        {
+            return;
+        }
+        if (AttackStopwatch.Elapsed.Seconds < AttackRate) {
+            return;
+        }
     }
 
-    public void PerformAttack(Character target)
+    public void PerformAttack(Vector3 targetPosition)
     {
         CurrentAttackCombo += 1;
 
@@ -64,10 +75,10 @@ public class CombatComponent : MonoBehaviour
         {
             CurrentAttackCombo = 1;
         }
-        Vector3 distanceVector = (target.Position - Character.Position);
+        Vector3 distanceVector = (targetPosition - Character.Position);
 
 
-        transform.LookAt(target.Position);
+        transform.LookAt(targetPosition);
 
         
         var forwardDistance = 15;

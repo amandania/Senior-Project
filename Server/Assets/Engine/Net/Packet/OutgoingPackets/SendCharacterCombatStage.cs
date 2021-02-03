@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SendCharacterCombatStage : IOutGoingPackets
 {
-    public OutGoingPackets PacketType => OutGoingPackets.SEND_TRIGGER_COMBAT_STAGE;
+    public OutGoingPackets PacketType => OutGoingPackets.SEND_CHARACTER_COMBAT_STAGE;
 
     private readonly Character m_character;
     private readonly int m_combatStage;
