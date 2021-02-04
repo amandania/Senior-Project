@@ -34,13 +34,20 @@ public class GameManager : MonoBehaviour {
       
     }
 
+    public void SpawnMonster(Guid a_guid, Vector3 pos, Quaternion a_rotation, GameObject resourceModel)
+    {
+        var charObject = Instantiate(resourceModel);
+        charObject.transform.position = pos;
+        charObject.transform.rotation = a_rotation;
+        npcList.Add(a_guid, charObject);
+    }
 
     public void SpawnPlayer(Guid a_guid, Vector3 a_position, Quaternion a_rotation, bool a_isLocalPlayer)
     {
         if (a_isLocalPlayer == true) {
             NetworkManager.instance.myIndex = a_guid;
         }
-        GameObject playerObj = Instantiate<GameObject>(playerModel);
+        GameObject playerObj = Instantiate(playerModel);
         playerObj.name = "Player: " + a_guid;
         playerObj.transform.position = a_position;
         playerObj.transform.rotation = a_rotation;
