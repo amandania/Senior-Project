@@ -17,6 +17,15 @@ public class HandleMapLoaded : IIncomingPackets
 
     public async Task ExecutePacket(Player a_player, IByteBuffer data)
     {
+        for (int i = 0; i < m_world.Monsters.Count; i++)
+        {
+            var npc = m_world.Monsters[i];
+            UnityMainThreadDispatcher.Instance().Enqueue(async () =>
+            {
+                await a_player.Session.SendPacket(new SendMonsterSpawn(npc)).ConfigureAwait(true);
+            });
+        }
+
         //send me to everyone
         await a_player.Session.SendPacketToAllButMe(new SendSpawnPlayer(a_player)).ConfigureAwait(true);
 
@@ -31,9 +40,12 @@ public class HandleMapLoaded : IIncomingPackets
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
             m_world.AddWorldCharacter(a_player);
+            
             //GameObject.Find("WorldManager").GetComponent<WorldHandler>().SpawnPlayerObject(a_player);
         });
 
+        //await a_player.Session.SendPacket(new SendMonsterSpawn(npc)).ConfigureAwait(false);
+        
     }
 
     private IEnumerator SetCameraDefaults(Guid index)
