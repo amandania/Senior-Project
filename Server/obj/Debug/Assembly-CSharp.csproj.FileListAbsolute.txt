@@ -617,3 +617,6 @@ C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.TextCore
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.UnityTestProtocolModule.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.VFXModule.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Serilog.dll
+C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Serilog.Extensions.Logging.dll
+C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Serilog.Sinks.Debug.dll

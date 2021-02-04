@@ -18,7 +18,8 @@ public class HandleMovementInput : IIncomingPackets
     {
 
         Vector3 moveVector = new Vector3(buffer.ReadFloat(), buffer.ReadFloat(), buffer.ReadFloat());
-
+        bool isStrafing = buffer.ReadBoolean();
+        float xInput = buffer.ReadFloat();
         if (a_player != null)
         {
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
@@ -30,7 +31,7 @@ public class HandleMovementInput : IIncomingPackets
                     if (moveVector.magnitude > 1f)
                         moveVector.Normalize();
 
-                    moveComponent.Move(moveVector);
+                    moveComponent.Move(moveVector, isStrafing, xInput);
                 }
                 //Debug.Log("has controller?" + character.ControllerComponent);
             });

@@ -22,7 +22,7 @@ public class MovementComponent : MonoBehaviour
     //Main movement related data
     [Header("Movement Data")]
     public MovementState State = MovementState.IDLE;
-    public float RotationSpeed = 220.0f;
+    public float RotationSpeed = Mathf.Infinity;
     public float MovementSpeed = 7.0f;
     public float JumpSpeed = 7.0f;
     public float Gravity = 500.0f;
@@ -54,7 +54,7 @@ public class MovementComponent : MonoBehaviour
        //CharacterController.Move(new Vector3(0,0,1));
     }
 
-    public void Move(Vector3 a_moveVector)
+    public void Move(Vector3 a_moveVector, bool isStrafing, float rotatOnMouse)
     {
 
         if (CharacterController == null)
@@ -71,28 +71,38 @@ public class MovementComponent : MonoBehaviour
             State = MovementState.MOVING;
             moveSpeed = a_moveVector.magnitude;
         }
-        
-        Vector3 rotation = PlayerObj.transform.InverseTransformDirection(a_moveVector);
 
-        float turnAmount = Mathf.Atan2(rotation.x, rotation.z);
-        float rotateAngle = turnAmount * RotationSpeed * Time.deltaTime;
-
-        //Debug.Log("moveVector Speed: " + a_moveVector.magnitude);
-
-
-        Character.OldRotation = Character.Position;
-        Character.OldRotation = Character.OldRotation;
-
-        PlayerObj.transform.Rotate(0, rotateAngle, 0);
-
-        if (CharacterController.isGrounded)
+        if (!isStrafing)
         {
-            a_moveVector = PlayerObj.transform.forward * rotation.magnitude;
+            Vector3 rotation = PlayerObj.transform.InverseTransformDirection(a_moveVector);
 
-            a_moveVector *= MovementSpeed;
+            float turnAmount = Mathf.Atan2(rotation.x, rotation.z);
+            float rotateAngle = turnAmount * RotationSpeed * Time.deltaTime;
+
+            //Debug.Log("moveVector Speed: " + a_moveVector.magnitude);
+
+
+                Character.OldRotation = Character.Position;
+                Character.OldRotation = Character.OldRotation;
+
+            PlayerObj.transform.Rotate(0, rotateAngle, 0);
+
+            if (CharacterController.isGrounded)
+            {
+                a_moveVector = PlayerObj.transform.forward * rotation.magnitude;
+            }
+        } else
+        {
+            transform.rotation = Quaternion.Euler(0, rotatOnMouse, 0);
         }
 
         a_moveVector.y -= Gravity * Time.deltaTime;
+
+        if (CharacterController.isGrounded)
+        {
+            a_moveVector *= MovementSpeed;
+        }
+
         a_moveVector = a_moveVector * Time.deltaTime;
 
 
@@ -102,7 +112,10 @@ public class MovementComponent : MonoBehaviour
         Character.Position = plrTransform.position;
         Character.Rotation = plrTransform.rotation.eulerAngles;
 
-        Network.SendPacketToAll(new SendMoveCharacter(Character, moveSpeed)).ConfigureAwait(false);
+        Vector3 relativeInput = transform.InverseTransformDirection(a_moveVector);
+
+
+        Network.SendPacketToAll(new SendMoveCharacter(Character, moveSpeed, relativeInput.z, relativeInput.x)).ConfigureAwait(false);
         //.SendPacketToAll(new SendMoveCharacter(m_character, moveSpeed)).ConfigureAwait(false);
     }
     

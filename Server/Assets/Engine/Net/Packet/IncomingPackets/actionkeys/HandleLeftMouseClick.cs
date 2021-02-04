@@ -31,6 +31,4 @@ public class HandleLeftMouseClick : IIncomingPackets
         }
         return Task.CompletedTask;
     }
-
-
 }

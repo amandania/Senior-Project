@@ -26,7 +26,7 @@ public class SendMonsterSpawn : IOutGoingPackets
         buffer.WriteString(guid, Encoding.Default);
 
 
-        string resourceName = "UnarmedHumanMonster";//m_npc.GetDefinition().ModelName;
+        string resourceName = m_npc.GetDefinition().ModelName;
         buffer.WriteInt(resourceName.Length);
         buffer.WriteString(resourceName, Encoding.Default);
 

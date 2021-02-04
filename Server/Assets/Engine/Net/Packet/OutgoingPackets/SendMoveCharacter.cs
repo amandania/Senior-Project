@@ -9,11 +9,15 @@ public class SendMoveCharacter : IOutGoingPackets
 
     private readonly Character m_character;
     private readonly float m_moveSpeed;
+    private readonly float m_verticalSpeed;
+    private readonly float m_horizontalSpeed;
 
-    public SendMoveCharacter(Character a_character, float a_moveSpeed)
+    public SendMoveCharacter(Character a_character, float a_moveSpeed, float a_verticalSpeed, float a_horizontalSpeed)
     {
         m_character = a_character;
         m_moveSpeed = a_moveSpeed;
+        a_verticalSpeed = m_verticalSpeed;
+        a_horizontalSpeed = m_horizontalSpeed;
     }
 
     public IByteBuffer GetPacket()
@@ -47,6 +51,8 @@ public class SendMoveCharacter : IOutGoingPackets
         buffer.WriteFloat(currentRotation.z);
 
         buffer.WriteFloat(m_moveSpeed);
+        buffer.WriteFloat(m_horizontalSpeed);
+        buffer.WriteFloat(m_verticalSpeed);
 
         return buffer;
     }

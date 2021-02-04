@@ -1,8 +1,11 @@
 ﻿using Autofac;
 using DotNetty.Buffers;
+using DotNetty.Common.Internal.Logging;
 using DotNetty.Transport.Channels;
 using Engine.DataLoader;
 using Engine.Entity.pathfinding;
+using Serilog;
+using Serilog.Extensions.Logging;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -48,18 +51,18 @@ public class NetworkManager : MonoBehaviour
 
         var container = containerBuilder.Build();
 
-        //var loggerConfiguration = new LoggerConfiguration().WriteTo.Debug();
-        //loggerConfiguration.MinimumLevel.Verbose();
-        //var logger = loggerConfiguration.CreateLogger();
+        var loggerConfiguration = new LoggerConfiguration().WriteTo.Debug();
+        loggerConfiguration.MinimumLevel.Verbose();
+        var logger = loggerConfiguration.CreateLogger();
 
-        //Log.Logger = logger;
+        Log.Logger = logger;
 
-        //logger.Information("Loading: " + nameof(Start));
+        logger.Information("Loading: " + nameof(Start));
 
-        //containerBuilder.RegisterInstance(logger).As<Serilog.ILogger>();
+        containerBuilder.RegisterInstance(logger).As<Serilog.ILogger>();
 
         //Setup Netty logger
-        //InternalLoggerFactory.DefaultFactory.AddProvider(new SerilogLoggerProvider(logger));
+        InternalLoggerFactory.DefaultFactory.AddProvider(new SerilogLoggerProvider(logger));
 
 
         IWorld k = World;
