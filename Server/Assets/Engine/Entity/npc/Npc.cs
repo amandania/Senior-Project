@@ -10,12 +10,14 @@ public class Npc : Character
 								var model = SetCharModel(a_serverWorldModel);
 								model.transform.position = withTransform.position;
 								model.transform.rotation = withTransform.rotation;
+        SetPosition(model.transform.position);
+        SetRotation(model.transform.rotation.eulerAngles);
 				}
 
 				public Definition GetDefinition()
 				{
 								if (m_defs == null) {
-												SetDefinition(GetCharModel().GetComponent<Definition>());
+            SetDefinition(GetCharModel().GetComponent<Definition>());
 								}
 								return m_defs;
 				}

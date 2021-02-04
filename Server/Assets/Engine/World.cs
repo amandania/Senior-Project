@@ -21,6 +21,7 @@ public class World : MonoBehaviour, IWorld
         {
             Transform monsterListTransform = GameObject.Find("Monsters").transform;
 
+            Debug.Log("load server monster");
             for (int index = 0; index < monsterListTransform.childCount; index++)
             {
                 GameObject model = monsterListTransform.GetChild(index).gameObject;
@@ -55,6 +56,7 @@ public class World : MonoBehaviour, IWorld
         }
 
         AllGamobjectCharacters.Add(a_character.GetCharModel(), a_character);
+        
     }
 
 
