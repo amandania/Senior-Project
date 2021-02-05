@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using UnityEngine;
 
 public class CombatComponent : MonoBehaviour
@@ -14,12 +16,16 @@ public class CombatComponent : MonoBehaviour
 
     public Character Character { get; set; } // Gameobject character owner set during compoent addition/set
 
+    public int MaxHealth = 100;
+    public int CurrentHealth = 100;
+
     public int MinHitDamage = 1;
     public int MaxHitDamage = 3;
     public int MaxCombos = 3;
     public int CurrentAttackCombo = 0;
     public int AttackDistance { get; set; } = 5; // Required distance to perform attack
     public int MaxReachDistance { get; set; } = 10;
+    public bool IsAggresiveTrigger = false; // 0 or 1 for true false.
 
     public float AttackRate { get; set; } = .35f; // Default: every 2 seconds we can attack 
 
@@ -27,12 +33,10 @@ public class CombatComponent : MonoBehaviour
     public Stopwatch LastAttackRecieved { get; set; } = new Stopwatch(); // 
 
     public NetworkManager Network { get; set; }
-
-    private GameObject RayTarget;
-
+    private CombatComponent instance;
     private void Awake()
     {
-
+        instance = this;
     }
     private void Start()
     {
@@ -157,12 +161,10 @@ public class CombatComponent : MonoBehaviour
             Character.MovementComponent.CharacterController.Move(transform.forward * DashDistance * Time.deltaTime);
             yield return null;
         }
-
-        UnityEngine.Debug.Log(RayTarget + " was hit");
+        
 
         yield return null;
     }
-
 
     public void ApplyHit(Character attacker)
     {
@@ -182,4 +184,32 @@ public class CombatComponent : MonoBehaviour
         return TargetCharacter;
     }
     
+
+    public void LoadCombatDefinition(List<KeyValuePair> combatDefs)
+    {
+        combatDefs.ForEach(pair => {
+           switch(pair.Key)
+            {
+                case "MaxHealth":
+                    MaxHealth = pair.Value;
+                    CurrentHealth = MaxHealth;
+                    break;
+                case "MinHitDamage":
+                    MinHitDamage = pair.Value;
+                    break;
+                case "MaxHitDamage":
+                    MaxHitDamage = pair.Value;
+                    break;
+                case "AttackRate":
+                    AttackRate = pair.Value;
+                    break;
+                case "MaxCombos":
+                    MaxCombos = pair.Value;
+                    break;
+                default:
+                    IsAggresiveTrigger = (pair.Value == 0 ? false : true);
+                    break;
+            }
+        });
+    }
 }

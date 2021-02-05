@@ -617,6 +617,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3843306395020507161}
+  - component: {fileID: 7481525781473491700}
   - component: {fileID: 1262561663739764630}
   - component: {fileID: 3860183642171189965}
   - component: {fileID: 1847388509980688511}
@@ -624,7 +625,6 @@ GameObject:
   - component: {fileID: 6454821065455642541}
   - component: {fileID: 179534814955467608}
   - component: {fileID: 7121198886886747358}
-  - component: {fileID: 1161185095382369263}
   m_Layer: 0
   m_Name: UnarmedHumanMonster
   m_TagString: Player
@@ -647,6 +647,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -135, z: 0}
+--- !u!114 &7481525781473491700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592810806766441180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ee1bc16ef15282458c558dccaee25bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ModelName: 
+  DisplayName: 
+  InteractType: 3
+  TriggerInteractDistance: 5
+  autoActivateOnTrriger: 0
+  canAttack: 0
+  combatDefs:
+  - Key: IsAggresiveTrigger
+    Value: 0
+  - Key: AttackRate
+    Value: 2
+  - Key: MaxHealth
+    Value: 100
+  - Key: MinHitDamage
+    Value: 1
+  - Key: MaxHitDamage
+    Value: 1
+  - Key: MaxCombos
+    Value: 3
+  DisplayImageName: {fileID: 0}
 --- !u!95 &1262561663739764630
 Animator:
   serializedVersion: 3
@@ -753,6 +785,7 @@ MonoBehaviour:
   MaxHitDamage: 3
   MaxCombos: 3
   CurrentAttackCombo: 0
+  IsAggresiveTrigger: 0
 --- !u!114 &7121198886886747358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -770,30 +803,6 @@ MonoBehaviour:
   MovementSpeed: 3
   JumpSpeed: 7
   Gravity: 500
---- !u!114 &1161185095382369263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592810806766441180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ee1bc16ef15282458c558dccaee25bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ModelName: 
-  DisplayName: 
-  InteractType: 3
-  TriggerInteractDistance: 5
-  autoActivateOnTrriger: 0
-  canAttack: 0
-  combatDefs:
-  - Key: IsAggresive
-  - Key: AttackRate
-  - Key: MaxHealth
-  - Key: MaxDamage
-  DisplayImageName: {fileID: 0}
 --- !u!1 &1602843817242976226
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,21 +46,29 @@ public class Npc : Character
             SetDefinition(currentDefs);
         }
 
-        var currentCombatComp = myModel.GetComponent<CombatComponent>();
-        SetCombatComponent(currentCombatComp ?? myModel.AddComponent<CombatComponent>());
-
+        if (currentDefs.isAttackable) {
+            var currentCombatComp = myModel.GetComponent<CombatComponent>();
+            SetCombatComponent(currentCombatComp ?? myModel.AddComponent<CombatComponent>());
+            currentCombatComp.LoadCombatDefinition(currentDefs.combatDefs);
+        }
 								var currentMoveComp = myModel.GetComponent<MovementComponent>();
 								SetMoveComponent(currentMoveComp ?? myModel.AddComponent<MovementComponent>());
 
-        if (currentDefs.InteractType != null)
-        {
-            switch(currentDefs.InteractType)
-            {
 
-            }
-        }
         var currentInteract = myModel.GetComponent<BaseInteract>();
         
+        switch(currentDefs.InteractType)
+        {
+            case InteractTypes.Monster:
+                SetInteraction(myModel.AddComponent<MonsterInteract>());
+                break;
+            default:
+                SetInteraction(myModel.AddComponent<BaseInteract>());
+                break;
+        }
+
+        
+
     }
 
 }
