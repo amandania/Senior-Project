@@ -136,7 +136,6 @@ public class CombatComponent : MonoBehaviour
             CurrentAttackCombo = 1;
         }
         Vector3 distanceVector = (targetGoal - Character.Position);
-        Network.SendPacketToAll(new SendCharacterCombatStage(Character, CurrentAttackCombo)).ConfigureAwait(false);
 
         var distance = 0f;
         if (distanceVector.magnitude > 5 && distanceVector.magnitude < 20)
@@ -148,6 +147,7 @@ public class CombatComponent : MonoBehaviour
         }
         StartCoroutine(HandleDash(distance));
         AttackStopwatch.Start();
+        Network.SendPacketToAll(new SendCharacterCombatStage(Character, CurrentAttackCombo)).ConfigureAwait(false);
     }
     private IEnumerator HandleDash(float DashDistance)
     {

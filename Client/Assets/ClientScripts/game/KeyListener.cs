@@ -36,6 +36,8 @@ public class KeyListener : MonoBehaviour {
 
 				public bool isSprinting = false;
 
+    public bool lockMovementToCam = true;
+
 				public MouseInputUIBlocker m_uiBlocker;
 
 				#endregion
@@ -66,6 +68,7 @@ public class KeyListener : MonoBehaviour {
     public float timeBetweenMovementStart;
     public float timeBetweenMovementEnd;
 				public Vector3 lastMove;
+    private Vector3 MaxVector = new Vector3(1, 0, 1);
 
 				private List<int> keys { get; set; } = new List<int>(); 
 
@@ -98,16 +101,23 @@ public class KeyListener : MonoBehaviour {
             float v = Input.GetAxis("Vertical");
 
             // Calculate the forward vector
-            Vector3 camForward_Dir = Vector3.Scale(cam.transform.forward, new Vector3(1, 0, 1)).normalized;
+            Vector3 camForward_Dir = Vector3.Scale(cam.transform.forward, MaxVector).normalized;
             Vector3 move = v * camForward_Dir + h * cam.transform.right;
 
-												//Debug.Log(move.magnitude / (isSprinting ? 1 : 2) );
-												_animator.SetFloat("Speed", move.magnitude / (isSprinting ? 1 : 2));
+            //Debug.Log(move.magnitude / (isSprinting ? 1 : 2) );
+            Vector3 relativeInput = transform.InverseTransformDirection(move);
+
+
+            //Debug.Log("Horizontal :" + relativeInput.x + ", Vertical:" + relativeInput.z);
+
+            _animator.SetFloat("HorizontalInput", relativeInput.x);
+            _animator.SetFloat("VerticalInput", relativeInput.z);
+            _animator.SetFloat("Speed", move.magnitude);
 
 												if (NetworkManager.networkStream.IsWritable) {
 																//Debug.Log("disabled movement send");
 																lastMove = move;
-																NetworkManager.instance.SendPacket(new SendMovementPacket(move).CreatePacket());
+																NetworkManager.instance.SendPacket(new SendMovementPacket(move, lockMovementToCam,  Camera.main.transform.eulerAngles.y).CreatePacket());
             }
         }
     }
