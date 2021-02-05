@@ -13,9 +13,9 @@ public class PlayerCamera : MonoBehaviour
     public float yMouseSensitivity = 3f;
     public float yMinLimit = -40f;
     public float yMaxLimit = 80f;
-    public float distance = 20;
+    public float distance = 10;
     public float minDistance = 3;
-    public float maxDistance = 20;
+    public float maxDistance = 10;
 
     public float zoomSpeedMouse = 1;
     public float zoomSpeedTouch = 0.2f;
@@ -32,7 +32,7 @@ public class PlayerCamera : MonoBehaviour
 
     // the target position can be adjusted by an offset in order to foucs on a
     // target's head for example
-    public Vector3 offset = Vector3.zero;
+    public Vector3 offset = new Vector3(0.25f, 1.25f, 0);
 
     // view blocking
     // note: only works against objects with colliders.
@@ -61,10 +61,6 @@ public class PlayerCamera : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         if (!target)
             return;
-        if (lookPoint != null)
-        {
-            offset = new Vector3(0f, 0f, 0f);
-        }
         Vector3 targetPos = target.position + offset;
 
         // rotation and zoom should only happen if not in a UI right now

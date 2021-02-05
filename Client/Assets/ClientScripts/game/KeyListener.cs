@@ -36,7 +36,7 @@ public class KeyListener : MonoBehaviour {
 
 				public bool isSprinting = false;
 
-    public bool isStrafing = true;
+    public bool lockMovementToCam = true;
 
 				public MouseInputUIBlocker m_uiBlocker;
 
@@ -117,7 +117,7 @@ public class KeyListener : MonoBehaviour {
 												if (NetworkManager.networkStream.IsWritable) {
 																//Debug.Log("disabled movement send");
 																lastMove = move;
-																NetworkManager.instance.SendPacket(new SendMovementPacket(move, isStrafing,  Camera.main.transform.eulerAngles.y).CreatePacket());
+																NetworkManager.instance.SendPacket(new SendMovementPacket(move, lockMovementToCam,  Camera.main.transform.eulerAngles.y).CreatePacket());
             }
         }
     }
