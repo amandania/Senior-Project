@@ -20656,7 +20656,23 @@ PrefabInstance:
       propertyPath: AnimBehaviors.Array.data[4]
       value: TriggerAttack
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 179534814955467608, guid: b54b670300da6f24f8185f6507689777,
+        type: 3}
+      propertyPath: MaxHealth
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 179534814955467608, guid: b54b670300da6f24f8185f6507689777,
+        type: 3}
+      propertyPath: CurrentHealth
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251566186202681568, guid: b54b670300da6f24f8185f6507689777,
+        type: 3}
+      propertyPath: canAttack
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1262561663739764629, guid: b54b670300da6f24f8185f6507689777, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b54b670300da6f24f8185f6507689777, type: 3}
 --- !u!4 &3659565110833493329 stripped
 Transform:

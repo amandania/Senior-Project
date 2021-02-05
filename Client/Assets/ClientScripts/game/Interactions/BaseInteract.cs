@@ -1,32 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class BaseInteract : MonoBehaviour
 {
-    public InteractTypes Type = InteractTypes.Monster;
     public int TriggerDistance = 1;
-    
-
-    public GameObject LocalPlrGameObject;
 
     public bool IsActive { get; set; }
 
-    public void Start()
-    {
-        SetLocal();
-    }
+    public Guid InteractGuid { get; set; }
 
-    public void Enter()
+    public void Enter(GameObject objEntering)
     {
         if (IsActive) { 
             return;
         }
 
         IsActive = true;
-        TriggerState();
+        TriggerState(objEntering);
+        NetworkManager.instance.SendPacket(new SendInteractTriggerState(InteractGuid, IsActive).CreatePacket());
     }
 
-    public void Leave()
+    public void Leave(GameObject objLeaving)
     {
         if (!IsActive)
         {
@@ -34,17 +29,14 @@ public class BaseInteract : MonoBehaviour
         }
 
         IsActive = false;
-        TriggerState();
+        TriggerState(objLeaving);
+        NetworkManager.instance.SendPacket(new SendInteractTriggerState(InteractGuid, IsActive).CreatePacket());
     }
 
 
-    protected virtual void TriggerState()
+    protected virtual void TriggerState(GameObject interactedByObject)
     {
-
+        Debug.Log("base trigger");
     }
-
-    void SetLocal()
-    {
-        LocalPlrGameObject = GameObject.Find("GameManager").GetComponent<GameManager>().LocalPlrObj;
-    }
+    
 }

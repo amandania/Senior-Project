@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class InteractionController : MonoBehaviour
 {
@@ -37,16 +38,17 @@ public class InteractionController : MonoBehaviour
             var distnaceToInteract = (transform.position - interact.transform.position).magnitude;
             if (distnaceToInteract < interact.TriggerDistance)
             {
-                interact.Enter();
+                interact.Enter(transform.gameObject);
             } else
             {
-                interact.Leave();
+                interact.Leave(transform.gameObject);
             }
         }
     }
 
-    public void AddToInteractCollection(GameObject a_intearctObj)
+    public void AddToInteractCollection(GameObject a_intearctObj, Guid a_interact)
     {
+        a_intearctObj.GetComponent<BaseInteract>().InteractGuid = a_interact;
         AllInteractions.Add(a_intearctObj);
     }
 
