@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 20588918859025024}
   - component: {fileID: 124800071154644486}
   - component: {fileID: 81199363480843820}
-  - component: {fileID: 114330881325450792}
+  - component: {fileID: 7547119839893048911}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -93,7 +93,7 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1186278218731936}
   m_Enabled: 1
---- !u!114 &114330881325450792
+--- !u!114 &7547119839893048911
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,12 +112,12 @@ MonoBehaviour:
   yMouseSensitivity: 3
   yMinLimit: -40
   yMaxLimit: 80
-  distance: 5
+  distance: 20
   minDistance: 3
   maxDistance: 20
   zoomSpeedMouse: 1
   zoomSpeedTouch: 0.2
-  rotationSpeed: 2
+  rotationSpeed: 5
   xMinAngle: -40
   xMaxAngle: 80
   offset: {x: 0, y: 1, z: 0}
