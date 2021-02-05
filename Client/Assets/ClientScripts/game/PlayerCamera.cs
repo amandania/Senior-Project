@@ -80,11 +80,11 @@ public class PlayerCamera : MonoBehaviour
             rotation.x -= Input.GetAxis("Mouse Y") * rotationSpeed;
             rotation.x = Mathf.Clamp(rotation.x, xMinAngle, xMaxAngle);
             transform.rotation = Quaternion.Euler(rotation.x, rotation.y, 0);
-            if (Input.mousePresent)
+            /*if (Input.mousePresent)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    Ray ray = GameObject.Find("Camera-Id: " + NetworkManager.instance.myIndex + "(Clone)").GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+                    Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
                     RaycastHit hit2;
                     if (Physics.Raycast(ray, out hit2, 2))
                     {
@@ -97,7 +97,7 @@ public class PlayerCamera : MonoBehaviour
             {
                 // forced 45 degree if there is no mouse to rotate (for mobile)
                 transform.rotation = Quaternion.Euler(new Vector3(45, 0, 0));
-            }
+            }*/
         }
 
         // zoom

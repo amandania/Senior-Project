@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
     public Dictionary<Guid, GameObject> playerList = new Dictionary<Guid, GameObject>();
     public Dictionary<Guid, GameObject> npcList = new Dictionary<Guid, GameObject>();
 
+    public InteractionController InteractionController;
+    public GameObject LocalPlrObj;
 
     // Use this for initialization
     private void Awake()
@@ -40,14 +42,17 @@ public class GameManager : MonoBehaviour {
         charObject.transform.position = pos;
         charObject.transform.rotation = a_rotation;
         npcList.Add(a_guid, charObject);
+        Debug.Log("interaction set? " +  InteractionController);
+        InteractionController.AddToInteractCollection(charObject);
     }
 
     public void SpawnPlayer(Guid a_guid, Vector3 a_position, Quaternion a_rotation, bool a_isLocalPlayer)
     {
+        GameObject playerObj = Instantiate(playerModel);
         if (a_isLocalPlayer == true) {
             NetworkManager.instance.myIndex = a_guid;
+            LocalPlrObj = playerObj;
         }
-        GameObject playerObj = Instantiate(playerModel);
         playerObj.name = "Player: " + a_guid;
         playerObj.transform.position = a_position;
         playerObj.transform.rotation = a_rotation;
@@ -55,8 +60,9 @@ public class GameManager : MonoBehaviour {
         {
             GameObject camera = Resources.Load("Camera") as GameObject;
             camera.name = "Camera-Id: " + a_guid;
-            Instantiate(camera);
+            Instantiate(camera, playerObj.transform);
             this.camera = camera;
+            
         }
 
         playerList.Add(a_guid, playerObj);
@@ -64,7 +70,9 @@ public class GameManager : MonoBehaviour {
 
 								if (a_isLocalPlayer) {
 												Debug.Log("Player was spawned. local player? " + a_isLocalPlayer + ", " + NetworkManager.instance.myIndex + "\n\t" + a_guid);
-												StartCoroutine(SetCameraDefaults(a_guid, a_isLocalPlayer));
+            LocalPlrObj.AddComponent<InteractionController>();
+            InteractionController = LocalPlrObj.GetComponent<InteractionController>();
+            StartCoroutine(SetCameraDefaults(a_guid, a_isLocalPlayer));
 								} else
 								{
 												Debug.Log("Spawn other player" + a_guid);
@@ -80,10 +88,11 @@ public class GameManager : MonoBehaviour {
 												playerList[index].AddComponent<MouseInputUIBlocker>();
 												playerList[index].AddComponent<KeyListener>();
             string camName = "Camera-Id: " + index + "(Clone)";
-            GameObject.Find(camName).GetComponent<Camera>().allowDynamicResolution = false;
-												GameObject.Find(camName).GetComponent<PlayerCamera>().target = (GameManager.instance.playerList[index].transform);
-												playerList[index].GetComponent<KeyListener>().cam = GameObject.Find(camName).GetComponent<Camera>();
-
+            playerList[index].transform.Find(camName).GetComponent<Camera>().allowDynamicResolution = false;
+            playerList[index].transform.Find(camName).GetComponent<PlayerCamera>().target = playerList[index].transform;
+												playerList[index].GetComponent<KeyListener>().cam = playerList[index].transform.Find(camName).GetComponent<Camera>();
+            
+            Debug.Log(" Set interaction controoller " + InteractionController);
 								} 
 
 								//playerList[index].transform.localScale = new Vector3(0.6496f, 0.6496f, 0.6496f);

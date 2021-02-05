@@ -108,7 +108,7 @@ public class KeyListener : MonoBehaviour {
             Vector3 relativeInput = transform.InverseTransformDirection(move);
 
 
-            Debug.Log("Horizontal :" + relativeInput.x + ", Vertical:" + relativeInput.z);
+            //Debug.Log("Horizontal :" + relativeInput.x + ", Vertical:" + relativeInput.z);
 
             _animator.SetFloat("HorizontalInput", relativeInput.x);
             _animator.SetFloat("VerticalInput", relativeInput.z);

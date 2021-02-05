@@ -619,6 +619,7 @@ GameObject:
   - component: {fileID: 3843306395020507161}
   - component: {fileID: 1262561663739764630}
   - component: {fileID: 3860183642171189965}
+  - component: {fileID: 4306723418515137500}
   m_Layer: 0
   m_Name: UnarmedHumanMonster
   m_TagString: Player
@@ -682,6 +683,21 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4306723418515137500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592810806766441180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b90c5b86638013443bdafa3719952889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0
+  TriggerDistance: 5
+  LocalPlrGameObject: {fileID: 0}
 --- !u!1 &1602843817242976226
 GameObject:
   m_ObjectHideFlags: 0
