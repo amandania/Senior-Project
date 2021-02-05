@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour {
         charObject.transform.rotation = a_rotation;
         npcList.Add(a_guid, charObject);
         Debug.Log("interaction set? " +  InteractionController);
-        InteractionController.AddToInteractCollection(charObject);
+        InteractionController.AddToInteractCollection(charObject, a_guid);
     }
 
     public void SpawnPlayer(Guid a_guid, Vector3 a_position, Quaternion a_rotation, bool a_isLocalPlayer)
