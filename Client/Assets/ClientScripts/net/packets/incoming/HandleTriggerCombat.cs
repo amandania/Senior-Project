@@ -15,7 +15,7 @@ public class HandleTriggerCombat : IIncomingPacketHandler
 
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            GameObject player = GameManager.instance.playerList[index];
+            GameObject player = GameManager.instance.ServerSpawns[index];
             Animator animator = player.GetComponent<Animator>();
             animator.SetInteger("CombatState", combatStage);
             animator.SetTrigger("TriggerAttack");

@@ -25,7 +25,7 @@ public class HandleMoveCharacter : IIncomingPacketHandler
 								UnityMainThreadDispatcher.Instance().Enqueue(() =>
 								{
 												GameObject player = null;
-												var hasVal = GameManager.instance.playerList.TryGetValue(index, out player);
+												var hasVal = GameManager.instance.ServerSpawns.TryGetValue(index, out player);
 												
 												if (hasVal) {
 																Lerp(index, player, oldPos, pos, oldRotation, newRotation, moveSpeed, horizontalInput, verticalInput);
@@ -41,10 +41,10 @@ public class HandleMoveCharacter : IIncomingPacketHandler
 								var animator = a_player.GetComponent<Animator>();
 
 								float timeStartedLerping = Time.time;
-								float timeToLerp = 20f;
+								float timeToLerp = 20;
 								float travelSpeed = (a_player.transform.position - a_realPosition).magnitude;
 								if (animator != null && index.ToString() != NetworkManager.instance.myIndex.ToString()) {
-												Debug.Log("non local player speed changed for animator");
+												//Debug.Log("non local player speed changed for animator");
 												animator.SetFloat("Speed", a_moveSpeed);
             animator.SetFloat("HorizontalInput", a_horizontal);
             animator.SetFloat("VerticalInput", a_vertical);
