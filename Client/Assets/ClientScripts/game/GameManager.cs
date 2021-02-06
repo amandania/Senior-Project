@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour {
     public Dictionary<Guid, GameObject> playerList = new Dictionary<Guid, GameObject>();
     public Dictionary<Guid, GameObject> npcList = new Dictionary<Guid, GameObject>();
 
-    public InteractionController InteractionController;
+    public Dictionary<Guid, GameObject> ServerSpawns { get; set; } = new Dictionary<Guid, GameObject>();
+
     public GameObject LocalPlrObj;
 
     // Use this for initialization
@@ -42,8 +43,7 @@ public class GameManager : MonoBehaviour {
         charObject.transform.position = pos;
         charObject.transform.rotation = a_rotation;
         npcList.Add(a_guid, charObject);
-        Debug.Log("interaction set? " +  InteractionController);
-        InteractionController.AddToInteractCollection(charObject, a_guid);
+        ServerSpawns.Add(a_guid, charObject);
     }
 
     public void SpawnPlayer(Guid a_guid, Vector3 a_position, Quaternion a_rotation, bool a_isLocalPlayer)
@@ -62,16 +62,13 @@ public class GameManager : MonoBehaviour {
             camera.name = "Camera-Id: " + a_guid;
             Instantiate(camera, playerObj.transform);
             this.camera = camera;
-            
         }
 
         playerList.Add(a_guid, playerObj);
-        
+        ServerSpawns.Add(a_guid, playerObj);
 
-								if (a_isLocalPlayer) {
+        if (a_isLocalPlayer) {
 												Debug.Log("Player was spawned. local player? " + a_isLocalPlayer + ", " + NetworkManager.instance.myIndex + "\n\t" + a_guid);
-            LocalPlrObj.AddComponent<InteractionController>();
-            InteractionController = LocalPlrObj.GetComponent<InteractionController>();
             StartCoroutine(SetCameraDefaults(a_guid, a_isLocalPlayer));
 								} else
 								{
@@ -88,12 +85,12 @@ public class GameManager : MonoBehaviour {
 												playerList[index].AddComponent<MouseInputUIBlocker>();
 												playerList[index].AddComponent<KeyListener>();
             string camName = "Camera-Id: " + index + "(Clone)";
-            playerList[index].transform.Find(camName).GetComponent<Camera>().allowDynamicResolution = false;
-            playerList[index].transform.Find(camName).GetComponent<PlayerCamera>().target = playerList[index].transform;
-												playerList[index].GetComponent<KeyListener>().cam = playerList[index].transform.Find(camName).GetComponent<Camera>();
-            
-            Debug.Log(" Set interaction controoller " + InteractionController);
-								} 
+            var cam = playerList[index].transform.Find(camName).GetComponent<Camera>();
+            cam.allowDynamicResolution = false;
+            cam.GetComponent<PlayerCamera>().target = playerList[index].transform;
+												playerList[index].GetComponent<KeyListener>().cam = cam;
+            //Debug.Log(" Set interaction controoller " + InteractionController);
+        } 
 
 								//playerList[index].transform.localScale = new Vector3(0.6496f, 0.6496f, 0.6496f);
 				}

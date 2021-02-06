@@ -38,6 +38,7 @@ public class HandleMapLoaded : IIncomingPackets
 
         //await a_player.Session.SendPacket(new SendMonsterSpawn(npc)).ConfigureAwait(false);
 
+        Debug.Log("show " + m_world.Monsters.Count);
         for (int i = 0; i < m_world.Monsters.Count; i++)
         {
             var npc = m_world.Monsters[i];

@@ -39,8 +39,8 @@ public class ChannelEventHandler : SimpleChannelInboundHandler<IByteBuffer>
 
         if (session != null)
         {
-            session.SendPacket(new SendLogout(session._player));
-												m_world.RemoveWorldCharacter(session._player);
+            session.SendPacketToAll(new SendLogout(session._player)).ConfigureAwait(false);
+            m_world.RemoveWorldCharacter(session._player);
             session._channel.CloseAsync();
             Debug.Log("Deregistered: " + session._player.GetGuid());
         }

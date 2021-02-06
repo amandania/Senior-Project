@@ -14,14 +14,14 @@ public class NpcDefinition : MonoBehaviour
     public InteractTypes InteractType = InteractTypes.None;
     public float TriggerInteractDistance = 5f;
     public bool autoActivateOnTrriger = false;
-    public bool isAttackable = false;
+    public bool isAttackable = true;
 
 
     [Header("Combat Game Data")]
     public List<KeyValuePair> combatDefs = new List<KeyValuePair>()
     {
-        new KeyValuePair("IsAggresiveTrigger", 0),
-        new KeyValuePair("AttackRate", 2),
+        new KeyValuePair("IsAggresiveTrigger", true),
+        new KeyValuePair("AttackRate", 2f),
         new KeyValuePair("MaxHealth", 100),
         new KeyValuePair("MinHitDamage", 1),
         new KeyValuePair("MaxHitDamage", 1),

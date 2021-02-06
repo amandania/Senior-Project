@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
@@ -188,26 +189,27 @@ public class CombatComponent : MonoBehaviour
     public void LoadCombatDefinition(List<KeyValuePair> combatDefs)
     {
         combatDefs.ForEach(pair => {
-           switch(pair.Key)
+           
+            switch(pair.Key)
             {
                 case "MaxHealth":
-                    MaxHealth = pair.Value;
+                    MaxHealth = (int) pair.Value;
                     CurrentHealth = MaxHealth;
                     break;
                 case "MinHitDamage":
-                    MinHitDamage = pair.Value;
+                    MinHitDamage = (int) pair.Value;
                     break;
                 case "MaxHitDamage":
-                    MaxHitDamage = pair.Value;
+                    MaxHitDamage = (int) pair.Value;
                     break;
                 case "AttackRate":
-                    AttackRate = pair.Value;
+                    AttackRate = (float)pair.Value;
                     break;
                 case "MaxCombos":
-                    MaxCombos = pair.Value;
+                    MaxCombos = (int) pair.Value;
                     break;
                 default:
-                    IsAggresiveTrigger = (pair.Value == 0 ? false : true);
+                    IsAggresiveTrigger = (bool) pair.Value;
                     break;
             }
         });

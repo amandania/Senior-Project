@@ -22,7 +22,7 @@
 
         var currentCombatComp = myModel.GetComponent<CombatComponent>();
         SetCombatComponent(currentCombatComp ?? myModel.AddComponent<CombatComponent>());
-
+        UnityEngine.Debug.Log("set combat compont " + currentCombatComp);
         var currentMoveComp = myModel.GetComponent<MovementComponent>();
         SetMoveComponent(currentMoveComp ?? myModel.AddComponent<MovementComponent>());
     }

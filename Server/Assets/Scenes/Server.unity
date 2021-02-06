@@ -3439,6 +3439,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 306343182}
   m_Mesh: {fileID: 4300000, guid: b75a02a185084be49bc0ead09438de21, type: 3}
+--- !u!1 &313075198 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1592810806766441180, guid: b54b670300da6f24f8185f6507689777,
+    type: 3}
+  m_PrefabInstance: {fileID: 549238878226845000}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &313075199
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313075198}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 2.726331
+  m_Height: 11.45183
+  m_Direction: 2
+  m_Center: {x: -0.1438512, y: 1.428242, z: 4.117394}
 --- !u!1 &318086302
 GameObject:
   m_ObjectHideFlags: 0
@@ -20574,17 +20594,17 @@ PrefabInstance:
     - target: {fileID: 3843306395020507161, guid: b54b670300da6f24f8185f6507689777,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -21.4
+      value: -15.03
       objectReference: {fileID: 0}
     - target: {fileID: 3843306395020507161, guid: b54b670300da6f24f8185f6507689777,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -12.46
+      value: -12.95
       objectReference: {fileID: 0}
     - target: {fileID: 3843306395020507161, guid: b54b670300da6f24f8185f6507689777,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.59
+      value: -2.23
       objectReference: {fileID: 0}
     - target: {fileID: 3843306395020507161, guid: b54b670300da6f24f8185f6507689777,
         type: 3}
@@ -20669,6 +20689,21 @@ PrefabInstance:
     - target: {fileID: 8251566186202681568, guid: b54b670300da6f24f8185f6507689777,
         type: 3}
       propertyPath: canAttack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481525781473491700, guid: b54b670300da6f24f8185f6507689777,
+        type: 3}
+      propertyPath: isAttackable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481525781473491700, guid: b54b670300da6f24f8185f6507689777,
+        type: 3}
+      propertyPath: ModelName
+      value: UnarmedHumanMonster
+      objectReference: {fileID: 0}
+    - target: {fileID: 3511840737634318239, guid: b54b670300da6f24f8185f6507689777,
+        type: 3}
+      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

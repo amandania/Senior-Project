@@ -3,10 +3,10 @@
 public class Npc : Character
 {
 				private NpcDefinition m_defs;
-    private BaseInteract m_interact;
+    private MonsterInteract m_interact;
     private readonly IWorld m_world; 
 				
-				public Npc(GameObject a_serverWorldModel, IWorld world)
+				public Npc(GameObject a_serverWorldModel)
 				{
 								var withTransform = a_serverWorldModel.transform;
 								var model = SetCharModel(a_serverWorldModel);
@@ -14,7 +14,6 @@ public class Npc : Character
 								model.transform.rotation = withTransform.rotation;
         SetPosition(model.transform.position);
         SetRotation(model.transform.rotation.eulerAngles);
-        m_world = world;
 				}
 
 				public NpcDefinition GetDefinition()
@@ -30,7 +29,7 @@ public class Npc : Character
 								m_defs = def;
 				}
 
-    public void SetInteraction(BaseInteract InteractType)
+    public void SetInteraction(MonsterInteract InteractType)
     {
         m_interact = InteractType;
     }
@@ -45,30 +44,15 @@ public class Npc : Character
         {
             SetDefinition(currentDefs);
         }
+								var currentMoveComp = myModel.GetComponent<MovementComponent>();
+								SetMoveComponent(currentMoveComp ?? myModel.AddComponent<MovementComponent>());
 
         if (currentDefs.isAttackable) {
             var currentCombatComp = myModel.GetComponent<CombatComponent>();
             SetCombatComponent(currentCombatComp ?? myModel.AddComponent<CombatComponent>());
             currentCombatComp.LoadCombatDefinition(currentDefs.combatDefs);
+            SetInteraction(myModel.GetComponent<MonsterInteract>() ?? myModel.AddComponent<MonsterInteract>());
         }
-								var currentMoveComp = myModel.GetComponent<MovementComponent>();
-								SetMoveComponent(currentMoveComp ?? myModel.AddComponent<MovementComponent>());
-
-
-        var currentInteract = myModel.GetComponent<BaseInteract>();
-        
-        switch(currentDefs.InteractType)
-        {
-            case InteractTypes.Monster:
-                SetInteraction(myModel.AddComponent<MonsterInteract>());
-                break;
-            default:
-                SetInteraction(myModel.AddComponent<BaseInteract>());
-                break;
-        }
-
-        
-
     }
 
 }

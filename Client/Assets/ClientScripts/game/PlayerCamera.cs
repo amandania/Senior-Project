@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerCamera : MonoBehaviour
 {
     public Transform target;
+    public Transform lookPoint = null;
+
 
     public int mouseButton = 1; // right button by default
 
@@ -41,9 +43,7 @@ public class PlayerCamera : MonoBehaviour
     // store rotation so that unity never modifies it, otherwise unity will put
     // it back to 360 as soon as it's < 0, which makes a negative min angle impossible
     Vector3 rotation;
-
-    public Transform lookPoint = null;
-
+    
     void Awake()
     {
         rotation = transform.eulerAngles;
@@ -61,14 +61,13 @@ public class PlayerCamera : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         if (!target)
             return;
-        Vector3 targetPos = target.position + offset;
 
         // rotation and zoom should only happen if not in a UI right now
 
         // right mouse rotation if we have a mouse
         if (lookPoint != null)
         {
-            Vector3 lookDir = (lookPoint.position) - targetPos;
+            Vector3 lookDir = (lookPoint.position) - target.position;
             Quaternion q = Quaternion.LookRotation(lookDir);
             Vector3 tempEuler = q.eulerAngles;
             q = Quaternion.Euler(new Vector3(Mathf.Clamp(tempEuler.x, 6, 25), tempEuler.y, tempEuler.z));
@@ -107,17 +106,17 @@ public class PlayerCamera : MonoBehaviour
 
 
         // target follow
-        transform.position = targetPos - (transform.rotation * Vector3.forward * distance);
+        transform.position = target.position - (transform.rotation * Vector3.forward * distance);
 
         // avoid view blocking
         RaycastHit hit;
-        if (Physics.Linecast(targetPos, transform.position, out hit, viewBlockingLayers))
+        if (Physics.Linecast(target.position, transform.position, out hit, viewBlockingLayers))
         {
             // calculate a better distance (with some space between it)
-            float d = Vector3.Distance(targetPos, hit.point) - 0.1f;
+            float d = Vector3.Distance(target.position, hit.point) - 0.1f;
 
             // set the final cam position
-            transform.position = targetPos - (transform.rotation * Vector3.forward * d);
+            transform.position = target.position - (transform.rotation * Vector3.forward * d);
         }
     }
 
