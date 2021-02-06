@@ -12,7 +12,7 @@ public class CombatComponent : MonoBehaviour
     private Vector3 DefaultForwardAttack = new Vector3(0,0,10);
 
     [Header("Combat Target Data")]
-    public Character TargetCharacter; // Current Main Target, (doesnt neccarily have to be used with Attack(Character))
+    public GameObject CombatTarget; // Current Main Target, (doesnt neccarily have to be used with Attack(Character))
     public Transform TargetTransform;
 
     public Character Character { get; set; } // Gameobject character owner set during compoent addition/set
@@ -24,8 +24,7 @@ public class CombatComponent : MonoBehaviour
     public int MaxHitDamage = 3;
     public int MaxCombos = 3;
     public int CurrentAttackCombo = 0;
-    public int AttackDistance { get; set; } = 5; // Required distance to perform attack
-    public int MaxReachDistance { get; set; } = 10;
+    public int MaxReachDistance { get; set; } = 1;
     public bool IsAggresiveTrigger = false; // 0 or 1 for true false.
 
     public float AttackRate { get; set; } = .35f; // Default: every 2 seconds we can attack 
@@ -35,6 +34,10 @@ public class CombatComponent : MonoBehaviour
 
     public NetworkManager Network { get; set; }
     private CombatComponent instance;
+    private MovementComponent Mover { get; set; }
+
+    private List<GameObject> TargetList { get; set; } = new List<GameObject>();
+
     private void Awake()
     {
         instance = this;
@@ -42,12 +45,27 @@ public class CombatComponent : MonoBehaviour
     private void Start()
     {
         Network = GameObject.Find("WorldManager").GetComponent<NetworkManager>() as NetworkManager;
+        Mover = GetComponent<MovementComponent>();
         MyAnimator = GetComponent<Animator>();
         AttackStopwatch.Start();
     }
     private void Update()
     {
-
+        if (CombatTarget)
+        {
+            if (!WithinReach(CombatTarget.transform.position, out m_reachDistance))
+            {
+                if (Mover.LockedMovement) { 
+                    Mover.LockedMovement = false;
+                }
+                return;
+            }
+            Attack(CombatTarget);
+            if (m_reachDistance < 1)
+            {
+                Mover.LockedMovement = true;
+            }
+        }
     }
 
     /*void Attack()*/
@@ -85,10 +103,12 @@ public class CombatComponent : MonoBehaviour
 												Attack(Vector3 TargetPosition)
 
 				DESCRIPTION
-												This function will perform an attack with a target vector
+												This function will perform direct attacks on specfic object target
+            Our client is always going to left click with the nearest targets guid
+            We use this target on server to attemp within distance attack
 				*/
     /*void Attack(Vector3 TargetPosition)*/
-    public void Attack(Vector3 TargetPosition)
+    public void Attack(GameObject target)
     {
         if (Character == null)
         {
@@ -97,55 +117,25 @@ public class CombatComponent : MonoBehaviour
         if (AttackStopwatch.Elapsed.Seconds < AttackRate) {
             return;
         }
+
+        PerformAttack(target.transform.position);
     }
-
-
-    /*void Attack(Character target)*/
-    /*
-				NAME
-												Attack(Character target)
-
-				DESCRIPTION
-												This function will perform direct attacks on specfic character target
-            Our client is always going to left click with the nearest targets guid
-            We use this target on server to attemp within distance attack
-				*/
-    /*void Attack(Character target)*/
-    public void Attack(Character target)
-    {
-        if (Character == null)
-        {
-            return;
-        }
-        if (AttackStopwatch.Elapsed.Seconds < AttackRate)
-        {
-            return;
-        }
-        var defaultTargetDistance = transform.position + (transform.forward + DefaultForwardAttack);
-        if (WithinReach(target.GetCharModel().transform.position, out m_reachDistance))
-        {
-            defaultTargetDistance = target.Position;
-            TargetCharacter = target;
-        }
-        PerformAttack(defaultTargetDistance);
-    }
-
 
     public void PerformAttack(Vector3 targetGoal)
     {
         AttackStopwatch.Reset();
         CurrentAttackCombo += 1;
-
+        Mover.LockedMovement = true;
         if (CurrentAttackCombo > MaxCombos)
         {
             CurrentAttackCombo = 1;
         }
-        Vector3 distanceVector = (targetGoal - Character.Position);
+        Vector3 distanceVector = (targetGoal - transform.position);
 
         var distance = 0f;
-        if (distanceVector.magnitude > 5 && distanceVector.magnitude < 20)
+        if (distanceVector.magnitude > 2 && distanceVector.magnitude < 20)
         {
-            distance = distanceVector.magnitude;
+            distance = distanceVector.magnitude - 2;
         } else if (distanceVector.magnitude > 20)
         {
             distance = 20f;
@@ -159,10 +149,10 @@ public class CombatComponent : MonoBehaviour
         float startTime = Time.time;
         while(Time.time < startTime + .25)
         {
-            Character.MovementComponent.CharacterController.Move(transform.forward * DashDistance * Time.deltaTime);
+            Mover.CharacterController.Move(transform.forward * DashDistance * Time.deltaTime);
             yield return null;
         }
-        
+        Mover.LockedMovement = false;
 
         yield return null;
     }
@@ -180,11 +170,26 @@ public class CombatComponent : MonoBehaviour
     }
 
 
-    public Character GetCharacterTarget()
+    public GameObject GetCharacterTarget()
     {
-        return TargetCharacter;
+        return CombatTarget;
     }
     
+
+    public void AddToPossibleTargets(GameObject target)
+    {
+        if (TargetList.Contains(target))
+        {
+            return;
+        }   
+        TargetList.Add(target);
+
+        if (TargetList.Count == 1)
+        {
+            CombatTarget = target;
+            GetComponent<MovementComponent>().SetAgentPath(target);
+        }
+    }
 
     public void LoadCombatDefinition(List<KeyValuePair> combatDefs)
     {

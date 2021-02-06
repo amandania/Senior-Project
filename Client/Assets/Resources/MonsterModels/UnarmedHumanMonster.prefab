@@ -620,7 +620,6 @@ GameObject:
   - component: {fileID: 2146134722881661058}
   - component: {fileID: 1262561663739764630}
   - component: {fileID: 3860183642171189965}
-  - component: {fileID: 4306723418515137500}
   m_Layer: 0
   m_Name: UnarmedHumanMonster
   m_TagString: Player
@@ -667,7 +666,7 @@ Animator:
   m_GameObject: {fileID: 1592810806766441180}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e57e9b8cd5e115f4f8d7736473e5c7fd, type: 3}
-  m_Controller: {fileID: 9100000, guid: 35e0191427e917a4ab9ab134cd894a55, type: 2}
+  m_Controller: {fileID: 9100000, guid: e57ca3b260f23954f90d1f4dadef3685, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -698,19 +697,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
---- !u!114 &4306723418515137500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592810806766441180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b90c5b86638013443bdafa3719952889, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InteractType: 0
 --- !u!1 &1602843817242976226
 GameObject:
   m_ObjectHideFlags: 0

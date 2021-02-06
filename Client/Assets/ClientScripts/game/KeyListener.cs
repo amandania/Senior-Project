@@ -64,7 +64,6 @@ public class KeyListener : MonoBehaviour {
     }
 
     public bool canSendNetworkMovement;
-    public float networkSendRate = 5;
     public float timeBetweenMovementStart;
     public float timeBetweenMovementEnd;
 				public Vector3 lastMove;

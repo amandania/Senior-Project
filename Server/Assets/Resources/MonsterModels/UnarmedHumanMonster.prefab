@@ -664,20 +664,14 @@ MonoBehaviour:
   InteractType: 3
   TriggerInteractDistance: 5
   autoActivateOnTrriger: 0
-  canAttack: 0
+  isAttackable: 1
   combatDefs:
   - Key: IsAggresiveTrigger
-    Value: 0
   - Key: AttackRate
-    Value: 2
   - Key: MaxHealth
-    Value: 100
   - Key: MinHitDamage
-    Value: 1
   - Key: MaxHitDamage
-    Value: 1
   - Key: MaxCombos
-    Value: 3
   DisplayImageName: {fileID: 0}
 --- !u!95 &1262561663739764630
 Animator:
@@ -780,7 +774,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b3af355b447be468c13cdce3e8fefb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CombatTarget: {fileID: 0}
   TargetTransform: {fileID: 0}
+  MaxHealth: 100
+  CurrentHealth: 100
   MinHitDamage: 1
   MaxHitDamage: 3
   MaxCombos: 3
@@ -800,7 +797,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   State: 0
   RotationSpeed: 220
-  MovementSpeed: 3
+  MovementSpeed: 0.35
   JumpSpeed: 7
   Gravity: 500
 --- !u!1 &1602843817242976226

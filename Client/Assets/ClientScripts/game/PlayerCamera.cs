@@ -64,10 +64,11 @@ public class PlayerCamera : MonoBehaviour
 
         // rotation and zoom should only happen if not in a UI right now
 
+        Vector3 targetPos = target.position + offset;
         // right mouse rotation if we have a mouse
         if (lookPoint != null)
         {
-            Vector3 lookDir = (lookPoint.position) - target.position;
+            Vector3 lookDir = (lookPoint.position) - targetPos;
             Quaternion q = Quaternion.LookRotation(lookDir);
             Vector3 tempEuler = q.eulerAngles;
             q = Quaternion.Euler(new Vector3(Mathf.Clamp(tempEuler.x, 6, 25), tempEuler.y, tempEuler.z));
@@ -79,24 +80,7 @@ public class PlayerCamera : MonoBehaviour
             rotation.x -= Input.GetAxis("Mouse Y") * rotationSpeed;
             rotation.x = Mathf.Clamp(rotation.x, xMinAngle, xMaxAngle);
             transform.rotation = Quaternion.Euler(rotation.x, rotation.y, 0);
-            /*if (Input.mousePresent)
-            {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hit2;
-                    if (Physics.Raycast(ray, out hit2, 2))
-                    {
-                        Debug.Log(hit2.transform.name);
-
-                    }
-                }
-            }
-            else
-            {
-                // forced 45 degree if there is no mouse to rotate (for mobile)
-                transform.rotation = Quaternion.Euler(new Vector3(45, 0, 0));
-            }*/
+           
         }
 
         // zoom
@@ -106,17 +90,17 @@ public class PlayerCamera : MonoBehaviour
 
 
         // target follow
-        transform.position = target.position - (transform.rotation * Vector3.forward * distance);
+        transform.position = targetPos - (transform.rotation * Vector3.forward * distance);
 
         // avoid view blocking
         RaycastHit hit;
-        if (Physics.Linecast(target.position, transform.position, out hit, viewBlockingLayers))
+        if (Physics.Linecast(targetPos, transform.position, out hit, viewBlockingLayers))
         {
             // calculate a better distance (with some space between it)
-            float d = Vector3.Distance(target.position, hit.point) - 0.1f;
+            float d = Vector3.Distance(targetPos, hit.point) - 0.1f;
 
             // set the final cam position
-            transform.position = target.position - (transform.rotation * Vector3.forward * d);
+            transform.position = targetPos - (transform.rotation * Vector3.forward * d);
         }
     }
 
