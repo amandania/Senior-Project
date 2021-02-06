@@ -4,9 +4,9 @@
 public class KeyValuePair
 {
     public string Key;
-    public int Value;
+    public object Value;
 
-    public KeyValuePair(string key, int value)
+    public KeyValuePair(string key, object value)
     {
         Key = key;
         Value = value;

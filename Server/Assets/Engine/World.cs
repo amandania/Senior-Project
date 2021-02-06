@@ -25,12 +25,11 @@ public class World : MonoBehaviour, IWorld
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
             Transform monsterListTransform = GameObject.Find("Monsters").transform;
-
-            Debug.Log("load server monster");
+            
             for (int index = 0; index < monsterListTransform.childCount; index++)
             {
                 GameObject model = monsterListTransform.GetChild(index).gameObject;
-                Npc npc = new Npc(model, this);
+                Npc npc = new Npc(model);
                 AddWorldCharacter(npc);
             }
             completed = true;

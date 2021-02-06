@@ -44,7 +44,10 @@ namespace Assets.ClientScripts.net.channel
                 { (int)IncomingPackets.HANDLE_SPAWN_PLAYER, new HandleSpawnPlayer() },
                 { (int)IncomingPackets.HANDLE_LOGOUT, new HandleLogout() },
                 { (int)IncomingPackets.HANDLE_TRIGGER_COMABT, new HandleTriggerCombat() },
-                { (int)IncomingPackets.HANDLE_SPAWN_MONSTER, new HandleSpawnMonster() }
+                { (int)IncomingPackets.HANDLE_SPAWN_MONSTER, new HandleSpawnMonster() },
+                { (int)IncomingPackets.HANDLE_PLAYER_LOOKAT, new HandlePlayerLookAt() },
+                { (int)IncomingPackets.HANDLE_DESTROY_OBJECT, new HandleDestroyGameObject() }
+
             };
         }
         
