@@ -36,7 +36,7 @@ public class KeyListener : MonoBehaviour {
 
 				public bool isSprinting = false;
 
-    public bool lockMovementToCam = true;
+    public bool lockMovementToCam = false;
 
 				public MouseInputUIBlocker m_uiBlocker;
 
