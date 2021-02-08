@@ -77,10 +77,12 @@ public class PlayerCamera : MonoBehaviour
         rotation.x -= Input.GetAxis("Mouse Y") * rotationSpeed;
         rotation.x = Mathf.Clamp(rotation.x, xMinAngle, xMaxAngle);
 
-        Quaternion camRotation = Quaternion.Euler(rotation.x, rotation.y, 0);
-        transform.rotation = camRotation;
-
         
+       
+
+        /*
+         Quaternion camRotation = Quaternion.Euler(rotation.x, rotation.y, 0);
+         transform.rotation = camRotation;
         // zoom
         float speed = Input.mousePresent ? zoomSpeedMouse : zoomSpeedTouch;
         float step = Utils.GetZoomUniversal() * speed;
@@ -99,7 +101,7 @@ public class PlayerCamera : MonoBehaviour
 
             // set the final cam position
             transform.position = targetPos - (transform.rotation * Vector3.forward * d);
-        }
+        }*/
     }
 
     public float ClampAngle(float angle, float min, float max)

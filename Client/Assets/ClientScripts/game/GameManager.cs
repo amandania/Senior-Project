@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -82,9 +83,12 @@ public class GameManager : MonoBehaviour {
 												playerList[index].AddComponent<MouseInputUIBlocker>();
 												var keylistener = playerList[index].AddComponent<KeyListener>();
 
-            var playerCam = Camera.main.GetComponent<PlayerCamera>();
-            playerCam.target = playerList[index].transform;
-            keylistener.PlayerCam = playerCam;
+            var playerCam = Camera.main.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
+            Debug.Log("playercam: " + playerCam);
+            playerCam.Follow = playerList[index].transform.Find("CamFollow").transform;
+
+
+            //keylistener.PlayerCam = playerCam;
 
             /*Camera.main.gameObject.AddComponent<CameraScript>();
             Camera.main.GetComponent<CameraScript>().localPlayer = playerList[index].transform;

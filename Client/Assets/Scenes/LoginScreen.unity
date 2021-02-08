@@ -482,7 +482,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerModel: {fileID: 100000, guid: 256c83ac9d8cd7e4d81b4a32ce84962d, type: 3}
   camera: {fileID: 1186278218731936, guid: 6ca35e50718365d4c9010e46522d3e81, type: 3}
-  InteractionController: {fileID: 0}
   LocalPlrObj: {fileID: 0}
 --- !u!1 &961738303
 GameObject:
