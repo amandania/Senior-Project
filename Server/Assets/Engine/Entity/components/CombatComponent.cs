@@ -83,13 +83,13 @@ public class CombatComponent : MonoBehaviour
     {
         if (Character == null)
         {
-            UnityEngine.Debug.Log("no character");
+            //UnityEngine.Debug.Log("no character");
             return;
         }
        
         if (AttackStopwatch.Elapsed.Seconds < AttackRate)
         {
-            UnityEngine.Debug.Log("Cannot attack" + AttackStopwatch.Elapsed.Seconds);
+            //UnityEngine.Debug.Log("Cannot attack" + AttackStopwatch.Elapsed.Seconds);
             return;
         }
         var defaultTargetDistance = transform.position + (transform.forward + DefaultForwardAttack);
@@ -123,15 +123,16 @@ public class CombatComponent : MonoBehaviour
 
     public void PerformAttack(Vector3 targetGoal)
     {
-        AttackStopwatch.Reset();
         CurrentAttackCombo += 1;
         Mover.LockedMovement = true;
+        AttackStopwatch.Reset();
         if (CurrentAttackCombo > MaxCombos)
         {
             CurrentAttackCombo = 1;
         }
         Vector3 distanceVector = (targetGoal - transform.position);
 
+        /*
         var distance = 0f;
         if (distanceVector.magnitude > 2 && distanceVector.magnitude < 20)
         {
@@ -140,8 +141,11 @@ public class CombatComponent : MonoBehaviour
         {
             distance = 20f;
         }
-        StartCoroutine(HandleDash(distance));
+        StartCoroutine(HandleDash(distance));*/
+
         AttackStopwatch.Start();
+        Mover.FreezeStopwatch.Start();
+        UnityEngine.Debug.Log("Start freeze");
         Network.SendPacketToAll(new SendCharacterCombatStage(Character, CurrentAttackCombo)).ConfigureAwait(false);
     }
     private IEnumerator HandleDash(float DashDistance)

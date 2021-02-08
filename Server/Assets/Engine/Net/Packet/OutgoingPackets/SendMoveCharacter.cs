@@ -11,13 +11,15 @@ public class SendMoveCharacter : IOutGoingPackets
     private readonly float m_moveSpeed;
     private readonly float m_verticalSpeed;
     private readonly float m_horizontalSpeed;
+    private readonly bool m_isStrafing;
 
-    public SendMoveCharacter(Character a_character, float a_moveSpeed, float a_verticalSpeed, float a_horizontalSpeed)
+    public SendMoveCharacter(Character a_character, float a_moveSpeed, float a_verticalSpeed, float a_horizontalSpeed, bool a_isStrafing)
     {
         m_character = a_character;
         m_moveSpeed = a_moveSpeed;
         a_verticalSpeed = m_verticalSpeed;
         a_horizontalSpeed = m_horizontalSpeed;
+        m_isStrafing = a_isStrafing;
     }
 
     public IByteBuffer GetPacket()
@@ -53,6 +55,8 @@ public class SendMoveCharacter : IOutGoingPackets
         buffer.WriteFloat(m_moveSpeed);
         buffer.WriteFloat(m_horizontalSpeed);
         buffer.WriteFloat(m_verticalSpeed);
+   
+        buffer.WriteBoolean(m_isStrafing);
 
         return buffer;
     }

@@ -21,7 +21,6 @@ public class KeyListener : MonoBehaviour {
 
     private int startFood;
 
-    public Camera cam;
     #endregion
 
     #region Public Members
@@ -34,12 +33,11 @@ public class KeyListener : MonoBehaviour {
 
     public float JumpSpeed = 7.0f;
 
-				public bool isSprinting = false;
+    public bool isSprinting = false;
 
-    public bool lockMovementToCam = false;
+    public MouseInputUIBlocker m_uiBlocker;
 
-				public MouseInputUIBlocker m_uiBlocker;
-
+    public PlayerCamera PlayerCam {get; set;}
 				#endregion
 
 				// Use this for initialization
@@ -92,7 +90,7 @@ public class KeyListener : MonoBehaviour {
 				// Update is called once per frame data
 				void FixedUpdate()
     {
-        if (mIsControlEnabled && cam != null)
+        if (mIsControlEnabled && Camera.main != null)
         {
 
             // Get Input for axis
@@ -100,15 +98,15 @@ public class KeyListener : MonoBehaviour {
             float v = Input.GetAxis("Vertical");
 
             // Calculate the forward vector
-            Vector3 camForward_Dir = Vector3.Scale(cam.transform.forward, MaxVector).normalized;
-            Vector3 move = v * camForward_Dir + h * cam.transform.right;
+            Vector3 camForward_Dir = Vector3.Scale(Camera.main.transform.forward, MaxVector).normalized;
+            Vector3 move = v * camForward_Dir + h * Camera.main.transform.right;
 
             //Debug.Log(move.magnitude / (isSprinting ? 1 : 2) );
             Vector3 relativeInput = transform.InverseTransformDirection(move);
 
 
             //Debug.Log("Horizontal :" + relativeInput.x + ", Vertical:" + relativeInput.z);
-
+            _animator.SetBool("IsStrafing", PlayerCam.lockMovementToCam);
             _animator.SetFloat("HorizontalInput", relativeInput.x);
             _animator.SetFloat("VerticalInput", relativeInput.z);
             _animator.SetFloat("Speed", move.magnitude);
@@ -116,7 +114,7 @@ public class KeyListener : MonoBehaviour {
 												if (NetworkManager.networkStream.IsWritable) {
 																//Debug.Log("disabled movement send");
 																lastMove = move;
-																NetworkManager.instance.SendPacket(new SendMovementPacket(move, lockMovementToCam,  Camera.main.transform.eulerAngles.y).CreatePacket());
+																NetworkManager.instance.SendPacket(new SendMovementPacket(move, PlayerCam.lockMovementToCam,  Camera.main.transform.eulerAngles.y).CreatePacket());
             }
         }
     }

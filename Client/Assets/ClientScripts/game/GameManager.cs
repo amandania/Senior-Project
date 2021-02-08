@@ -58,10 +58,7 @@ public class GameManager : MonoBehaviour {
         playerObj.transform.rotation = a_rotation;
         if (a_isLocalPlayer == true)
         {
-            GameObject camera = Resources.Load("Camera") as GameObject;
-            camera.name = "Camera-Id: " + a_guid;
-            Instantiate(camera, playerObj.transform);
-            this.camera = camera;
+            Camera camera = Camera.main;
         }
 
         playerList.Add(a_guid, playerObj);
@@ -83,12 +80,24 @@ public class GameManager : MonoBehaviour {
         if (a_isLocalPlayer == true)
         {
 												playerList[index].AddComponent<MouseInputUIBlocker>();
-												playerList[index].AddComponent<KeyListener>();
-            string camName = "Camera-Id: " + index + "(Clone)";
-            var cam = playerList[index].transform.Find(camName).GetComponent<Camera>();
-            cam.allowDynamicResolution = false;
-            cam.GetComponent<PlayerCamera>().target = playerList[index].transform;
-												playerList[index].GetComponent<KeyListener>().cam = cam;
+												var keylistener = playerList[index].AddComponent<KeyListener>();
+
+            var playerCam = Camera.main.GetComponent<PlayerCamera>();
+            playerCam.target = playerList[index].transform;
+            keylistener.PlayerCam = playerCam;
+
+            /*Camera.main.gameObject.AddComponent<CameraScript>();
+            Camera.main.GetComponent<CameraScript>().localPlayer = playerList[index].transform;
+
+            var basecam = playerList[index].AddComponent<BehaviorManager>();
+            basecam.playerCamera = Camera.main.transform;
+            playerList[index].AddComponent<RightClickAim>();*/
+
+            //string camName = "Camera-Id: " + index + "(Clone)";
+            //var cam = playerList[index].transform.Find(camName).GetComponent<Camera>();
+            //cam.allowDynamicResolution = false;
+            //cam.GetComponent<PlayerCamera>().target = playerList[index].transform;
+            //	playerList[index].GetComponent<KeyListener>().cam = cam;
             //Debug.Log(" Set interaction controoller " + InteractionController);
         } 
 

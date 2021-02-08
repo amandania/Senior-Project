@@ -21,18 +21,18 @@ public class HandleMoveCharacter : IIncomingPacketHandler
 								float moveSpeed = buffer.ReadFloat();
         float horizontalInput = buffer.ReadFloat();
         float verticalInput = buffer.ReadFloat();
-
+        bool isStrafing = buffer.ReadBoolean();
 								UnityMainThreadDispatcher.Instance().Enqueue(() =>
 								{
 												GameObject player = null;
 												var hasVal = GameManager.instance.ServerSpawns.TryGetValue(index, out player);
 												
 												if (hasVal) {
-																Lerp(index, player, oldPos, pos, oldRotation, newRotation, moveSpeed, horizontalInput, verticalInput);
+																Lerp(index, player, oldPos, pos, oldRotation, newRotation, moveSpeed, horizontalInput, verticalInput, isStrafing);
 												}
 								});
 				}
-				void Lerp(Guid index, GameObject a_player, Vector3 a_lastRealPosition, Vector3 a_realPosition, Quaternion a_lastRotation, Quaternion a_realrotation, float a_moveSpeed, float a_horizontal, float a_vertical)
+				void Lerp(Guid index, GameObject a_player, Vector3 a_lastRealPosition, Vector3 a_realPosition, Quaternion a_lastRotation, Quaternion a_realrotation, float a_moveSpeed, float a_horizontal, float a_vertical, bool strafe)
 				{
 								if (a_player == null) {
 												return;
@@ -44,7 +44,8 @@ public class HandleMoveCharacter : IIncomingPacketHandler
 								float timeToLerp = 20;
 								float travelSpeed = (a_player.transform.position - a_realPosition).magnitude;
 								if (animator != null && index.ToString() != NetworkManager.instance.myIndex.ToString()) {
-												//Debug.Log("non local player speed changed for animator");
+            //Debug.Log("non local player speed changed for animator");
+            animator.SetBool("IsStrafing", strafe);
 												animator.SetFloat("Speed", a_moveSpeed);
             animator.SetFloat("HorizontalInput", a_horizontal);
             animator.SetFloat("VerticalInput", a_vertical);

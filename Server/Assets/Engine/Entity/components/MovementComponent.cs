@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Diagnostics;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class MovementComponent : MonoBehaviour
@@ -20,7 +21,7 @@ public class MovementComponent : MonoBehaviour
     //Main movement related data
     [Header("Movement Data")]
     public MovementState State = MovementState.IDLE;
-    public float RotationSpeed = Mathf.Infinity;
+    public float RotationSpeed = 1;
     public float MovementSpeed = 7.0f;
     public float JumpSpeed = 7.0f;
     public float Gravity = 500.0f;
@@ -30,6 +31,8 @@ public class MovementComponent : MonoBehaviour
 
     public GameObject CurrentForcePathTo { get; set; }
     private bool InMovement {get; set;} = false;
+    public Stopwatch FreezeStopwatch { get; set; } = new Stopwatch(); // freze
+
 
     public void SetAgentPath(GameObject alwaysPath)
     {
@@ -41,6 +44,7 @@ public class MovementComponent : MonoBehaviour
     private void Awake()
     {
         CharacterController = GetComponent<CharacterController>();
+        FreezeStopwatch.Reset();
     }
 
     // Use this for initialization
@@ -68,8 +72,8 @@ public class MovementComponent : MonoBehaviour
 
                 var distance = (CurrentForcePathTo.transform.position - transform.position);
                 var direction = distance.normalized;
-
                 Move(direction, Strafe, 0);
+
             }
         }
     }
@@ -83,8 +87,19 @@ public class MovementComponent : MonoBehaviour
         }
         if (LockedMovement)
         {
-            a_moveVector = Zero;
+            //UnityEngine.Debug.Log("FreezeStopwatch " + FreezeStopwatch.Elapsed.Milliseconds);
+            if (FreezeStopwatch.Elapsed.Milliseconds > 0.5)
+            {
+                LockedMovement = false;
+                FreezeStopwatch.Stop();
+                FreezeStopwatch.Reset();
+            }
+            else
+            {
+                a_moveVector = Zero;
+            }
         }
+
         float moveSpeed = 0f;
         if (a_moveVector.magnitude <= 0)
         {
@@ -156,7 +171,7 @@ public class MovementComponent : MonoBehaviour
         Vector3 relativeInput = transform.InverseTransformDirection(a_moveVector);
 
         lastAccelerate = moveSpeed;
-        Network.SendPacketToAll(new SendMoveCharacter(Character, LockedMovement ? 0 : moveSpeed, LockedMovement ? 0 : relativeInput.z, LockedMovement ? 0 : relativeInput.x)).ConfigureAwait(false);
+        Network.SendPacketToAll(new SendMoveCharacter(Character, LockedMovement ? 0 : moveSpeed, LockedMovement ? 0 : relativeInput.z, LockedMovement ? 0 : relativeInput.x, isStrafing)).ConfigureAwait(false);
         //.SendPacketToAll(new SendMoveCharacter(m_character, moveSpeed)).ConfigureAwait(false);
     }
     
