@@ -625,6 +625,7 @@ GameObject:
   - component: {fileID: 6454821065455642541}
   - component: {fileID: 179534814955467608}
   - component: {fileID: 7121198886886747358}
+  - component: {fileID: 7302924661892854005}
   m_Layer: 0
   m_Name: UnarmedHumanMonster
   m_TagString: Player
@@ -667,11 +668,29 @@ MonoBehaviour:
   isAttackable: 1
   combatDefs:
   - Key: IsAggresiveTrigger
+    BoolValue: 1
+    IntValue: 0
+    FloatValue: 0
   - Key: AttackRate
+    BoolValue: 0
+    IntValue: 0
+    FloatValue: 2
   - Key: MaxHealth
+    BoolValue: 0
+    IntValue: 100
+    FloatValue: 0
   - Key: MinHitDamage
+    BoolValue: 0
+    IntValue: 1
+    FloatValue: 0
   - Key: MaxHitDamage
+    BoolValue: 0
+    IntValue: 1
+    FloatValue: 0
   - Key: MaxCombos
+    BoolValue: 0
+    IntValue: 3
+    FloatValue: 0
   DisplayImageName: {fileID: 0}
 --- !u!95 &1262561663739764630
 Animator:
@@ -800,6 +819,50 @@ MonoBehaviour:
   MovementSpeed: 0.35
   JumpSpeed: 7
   Gravity: 500
+--- !u!114 &7302924661892854005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592810806766441180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ee1bc16ef15282458c558dccaee25bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ModelName: 
+  DisplayName: 
+  InteractType: 3
+  TriggerInteractDistance: 5
+  autoActivateOnTrriger: 0
+  isAttackable: 1
+  combatDefs:
+  - Key: IsAggresiveTrigger
+    BoolValue: 1
+    IntValue: 0
+    FloatValue: 0
+  - Key: AttackRate
+    BoolValue: 0
+    IntValue: 0
+    FloatValue: 1
+  - Key: MaxHealth
+    BoolValue: 0
+    IntValue: 100
+    FloatValue: 0
+  - Key: MinHitDamage
+    BoolValue: 0
+    IntValue: 1
+    FloatValue: 0
+  - Key: MaxHitDamage
+    BoolValue: 0
+    IntValue: 1
+    FloatValue: 0
+  - Key: MaxCombos
+    BoolValue: 0
+    IntValue: 3
+    FloatValue: 0
+  DisplayImageName: {fileID: 0}
 --- !u!1 &1602843817242976226
 GameObject:
   m_ObjectHideFlags: 0

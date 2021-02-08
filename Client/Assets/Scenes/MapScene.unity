@@ -621,20 +621,20 @@ MonoBehaviour:
   target: {fileID: 0}
   lookPoint: {fileID: 0}
   mouseButton: 1
-  lockCamera: 0
+  lockMovementToCam: 0
   xMouseSensitivity: 3
   yMouseSensitivity: 3
   yMinLimit: -40
   yMaxLimit: 80
-  distance: 10
+  distance: 3
   minDistance: 3
-  maxDistance: 10
+  maxDistance: 4
   zoomSpeedMouse: 1
   zoomSpeedTouch: 0.2
   rotationSpeed: 5
   xMinAngle: -40
   xMaxAngle: 80
-  offset: {x: 0.25, y: 1.25, z: 0}
+  offset: {x: 0, y: 1.35, z: 0}
   viewBlockingLayers:
     serializedVersion: 2
     m_Bits: 0

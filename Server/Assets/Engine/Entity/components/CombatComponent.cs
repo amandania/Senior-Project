@@ -24,13 +24,13 @@ public class CombatComponent : MonoBehaviour
     public int MaxHitDamage = 3;
     public int MaxCombos = 3;
     public int CurrentAttackCombo = 0;
-    public int MaxReachDistance { get; set; } = 1;
+    public float MaxReachDistance { get; set; } = 1.25f;
     public bool IsAggresiveTrigger = false; // 0 or 1 for true false.
 
+    public float LastAttack  { get; set; }
     public float AttackRate { get; set; } = .35f; // Default: every 2 seconds we can attack 
 
-    public Stopwatch AttackStopwatch { get; set; } = new Stopwatch(); // We start it at 2 because this is required attack rate
-    public Stopwatch LastAttackRecieved { get; set; } = new Stopwatch(); // 
+     public Stopwatch LastAttackRecieved { get; set; } = new Stopwatch(); // 
 
     public NetworkManager Network { get; set; }
     private CombatComponent instance;
@@ -47,7 +47,6 @@ public class CombatComponent : MonoBehaviour
         Network = GameObject.Find("WorldManager").GetComponent<NetworkManager>() as NetworkManager;
         Mover = GetComponent<MovementComponent>();
         MyAnimator = GetComponent<Animator>();
-        AttackStopwatch.Start();
     }
     private void Update()
     {
@@ -55,15 +54,12 @@ public class CombatComponent : MonoBehaviour
         {
             if (!WithinReach(CombatTarget.transform.position, out m_reachDistance))
             {
-                if (Mover.LockedMovement) { 
-                    Mover.LockedMovement = false;
-                }
+                UnityEngine.Debug.Log("not withing distnace");
                 return;
             }
-            Attack(CombatTarget);
-            if (m_reachDistance < 1)
+            else
             {
-                Mover.LockedMovement = true;
+                Attack(CombatTarget);
             }
         }
     }
@@ -87,7 +83,7 @@ public class CombatComponent : MonoBehaviour
             return;
         }
        
-        if (AttackStopwatch.Elapsed.Seconds < AttackRate)
+        if (Time.time - LastAttack < AttackRate)
         {
             //UnityEngine.Debug.Log("Cannot attack" + AttackStopwatch.Elapsed.Seconds);
             return;
@@ -114,7 +110,9 @@ public class CombatComponent : MonoBehaviour
         {
             return;
         }
-        if (AttackStopwatch.Elapsed.Seconds < AttackRate) {
+        if (Time.time - LastAttack < AttackRate)
+        {
+            //UnityEngine.Debug.Log("Cannot attack time: " + (Time.time - LastAttack));
             return;
         }
 
@@ -124,8 +122,10 @@ public class CombatComponent : MonoBehaviour
     public void PerformAttack(Vector3 targetGoal)
     {
         CurrentAttackCombo += 1;
+        Mover.DidCombatHit = true;
         Mover.LockedMovement = true;
-        AttackStopwatch.Reset();
+        Mover.lockedAtTime = -1;
+        LastAttack = Time.time;
         if (CurrentAttackCombo > MaxCombos)
         {
             CurrentAttackCombo = 1;
@@ -143,9 +143,7 @@ public class CombatComponent : MonoBehaviour
         }
         StartCoroutine(HandleDash(distance));*/
 
-        AttackStopwatch.Start();
-        Mover.FreezeStopwatch.Start();
-        UnityEngine.Debug.Log("Start freeze");
+        //AttackStopwatch.Start();
         Network.SendPacketToAll(new SendCharacterCombatStage(Character, CurrentAttackCombo)).ConfigureAwait(false);
     }
     private IEnumerator HandleDash(float DashDistance)
@@ -202,23 +200,23 @@ public class CombatComponent : MonoBehaviour
             switch(pair.Key)
             {
                 case "MaxHealth":
-                    MaxHealth = (int) pair.Value;
+                    MaxHealth = pair.IntValue;
                     CurrentHealth = MaxHealth;
                     break;
                 case "MinHitDamage":
-                    MinHitDamage = (int) pair.Value;
+                    MinHitDamage = pair.IntValue;
                     break;
                 case "MaxHitDamage":
-                    MaxHitDamage = (int) pair.Value;
+                    MaxHitDamage = pair.IntValue;
                     break;
                 case "AttackRate":
-                    AttackRate = (float)pair.Value;
+                    AttackRate = pair.FloatValue;
                     break;
                 case "MaxCombos":
-                    MaxCombos = (int) pair.Value;
+                    MaxCombos = pair.IntValue;
                     break;
                 default:
-                    IsAggresiveTrigger = (bool) pair.Value;
+                    IsAggresiveTrigger = pair.BoolValue;
                     break;
             }
         });

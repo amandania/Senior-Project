@@ -28,10 +28,13 @@ public class MovementComponent : MonoBehaviour
     public bool Strafe { get; set; } = false;
     public bool LockedMovement { get; set; } = false;
 
+    public bool DidCombatHit { get; set; } = false;
+
+    public float lockedAtTime { get; set; } = -1;
+
 
     public GameObject CurrentForcePathTo { get; set; }
     private bool InMovement {get; set;} = false;
-    public Stopwatch FreezeStopwatch { get; set; } = new Stopwatch(); // freze
 
 
     public void SetAgentPath(GameObject alwaysPath)
@@ -44,7 +47,6 @@ public class MovementComponent : MonoBehaviour
     private void Awake()
     {
         CharacterController = GetComponent<CharacterController>();
-        FreezeStopwatch.Reset();
     }
 
     // Use this for initialization
@@ -58,11 +60,27 @@ public class MovementComponent : MonoBehaviour
     //apply any physics things like Force in here
     private void FixedUpdate()
     {
+
+        
     }
 
     // Update is called once per frame
     private void Update()
     {
+        if (DidCombatHit && LockedMovement)
+        {
+            UnityEngine.Debug.Log("locked time: " + lockedAtTime);
+            lockedAtTime += 1;
+            if (lockedAtTime >= 25)
+            {
+                DidCombatHit = false;
+                LockedMovement = false;
+                lockedAtTime = -1;
+                UnityEngine.Debug.Log("reset");
+            }
+        }
+
+
         if (Character.IsNpc())
         {
             if (CurrentForcePathTo)
@@ -76,6 +94,7 @@ public class MovementComponent : MonoBehaviour
 
             }
         }
+
     }
     private float lastAccelerate = 0f;
     public void Move(Vector3 a_moveVector, bool isStrafing, float rotatOnMouse)
@@ -87,17 +106,7 @@ public class MovementComponent : MonoBehaviour
         }
         if (LockedMovement)
         {
-            //UnityEngine.Debug.Log("FreezeStopwatch " + FreezeStopwatch.Elapsed.Milliseconds);
-            if (FreezeStopwatch.Elapsed.Milliseconds > 0.5)
-            {
-                LockedMovement = false;
-                FreezeStopwatch.Stop();
-                FreezeStopwatch.Reset();
-            }
-            else
-            {
-                a_moveVector = Zero;
-            }
+            a_moveVector = Zero;
         }
 
         float moveSpeed = 0f;

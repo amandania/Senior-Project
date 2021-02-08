@@ -15,14 +15,14 @@ public class HandleLeftMouseClick : IIncomingPackets
 
     public Task ExecutePacket(Player player, IByteBuffer data)
     {
-        Debug.Log("incoming player left click");
+        //Debug.Log("incoming player left click");
         if (player.MenuOpen)
         {
            //possibly a ui click
            
         } else
         {
-            Debug.Log("perform attack");
+            //Debug.Log("perform attack");
             // has to be attack input
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
             {
