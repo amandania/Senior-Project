@@ -86,8 +86,10 @@ public class GameManager : MonoBehaviour {
             var playerCam = Camera.main.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
             Debug.Log("playercam: " + playerCam);
             playerCam.Follow = playerList[index].transform.Find("CamFollow").transform;
-
-
+            var playercamcontroller = Camera.main.gameObject.AddComponent<PlayerCamera>();
+            keylistener.PlayerCam = playercamcontroller;
+            playercamcontroller.followPart = playerList[index].transform.Find("CamFollow").transform;
+            playercamcontroller.playerTarget = playerList[index].transform;
             //keylistener.PlayerCam = playerCam;
 
             /*Camera.main.gameObject.AddComponent<CameraScript>();

@@ -106,7 +106,7 @@ public class KeyListener : MonoBehaviour {
 
 
             //Debug.Log("Horizontal :" + relativeInput.x + ", Vertical:" + relativeInput.z);
-            _animator.SetBool("IsStrafing", false);
+            _animator.SetBool("IsStrafing", PlayerCam.lockMovementToCam);
             _animator.SetFloat("HorizontalInput", relativeInput.x);
             _animator.SetFloat("VerticalInput", relativeInput.z);
             _animator.SetFloat("Speed", move.magnitude);
@@ -114,7 +114,7 @@ public class KeyListener : MonoBehaviour {
 												if (NetworkManager.networkStream.IsWritable) {
 																//Debug.Log("disabled movement send");
 																lastMove = move;
-																NetworkManager.instance.SendPacket(new SendMovementPacket(move, false,  Camera.main.transform.eulerAngles.y).CreatePacket());
+																NetworkManager.instance.SendPacket(new SendMovementPacket(move, PlayerCam.lockMovementToCam,  Camera.main.transform.eulerAngles.y).CreatePacket());
             }
         }
     }

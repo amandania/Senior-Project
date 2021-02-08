@@ -4,33 +4,33 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    public Transform target;
+    public Transform followPart;
     public Transform lookPoint = null;
 
 
     public int mouseButton = 1; // right button by default
     
     public bool lockMovementToCam = false;
-    public float xMouseSensitivity = 3f;
-    public float yMouseSensitivity = 3f;
-    public float yMinLimit = -40f;
-    public float yMaxLimit = 80f;
-    public float distance = 10;
-    public float minDistance = 3;
-    public float maxDistance = 10;
+    public float xMouseSensitivity = 1f;
+    public float yMouseSensitivity = 1f;
+    public float yMinLimit = 20f;
+    public float yMaxLimit = 70f;
+    public float distance = 3;
+    public float minDistance = 2;
+    public float maxDistance = 4;
 
     public float zoomSpeedMouse = 1;
     public float zoomSpeedTouch = 0.2f;
     public float rotationSpeed = 5f;
 
     public float xMinAngle = -40;
-    public float xMaxAngle = 80;
-    private float targetFOV = 50;                                           // Target camera Field of View.
+    public float xMaxAngle = 80;                                        // Target camera Field of View.
 
 
     // the target position can be adjusted by an offset in order to foucs on a
     // target's head for example
-    public Vector3 offset = new Vector3(0.25f, 1.25f, 0);
+    public Vector3 offset = new Vector3(0f, 0f, 0f);
+    public Transform playerTarget;
 
     // view blocking
     // note: only works against objects with colliders.
@@ -44,10 +44,11 @@ public class PlayerCamera : MonoBehaviour
     void Awake()
     {
         rotation = transform.eulerAngles;
+
     }
     private void Update()
     {
-        if (!target)
+        if (!followPart)
         {
             return;
         }
@@ -66,23 +67,27 @@ public class PlayerCamera : MonoBehaviour
     void LateUpdate()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        if (!target)
+        if (!followPart)
             return;
 
         // rotation and zoom should only happen if not in a UI right now
 
-        Vector3 targetPos = target.position + offset;
+        Vector3 targetPos = followPart.position + offset;
         // right mouse rotation if we have a mouse
         rotation.y += Input.GetAxis("Mouse X") * rotationSpeed;
         rotation.x -= Input.GetAxis("Mouse Y") * rotationSpeed;
         rotation.x = Mathf.Clamp(rotation.x, xMinAngle, xMaxAngle);
 
-        
+
+
        
 
-        /*
-         Quaternion camRotation = Quaternion.Euler(rotation.x, rotation.y, 0);
-         transform.rotation = camRotation;
+       
+        Quaternion camRotation = Quaternion.Euler(rotation.x, rotation.y, 0);
+        followPart.transform.rotation = camRotation;
+        //transform.rotation = camRotation;
+
+
         // zoom
         float speed = Input.mousePresent ? zoomSpeedMouse : zoomSpeedTouch;
         float step = Utils.GetZoomUniversal() * speed;
@@ -90,18 +95,10 @@ public class PlayerCamera : MonoBehaviour
 
 
         // target follow
-        transform.position = targetPos - (transform.rotation * Vector3.forward * distance);
+        //transform.position = targetPos - (transform.rotation * Vector3.forward * distance);
+        transform.position = targetPos - (playerTarget.rotation * Vector3.forward * distance);
 
-        // avoid view blocking
-        RaycastHit hit;
-        if (Physics.Linecast(targetPos, transform.position, out hit, viewBlockingLayers))
-        {
-            // calculate a better distance (with some space between it)
-            float d = Vector3.Distance(targetPos, hit.point) - 0.1f;
 
-            // set the final cam position
-            transform.position = targetPos - (transform.rotation * Vector3.forward * d);
-        }*/
     }
 
     public float ClampAngle(float angle, float min, float max)
