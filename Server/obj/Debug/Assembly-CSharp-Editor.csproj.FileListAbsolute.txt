@@ -491,7 +491,6 @@ C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Unity.TextMeshPro.Ed
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Unity.Timeline.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Unity.Timeline.Editor.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Unity.VSCode.Editor.dll
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEditor.Advertisements.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEditor.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEditor.Graphs.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEditor.Purchasing.dll
@@ -516,7 +515,6 @@ C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.CrashRep
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.DirectorModule.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.DSPGraphModule.dll
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.FileSystemHttpModule.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.GameCenterModule.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.GridModule.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.HotReloadModule.dll
@@ -614,7 +612,6 @@ C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.CoreModu
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.CrashReportingModule.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.DSPGraphModule.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.DirectorModule.xml
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.FileSystemHttpModule.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.GameCenterModule.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.GridModule.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.HotReloadModule.xml
@@ -659,7 +656,6 @@ C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.Vehicles
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.VideoModule.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.WindModule.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.XRModule.xml
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEditor.VR.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\System.Buffers.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\System.Memory.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\nunit.framework.pdb
@@ -668,3 +664,10 @@ C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp-Editor.cs
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp-Editor.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp-Editor.pdb
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.Advertisements.dll
+C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.Monetization.dll
+C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.SubsystemsModule.dll
+C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Unity.CompilationPipeline.Common.dll
+C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.SubsystemsModule.xml
+C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.Monetization.pdb
+C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.Advertisements.pdb

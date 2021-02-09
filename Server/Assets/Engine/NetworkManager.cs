@@ -26,7 +26,7 @@ public class NetworkManager : MonoBehaviour
 
     public IWorld World { get; set; }
 
-    public static IChannel channel;
+    public static IChannel channel { get; set; }
 
 
     /*void Start()*/
@@ -127,6 +127,9 @@ public class NetworkManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        channel.CloseAsync();
+        if (channel != null)
+        {
+            channel.CloseAsync();
+        }
     }
 }

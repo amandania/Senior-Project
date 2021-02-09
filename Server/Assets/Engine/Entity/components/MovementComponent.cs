@@ -81,7 +81,7 @@ public class MovementComponent : MonoBehaviour
         }
 
 
-        if (Character.IsNpc())
+        if (Character != null && Character.IsNpc())
         {
             if (CurrentForcePathTo)
             {
