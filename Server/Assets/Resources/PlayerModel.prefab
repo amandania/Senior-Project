@@ -2960,7 +2960,7 @@ Transform:
   m_GameObject: {fileID: 7754043168059590830}
   m_LocalRotation: {x: 0, y: -0.92387956, z: 0, w: 0.38268343}
   m_LocalPosition: {x: 108.78, y: -33.41, z: 19.3}
-  m_LocalScale: {x: 0.29184, y: 0.29184, z: 0.29184}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8558360970295565402}
   m_Father: {fileID: 0}
@@ -3013,7 +3013,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.2, z: 0}
+  m_Center: {x: 0, y: 1.12, z: 0}
 --- !u!195 &5193504978150895807
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3089,10 +3089,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   State: 0
-  RotationSpeed: 220
-  MovementSpeed: 3
+  RotationSpeed: 600
+  MovementSpeed: 14
   JumpSpeed: 7
-  Gravity: 500
+  Gravity: 600
+  SendRate: 15
+  timeBetweenMovementStart: 250.8444
+  timeBetweenMovementEnd: 250.8267
 --- !u!1 &7764021199683306896
 GameObject:
   m_ObjectHideFlags: 0

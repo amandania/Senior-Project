@@ -50,16 +50,24 @@ public class CombatComponent : MonoBehaviour
     }
     private void Update()
     {
-        if (CombatTarget)
+        if (CombatTarget != null)
         {
             if (!WithinReach(CombatTarget.transform.position, out m_reachDistance))
             {
+                Mover.SetAgentPath(CombatTarget);
                 UnityEngine.Debug.Log("not withing distnace");
                 return;
             }
             else
             {
                 Attack(CombatTarget);
+            }
+        } else
+        {
+            if(TargetList.Contains(CombatTarget))
+            {
+                TargetList.Remove(CombatTarget);
+                UnityEngine.Debug.Log("Removed target from my list cause it doesnt exist anymore");
             }
         }
     }

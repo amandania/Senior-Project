@@ -22,43 +22,54 @@ public class HandleMoveCharacter : IIncomingPacketHandler
         float horizontalInput = buffer.ReadFloat();
         float verticalInput = buffer.ReadFloat();
         bool isStrafing = buffer.ReadBoolean();
+
+        float timeToLerp = buffer.ReadFloat();
 								UnityMainThreadDispatcher.Instance().Enqueue(() =>
 								{
 												GameObject player = null;
 												var hasVal = GameManager.instance.ServerSpawns.TryGetValue(index, out player);
 												
 												if (hasVal) {
-																Lerp(index, player, oldPos, pos, oldRotation, newRotation, moveSpeed, horizontalInput, verticalInput, isStrafing);
+																Lerp(index, player, oldPos, pos, oldRotation, newRotation, moveSpeed, horizontalInput, verticalInput, isStrafing, timeToLerp);
 												}
 								});
 				}
-				void Lerp(Guid index, GameObject a_player, Vector3 a_lastRealPosition, Vector3 a_realPosition, Quaternion a_lastRotation, Quaternion a_realrotation, float a_moveSpeed, float a_horizontal, float a_vertical, bool strafe)
+				void Lerp(Guid index, GameObject a_player, Vector3 a_lastRealPosition, Vector3 a_realPosition, Quaternion a_lastRotation, Quaternion a_realrotation, float a_moveSpeed, float a_horizontal, float a_vertical, bool strafe, float timeToLerp)
 				{
 								if (a_player == null) {
 												return;
 								}
+        float timeStartedLerping = Time.deltaTime;
 
 								var animator = a_player.GetComponent<Animator>();
 
-								float timeStartedLerping = Time.time;
-								float timeToLerp = 20;
-								float travelSpeed = (a_player.transform.position - a_realPosition).magnitude;
-								if (animator != null && index.ToString() != NetworkManager.instance.myIndex.ToString()) {
+        if (animator != null && index.ToString() != NetworkManager.instance.myIndex.ToString())
+        {
             //Debug.Log("non local player speed changed for animator");
             animator.SetBool("IsStrafing", strafe);
-												animator.SetFloat("Speed", a_moveSpeed);
+            animator.SetFloat("Speed", a_moveSpeed);
             animator.SetFloat("HorizontalInput", a_horizontal);
             animator.SetFloat("VerticalInput", a_vertical);
-								}
-								float lerpPercentage = (Time.time - timeStartedLerping / timeToLerp);
-								a_player.transform.position = Vector3.Lerp(a_player.transform.position, a_realPosition, lerpPercentage);
+        }
 
-								lerpPercentage = (Time.time - timeStartedLerping / timeToLerp);
+								float lerpPercentage = (Time.deltaTime*15 - timeStartedLerping / timeToLerp);
+								//a_player.transform.position = Vector3.Lerp(a_player.transform.position, a_realPosition, timeToLerp);
 
+								lerpPercentage = (Time.deltaTime*30 - timeStartedLerping / timeToLerp);
 
-        a_player.transform.rotation = Quaternion.Lerp(a_player.transform.rotation, a_realrotation, lerpPercentage);
+        var movesync = a_player.GetComponent<MoveSync>();
+        movesync.lerpTime = timeToLerp;
+        movesync.lastreal = a_lastRealPosition;
+        movesync.lastrotation = a_lastRotation;
+        movesync.endGoal = a_realPosition;
+        movesync.endRotation = a_realrotation;
+        
+        movesync.doLerp = true;
+        
+        movesync.StartLerp();
+        a_player.transform.rotation = Quaternion.Lerp(a_player.transform.rotation, a_realrotation, timeToLerp);
 
-				}
+    }
 				public IncomingPackets PacketType => IncomingPackets.HANDLE_MOVE_CHARACTER;
 
 }

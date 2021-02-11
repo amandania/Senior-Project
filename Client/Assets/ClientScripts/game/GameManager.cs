@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour {
     public void SpawnMonster(Guid a_guid, Vector3 pos, Quaternion a_rotation, GameObject resourceModel)
     {
         var charObject = Instantiate(resourceModel);
+        charObject.AddComponent<MoveSync>();
         charObject.transform.position = pos;
         charObject.transform.rotation = a_rotation;
         npcList.Add(a_guid, charObject);
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour {
     public void SpawnPlayer(Guid a_guid, Vector3 a_position, Quaternion a_rotation, bool a_isLocalPlayer)
     {
         GameObject playerObj = Instantiate(playerModel);
+        playerObj.AddComponent<MoveSync>();
         if (a_isLocalPlayer == true) {
             NetworkManager.instance.myIndex = a_guid;
             LocalPlrObj = playerObj;
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviour {
         yield return new WaitForSeconds(0);
         if (a_isLocalPlayer == true)
         {
-												playerList[index].AddComponent<MouseInputUIBlocker>();
+												//playerList[index].AddComponent<MouseInputUIBlocker>();
 												var keylistener = playerList[index].AddComponent<KeyListener>();
 
             var playerCam = Camera.main.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();

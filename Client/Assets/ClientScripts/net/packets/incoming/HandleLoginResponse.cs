@@ -23,10 +23,14 @@ public class HandleLoginResponse : IIncomingPacketHandler
 
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
             {
-                SceneManager.LoadSceneAsync("MapScene").completed += (t) =>
+                SceneManager.LoadSceneAsync("MapScene", LoadSceneMode.Additive).completed += (t) =>
                 {
-                    GameManager.instance.SpawnPlayer(playerguid, Position, Rotation, true);
-																				NetworkManager.instance.SendPacket(new SendMapLoaded().CreatePacket());
+                    SceneManager.UnloadSceneAsync("LoginScreen").completed += (t2) =>
+                    {
+
+                        GameManager.instance.SpawnPlayer(playerguid, Position, Rotation, true);
+                        NetworkManager.instance.SendPacket(new SendMapLoaded().CreatePacket());
+                    };
                 };
             });
 

@@ -66,8 +66,9 @@ public class KeyListener : MonoBehaviour {
     public float timeBetweenMovementEnd;
 				public Vector3 lastMove;
     private Vector3 MaxVector = new Vector3(1, 0, 1);
+    public float networkSendRate = 5;
 
-				private List<int> keys { get; set; } = new List<int>(); 
+    private List<int> keys { get; set; } = new List<int>(); 
 
 			
 				
@@ -118,5 +119,6 @@ public class KeyListener : MonoBehaviour {
             }
         }
     }
+
 
 }
