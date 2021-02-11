@@ -24,11 +24,12 @@ public class HandleMoveCharacter : IIncomingPacketHandler
         bool isStrafing = buffer.ReadBoolean();
 
         float timeToLerp = buffer.ReadFloat();
-								UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        bool isNpc = buffer.ReadBoolean();
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
 								{
 												GameObject player = null;
 												var hasVal = GameManager.instance.ServerSpawns.TryGetValue(index, out player);
-												
+											
 												if (hasVal) {
 																Lerp(index, player, oldPos, pos, oldRotation, newRotation, moveSpeed, horizontalInput, verticalInput, isStrafing, timeToLerp);
 												}
@@ -37,6 +38,7 @@ public class HandleMoveCharacter : IIncomingPacketHandler
 				void Lerp(Guid index, GameObject a_player, Vector3 a_lastRealPosition, Vector3 a_realPosition, Quaternion a_lastRotation, Quaternion a_realrotation, float a_moveSpeed, float a_horizontal, float a_vertical, bool strafe, float timeToLerp)
 				{
 								if (a_player == null) {
+            UnityEngine.Debug.Log("error no character: ", a_player);
 												return;
 								}
         float timeStartedLerping = Time.deltaTime;
@@ -67,7 +69,7 @@ public class HandleMoveCharacter : IIncomingPacketHandler
         movesync.doLerp = true;
         
         movesync.StartLerp();
-        a_player.transform.rotation = Quaternion.Lerp(a_player.transform.rotation, a_realrotation, timeToLerp);
+       //a_player.transform.rotation = Quaternion.Lerp(a_player.transform.rotation, a_realrotation, timeToLerp);
 
     }
 				public IncomingPackets PacketType => IncomingPackets.HANDLE_MOVE_CHARACTER;

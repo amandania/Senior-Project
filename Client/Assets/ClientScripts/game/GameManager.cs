@@ -41,9 +41,9 @@ public class GameManager : MonoBehaviour {
     public void SpawnMonster(Guid a_guid, Vector3 pos, Quaternion a_rotation, GameObject resourceModel)
     {
         var charObject = Instantiate(resourceModel);
-        charObject.AddComponent<MoveSync>();
         charObject.transform.position = pos;
         charObject.transform.rotation = a_rotation;
+        charObject.AddComponent<MoveSync>();
         npcList.Add(a_guid, charObject);
         ServerSpawns.Add(a_guid, charObject);
     }

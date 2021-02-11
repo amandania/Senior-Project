@@ -23,7 +23,7 @@ public class MovementComponent : MonoBehaviour
     [Header("Movement Data")]
     public MovementState State = MovementState.IDLE;
     public float RotationSpeed = 1;
-    public float MovementSpeed = 7.0f;
+    public float MovementSpeed = 5f;
     public float JumpSpeed = 7.0f;
     public float Gravity = 500.0f;
     public bool Strafe { get; set; } = false;
@@ -37,7 +37,7 @@ public class MovementComponent : MonoBehaviour
     public GameObject CurrentForcePathTo { get; set; }
     private bool InMovement {get; set;} = false;
 
-    public float SendRate = 2f;
+    public float SendRate = 15f;
     public bool TriggeredSend { get; set; } =  false;
 
     public void SetAgentPath(GameObject alwaysPath)

@@ -32,7 +32,6 @@ public class MoveSync : MonoBehaviour
 
             transform.position = Vector3.Lerp(transform.position, endGoal, lerpPercentage);
             transform.transform.rotation = Quaternion.Lerp(transform.rotation, endRotation, lerpPercentage);
-            Debug.Log("lerping");
         }
     }
 

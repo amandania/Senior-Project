@@ -60,6 +60,7 @@ public class SendMoveCharacter : IOutGoingPackets
    
         buffer.WriteBoolean(m_isStrafing);
         buffer.WriteFloat(m_lerpTime);
+        buffer.WriteBoolean(m_character.IsNpc());
 
         return buffer;
     }
