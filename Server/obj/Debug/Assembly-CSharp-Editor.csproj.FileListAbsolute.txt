@@ -241,7 +241,6 @@ C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Boo.Lang.Parser.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Boo.Lang.Useful.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Unity.ShaderGraph.Utilities.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Unity.CecilTools.dll
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Assembly-CSharp.pdb
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEditor.xml
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.AIModule.xml
@@ -334,3 +333,5 @@ C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Unity.ShaderGraph.Ut
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp-Editor.csproj.CopyComplete
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp-Editor.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp-Editor.pdb
+C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Assembly-CSharp-Editor.dll.CodeAnalysisLog.xml
+C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Assembly-CSharp-Editor.dll.lastcodeanalysissucceeded

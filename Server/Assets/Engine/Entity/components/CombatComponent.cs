@@ -37,6 +37,7 @@ public class CombatComponent : MonoBehaviour
     private MovementComponent Mover { get; set; }
 
     private List<GameObject> TargetList { get; set; } = new List<GameObject>();
+    private CombatAnimations CombatTriggers { get; set; }
 
     private void Awake()
     {
@@ -47,6 +48,7 @@ public class CombatComponent : MonoBehaviour
         Network = GameObject.Find("WorldManager").GetComponent<NetworkManager>() as NetworkManager;
         Mover = GetComponent<MovementComponent>();
         MyAnimator = GetComponent<Animator>();
+        CombatTriggers = GetComponent<CombatAnimations>();
     }
     private void Update()
     {
@@ -55,7 +57,7 @@ public class CombatComponent : MonoBehaviour
             if (!WithinReach(CombatTarget.transform.position, out m_reachDistance))
             {
                 Mover.SetAgentPath(CombatTarget);
-                UnityEngine.Debug.Log("not withing distnace");
+                //UnityEngine.Debug.Log("not withing distnace");
                 return;
             }
             else
@@ -67,7 +69,7 @@ public class CombatComponent : MonoBehaviour
             if(TargetList.Contains(CombatTarget))
             {
                 TargetList.Remove(CombatTarget);
-                UnityEngine.Debug.Log("Removed target from my list cause it doesnt exist anymore");
+                //UnityEngine.Debug.Log("Removed target from my list cause it doesnt exist anymore");
             }
         }
     }
@@ -152,6 +154,8 @@ public class CombatComponent : MonoBehaviour
         StartCoroutine(HandleDash(distance));*/
 
         //AttackStopwatch.Start();
+        MyAnimator.SetInteger("CombatState", CurrentAttackCombo);
+        MyAnimator.SetTrigger("TriggerAttack");
         Network.SendPacketToAll(new SendCharacterCombatStage(Character, CurrentAttackCombo)).ConfigureAwait(false);
     }
     private IEnumerator HandleDash(float DashDistance)
