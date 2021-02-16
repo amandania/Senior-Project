@@ -308,7 +308,6 @@ C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\UnityEditor.UI.pdb
 C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\UnityEditor.TestRunner.pdb
 C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\Unity.ShaderGraph.Utilities.pdb
 C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\UnityEngine.TestRunner.pdb
-C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
 C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
 C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp.dll

@@ -73,13 +73,10 @@ public class MovementComponent : MonoBehaviour
         if (DidCombatHit && LockedMovement)
         {
             //UnityEngine.Debug.Log("locked time: " + lockedAtTime);
-            lockedAtTime += 1;
-            if (lockedAtTime >= 25)
-            {
+            if (Time.time - lockedAtTime > 1) {
+                print("release from last hit locked movement");
                 DidCombatHit = false;
                 LockedMovement = false;
-                lockedAtTime = -1;
-                //UnityEngine.Debug.Log("reset");
             }
         }
 

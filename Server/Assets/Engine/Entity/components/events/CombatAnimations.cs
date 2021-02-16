@@ -9,18 +9,16 @@ public class CombatAnimations : MonoBehaviour
     public List<Transform> TransformsHit;
 
 
-    private Collider ActiveCombatCollider;
+    private GameObject ActiveCombatCollider;
 
 
     // Use this for initialization
-    private Dictionary<string, Collider> ColliderMap { get; set; } = new Dictionary<string, Collider>();
+    private Dictionary<string, GameObject> ColliderMap { get; set; } = new Dictionary<string, GameObject>();
 
     void Start()
     {
-        var leftHCollide = LeftHandCollision.AddComponent<CollisionListener>();
-        var rightHCollide = RightHandCollision.AddComponent<CollisionListener>();
-        ColliderMap.Add("LeftHand", LeftHandCollision.GetComponent<BoxCollider>());
-        ColliderMap.Add("RightHand", RightHandCollision.GetComponent<BoxCollider>());
+        ColliderMap.Add("LeftHand", LeftHandCollision);
+        ColliderMap.Add("RightHand", RightHandCollision);
 
     }
 
@@ -32,11 +30,27 @@ public class CombatAnimations : MonoBehaviour
 
     public void ActivateCombatImpacts(string ColliderName)
     {
-        //Debug.Log("Trigger collder: " + ColliderName);
+        int layerMask = 1 << 8;
         ColliderMap.TryGetValue(ColliderName, out ActiveCombatCollider);
         if (ActiveCombatCollider != null)
         {
-            ActiveCombatCollider.enabled = true;
+            var collider = ActiveCombatCollider.GetComponent<Collider>();
+            Collider[] Hits = Physics.OverlapBox(collider.bounds.center, collider.bounds.extents, collider.transform.rotation, layerMask);
+            foreach (Collider targets in Hits)
+            {
+                var combat = targets.transform.gameObject.GetComponent<CombatComponent>();
+                if (combat != null)
+                {
+                    if (GetComponent<CombatComponent>().Character.IsNpc()) {
+                        //print("npc is trying to attack someone.");
+                    }
+                    if (transform.gameObject != combat.gameObject)
+                    {
+                        //print("Hit targets: " + targets.transform.gameObject.name);
+                        combat.ApplyHit(GetComponent<CombatComponent>().Character, 5);
+                    }
+                }
+            }
         }
 
     }
@@ -45,7 +59,6 @@ public class CombatAnimations : MonoBehaviour
     {
         if (ActiveCombatCollider != null)
         {
-            ActiveCombatCollider.enabled = false;
             ActiveCombatCollider = null;
         }
     }
