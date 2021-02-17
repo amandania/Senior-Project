@@ -28,7 +28,7 @@ public class CombatComponent : MonoBehaviour
     public bool IsAggresiveTrigger = false; // 0 or 1 for true false.
 
     public float LastAttack  { get; set; }
-    public float AttackRate { get; set; } = .35f; // Default: every 2 seconds we can attack 
+    public float AttackRate { get; set; } = .65f; // Default: every 2 seconds we can attack 
 
      public Stopwatch LastAttackRecieved { get; set; } = new Stopwatch(); // 
 

@@ -1982,7 +1982,7 @@ MonoBehaviour:
   - Key: AttackRate
     BoolValue: 0
     IntValue: 0
-    FloatValue: 1
+    FloatValue: 0.85
   - Key: MaxHealth
     BoolValue: 0
     IntValue: 100

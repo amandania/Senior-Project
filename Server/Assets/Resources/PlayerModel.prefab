@@ -3500,7 +3500,7 @@ MonoBehaviour:
   CurrentHealth: 100
   MinHitDamage: 1
   MaxHitDamage: 3
-  MaxCombos: 1
+  MaxCombos: 2
   CurrentAttackCombo: 0
   IsAggresiveTrigger: 0
 --- !u!114 &8606010154861810179

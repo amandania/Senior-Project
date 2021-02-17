@@ -14,7 +14,9 @@ public class KeyListener : MonoBehaviour {
 
     private CharacterController _characterController;
 
+#pragma warning disable CS0414 // The field 'KeyListener.Gravity' is assigned but its value is never used
     private float Gravity = 20.0f;
+#pragma warning restore CS0414 // The field 'KeyListener.Gravity' is assigned but its value is never used
 
     private Vector3 _moveDirection = Vector3.zero;
     private int startHealth;
