@@ -13,15 +13,13 @@ public class NetworkBuilder : IServerTCP
     private readonly IEventLoopGroup m_bossgroup = new MultithreadEventLoopGroup();
     private readonly IEventLoopGroup m_workgroup = new MultithreadEventLoopGroup();
     private ServerBootstrap m_bootstrap = new ServerBootstrap();
-
-    private readonly IConnectionManager m_connectionManager;
+    
     private readonly ChannelEventHandler m_channelEventHandler;
     private readonly IWorld m_world;
 
-    public NetworkBuilder(IConnectionManager a_connectionManager, ChannelEventHandler a_channelEventHandler, IWorld a_world)
+    public NetworkBuilder(ChannelEventHandler a_channelEventHandler, IWorld a_world)
     {
         m_channelEventHandler = a_channelEventHandler;
-        m_connectionManager = a_connectionManager;
         m_world = a_world;
 
     }

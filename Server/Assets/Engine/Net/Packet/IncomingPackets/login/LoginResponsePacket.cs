@@ -7,10 +7,12 @@ public class LoginResponsePacket : IIncomingPackets
     public IncomingPackets PacketType => IncomingPackets.CONNECT_RESPONSE;
 
     private readonly IWorld m_world;
+    private readonly IPlayerDataLoader m_playerData;
 
-    public LoginResponsePacket(IWorld a_world)
+    public LoginResponsePacket(IWorld a_world, IPlayerDataLoader a_playerData)
     {
         m_world = a_world;
+        m_playerData = a_playerData;
     }
 
     private readonly string m_user = "aki";
@@ -40,6 +42,5 @@ public class LoginResponsePacket : IIncomingPackets
         {
             //Debug.Log("Current size: " + _world.Players.Count);
         }
-
     }
 }

@@ -102,6 +102,9 @@ public class NetworkManager : MonoBehaviour
         builder.RegisterType<HandleMovementInput>().As<IIncomingPackets>();
         builder.RegisterType<HandleActionKeys>().As<IIncomingPackets>();
 
+        //Player startables we want to make sure all the other dependencies are built
+        builder.RegisterType<PlayerData>().As<IPlayerDataLoader>().As<IStartable>().SingleInstance();
+
     }
 
     public async Task SendPacketToAll(IOutGoingPackets packet)
