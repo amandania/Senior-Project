@@ -36,6 +36,7 @@ public class ChatManager : MonoBehaviour
     {
         ActiceChatWindow = m_Tabs[0];
     }
+    public bool ChatActive = false;
     public void Update()
     {
 
@@ -44,10 +45,12 @@ public class ChatManager : MonoBehaviour
             SendChatMessage(InputField.text);
             InputField.placeholder.GetComponent<Text>().text = "\"/\" To Chat";
             InputField.DeactivateInputField();
+            ChatActive = false;
         }
         if (Input.GetKeyDown(KeyCode.Slash))
         {
             InputField.ActivateInputField();
+            ChatActive = true;
             InputField.placeholder.GetComponent<Text>().text = "";
         }
         else if (Input.GetMouseButtonDown(0) && InputField.IsActive())
@@ -55,6 +58,7 @@ public class ChatManager : MonoBehaviour
 
             InputField.placeholder.GetComponent<Text>().text = "\"/\" To Chat";
             InputField.DeactivateInputField();
+            ChatActive = false;
         }
     }
     protected void OnEnable()

@@ -17,7 +17,7 @@ public class LoginResponsePacket : IIncomingPackets
     }
 
     /// <summary>
-    /// Login packet, we validate user and pass
+    /// Validate our input ceditionals
     /// Send response code 0 or 1 if its valid (we can add more for other login responses)
     /// </summary>
     /// <param name="a_player">Player logging in</param>

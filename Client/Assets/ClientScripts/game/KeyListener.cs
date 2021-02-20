@@ -51,6 +51,7 @@ public class KeyListener : MonoBehaviour {
         _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
 								m_uiBlocker = GetComponent<MouseInputUIBlocker>();
+        ChatManager = GameObject.Find("HUD").transform.Find("Chat").GetComponent<ChatManager>()
     }
     
 
@@ -91,8 +92,8 @@ public class KeyListener : MonoBehaviour {
 												keys.Clear();
 								}
 				}
-				
 
+    private Vector3 m_zeroVector = Vector3.zero;
 				// Update is called once per frame data
 				void FixedUpdate()
     {
@@ -107,6 +108,10 @@ public class KeyListener : MonoBehaviour {
             Vector3 camForward_Dir = Vector3.Scale(Camera.main.transform.forward, MaxVector).normalized;
             Vector3 move = v * camForward_Dir + h * Camera.main.transform.right;
 
+            if (ChatManager.ChatActive)
+            {
+                move = m_zeroVector;
+            }
             //Debug.Log(move.magnitude / (isSprinting ? 1 : 2) );
             Vector3 relativeInput = transform.InverseTransformDirection(move);
 
