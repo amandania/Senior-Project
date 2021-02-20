@@ -51,7 +51,7 @@ public class KeyListener : MonoBehaviour {
         _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
 								m_uiBlocker = GetComponent<MouseInputUIBlocker>();
-        ChatManager = GameObject.Find("HUD").transform.Find("Chat").GetComponent<ChatManager>()
+        ChatManager = GameObject.Find("HUD").transform.Find("Chat").GetComponent<ChatManager>();
     }
     
 

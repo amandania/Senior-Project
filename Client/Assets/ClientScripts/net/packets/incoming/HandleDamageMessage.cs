@@ -8,13 +8,22 @@ public class HandleDamageMessage : IIncomingPacketHandler
 {
     public void ExecutePacket(IByteBuffer buffer)
     {
-        int messageLength = buffer.ReadInt();
-        string message = buffer.ReadString(messageLength, Encoding.Default);
+        int guidLength = buffer.ReadInt();
+        Guid guid;
+        Guid.TryParse(buffer.ReadString(guidLength, Encoding.Default), out guid);
 
-        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        if (guid != null)
         {
-            
-        });
+            UnityMainThreadDispatcher.Instance().Enqueue(() =>
+            {
+                GameObject characterObject = null;
+                var hasVal = GameManager.instance.ServerSpawns.TryGetValue(guid, out characterObject);
+                if (characterObject != null)
+                {
+                    characterObject.GetComponent<CharacterManager>();
+                }
+            });
+        }
     }
 
 

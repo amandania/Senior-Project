@@ -257,6 +257,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f2b618603a177f4098c3eed59ad53f7, type: 3}
+--- !u!114 &138789211 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7367900201314600408, guid: 4f2b618603a177f4098c3eed59ad53f7,
+    type: 3}
+  m_PrefabInstance: {fileID: 138789210}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be1b6f52a2d824d49b01f8505d9e0ad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &193005557
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,6 +400,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2639518529030489431, guid: b64de6747c7554a45af906737b5df370,
+        type: 3}
+      propertyPath: _Inventory
+      value: 
+      objectReference: {fileID: 138789211}
     - target: {fileID: 2681841910485937419, guid: b64de6747c7554a45af906737b5df370,
         type: 3}
       propertyPath: m_IsActive
@@ -703,7 +720,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2639518529030489431, guid: b64de6747c7554a45af906737b5df370, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b64de6747c7554a45af906737b5df370, type: 3}
 --- !u!224 &281109124 stripped
 RectTransform:
@@ -1119,13 +1137,11 @@ MonoBehaviour:
   FontSize: 18
   LineSpacing: 1
   TextColor: {r: 1, g: 1, b: 1, a: 1}
-  onSendMessage:
-    m_PersistentCalls:
-      m_Calls: []
   ActiceChatWindow:
     id: 0
     content: {fileID: 0}
     scrollRect: {fileID: 0}
+  ChatActive: 0
 --- !u!114 &1048525266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2025,7 +2041,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1940033691}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.8, y: 1.6, z: -2}
+  m_LocalPosition: {x: 145.3, y: 13.5, z: 20.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1600951718}

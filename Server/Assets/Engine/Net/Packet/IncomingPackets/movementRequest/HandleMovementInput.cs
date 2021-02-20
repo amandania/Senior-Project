@@ -1,19 +1,53 @@
 ﻿using DotNetty.Buffers;
 using System.Threading.Tasks;
 using UnityEngine;
+/**/
+/*
+HandleChatMessage.ExecutePacket()
 
+NAME
+
+        HandleMovementInput.ExecutePacket - Read the chat message buffer
+
+SYNOPSIS
+
+        Task HandleMovementInput.ExecutePacket(Player a_player, Buffer a_buffer);
+            a_player             --> Player who sent the packet.
+            a_buffer             --> The amount of capital to apply.
+
+DESCRIPTION
+
+        This function will handle player input
+        Takes the input and applies move vector movement to server Gameobject
+
+RETURNS
+
+        Returns await Task.CompletedTask
+*/
+/**/
 public class HandleMovementInput : IIncomingPackets
 {
 
     private readonly IWorld m_world;
 
+    /// <summary>
+    /// Empty Contrstuctor for <see cref="NetworkManager.RegisterDependencies"/>()
+    /// </summary>
     public HandleMovementInput(IWorld world)
     {
         m_world = world;
     }
 
+    //Packet Number
     public IncomingPackets PacketType => IncomingPackets.MOVEMENT_KEYS;
 
+    /// <summary>
+    /// Handling incoming movement
+    /// Apply movement direction to senders gameobject
+    /// </summary>
+    /// <param name="a_player">Sender</param>
+    /// <param name="buffer">Movement buffer</param>
+    /// <returns>await Task.Completed</returns>
     public async Task ExecutePacket(Player a_player, IByteBuffer buffer)
     {
 
