@@ -3,7 +3,7 @@ using System.Text;
 
 public class SendChatMessage : IOutGoingPackets
 {
-    public OutGoingPackets PacketType => OutGoingPackets.SEND_LOGOUT;
+    public OutGoingPackets PacketType => OutGoingPackets.SEND_CHAT_MESSAGE;
 
     private readonly string m_message;
 

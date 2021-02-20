@@ -12,6 +12,9 @@ public class HandleDamageMessage : IIncomingPacketHandler
         Guid guid;
         Guid.TryParse(buffer.ReadString(guidLength, Encoding.Default), out guid);
 
+        int damageAmount = buffer.ReadInt();
+
+        float lifeTime = buffer.ReadFloat();
         if (guid != null)
         {
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
@@ -20,7 +23,7 @@ public class HandleDamageMessage : IIncomingPacketHandler
                 var hasVal = GameManager.instance.ServerSpawns.TryGetValue(guid, out characterObject);
                 if (characterObject != null)
                 {
-                    characterObject.GetComponent<CharacterManager>();
+                    characterObject.GetComponent<CharacterManager>().TakeDamage(damageAmount.ToString(), lifeTime);
                 }
             });
         }

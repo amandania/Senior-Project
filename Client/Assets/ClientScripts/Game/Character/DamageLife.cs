@@ -29,9 +29,18 @@ public class DamageLife : MonoBehaviour
     {
         if(Triggerd)
         {
+            float progress = (Time.time - StartTime) / LifeTime;
+            if (progress <= 1)
+            {
+                transform.localPosition = Vector3.Lerp(transform.position, transform.Find("GoalPos").transform.position, progress);
+            }
+            else
+            {
+                Destroy(transform.gameObject);
+            }
 
         }
-        
+
     }
 
 }

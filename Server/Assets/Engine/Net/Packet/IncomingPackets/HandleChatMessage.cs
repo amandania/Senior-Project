@@ -54,5 +54,7 @@ public class HandleChatMessage : IIncomingPackets
         
         //send message to everyone including sending with our valid username
         await a_player.Session.SendPacketToAll(new SendChatMessage(a_player.UserName + ": " + message)).ConfigureAwait(false);
+
+        await Task.CompletedTask;
     }
 }
