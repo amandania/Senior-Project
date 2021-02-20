@@ -25,7 +25,7 @@ public class ChannelEventHandler : SimpleChannelInboundHandler<IByteBuffer>
         PlayerSession session = a_context.Channel.GetAttribute(SESSION_KEY).Get();
         try
         {
-            Debug.Log(session._player.GetGuid() + " has registered"); 
+            Debug.Log(session.m_player.GetGuid() + " has registered"); 
         }
         catch (Exception e)
         {
@@ -39,10 +39,10 @@ public class ChannelEventHandler : SimpleChannelInboundHandler<IByteBuffer>
 
         if (session != null)
         {
-            session.SendPacketToAll(new SendLogout(session._player)).ConfigureAwait(false);
-            m_world.RemoveWorldCharacter(session._player);
-            session._channel.CloseAsync();
-            Debug.Log("Deregistered: " + session._player.GetGuid());
+            session.SendPacketToAll(new SendLogout(session.m_player)).ConfigureAwait(false);
+            m_world.RemoveWorldCharacter(session.m_player);
+            session.m_channel.CloseAsync();
+            Debug.Log("Deregistered: " + session.m_player.GetGuid());
         }
     }
 
@@ -69,7 +69,7 @@ public class ChannelEventHandler : SimpleChannelInboundHandler<IByteBuffer>
                 Task.Run(async () =>
                 {
                     int packetId = copiedBuffer.ReadInt();
-                    await HandleData(session._player, packetId, copiedBuffer);
+                    await HandleData(session.m_player, packetId, copiedBuffer);
                     copiedBuffer.Release();
                 });
             }

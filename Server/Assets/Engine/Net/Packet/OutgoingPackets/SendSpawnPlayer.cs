@@ -23,6 +23,9 @@ public class SendSpawnPlayer : IOutGoingPackets
         buffer.WriteInt(length);
         buffer.WriteString(guid, Encoding.Default);
 
+        buffer.WriteInt(m_player.UserName.Length);
+        buffer.WriteString(m_player.UserName, Encoding.Default);
+
         Vector3 plrPos = m_player.Position;
         buffer.WriteFloat(plrPos.x);
         buffer.WriteFloat(plrPos.y);

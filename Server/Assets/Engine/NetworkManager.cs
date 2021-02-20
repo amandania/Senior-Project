@@ -96,11 +96,10 @@ public class NetworkManager : MonoBehaviour
         //Packets
         builder.RegisterType<HandleMapLoaded>().As<IIncomingPackets>();
         builder.RegisterType<LoginResponsePacket>().As<IIncomingPackets>();
-        builder.RegisterType<IdleRequest>().As<IIncomingPackets>();
-        //builder.RegisterType<InputKeyResponsePacket>().As<IIncomingPackets>();
         builder.RegisterType<HandleLeftMouseClick>().As<IIncomingPackets>();
         builder.RegisterType<HandleMovementInput>().As<IIncomingPackets>();
         builder.RegisterType<HandleActionKeys>().As<IIncomingPackets>();
+        builder.RegisterType<HandleChatMessage>().As<IIncomingPackets>();
 
         //Player startables we want to make sure all the other dependencies are built
         builder.RegisterType<PlayerData>().As<IPlayerDataLoader>().As<IStartable>().SingleInstance();
@@ -115,7 +114,7 @@ public class NetworkManager : MonoBehaviour
 
         foreach (var player in World.Players)
         {
-            if (player.Session._channel.Active && player.Session._channel.IsWritable)
+            if (player.Session.m_channel.Active && player.Session.m_channel.IsWritable)
             {
                 await player.Session.WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);
             }

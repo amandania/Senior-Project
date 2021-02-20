@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour {
         ServerSpawns.Add(a_guid, charObject);
     }
 
-    public void SpawnPlayer(Guid a_guid, Vector3 a_position, Quaternion a_rotation, bool a_isLocalPlayer)
+    public void SpawnPlayer(string a_playerName, Guid a_guid, Vector3 a_position, Quaternion a_rotation, bool a_isLocalPlayer)
     {
         GameObject playerObj = Instantiate(playerModel);
         playerObj.AddComponent<MoveSync>();
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour {
             NetworkManager.instance.myIndex = a_guid;
             LocalPlrObj = playerObj;
         }
-        playerObj.name = "Player: " + a_guid;
+        playerObj.name = "Player: " + a_playerName;
         playerObj.transform.position = a_position;
         playerObj.transform.rotation = a_rotation;
         if (a_isLocalPlayer == true)
@@ -82,7 +82,6 @@ public class GameManager : MonoBehaviour {
         yield return new WaitForSeconds(0);
         if (a_isLocalPlayer == true)
         {
-												//playerList[index].AddComponent<MouseInputUIBlocker>();
 												var keylistener = playerList[index].AddComponent<KeyListener>();
 
             var playerCam = Camera.main.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
@@ -92,24 +91,8 @@ public class GameManager : MonoBehaviour {
             keylistener.PlayerCam = playercamcontroller;
             playercamcontroller.followPart = playerList[index].transform.Find("CamFollow").transform;
             playercamcontroller.playerTarget = playerList[index].transform;
-            //keylistener.PlayerCam = playerCam;
-
-            /*Camera.main.gameObject.AddComponent<CameraScript>();
-            Camera.main.GetComponent<CameraScript>().localPlayer = playerList[index].transform;
-
-            var basecam = playerList[index].AddComponent<BehaviorManager>();
-            basecam.playerCamera = Camera.main.transform;
-            playerList[index].AddComponent<RightClickAim>();*/
-
-            //string camName = "Camera-Id: " + index + "(Clone)";
-            //var cam = playerList[index].transform.Find(camName).GetComponent<Camera>();
-            //cam.allowDynamicResolution = false;
-            //cam.GetComponent<PlayerCamera>().target = playerList[index].transform;
-            //	playerList[index].GetComponent<KeyListener>().cam = cam;
-            //Debug.Log(" Set interaction controoller " + InteractionController);
         } 
-
-								//playerList[index].transform.localScale = new Vector3(0.6496f, 0.6496f, 0.6496f);
+        
 				}
 				public float WrapAngle(float angle)
     {

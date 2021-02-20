@@ -1,6 +1,7 @@
 ﻿using DotNetty.Buffers;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class LoginResponsePacket : IIncomingPackets
 {
@@ -28,15 +29,18 @@ public class LoginResponsePacket : IIncomingPackets
 
         int response_code = 0;
 
-        if (!username.Equals(m_user) || !password.Equals(m_pass))
+        bool hasLoad = m_playerData.LoadPlayerData(username, password, a_player);
+        Debug.Log("player has load?" + hasLoad);
+        if (!hasLoad)
         {
             response_code = 1;
         }
+       
 
         await a_player.Session.SendPacket(new SendLoginResponse(a_player, response_code)).ConfigureAwait(false);
         if (response_code == 1)
         {
-            await a_player.Session._channel.CloseAsync().ConfigureAwait(false);
+            await a_player.Session.m_channel.CloseAsync().ConfigureAwait(false);
         }
         if (response_code == 0)
         {

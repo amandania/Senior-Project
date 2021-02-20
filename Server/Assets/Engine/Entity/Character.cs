@@ -3,19 +3,20 @@ using UnityEngine;
 
 public class Character
 {
-    private GameObject m_characterModel;
+    private readonly Guid m_guid;
 
     public Vector3 Position;
     public Vector3 OldPosition;
-
     public Vector3 Rotation { get; set; }
     public Vector3 OldRotation { get; set; }
+    public int CharacterLevel { get; set; } = 1;
+
+    private GameObject m_characterModel;
     
     public MovementComponent MovementComponent { get; set; }
     public CombatComponent CombatComponent { get; set; }
     private bool InCombat { get { return CombatComponent.LastAttackRecieved.Elapsed.Seconds < 5;  }  }
 
-    private readonly Guid m_guid;
 
     public Character()
     {

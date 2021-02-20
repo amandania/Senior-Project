@@ -216,7 +216,7 @@ public class ChatManager : MonoBehaviour
             Debug.Log("Clicked?");
 
 
-            NetworkManager.instance.SendPacket(null);
+            NetworkManager.instance.SendPacket(new SendChatMessage(text).CreatePacket());
 
             InputField.text = "";
 
@@ -226,8 +226,8 @@ public class ChatManager : MonoBehaviour
     /// <summary>
     /// Adds a chat message to the specified tab.
     /// </summary>
-    /// <param name="tabId">The tab id.</param>
-    /// <param name="text">The message.</param>
+    /// <param name="tabId">Filter id (Defaulted to 0) </param>
+    /// <param name="text">Recievd networkd message.</param>
     public void ReceiveChatMessage(int tabId, string text)
     {
         TabInfo tabInfo = GetTabInfo(tabId);

@@ -16,12 +16,13 @@ public class NetworkBuilder : IServerTCP
     
     private readonly ChannelEventHandler m_channelEventHandler;
     private readonly IWorld m_world;
+    private readonly IPlayerDataLoader m_playerLoader;
 
-    public NetworkBuilder(ChannelEventHandler a_channelEventHandler, IWorld a_world)
+    public NetworkBuilder(ChannelEventHandler a_channelEventHandler, IWorld a_world, IPlayerDataLoader a_playerLoader)
     {
         m_channelEventHandler = a_channelEventHandler;
         m_world = a_world;
-
+        m_playerLoader = a_playerLoader;
     }
 
     public async Task Initalize(int port)
@@ -36,7 +37,7 @@ public class NetworkBuilder : IServerTCP
         {
             //Check docks
             var childPipeline = channel.Pipeline;
-            var playerSession = new PlayerSession(channel, m_world);
+            var playerSession = new PlayerSession(channel, m_world, m_playerLoader);
             channel.GetAttribute(ChannelEventHandler.SESSION_KEY).SetIfAbsent(playerSession);
             //childPipeline.AddLast(new LoggingHandler("SRV-CONN", LogLevel.TRACE));
             childPipeline.AddLast("framing-enc", new LengthFieldPrepender(2));

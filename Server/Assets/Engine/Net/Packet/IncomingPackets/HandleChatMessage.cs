@@ -13,14 +13,14 @@ public class HandleChatMessage : IIncomingPackets
         m_chatMessage = a_chatMessage;
     }
 
-    public IncomingPackets PacketType => IncomingPackets.HANDLE_TRIGGER_INTERACT;
+    public IncomingPackets PacketType => IncomingPackets.HANDLE_CHAT_MESSAGE;
 
     public async Task ExecutePacket(Player player, IByteBuffer buffer)
     {
         var messageLength = buffer.ReadInt();
         var message = buffer.ReadString(messageLength, Encoding.Default);
 
-
+        UnityEngine.Debug.Log("message received: " + message);
 
         await Task.CompletedTask;
     }

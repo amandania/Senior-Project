@@ -1,7 +1,7 @@
 ﻿public class Player : Character
 {
-    private readonly string m_userName;
-    private readonly string m_password;
+    public string UserName { get; set; }
+    public string Password { get; set; }
 
     public PlayerSession Session { get; set; }
 
@@ -11,8 +11,8 @@
     public Player(PlayerSession session, IWorld world)
     {
         Session = session;
-        m_userName = "";
-        m_password = "";
+        UserName = "";
+        Password = "";
         m_world = world;
     }
     
@@ -26,5 +26,4 @@
         var currentMoveComp = myModel.GetComponent<MovementComponent>();
         SetMoveComponent(currentMoveComp ?? myModel.AddComponent<MovementComponent>());
     }
-
 }
