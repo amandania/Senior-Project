@@ -12,7 +12,12 @@ public class HandleLeftMouseClick : IIncomingPackets
     {
         _world = world;
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="data"></param>
+    /// <returns>awaited asynchrnous task <see cref="ChannelEventHandler.ChannelRead0" </returns>
     public Task ExecutePacket(Player player, IByteBuffer data)
     {
         //Debug.Log("incoming player left click");

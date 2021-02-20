@@ -40,7 +40,10 @@ public class KeyListener : MonoBehaviour {
     public MouseInputUIBlocker m_uiBlocker;
 
     public PlayerCamera PlayerCam {get; set;}
+
+    public ChatManager ChatManager;
 				#endregion
+
 
 				// Use this for initialization
 				void Start()

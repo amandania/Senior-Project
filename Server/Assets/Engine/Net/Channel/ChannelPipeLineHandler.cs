@@ -12,7 +12,10 @@ public class ChannelPipeLineHandler : ChannelInitializer<IChannel>, IConnectionM
     }
 
 
-    //main socket init. 
+    /// <summary>
+    /// Main Server Bind
+    /// </summary>
+    /// <param name="a_channel">Server network channel</param>
     protected override void InitChannel(IChannel a_channel)
     {
         try

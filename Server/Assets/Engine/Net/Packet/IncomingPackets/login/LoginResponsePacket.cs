@@ -16,9 +16,13 @@ public class LoginResponsePacket : IIncomingPackets
         m_playerData = a_playerData;
     }
 
-    private readonly string m_user = "aki";
-    private readonly string m_pass = "lol";
-
+    /// <summary>
+    /// Login packet, we validate user and pass
+    /// Send response code 0 or 1 if its valid (we can add more for other login responses)
+    /// </summary>
+    /// <param name="a_player">Player logging in</param>
+    /// <param name="a_data">buffer contain input info</param>
+    /// <returns>awaited asynchrnous task <see cref="ChannelEventHandler.ChannelRead0" </returns>
     public async Task ExecutePacket(Player a_player, IByteBuffer a_data)
     {
 
