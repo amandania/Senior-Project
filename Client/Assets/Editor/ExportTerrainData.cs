@@ -22,8 +22,8 @@ public class ExportTerrainData : ScriptableObject
         TerrainData data = terrain.terrainData;
         var scale = data.heightmapScale;
         var size = data.size;
-        var width = data.heightmapWidth;
-        var height = data.heightmapHeight;
+        var width = data.heightmapResolution;
+        var height = data.heightmapResolution;
         Debug.Log("Width*height =  " + (width * height));
         List<Vector3> list = NavMesh.CalculateTriangulation().vertices.OfType<Vector3>().ToList();
         List<Vector3> terrains = list.Where(point => point.y > 50.0f).ToList();

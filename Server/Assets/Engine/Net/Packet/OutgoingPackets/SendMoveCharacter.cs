@@ -11,13 +11,17 @@ public class SendMoveCharacter : IOutGoingPackets
     private readonly float m_moveSpeed;
     private readonly float m_verticalSpeed;
     private readonly float m_horizontalSpeed;
+    private readonly bool m_isStrafing;
+    private readonly float m_lerpTime;
 
-    public SendMoveCharacter(Character a_character, float a_moveSpeed, float a_verticalSpeed, float a_horizontalSpeed)
+    public SendMoveCharacter(Character a_character, float a_moveSpeed, float a_verticalSpeed, float a_horizontalSpeed, bool a_isStrafing, float lerpTime)
     {
         m_character = a_character;
         m_moveSpeed = a_moveSpeed;
-        a_verticalSpeed = m_verticalSpeed;
-        a_horizontalSpeed = m_horizontalSpeed;
+        m_verticalSpeed = a_verticalSpeed;
+        m_horizontalSpeed = a_horizontalSpeed;
+        m_isStrafing = a_isStrafing;
+        m_lerpTime = lerpTime;
     }
 
     public IByteBuffer GetPacket()
@@ -53,6 +57,10 @@ public class SendMoveCharacter : IOutGoingPackets
         buffer.WriteFloat(m_moveSpeed);
         buffer.WriteFloat(m_horizontalSpeed);
         buffer.WriteFloat(m_verticalSpeed);
+   
+        buffer.WriteBoolean(m_isStrafing);
+        buffer.WriteFloat(m_lerpTime);
+        buffer.WriteBoolean(m_character.IsNpc());
 
         return buffer;
     }

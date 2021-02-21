@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Diagnostics;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class MovementComponent : MonoBehaviour
@@ -20,16 +22,23 @@ public class MovementComponent : MonoBehaviour
     //Main movement related data
     [Header("Movement Data")]
     public MovementState State = MovementState.IDLE;
-    public float RotationSpeed = Mathf.Infinity;
-    public float MovementSpeed = 7.0f;
+    public float RotationSpeed = 1;
+    public float MovementSpeed = 5f;
     public float JumpSpeed = 7.0f;
     public float Gravity = 500.0f;
     public bool Strafe { get; set; } = false;
     public bool LockedMovement { get; set; } = false;
 
+    public bool DidCombatHit { get; set; } = false;
+
+    public float lockedAtTime { get; set; } = -1;
+
 
     public GameObject CurrentForcePathTo { get; set; }
     private bool InMovement {get; set;} = false;
+
+    public float SendRate = 15f;
+    public bool TriggeredSend { get; set; } =  false;
 
     public void SetAgentPath(GameObject alwaysPath)
     {
@@ -54,26 +63,47 @@ public class MovementComponent : MonoBehaviour
     //apply any physics things like Force in here
     private void FixedUpdate()
     {
+
+        
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (Character.IsNpc())
+        if (DidCombatHit && LockedMovement)
         {
-            if (CurrentForcePathTo)
+            //UnityEngine.Debug.Log("locked time: " + lockedAtTime);
+            if (Time.time - lockedAtTime > 1) {
+                print("release from last hit locked movement");
+                DidCombatHit = false;
+                LockedMovement = false;
+            }
+        }
+
+
+        if (Character != null && Character.IsNpc())
+        {
+            if (CurrentForcePathTo !=  null)
             {
                 //var currentTransformDirection = transform.TransformDirection(Mover.CurrentForcePathTo.position);
                 //var distanceVector = currentTransformDirection - transform.position; //- currentTransformDirection;
 
                 var distance = (CurrentForcePathTo.transform.position - transform.position);
                 var direction = distance.normalized;
-
                 Move(direction, Strafe, 0);
             }
         }
+
     }
     private float lastAccelerate = 0f;
+
+    public float timeBetweenMovementStart;
+    public float timeBetweenMovementEnd;
+
+    private float m_moveSpeed;
+    private Vector3 m_relativeInput;
+    private bool m_isStrafing = false;
+
     public void Move(Vector3 a_moveVector, bool isStrafing, float rotatOnMouse)
     {
 
@@ -85,6 +115,7 @@ public class MovementComponent : MonoBehaviour
         {
             a_moveVector = Zero;
         }
+
         float moveSpeed = 0f;
         if (a_moveVector.magnitude <= 0)
         {
@@ -156,8 +187,36 @@ public class MovementComponent : MonoBehaviour
         Vector3 relativeInput = transform.InverseTransformDirection(a_moveVector);
 
         lastAccelerate = moveSpeed;
-        Network.SendPacketToAll(new SendMoveCharacter(Character, LockedMovement ? 0 : moveSpeed, LockedMovement ? 0 : relativeInput.z, LockedMovement ? 0 : relativeInput.x)).ConfigureAwait(false);
+
+        m_moveSpeed = moveSpeed;
+        m_relativeInput = relativeInput;
+        m_isStrafing = isStrafing;
+
+        if (!TriggeredSend)
+        {
+            TriggeredSend = true;
+            StartCoroutine(SendAtRate());
+            //Network.SendPacketToAll(new SendMoveCharacter(Character, LockedMovement ? 0 : moveSpeed, LockedMovement ? 0 : relativeInput.z, LockedMovement ? 0 : relativeInput.x, isStrafing)).ConfigureAwait(false);
+        }
         //.SendPacketToAll(new SendMoveCharacter(m_character, moveSpeed)).ConfigureAwait(false);
     }
     
+
+    private IEnumerator SendAtRate()
+    {
+        timeBetweenMovementStart = Time.time;
+        yield return new WaitForSeconds((1 / SendRate));
+        SendMovement();
+    }
+    private void SendMovement()
+    {
+        timeBetweenMovementEnd = Time.time;
+        Network.SendPacketToAll(new SendMoveCharacter(
+            Character,
+            LockedMovement ? 0 : m_moveSpeed,
+            LockedMovement ? 0 : m_relativeInput.z,
+            LockedMovement ? 0 : m_relativeInput.x, m_isStrafing, timeBetweenMovementEnd- timeBetweenMovementStart) 
+        ).ConfigureAwait(false);
+        TriggeredSend = false;
+    }
 }

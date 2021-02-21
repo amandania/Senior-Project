@@ -40,7 +40,9 @@ public class LoginScreen : MonoBehaviour
             _net.SendPacket(new SendLoginRequest(username.text, password.text).CreatePacket());
             connected = true;
         }
+#pragma warning disable CS0168 // The variable 'e' is declared but never used
         catch (Exception e)
+#pragma warning restore CS0168 // The variable 'e' is declared but never used
         {
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
             {

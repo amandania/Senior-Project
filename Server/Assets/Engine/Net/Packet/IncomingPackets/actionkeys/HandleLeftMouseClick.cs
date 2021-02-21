@@ -12,17 +12,22 @@ public class HandleLeftMouseClick : IIncomingPackets
     {
         _world = world;
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="data"></param>
+    /// <returns>awaited asynchrnous task <see cref="ChannelEventHandler.ChannelRead0" </returns>
     public Task ExecutePacket(Player player, IByteBuffer data)
     {
-        Debug.Log("incoming player left click");
+        //Debug.Log("incoming player left click");
         if (player.MenuOpen)
         {
            //possibly a ui click
            
         } else
         {
-            Debug.Log("perform attack");
+            //Debug.Log("perform attack");
             // has to be attack input
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
             {

@@ -16,8 +16,13 @@ public class World : MonoBehaviour, IWorld
     public Dictionary<GameObject, Character> AllGamobjectCharacters { get; set; } = new Dictionary<GameObject, Character>();
 
     public Dictionary<InteractTypes, Type> InteractTypeDefs { get; set; } = new Dictionary<InteractTypes, Type>();
-    
- 
+
+    private readonly IPlayerDataLoader m_savedPlayerData;
+
+    public World(IPlayerDataLoader a_playerData)
+    {
+        m_savedPlayerData = a_playerData;
+    }
 
     public Task LoadMonsters()
     {
@@ -68,6 +73,7 @@ public class World : MonoBehaviour, IWorld
     {
         if (a_character.IsPlayer())
         {
+            m_savedPlayerData.SaveData(a_character.AsPlayer());
             Players.Remove(a_character.AsPlayer());
         }
         else

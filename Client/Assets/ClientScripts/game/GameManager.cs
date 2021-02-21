@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,26 +43,25 @@ public class GameManager : MonoBehaviour {
         var charObject = Instantiate(resourceModel);
         charObject.transform.position = pos;
         charObject.transform.rotation = a_rotation;
+        charObject.AddComponent<MoveSync>();
         npcList.Add(a_guid, charObject);
         ServerSpawns.Add(a_guid, charObject);
     }
 
-    public void SpawnPlayer(Guid a_guid, Vector3 a_position, Quaternion a_rotation, bool a_isLocalPlayer)
+    public void SpawnPlayer(string a_playerName, Guid a_guid, Vector3 a_position, Quaternion a_rotation, bool a_isLocalPlayer)
     {
         GameObject playerObj = Instantiate(playerModel);
+        playerObj.AddComponent<MoveSync>();
         if (a_isLocalPlayer == true) {
             NetworkManager.instance.myIndex = a_guid;
             LocalPlrObj = playerObj;
         }
-        playerObj.name = "Player: " + a_guid;
+        playerObj.name = "Player: " + a_playerName;
         playerObj.transform.position = a_position;
         playerObj.transform.rotation = a_rotation;
         if (a_isLocalPlayer == true)
         {
-            GameObject camera = Resources.Load("Camera") as GameObject;
-            camera.name = "Camera-Id: " + a_guid;
-            Instantiate(camera, playerObj.transform);
-            this.camera = camera;
+            Camera camera = Camera.main;
         }
 
         playerList.Add(a_guid, playerObj);
@@ -82,17 +82,17 @@ public class GameManager : MonoBehaviour {
         yield return new WaitForSeconds(0);
         if (a_isLocalPlayer == true)
         {
-												playerList[index].AddComponent<MouseInputUIBlocker>();
-												playerList[index].AddComponent<KeyListener>();
-            string camName = "Camera-Id: " + index + "(Clone)";
-            var cam = playerList[index].transform.Find(camName).GetComponent<Camera>();
-            cam.allowDynamicResolution = false;
-            cam.GetComponent<PlayerCamera>().target = playerList[index].transform;
-												playerList[index].GetComponent<KeyListener>().cam = cam;
-            //Debug.Log(" Set interaction controoller " + InteractionController);
-        } 
+												var keylistener = playerList[index].AddComponent<KeyListener>();
 
-								//playerList[index].transform.localScale = new Vector3(0.6496f, 0.6496f, 0.6496f);
+            var playerCam = Camera.main.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
+            Debug.Log("playercam: " + playerCam);
+            playerCam.Follow = playerList[index].transform.Find("CamFollow").transform;
+            var playercamcontroller = Camera.main.gameObject.AddComponent<PlayerCamera>();
+            keylistener.PlayerCam = playercamcontroller;
+            playercamcontroller.followPart = playerList[index].transform.Find("CamFollow").transform;
+            playercamcontroller.playerTarget = playerList[index].transform;
+        } 
+        
 				}
 				public float WrapAngle(float angle)
     {

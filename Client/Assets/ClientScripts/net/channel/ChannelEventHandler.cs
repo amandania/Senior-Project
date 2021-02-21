@@ -46,7 +46,9 @@ namespace Assets.ClientScripts.net.channel
                 { (int)IncomingPackets.HANDLE_TRIGGER_COMABT, new HandleTriggerCombat() },
                 { (int)IncomingPackets.HANDLE_SPAWN_MONSTER, new HandleSpawnMonster() },
                 { (int)IncomingPackets.HANDLE_PLAYER_LOOKAT, new HandlePlayerLookAt() },
-                { (int)IncomingPackets.HANDLE_DESTROY_OBJECT, new HandleDestroyGameObject() }
+                { (int)IncomingPackets.HANDLE_DESTROY_OBJECT, new HandleDestroyGameObject() },
+                { (int)IncomingPackets.HANDLE_ANIMATOR_TRIGGER, new HandleAnimatorTrigger() },
+                { (int)IncomingPackets.HANDLE_CHAT_MESSAGE, new HandleChatMessage() }
 
             };
         }

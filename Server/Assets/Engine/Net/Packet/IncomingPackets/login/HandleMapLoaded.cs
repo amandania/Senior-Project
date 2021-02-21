@@ -15,6 +15,15 @@ public class HandleMapLoaded : IIncomingPackets
         m_world = world;
     }
 
+    /// <summary>
+    /// This is sent after a map is loaded after a valid login
+    /// Send a spawn packet to everyone to register new client
+    /// Send our current players to our connected client
+    /// Register our connected client to our world 
+    /// </summary>
+    /// <param name="a_player">Player who logged in and loaded map</param>
+    /// <param name="data">player session to replicate and add to our wolrd</param>
+    /// <returns>awaited asynchrnous task <see cref="ChannelEventHandler.ChannelRead0" </returns>
     public async Task ExecutePacket(Player a_player, IByteBuffer data)
     {
 
@@ -47,11 +56,5 @@ public class HandleMapLoaded : IIncomingPackets
                 await a_player.Session.SendPacket(new SendMonsterSpawn(npc)).ConfigureAwait(true);
             });
         }
-    }
-
-    private IEnumerator SetCameraDefaults(Guid index)
-    {
-        yield return new WaitForSeconds(0);
-        //playerList[index].transform.localScale = new Vector3(4f, 4f, 4f);
     }
 }

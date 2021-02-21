@@ -8,27 +8,25 @@ using UnityEngine;
 public class PlayerSession
 {
 
-    public readonly IChannel _channel;
-    public readonly IWorld _world;
-    public readonly Player _player;
-    public NetworkStream _stream;
-    private readonly object _lockObject = new object();
+    public readonly IChannel m_channel;
+    public readonly IWorld m_world;
+    public readonly Player m_player;
 
-    public PlayerSession(IChannel channel, IWorld world)
+    public PlayerSession(IChannel a_channel, IWorld a_world, IPlayerDataLoader a_playerLoader)
     {
-        _channel = channel;
-        _world = world;
+        m_channel = a_channel;
+        m_world = a_world;
 
         Vector3 pos;
         Vector3 rot;
-        _player = new Player(this, world);
+        m_player = new Player(this, a_world);
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            var transform = _world.SpawnTransform;
+            var transform = m_world.SpawnTransform;
             pos = transform.position;
             rot = transform.rotation.eulerAngles;
-            _player.Position = pos;
-            _player.Rotation = rot;
+            m_player.Position = pos;
+            m_player.Rotation = rot;
         });
     }
 
@@ -46,9 +44,9 @@ public class PlayerSession
         buffer.WriteInt((int)packet.PacketType);
         buffer.WriteBytes(packet.GetPacket());
 
-        foreach (var player in _world.Players)
+        foreach (var player in m_world.Players)
         {
-            if (player.Session._channel.Active && player.Session._channel.IsWritable)
+            if (player.Session.m_channel.Active && player.Session.m_channel.IsWritable)
             {
                 await player.Session.WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);
             }
@@ -61,7 +59,7 @@ public class PlayerSession
         buffer.WriteInt((int)packet.PacketType);
         buffer.WriteBytes(packet.GetPacket());
 
-        var otherPlayers = _world.Players.Where(otherPlayer => otherPlayer.GetGuid() != _player.GetGuid());
+        var otherPlayers = m_world.Players.Where(otherPlayer => otherPlayer.GetGuid() != m_player.GetGuid());
         foreach (var player in otherPlayers)
         {
             await player.Session.WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);
@@ -70,6 +68,6 @@ public class PlayerSession
 
     public Task WriteToChannel(IByteBuffer data)
     {
-        return _channel.WriteAndFlushAsync(data);
+        return m_channel.WriteAndFlushAsync(data);
     }
 }

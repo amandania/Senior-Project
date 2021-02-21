@@ -11,12 +11,13 @@ public class HandleSpawnPlayer : IIncomingPacketHandler
     {
         var length = buffer.ReadInt();
         var playerId = buffer.ReadString(length, Encoding.Default);
+        var username = buffer.ReadString(buffer.ReadInt(), Encoding.Default);
         var Position = new Vector3(buffer.ReadFloat(), buffer.ReadFloat(), buffer.ReadFloat());
         var Rotation = Quaternion.Euler(buffer.ReadFloat(), buffer.ReadFloat(), buffer.ReadFloat());
 
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            GameManager.instance.SpawnPlayer(Guid.Parse(playerId), Position, Rotation, false);
+            GameManager.instance.SpawnPlayer(username, Guid.Parse(playerId), Position, Rotation, false);
         });
    }
 

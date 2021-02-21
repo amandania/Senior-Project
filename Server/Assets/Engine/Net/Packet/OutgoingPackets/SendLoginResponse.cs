@@ -22,10 +22,13 @@ public class SendLoginResponse : IOutGoingPackets
         buffer.WriteInt(m_responseCode);
         if (m_responseCode == 0)
         {
-            String guid = m_player.GetGuid().ToString();
+            string guid = m_player.GetGuid().ToString();
 
             buffer.WriteInt(guid.Length);
             buffer.WriteString(guid, Encoding.Default);
+
+            buffer.WriteInt(m_player.UserName.Length);
+            buffer.WriteString(m_player.UserName, Encoding.Default);
 
             Vector3 plrPos = m_player.Position;
             buffer.WriteFloat(plrPos.x);

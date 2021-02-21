@@ -41,7 +41,10 @@ public class NetworkManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         Debug.Log("Application quit.");
-        networkStream.CloseAsync();
+        if (networkStream != null)
+        {
+            networkStream.CloseAsync();
+        }
     }
 
     public void SetBuilder(ChannelBuilder a_builder)

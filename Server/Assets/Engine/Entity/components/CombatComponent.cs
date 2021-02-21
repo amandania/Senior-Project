@@ -24,19 +24,20 @@ public class CombatComponent : MonoBehaviour
     public int MaxHitDamage = 3;
     public int MaxCombos = 3;
     public int CurrentAttackCombo = 0;
-    public int MaxReachDistance { get; set; } = 1;
+    public float MaxReachDistance { get; set; } = 1.5f;
     public bool IsAggresiveTrigger = false; // 0 or 1 for true false.
 
-    public float AttackRate { get; set; } = .35f; // Default: every 2 seconds we can attack 
+    public float LastAttack  { get; set; }
+    public float AttackRate { get; set; } = .65f; // Default: every 2 seconds we can attack 
 
-    public Stopwatch AttackStopwatch { get; set; } = new Stopwatch(); // We start it at 2 because this is required attack rate
-    public Stopwatch LastAttackRecieved { get; set; } = new Stopwatch(); // 
+     public Stopwatch LastAttackRecieved { get; set; } = new Stopwatch(); // 
 
     public NetworkManager Network { get; set; }
     private CombatComponent instance;
     private MovementComponent Mover { get; set; }
 
     private List<GameObject> TargetList { get; set; } = new List<GameObject>();
+    public CombatAnimations CombatTriggers { get; set; }
 
     private void Awake()
     {
@@ -47,23 +48,30 @@ public class CombatComponent : MonoBehaviour
         Network = GameObject.Find("WorldManager").GetComponent<NetworkManager>() as NetworkManager;
         Mover = GetComponent<MovementComponent>();
         MyAnimator = GetComponent<Animator>();
-        AttackStopwatch.Start();
+        CombatTriggers = GetComponent<CombatAnimations>();
     }
     private void Update()
     {
-        if (CombatTarget)
+        if (CombatTarget != null)
         {
             if (!WithinReach(CombatTarget.transform.position, out m_reachDistance))
             {
-                if (Mover.LockedMovement) { 
-                    Mover.LockedMovement = false;
-                }
+                Mover.SetAgentPath(CombatTarget);
+                print("not within distance to attack");
+                //UnityEngine.Debug.Log("not withing distnace");
                 return;
             }
-            Attack(CombatTarget);
-            if (m_reachDistance < 1)
+            else
             {
-                Mover.LockedMovement = true;
+                print("within distance so we attack");
+                Attack(CombatTarget);
+            }
+        } else
+        {
+            if(TargetList.Contains(CombatTarget))
+            {
+                TargetList.Remove(CombatTarget);
+                //UnityEngine.Debug.Log("Removed target from my list cause it doesnt exist anymore");
             }
         }
     }
@@ -83,13 +91,13 @@ public class CombatComponent : MonoBehaviour
     {
         if (Character == null)
         {
-            UnityEngine.Debug.Log("no character");
+            //UnityEngine.Debug.Log("no character");
             return;
         }
        
-        if (AttackStopwatch.Elapsed.Seconds < AttackRate)
+        if (Time.time - LastAttack < AttackRate)
         {
-            UnityEngine.Debug.Log("Cannot attack" + AttackStopwatch.Elapsed.Seconds);
+            //UnityEngine.Debug.Log("Cannot attack" + AttackStopwatch.Elapsed.Seconds);
             return;
         }
         var defaultTargetDistance = transform.position + (transform.forward + DefaultForwardAttack);
@@ -114,34 +122,40 @@ public class CombatComponent : MonoBehaviour
         {
             return;
         }
-        if (AttackStopwatch.Elapsed.Seconds < AttackRate) {
+        if (Time.time - LastAttack < AttackRate)
+        {
+            //UnityEngine.Debug.Log("Cannot attack time: " + (Time.time - LastAttack));
+            print("cant attack still because we need to pass our last attack time: " + (Time.time - LastAttack));
             return;
         }
 
         PerformAttack(target.transform.position);
     }
+    public void ForceAttack(GameObject target)
+    {
+        if (Character == null)
+        {
+            return;
+        }
+        PerformAttack(target.transform.position);
+    }
+
 
     public void PerformAttack(Vector3 targetGoal)
     {
-        AttackStopwatch.Reset();
         CurrentAttackCombo += 1;
+        Mover.DidCombatHit = true;
         Mover.LockedMovement = true;
+        Mover.lockedAtTime = Time.time;
+        LastAttack = Time.time;
         if (CurrentAttackCombo > MaxCombos)
         {
             CurrentAttackCombo = 1;
         }
         Vector3 distanceVector = (targetGoal - transform.position);
-
-        var distance = 0f;
-        if (distanceVector.magnitude > 2 && distanceVector.magnitude < 20)
-        {
-            distance = distanceVector.magnitude - 2;
-        } else if (distanceVector.magnitude > 20)
-        {
-            distance = 20f;
-        }
-        StartCoroutine(HandleDash(distance));
-        AttackStopwatch.Start();
+        
+        MyAnimator.SetInteger("CombatState", CurrentAttackCombo);
+        MyAnimator.SetTrigger("TriggerAttack");
         Network.SendPacketToAll(new SendCharacterCombatStage(Character, CurrentAttackCombo)).ConfigureAwait(false);
     }
     private IEnumerator HandleDash(float DashDistance)
@@ -157,8 +171,10 @@ public class CombatComponent : MonoBehaviour
         yield return null;
     }
 
-    public void ApplyHit(Character attacker)
+    public void ApplyHit(Character a_attacker, int a_damage)
     {
+        Network.SendPacketToAll(new SendAnimatorTrigger(Character, "GotHit")).ConfigureAwait(false);
+        MyAnimator.SetTrigger("GotHit");
         LastAttackRecieved.Reset();
     }
     
@@ -198,23 +214,23 @@ public class CombatComponent : MonoBehaviour
             switch(pair.Key)
             {
                 case "MaxHealth":
-                    MaxHealth = (int) pair.Value;
+                    MaxHealth = pair.IntValue;
                     CurrentHealth = MaxHealth;
                     break;
                 case "MinHitDamage":
-                    MinHitDamage = (int) pair.Value;
+                    MinHitDamage = pair.IntValue;
                     break;
                 case "MaxHitDamage":
-                    MaxHitDamage = (int) pair.Value;
+                    MaxHitDamage = pair.IntValue;
                     break;
                 case "AttackRate":
-                    AttackRate = (float)pair.Value;
+                    AttackRate = pair.FloatValue;
                     break;
                 case "MaxCombos":
-                    MaxCombos = (int) pair.Value;
+                    MaxCombos = pair.IntValue;
                     break;
                 default:
-                    IsAggresiveTrigger = (bool) pair.Value;
+                    IsAggresiveTrigger = pair.BoolValue;
                     break;
             }
         });
