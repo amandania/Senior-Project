@@ -1,32 +1,20 @@
-﻿using DotNetty.Buffers;
+﻿/**
+* \class HandleChatMessage
+*
+*
+* \brief SYNOPSIS
+*
+* This class will be used mainly to ExecutePacket and read our message buffer data.
+* Then it will attach our senders server username to the message
+* This message will then be sent to all players to display on chat
+*
+* \
+*/
+
+
+using DotNetty.Buffers;
 using System.Text;
 using System.Threading.Tasks;
-/**/
-/*
-HandleChatMessage.ExecutePacket()
-
-NAME
-
-        HandleChatMessage.ExecutePacket - Read the chat message buffer
-
-SYNOPSIS
-
-        Task HandleChatMessage.ExecutePacket(Player a_player, Buffer a_buffer);
-            a_player             --> Player who sent the packet.
-            a_buffer             --> The amount of capital to apply.
-
-DESCRIPTION
-
-        This function will read our buffer data.
-        Then it will attach our senders server username to the message
-        This message will then be sent to all players to display on chat
-
-RETURNS
-
-        Returns await a_player.Session.SendPacketToAll(new SendChatMessage(a_player.UserName + ": " + message)).ConfigureAwait(false);
-*/
-/**/
-
 
 public class HandleChatMessage : IIncomingPackets
 {
@@ -37,8 +25,16 @@ public class HandleChatMessage : IIncomingPackets
     {
     }
 
-    //PacketNumber
-    public IncomingPackets PacketType => IncomingPackets.HANDLE_CHAT_MESSAGE;
+    /// <summary>
+    /// Packet number for datahandler to execute <see cref="ChannelEventHandler.HandleData"/>
+    /// </summary>
+    public IncomingPackets PacketType
+    {
+        get
+        {
+            return IncomingPackets.HANDLE_CHAT_MESSAGE;
+        }
+    }
 
     /// <summary>
     /// Read incoming chat message .
