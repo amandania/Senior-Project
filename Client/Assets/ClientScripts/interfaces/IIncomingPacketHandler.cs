@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using UnityEditor;
-using DotNetty.Buffers;
+﻿using DotNetty.Buffers;
 
 public interface IIncomingPacketHandler
 {

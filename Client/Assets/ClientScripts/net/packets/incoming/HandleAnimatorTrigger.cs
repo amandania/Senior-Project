@@ -1,13 +1,17 @@
-﻿using UnityEngine;
-using System.Collections;
-using DotNetty.Buffers;
+﻿using DotNetty.Buffers;
 using System;
 using System.Text;
-using UnityEngine.SceneManagement;
-using Assets.ClientScripts.net.packets.outgoing;
+using UnityEngine;
+/// <summary>
+/// This packet is used to activate any trigger by name to any gameobject
+/// </summary>
 
 public class HandleAnimatorTrigger : IIncomingPacketHandler
 {
+    /// <summary>
+    /// Execute the trigger of the session id triggering the animation
+    /// </summary>
+    /// <param name="buffer">Contains object id and trigger name</param>
     public void ExecutePacket(IByteBuffer buffer)
     {
         int guidLength = buffer.ReadInt();
@@ -25,7 +29,10 @@ public class HandleAnimatorTrigger : IIncomingPacketHandler
         });
 
     }
-
+    /// <summary>
+    /// Aniamtion Trigger Packet Id used to refrence incoming packet handling
+    /// <see cref="ChannelEventHandler.HandleDataPackets"/>
+    /// </summary>
     public IncomingPackets PacketType => IncomingPackets.HANDLE_ANIMATOR_TRIGGER;
 
 }

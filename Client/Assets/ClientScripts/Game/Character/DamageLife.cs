@@ -6,7 +6,7 @@ public class DamageLife : MonoBehaviour
     public string DamageText;
     public Color color_i, color_f;
     public float LifeTime;
-    private float StartTime;
+    public float StartTime;
 
     private bool Triggerd { get; set; } = false;
 
@@ -27,7 +27,7 @@ public class DamageLife : MonoBehaviour
 
     public void Update()
     {
-        if(Triggerd)
+        if (Triggerd)
         {
             float progress = (Time.time - StartTime) / LifeTime;
             if (progress <= 1)

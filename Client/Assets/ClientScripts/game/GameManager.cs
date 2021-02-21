@@ -3,9 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
     //To refrance player behaviors for client.
     public static GameManager instance;
@@ -23,19 +23,20 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     private void Awake()
     {
-								playerModel = Resources.Load("PlayerModel") as GameObject;
-								instance = this;
-								
-				}
+        playerModel = Resources.Load("PlayerModel") as GameObject;
+        instance = this;
+
+    }
     private void Start()
     {
         if (instance == null)
             instance = this;
     }
+
     // Update is called once per frame 
-    void Update()
+    private void Update()
     {
-      
+
     }
 
     public void SpawnMonster(Guid a_guid, Vector3 pos, Quaternion a_rotation, GameObject resourceModel)
@@ -52,7 +53,8 @@ public class GameManager : MonoBehaviour {
     {
         GameObject playerObj = Instantiate(playerModel);
         playerObj.AddComponent<MoveSync>();
-        if (a_isLocalPlayer == true) {
+        if (a_isLocalPlayer == true)
+        {
             NetworkManager.instance.myIndex = a_guid;
             LocalPlrObj = playerObj;
         }
@@ -67,22 +69,23 @@ public class GameManager : MonoBehaviour {
         playerList.Add(a_guid, playerObj);
         ServerSpawns.Add(a_guid, playerObj);
 
-        if (a_isLocalPlayer) {
-												Debug.Log("Player was spawned. local player? " + a_isLocalPlayer + ", " + NetworkManager.instance.myIndex + "\n\t" + a_guid);
+        if (a_isLocalPlayer)
+        {
+            Debug.Log("Player was spawned. local player? " + a_isLocalPlayer + ", " + NetworkManager.instance.myIndex + "\n\t" + a_guid);
             StartCoroutine(SetCameraDefaults(a_guid, a_isLocalPlayer));
-								} else
-								{
-												Debug.Log("Spawn other player" + a_guid);
-								}
+        }
+        else
+        {
+            Debug.Log("Spawn other player" + a_guid);
+        }
     }
 
-
-    IEnumerator SetCameraDefaults(Guid index, bool a_isLocalPlayer)
+    private IEnumerator SetCameraDefaults(Guid index, bool a_isLocalPlayer)
     {
         yield return new WaitForSeconds(0);
         if (a_isLocalPlayer == true)
         {
-												var keylistener = playerList[index].AddComponent<KeyListener>();
+            var keylistener = playerList[index].AddComponent<KeyListener>();
 
             var playerCam = Camera.main.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
             Debug.Log("playercam: " + playerCam);
@@ -91,10 +94,10 @@ public class GameManager : MonoBehaviour {
             keylistener.PlayerCam = playercamcontroller;
             playercamcontroller.followPart = playerList[index].transform.Find("CamFollow").transform;
             playercamcontroller.playerTarget = playerList[index].transform;
-        } 
-        
-				}
-				public float WrapAngle(float angle)
+        }
+
+    }
+    public float WrapAngle(float angle)
     {
         angle %= 360;
         if (angle > 180)

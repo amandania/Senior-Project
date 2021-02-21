@@ -1,13 +1,17 @@
-﻿using UnityEngine;
-using System.Collections;
-using DotNetty.Buffers;
+﻿using DotNetty.Buffers;
 using System;
 using System.Text;
-using UnityEngine.SceneManagement;
-using Assets.ClientScripts.net.packets.outgoing;
-
+using UnityEngine;
+/// <summary>
+/// This class desroys a player gameobject during logout
+/// </summary>
 public class HandleLogout : IIncomingPacketHandler
 {
+    /// <summary>
+    /// Read the packet containing client who logged out
+    /// Destroy the player object our client
+    /// </summary>
+    /// <param name="buffer">Contains SessionId of user logging out</param>
     public void ExecutePacket(IByteBuffer buffer)
     {
 
@@ -21,7 +25,7 @@ public class HandleLogout : IIncomingPacketHandler
             GameObject.Destroy(gameobject);
             GameManager.instance.playerList.Remove(playerguid);
         });
-        
+
     }
 
     public IncomingPackets PacketType => IncomingPackets.HANDLE_LOGOUT;

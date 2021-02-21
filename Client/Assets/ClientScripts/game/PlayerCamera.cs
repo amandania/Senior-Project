@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
@@ -9,7 +7,7 @@ public class PlayerCamera : MonoBehaviour
 
 
     public int mouseButton = 1; // right button by default
-    
+
     public bool lockMovementToCam = false;
     public float xMouseSensitivity = 1f;
     public float yMouseSensitivity = 1f;
@@ -38,10 +36,9 @@ public class PlayerCamera : MonoBehaviour
 
     // store rotation so that unity never modifies it, otherwise unity will put
     // it back to 360 as soon as it's < 0, which makes a negative min angle impossible
-    Vector3 rotation;
+    private Vector3 rotation;
 
-
-    void Awake()
+    private void Awake()
     {
         rotation = transform.eulerAngles;
 
@@ -64,7 +61,7 @@ public class PlayerCamera : MonoBehaviour
         }
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
         Cursor.lockState = CursorLockMode.Locked;
         if (!followPart)
@@ -80,9 +77,9 @@ public class PlayerCamera : MonoBehaviour
 
 
 
-       
 
-       
+
+
         Quaternion camRotation = Quaternion.Euler(rotation.x, rotation.y, 0);
         followPart.transform.rotation = camRotation;
         //transform.rotation = camRotation;

@@ -1,29 +1,21 @@
-﻿using UnityEngine;
-using System.Collections;
-using DotNetty.Buffers;
-using System;
-using System.Collections.Generic;
+﻿using DotNetty.Buffers;
 
-namespace Assets.ClientScripts.net.packets.outgoing
+public class SendMouseLeftClick : IOutgoingPacketSender
 {
-    public class SendMouseLeftClick : IOutgoingPacketSender
+
+
+    public SendMouseLeftClick()
     {
-        
-
-        public SendMouseLeftClick()
-        {
-        }
-
-
-        public IByteBuffer CreatePacket()
-								{
-												IByteBuffer buffer = Unpooled.Buffer();
-            buffer.WriteInt((int)PacketType);
-            return buffer;
-        }
-
-        public OutgoingPackets PacketType => OutgoingPackets.SEND_LEFT_MOUSE_CLICK;
-
     }
+
+
+    public IByteBuffer CreatePacket()
+    {
+        IByteBuffer buffer = Unpooled.Buffer();
+        buffer.WriteInt((int)PacketType);
+        return buffer;
+    }
+
+    public OutgoingPackets PacketType => OutgoingPackets.SEND_LEFT_MOUSE_CLICK;
 
 }

@@ -1,9 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using DotNetty.Buffers;
+﻿using DotNetty.Buffers;
 using System;
 using System.Text;
-using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public class HandleSpawnPlayer : IIncomingPacketHandler
 {
@@ -19,7 +17,7 @@ public class HandleSpawnPlayer : IIncomingPacketHandler
         {
             GameManager.instance.SpawnPlayer(username, Guid.Parse(playerId), Position, Rotation, false);
         });
-   }
+    }
 
 
 

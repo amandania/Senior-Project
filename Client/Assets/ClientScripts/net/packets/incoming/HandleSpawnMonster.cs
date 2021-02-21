@@ -1,9 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using DotNetty.Buffers;
+﻿using DotNetty.Buffers;
 using System;
 using System.Text;
-using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public class HandleSpawnMonster : IIncomingPacketHandler
 {
@@ -20,10 +18,10 @@ public class HandleSpawnMonster : IIncomingPacketHandler
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
             Debug.Log("spawn monster on client " + charName);
-            var resourceModel = Resources.Load("MonsterModels/"+charName) as GameObject;
+            var resourceModel = Resources.Load("MonsterModels/" + charName) as GameObject;
             GameManager.instance.SpawnMonster(Guid.Parse(charGuid), position, rotation, resourceModel);
         });
-   }
+    }
 
 
 
