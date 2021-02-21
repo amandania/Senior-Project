@@ -15,6 +15,7 @@
 using DotNetty.Buffers;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class HandleChatMessage : IIncomingPackets
 {
@@ -47,8 +48,9 @@ public class HandleChatMessage : IIncomingPackets
     {
         var messageLength = a_buffer.ReadInt();
         var message = a_buffer.ReadString(messageLength, Encoding.Default);
-        
+
         //send message to everyone including sending with our valid username
+        Debug.Log("Send Message: " + a_player.UserName + ": " + message);
         await a_player.Session.SendPacketToAll(new SendChatMessage(a_player.UserName + ": " + message)).ConfigureAwait(false);
 
         await Task.CompletedTask;
