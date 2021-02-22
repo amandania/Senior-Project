@@ -174,6 +174,7 @@ public class CombatComponent : MonoBehaviour
     public void ApplyHit(Character a_attacker, int a_damage)
     {
         Network.SendPacketToAll(new SendAnimatorTrigger(Character, "GotHit")).ConfigureAwait(false);
+        Network.SendPacketToAll(new SendDamageMessage(Character, a_damage, 1.5f)).ConfigureAwait(false);
         MyAnimator.SetTrigger("GotHit");
         LastAttackRecieved.Reset();
     }

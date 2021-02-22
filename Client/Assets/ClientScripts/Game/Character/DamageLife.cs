@@ -8,7 +8,8 @@ public class DamageLife : MonoBehaviour
     public float LifeTime;
     public float StartTime;
 
-    private bool Triggerd { get; set; } = false;
+    public bool Triggerd = false;
+    public Vector3 startPos;
 
     private void Awake()
     {
@@ -21,6 +22,8 @@ public class DamageLife : MonoBehaviour
         DamageText = a_damage;
         LifeTime = a_lifeTime;
         GetComponent<TextMesh>().text = a_damage;
+        StartTime = Time.time;
+        startPos = transform.position;
         Triggerd = true;
         enabled = true;
     }
@@ -30,9 +33,11 @@ public class DamageLife : MonoBehaviour
         if (Triggerd)
         {
             float progress = (Time.time - StartTime) / LifeTime;
+            //print("progress : " + progress);
             if (progress <= 1)
             {
-                transform.localPosition = Vector3.Lerp(transform.position, transform.Find("GoalPos").transform.position, progress);
+                print("lerping");
+                transform.position = Vector3.Lerp(startPos, startPos + (Vector3.back + Vector3.up) * 2, progress);
             }
             else
             {

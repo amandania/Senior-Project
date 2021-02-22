@@ -26,6 +26,10 @@ public class ChannelEventHandler : ChannelHandlerAdapter
 
     public Dictionary<int, IIncomingPacketHandler> packets = new Dictionary<int, IIncomingPacketHandler>();
 
+
+    /// <summary>
+    /// Called on startup tto initalize our packet map. Packet numbers are assigned to respective class definitions
+    /// </summary>
     public void InitalizeMessages()
     {
         //Key Value pairing for <opcode, listener>.
@@ -40,8 +44,8 @@ public class ChannelEventHandler : ChannelHandlerAdapter
                 { (int)IncomingPackets.HANDLE_PLAYER_LOOKAT, new HandlePlayerLookAt() },
                 { (int)IncomingPackets.HANDLE_DESTROY_OBJECT, new HandleDestroyGameObject() },
                 { (int)IncomingPackets.HANDLE_ANIMATOR_TRIGGER, new HandleAnimatorTrigger() },
-                { (int)IncomingPackets.HANDLE_CHAT_MESSAGE, new HandleChatMessage() }
-
+                { (int)IncomingPackets.HANDLE_CHAT_MESSAGE, new HandleChatMessage() },
+                { (int)IncomingPackets.HANDLE_DAMAGE_MESSAGE, new HandleDamageMessage() }
             };
     }
 

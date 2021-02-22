@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class HandleDamageMessage : IIncomingPacketHandler
 {
+
     public void ExecutePacket(IByteBuffer buffer)
     {
-        int guidLength = buffer.ReadInt();
         Guid guid;
+        int guidLength = buffer.ReadInt();
         Guid.TryParse(buffer.ReadString(guidLength, Encoding.Default), out guid);
 
         int damageAmount = buffer.ReadInt();
@@ -22,7 +23,10 @@ public class HandleDamageMessage : IIncomingPacketHandler
                 var hasVal = GameManager.instance.ServerSpawns.TryGetValue(guid, out characterObject);
                 if (characterObject != null)
                 {
-                    characterObject.GetComponent<CharacterManager>().TakeDamage(damageAmount.ToString(), lifeTime);
+                    var damagePrefab = Resources.Load("Prefabs/Damage") as GameObject;
+                    var gameObj = GameObject.Instantiate(damagePrefab, characterObject.transform.position, Quaternion.identity, characterObject.transform);
+                    var comp = gameObj.GetComponent<DamageLife>();
+                    comp.StartDamage(damageAmount.ToString(), lifeTime);
                 }
             });
         }

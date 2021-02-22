@@ -3,7 +3,7 @@ using System.Text;
 
 public class SendDamageMessage : IOutGoingPackets
 {
-    public OutGoingPackets PacketType => OutGoingPackets.SEND_LOGOUT;
+    public OutGoingPackets PacketType => OutGoingPackets.SEND_DAMAGE_MESSAGE;
 
     private readonly int m_damageAmount;
     private readonly Character m_parentCharacter;
