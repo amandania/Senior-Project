@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Reflection;
 using UnityEngine;
 
 public class CombatComponent : MonoBehaviour
 {
     private float m_reachDistance;
     private Animator MyAnimator;
-    private Vector3 DefaultForwardAttack = new Vector3(0,0,10);
+    private Vector3 DefaultForwardAttack = new Vector3(0, 0, 10);
 
     [Header("Combat Target Data")]
     public GameObject CombatTarget; // Current Main Target, (doesnt neccarily have to be used with Attack(Character))
@@ -27,10 +25,10 @@ public class CombatComponent : MonoBehaviour
     public float MaxReachDistance { get; set; } = 1.5f;
     public bool IsAggresiveTrigger = false; // 0 or 1 for true false.
 
-    public float LastAttack  { get; set; }
+    public float LastAttack { get; set; }
     public float AttackRate { get; set; } = .65f; // Default: every 2 seconds we can attack 
 
-     public Stopwatch LastAttackRecieved { get; set; } = new Stopwatch(); // 
+    public Stopwatch LastAttackRecieved { get; set; } = new Stopwatch(); // 
 
     public NetworkManager Network { get; set; }
     private CombatComponent instance;
@@ -66,27 +64,17 @@ public class CombatComponent : MonoBehaviour
                 print("within distance so we attack");
                 Attack(CombatTarget);
             }
-        } else
+        }
+        else
         {
-            if(TargetList.Contains(CombatTarget))
+            if (TargetList.Contains(CombatTarget))
             {
                 TargetList.Remove(CombatTarget);
                 //UnityEngine.Debug.Log("Removed target from my list cause it doesnt exist anymore");
             }
         }
     }
-
-    /*void Attack()*/
-    /*
-				NAME
-												Attack()
-
-				DESCRIPTION
-												This function handles a default attack
-            default attacks get nearest target
-            if no target is available we will PerformAttack(Vector3 forwardTargetVector)
-				*/
-    /*void Attack()*/
+    
     public void Attack()
     {
         if (Character == null)
@@ -94,7 +82,7 @@ public class CombatComponent : MonoBehaviour
             //UnityEngine.Debug.Log("no character");
             return;
         }
-       
+
         if (Time.time - LastAttack < AttackRate)
         {
             //UnityEngine.Debug.Log("Cannot attack" + AttackStopwatch.Elapsed.Seconds);
@@ -105,17 +93,7 @@ public class CombatComponent : MonoBehaviour
         PerformAttack(defaultTargetDistance);
     }
 
-    /*void Attack(Vector3 TargetPosition)*/
-    /*
-				NAME
-												Attack(Vector3 TargetPosition)
-
-				DESCRIPTION
-												This function will perform direct attacks on specfic object target
-            Our client is always going to left click with the nearest targets guid
-            We use this target on server to attemp within distance attack
-				*/
-    /*void Attack(Vector3 TargetPosition)*/
+   
     public void Attack(GameObject target)
     {
         if (Character == null)
@@ -153,7 +131,7 @@ public class CombatComponent : MonoBehaviour
             CurrentAttackCombo = 1;
         }
         Vector3 distanceVector = (targetGoal - transform.position);
-        
+
         MyAnimator.SetInteger("CombatState", CurrentAttackCombo);
         MyAnimator.SetTrigger("TriggerAttack");
         Network.SendPacketToAll(new SendCharacterCombatStage(Character, CurrentAttackCombo)).ConfigureAwait(false);
@@ -161,7 +139,7 @@ public class CombatComponent : MonoBehaviour
     private IEnumerator HandleDash(float DashDistance)
     {
         float startTime = Time.time;
-        while(Time.time < startTime + .25)
+        while (Time.time < startTime + .25)
         {
             Mover.CharacterController.Move(transform.forward * DashDistance * Time.deltaTime);
             yield return null;
@@ -178,7 +156,7 @@ public class CombatComponent : MonoBehaviour
         MyAnimator.SetTrigger("GotHit");
         LastAttackRecieved.Reset();
     }
-    
+
 
     public bool WithinReach(Vector3 targetPosition, out float distance)
     {
@@ -191,14 +169,14 @@ public class CombatComponent : MonoBehaviour
     {
         return CombatTarget;
     }
-    
+
 
     public void AddToPossibleTargets(GameObject target)
     {
         if (TargetList.Contains(target))
         {
             return;
-        }   
+        }
         TargetList.Add(target);
 
         if (TargetList.Count == 1)
@@ -210,9 +188,10 @@ public class CombatComponent : MonoBehaviour
 
     public void LoadCombatDefinition(List<KeyValuePair> combatDefs)
     {
-        combatDefs.ForEach(pair => {
-           
-            switch(pair.Key)
+        combatDefs.ForEach(pair =>
+        {
+
+            switch (pair.Key)
             {
                 case "MaxHealth":
                     MaxHealth = pair.IntValue;

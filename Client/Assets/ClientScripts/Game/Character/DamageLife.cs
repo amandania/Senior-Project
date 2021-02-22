@@ -10,11 +10,13 @@ public class DamageLife : MonoBehaviour
 
     public bool Triggerd = false;
     public Vector3 startPos;
+    public Transform bannerLookTarget;
 
     private void Awake()
     {
         enabled = false;
         Debug.Log("turned off after instance");
+        bannerLookTarget = Camera.main.transform;
     }
 
     public void StartDamage(string a_damage, float a_lifeTime = 1f)
@@ -32,12 +34,17 @@ public class DamageLife : MonoBehaviour
     {
         if (Triggerd)
         {
+            //percentage of life traveled 
             float progress = (Time.time - StartTime) / LifeTime;
             //print("progress : " + progress);
             if (progress <= 1)
             {
-                print("lerping");
-                transform.position = Vector3.Lerp(startPos, startPos + (Vector3.back + Vector3.up) * 2, progress);
+                //Look vector too keep our damage rotation towards our camera view 
+                Vector3 lookDir = transform.position - (bannerLookTarget.position * 2);
+
+                LerpText(progress);
+
+                transform.rotation = Quaternion.LookRotation(lookDir);
             }
             else
             {
@@ -48,4 +55,8 @@ public class DamageLife : MonoBehaviour
 
     }
 
+    private void LerpText(float progress)
+    {
+        transform.position = Vector3.Lerp(startPos, startPos + transform.up, progress);
+    }
 }

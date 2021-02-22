@@ -46,8 +46,12 @@ public class CombatAnimations : MonoBehaviour
                     }
                     if (transform.gameObject != combat.gameObject)
                     {
-                        //print("Hit targets: " + targets.transform.gameObject.name);
-                        combat.ApplyHit(GetComponent<CombatComponent>().Character,  Random.Range(combat.MinHitDamage, combat.MaxHitDamage));
+                        print((transform.position - combat.transform.position).magnitude + " distance to attack");
+                        if ((transform.position - combat.transform.position).magnitude < 2)
+                        {
+                            //print("Hit targets: " + targets.transform.gameObject.name);
+                            combat.ApplyHit(GetComponent<CombatComponent>().Character, Random.Range(combat.MinHitDamage, combat.MaxHitDamage));
+                        }
                     }
                 }
             }

@@ -24,8 +24,18 @@ public class HandleDamageMessage : IIncomingPacketHandler
                 if (characterObject != null)
                 {
                     var damagePrefab = Resources.Load("Prefabs/Damage") as GameObject;
-                    var gameObj = GameObject.Instantiate(damagePrefab, characterObject.transform.position, Quaternion.identity, characterObject.transform);
+                    var gameObj = GameObject.Instantiate(damagePrefab, characterObject.transform.position + damagePrefab.transform.position, Quaternion.identity, characterObject.transform);
                     var comp = gameObj.GetComponent<DamageLife>();
+                    
+                    if (NetworkManager.instance.myIndex == guid)
+                    {
+                        comp.GetComponent<TextMesh>().color = Color.yellow;
+                    }
+                    if (damageAmount <= 0)
+                    {
+                        comp.GetComponent<TextMesh>().color = Color.cyan;
+                    }
+                    
                     comp.StartDamage(damageAmount.ToString(), lifeTime);
                 }
             });
