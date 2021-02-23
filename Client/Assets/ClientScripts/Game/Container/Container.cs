@@ -6,10 +6,7 @@ public class Container : MonoBehaviour
 {
     public int ContainerSize = 6;
     public string ContainerName = "";
-    public List<Slot> ContainerItems;
     public GameObject SlotPrefab;
-
-
     public List<GameObject> SlotsCreated;
 
 
@@ -26,7 +23,6 @@ public class Container : MonoBehaviour
 
         if (SlotsCreated.Count < slotIndex)
         {
-            ContainerItems.Add(new Slot(slotItemName, slotItemAmount));
             SlotsCreated.Add(Instantiate(SlotPrefab, transform));
         } else
         {
@@ -68,15 +64,3 @@ public class Container : MonoBehaviour
     }
 }
 
-public class Slot : MonoBehaviour
-{
-    public string ItemName;
-    public int ItemAmount;
-    public Texture2D ItemIcon;
-    public Slot(string a_itemName = null, int a_amount = -1, Texture2D a_itemIcon = null)
-    {
-        ItemName = a_itemName;
-        ItemAmount = a_amount;
-        ItemIcon = a_itemIcon;
-    }
-}
