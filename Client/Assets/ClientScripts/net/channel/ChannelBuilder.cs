@@ -44,9 +44,8 @@ public class ChannelBuilder
     }
 
     /// <summary>
-    /// Build our inital network channel. Optional header are allowed we just pass the required netty ones.
-    /// Creates our bootstrap, assigns the mutli thread wrapper to our bootstrap
-    /// Assigns inital TCPSocketChannel to our bootstrap.
+    /// Build our inital network channel. Optional header are allowed we just pass the required netty ones. This also creates our main client bootstrap which assigns the mutli thread wrapper to our bootstrap for all packets.
+    /// We connect our TcpSocketChannel
     /// Lastly we add the Socket Handler which is our ChannelEventHandler class
     /// </summary>
     private void InitializeBootstrap()
