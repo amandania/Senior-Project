@@ -34,13 +34,14 @@ public class HandleContainerRefresh : IIncomingPacketHandler
             int itemNameLength = buffer.ReadInt();
             string itemName = buffer.ReadString(itemNameLength, Encoding.Default);
             int itemAmount = buffer.ReadInt();
+            var slotindex = i;
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
             {
                 var taggedContainer = GameObject.FindWithTag(containerName);
                 if (taggedContainer != null)
                 {
                     var container = taggedContainer.GetComponent<Container>();
-                    container.RefreshSlot(i, itemName, itemAmount, deleteEmpty);
+                    container.RefreshSlot(slotindex, itemName, itemAmount, deleteEmpty);
                 }
             });
         }

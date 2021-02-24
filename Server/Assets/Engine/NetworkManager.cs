@@ -28,21 +28,15 @@ public class NetworkManager : MonoBehaviour
 
     public static IChannel channel { get; set; }
 
+    
 
-    /*void Start()*/
-    /*
-				NAME
-												Start()
-
-				DESCRIPTION
-												This function will create our Container
-												Then register all our server dependcies (Interfaces) into the container
-												We also create our network logger to track any errors.
-												  Errors are only displayed if Visual Studio is attached to unity
-												We also set our m_world to the registered single instance dependency of IWorld
-												Finally we resolve the container with the ServerBooter to execute our inital threads
-				*/
-    /*void Start()*/
+    /// <summary>
+    /// This function will create our Container ten register all our server dependcies(Interfaces) into the container
+    /// We also create our network logger to track any errors.
+    /// Errors are only displayed if Visual Studio is attached to unity
+    /// We also set our m_world to the registered single instance dependency of IWorld
+    /// Finally we resolve the container with the ServerBooter to execute our inital threads
+    /// </summary>
     private void Start()
     {
         var containerBuilder = new ContainerBuilder();

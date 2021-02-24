@@ -12,36 +12,31 @@ public class Container : MonoBehaviour
 
     private void Awake()
     {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            Destroy(transform.GetChild(i));
-        }
+        SlotPrefab = Resources.Load("Slot") as GameObject;
+        
     }
 
     public void RefreshSlot(int slotIndex, string slotItemName = null, int slotItemAmount = -1, bool destroyInstance = false)
     {
-
-        if (SlotsCreated.Count < slotIndex)
+        if (slotIndex > SlotsCreated.Count)
         {
             SlotsCreated.Add(Instantiate(SlotPrefab, transform));
-        } else
-        {
-            if (slotItemAmount == -1)
-            {
-                if (destroyInstance)
-                {
-                    var slot = SlotsCreated[slotIndex];
-                    SlotsCreated.Remove(slot);
-                    Destroy(slot);
-                } else { 
-                    var slotDetail = SlotsCreated[slotIndex].transform.Find("Border");
-                    slotDetail.transform.Find("Count").transform.GetComponent<Text>().text = "";
-                    slotDetail.transform.Find("ItemImage").transform.GetComponent<RawImage>().texture = null;
-                }
-            }
+            print("added slot to: " + slotIndex);
         }
-
-        if (slotItemAmount > 0) {
+        
+        if (slotItemAmount == -1)
+        {
+            if (destroyInstance)
+            {
+                var slot = SlotsCreated[slotIndex];
+                SlotsCreated.Remove(slot);
+                Destroy(slot);
+            } else { 
+                var slotDetail = SlotsCreated[slotIndex].transform.Find("Border");
+                slotDetail.transform.Find("Count").transform.GetComponent<Text>().text = "";
+                slotDetail.transform.Find("ItemImage").transform.GetComponent<RawImage>().texture = null;
+            }
+        } else if (slotItemAmount > 0) {
             var itemImage = Resources.Load("ItemResources/ItemImages/" + slotItemName) as Texture;
             var slotDetails = SlotsCreated[slotIndex].transform.Find("Border");
             if (slotDetails != null)
@@ -61,6 +56,11 @@ public class Container : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SlotClick(Button clicked)
+    {
+        print("clicked button: " + clicked.name);
     }
 }
 

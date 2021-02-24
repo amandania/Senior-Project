@@ -46,8 +46,8 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
   m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
@@ -85,12 +85,12 @@ TextMesh:
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
-  m_Anchor: 1
-  m_Alignment: 1
+  m_Anchor: 2
+  m_Alignment: 2
   m_TabSize: 1
-  m_FontSize: 10
+  m_FontSize: 8
   m_FontStyle: 0
-  m_RichText: 1
+  m_RichText: 0
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   m_Color:
     serializedVersion: 2
@@ -114,6 +114,7 @@ MonoBehaviour:
   StartTime: 0
   Triggerd: 0
   startPos: {x: 0, y: 0, z: 0}
+  bannerLookTarget: {fileID: 0}
 --- !u!1 &6132905457842802647
 GameObject:
   m_ObjectHideFlags: 0

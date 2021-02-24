@@ -45,7 +45,11 @@ public class ChannelEventHandler : ChannelHandlerAdapter
                 { (int)IncomingPackets.HANDLE_DESTROY_OBJECT, new HandleDestroyGameObject() },
                 { (int)IncomingPackets.HANDLE_ANIMATOR_TRIGGER, new HandleAnimatorTrigger() },
                 { (int)IncomingPackets.HANDLE_CHAT_MESSAGE, new HandleChatMessage() },
-                { (int)IncomingPackets.HANDLE_DAMAGE_MESSAGE, new HandleDamageMessage() }
+                { (int)IncomingPackets.HANDLE_DAMAGE_MESSAGE, new HandleDamageMessage() },
+                { (int)IncomingPackets.HANDLE_CONTAINER_REFRESH, new HandleContainerRefresh() },
+                { (int)IncomingPackets.HANDLE_INTERACT_MESSAGE, new HandleInteractMessage() },
+                { (int)IncomingPackets.HANDLE_PROMPT_STATE, new HandlePromptState() },
+                { (int)IncomingPackets.HANDLE_GROUND_ITEM_SPAWN, new HandleSpawnGroundItem() }
             };
     }
 

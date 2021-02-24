@@ -1,8 +1,31 @@
 ﻿using System.Collections.Generic;
 
+public class SlotItem  {
+
+    public string ItemName { get; set; }
+    public int Amount { get; set; }
+    public int ItemLevel { get; set; }
+    public bool IsStackable  { get; set; }
+
+    public SlotItem()
+    {
+        ItemName = "empty";
+        Amount = -1;
+        ItemLevel = -1;
+        IsStackable = false;
+    }
+    public SlotItem(string a_name = "empty", int a_amount = -1, int a_level = -1, bool a_isStackable = false)
+    {
+        ItemName = a_name;
+        Amount = a_amount;
+        ItemLevel = a_level;
+        IsStackable = a_isStackable;
+    }
+}
+
 public class Container
 {
-    public List<Item> ContainerItems { get; set; }
+    public List<SlotItem> ContainerItems { get; set; }
 
     public bool DeleteOnRefresh { get; set; }
    
@@ -13,26 +36,26 @@ public class Container
     public Container()
     {
         DeleteOnRefresh = true;
-        ContainerItems = new List<Item>();
+        ContainerItems = new List<SlotItem>();
     }
     /// <summary>
     /// Container with empty items for all slots
     /// </summary>
-    /// <param name="MaxCapacity"></param>
-    private Container(int MaxCapacity)
+    /// <param name="a_size">Container size</param>
+    private Container(int a_size)
     {
-        ContainerItems = new List<Item>();
-        for (int i = 0; i < MaxCapacity; i++)
+        ContainerItems = new List<SlotItem>();
+        for (int i = 0; i < a_size; i++)
         {
-            ContainerItems.Add(new Item());
+            ContainerItems.Add(new SlotItem());
         }
         DeleteOnRefresh = false;
     }
 
-    public void AddItem(Item item)
+    public void AddItem(ItemBase item)
     {
         var ItemAtSlot = GetItem(item.ItemName);
-        if (ItemAtSlot != null)
+        if (ItemAtSlot.Amount != -1)
         {
             if (ItemAtSlot.IsStackable)
             {
@@ -51,12 +74,9 @@ public class Container
         if (DeleteOnRefresh)
         {
             ContainerItems.RemoveAt(slot);
-        } else
-        {
-            ContainerItems[slot].Clear();
         }
     }
-    public void RemoveItem(Item a_item)
+    public void RemoveItem(SlotItem a_item)
     {
         if (ContainsItem(a_item))
         {
@@ -65,9 +85,9 @@ public class Container
         }
     }
 
-    public bool ContainsItem(Item a_item)
+    public bool ContainsItem(SlotItem a_item)
     {
-        foreach(Item item in ContainerItems) {
+        foreach(SlotItem item in ContainerItems) {
             if (item.ItemName.ToLower().Equals(a_item.ItemName.ToLower()))
             {
                 return true;
@@ -76,15 +96,15 @@ public class Container
         return false;
     }
 
-    public Item GetItem(string a_name)
+    public SlotItem GetItem(string a_name)
     {
-        foreach (Item item in ContainerItems)
+        foreach (SlotItem item in ContainerItems)
         {
             if (item.ItemName.ToLower().Equals(a_name.ToLower()))
             {
                 return item;
             }
         }
-        return null;
+        return new SlotItem();
     }
 }

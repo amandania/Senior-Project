@@ -12,4 +12,6 @@ public class Slot : MonoBehaviour
         ItemAmount = a_amount;
         ItemIcon = a_itemIcon;
     }
+
+
 }
