@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class HandleInteractMessage : IIncomingPacketHandler
 {
-    public IncomingPackets PacketType => IncomingPackets.HANDLE_PROMPT_STATE;
+    public IncomingPackets PacketType => IncomingPackets.HANDLE_INTERACT_MESSAGE;
 
     /// <summary>
     /// Read message sent by user and display it to our chat area
@@ -19,15 +19,17 @@ public class HandleInteractMessage : IIncomingPacketHandler
     public void ExecutePacket(IByteBuffer buffer)
     {
         int messageLength = buffer.ReadInt();
-        string promptTagName = buffer.ReadString(messageLength, Encoding.Default);
-        bool promptState = buffer.ReadBoolean();
+        string message = buffer.ReadString(messageLength, Encoding.Default);
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            var PanelTag = GameObject.FindWithTag(promptTagName);
+            GameObject PanelTag = GameObject.Find("HUD").transform.Find("MessagePanel").gameObject;//. .Find("MessagePanel");
 
+            Debug.Log("prompt message" + message + ", on panel "  + PanelTag.name);
             if (PanelTag != null)
             {
-                PanelTag.SetActive(promptState);
+                PanelTag.transform.Find("Text").GetComponent<Text>().text = "- Press F to " + message;
+                PanelTag.SetActive(true);
+                Debug.Log("change panel");
             }
           
         });

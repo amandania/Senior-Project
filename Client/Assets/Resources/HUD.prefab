@@ -1100,7 +1100,7 @@ GameObject:
   - component: {fileID: 1204480753758152296}
   m_Layer: 5
   m_Name: MessagePanel
-  m_TagString: Untagged
+  m_TagString: MessagePanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1818,7 +1818,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1204480754162565621}
   m_HandleRect: {fileID: 1204480754162565618}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1990,8 +1990,8 @@ GameObject:
   - component: {fileID: 1204480754707705128}
   - component: {fileID: 1204480754707705133}
   m_Layer: 5
-  m_Name: Inventory
-  m_TagString: Inventory
+  m_Name: Hotkeys
+  m_TagString: Hotkeys
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

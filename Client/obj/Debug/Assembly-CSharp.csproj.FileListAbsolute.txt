@@ -313,7 +313,3 @@ C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\UnityEngine.TestRunn
 C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp.dll
 C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp.pdb
-C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\ICSharpCode.NRefactory.dll
-C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\nunit.framework.dll
-C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\nunit.framework.pdb
-C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\nunit.framework.xml

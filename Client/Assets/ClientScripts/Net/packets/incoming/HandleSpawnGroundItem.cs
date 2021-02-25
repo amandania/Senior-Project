@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class HandleSpawnGroundItem : IIncomingPacketHandler
 {
+    public IncomingPackets PacketType => IncomingPackets.HANDLE_GROUND_ITEM_SPAWN;
     public void ExecutePacket(IByteBuffer buffer)
     {
         var length = buffer.ReadInt();
@@ -19,11 +20,11 @@ public class HandleSpawnGroundItem : IIncomingPacketHandler
         {
             var resourceModel = Resources.Load("ItemResources/ItemModels/" + itemName) as GameObject;
             GameManager.instance.SpawnGroundItem(Guid.Parse(groundItemId), position, rotation, resourceModel);
+            Debug.Log("Spawned model " + resourceModel.name);
         });
     }
 
 
 
-    public IncomingPackets PacketType => IncomingPackets.HANDLE_SPAWN_MONSTER;
 
 }

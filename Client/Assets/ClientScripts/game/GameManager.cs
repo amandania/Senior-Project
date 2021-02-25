@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
         groundItem.transform.position = pos;
         groundItem.transform.rotation = a_rotation;
         GroundItems.Add(a_guid, groundItem);
+        groundItem.SetActive(true);
     }
     public void SpawnMonster(Guid a_guid, Vector3 pos, Quaternion a_rotation, GameObject resourceModel)
     {

@@ -946,26 +946,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD
       objectReference: {fileID: 0}
-    - target: {fileID: 1204480753437715346, guid: 33bdae9786006f045b1496a9a463a9b7,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1204480753437715346, guid: 33bdae9786006f045b1496a9a463a9b7,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1204480753437715346, guid: 33bdae9786006f045b1496a9a463a9b7,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1204480753437715346, guid: 33bdae9786006f045b1496a9a463a9b7,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1204480753699705673, guid: 33bdae9786006f045b1496a9a463a9b7,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1025,16 +1005,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1204480753758152297, guid: 33bdae9786006f045b1496a9a463a9b7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1204480753758152297, guid: 33bdae9786006f045b1496a9a463a9b7,
-        type: 3}
-      propertyPath: m_TagString
-      value: MessagePanel
       objectReference: {fileID: 0}
     - target: {fileID: 1204480754003511971, guid: 33bdae9786006f045b1496a9a463a9b7,
         type: 3}
@@ -1180,16 +1150,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1204480754707705142, guid: 33bdae9786006f045b1496a9a463a9b7,
-        type: 3}
-      propertyPath: m_TagString
-      value: Hotkeys
-      objectReference: {fileID: 0}
-    - target: {fileID: 1204480754707705142, guid: 33bdae9786006f045b1496a9a463a9b7,
-        type: 3}
-      propertyPath: m_Name
-      value: Hotkeys
       objectReference: {fileID: 0}
     - target: {fileID: 1204480754902728151, guid: 33bdae9786006f045b1496a9a463a9b7,
         type: 3}
