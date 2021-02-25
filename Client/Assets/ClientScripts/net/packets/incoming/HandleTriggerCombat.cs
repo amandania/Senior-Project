@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using DotNetty.Buffers;
+﻿using DotNetty.Buffers;
 using System;
 using System.Text;
+using UnityEngine;
 
 public class HandleTriggerCombat : IIncomingPacketHandler
 {

@@ -1,12 +1,9 @@
-﻿using Assets.ClientScripts.net.packets.outgoing;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class KeyListener : MonoBehaviour {
+public class KeyListener : MonoBehaviour
+{
 
     #region Private Members
 
@@ -15,13 +12,13 @@ public class KeyListener : MonoBehaviour {
     private CharacterController _characterController;
 
 #pragma warning disable CS0414 // The field 'KeyListener.Gravity' is assigned but its value is never used
-    private float Gravity = 20.0f;
+    private readonly float Gravity = 20.0f;
 #pragma warning restore CS0414 // The field 'KeyListener.Gravity' is assigned but its value is never used
 
     private Vector3 _moveDirection = Vector3.zero;
-    private int startHealth;
+    private readonly int startHealth;
 
-    private int startFood;
+    private readonly int startFood;
 
     #endregion
 
@@ -39,21 +36,21 @@ public class KeyListener : MonoBehaviour {
 
     public MouseInputUIBlocker m_uiBlocker;
 
-    public PlayerCamera PlayerCam {get; set;}
+    public PlayerCamera PlayerCam { get; set; }
 
     public ChatManager ChatManager;
-				#endregion
+    #endregion
 
 
-				// Use this for initialization
-				void Start()
+    // Use this for initialization
+    private void Start()
     {
         _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
-								m_uiBlocker = GetComponent<MouseInputUIBlocker>();
+        m_uiBlocker = GetComponent<MouseInputUIBlocker>();
         ChatManager = GameObject.Find("HUD").transform.Find("Chat").GetComponent<ChatManager>();
     }
-    
+
 
     private bool mIsControlEnabled = true;
 
@@ -70,32 +67,34 @@ public class KeyListener : MonoBehaviour {
     public bool canSendNetworkMovement;
     public float timeBetweenMovementStart;
     public float timeBetweenMovementEnd;
-				public Vector3 lastMove;
+    public Vector3 lastMove;
     private Vector3 MaxVector = new Vector3(1, 0, 1);
     public float networkSendRate = 5;
 
-    private List<int> keys { get; set; } = new List<int>(); 
+    private List<int> keys { get; set; } = new List<int>();
 
-			
-				
-				private void Update()
-				{
-								var mouseButton1Down = Input.GetMouseButtonDown(0);
-								if (mouseButton1Down && !EventSystem.current.IsPointerOverGameObject()) {
+
+
+    private void Update()
+    {
+        var mouseButton1Down = Input.GetMouseButtonDown(0);
+        if (mouseButton1Down && !EventSystem.current.IsPointerOverGameObject())
+        {
             Debug.Log("mouse clicked");
-										  NetworkManager.instance.SendPacket(new SendMouseLeftClick().CreatePacket());
-								}	
+            NetworkManager.instance.SendPacket(new SendMouseLeftClick().CreatePacket());
+        }
 
-								if (keys.Count > 0)
-								{
-												NetworkManager.instance.SendPacket(new SendActionKeys(keys).CreatePacket());
-												keys.Clear();
-								}
-				}
+        if (keys.Count > 0)
+        {
+            NetworkManager.instance.SendPacket(new SendActionKeys(keys).CreatePacket());
+            keys.Clear();
+        }
+    }
 
     private Vector3 m_zeroVector = Vector3.zero;
-				// Update is called once per frame data
-				void FixedUpdate()
+
+    // Update is called once per frame data
+    private void FixedUpdate()
     {
         if (mIsControlEnabled && Camera.main != null)
         {
@@ -122,10 +121,11 @@ public class KeyListener : MonoBehaviour {
             _animator.SetFloat("VerticalInput", relativeInput.z);
             _animator.SetFloat("Speed", move.magnitude);
 
-												if (NetworkManager.networkStream.IsWritable) {
-																//Debug.Log("disabled movement send");
-																lastMove = move;
-																NetworkManager.instance.SendPacket(new SendMovementPacket(move, PlayerCam.lockMovementToCam,  Camera.main.transform.eulerAngles.y).CreatePacket());
+            if (NetworkManager.networkStream.IsWritable)
+            {
+                //Debug.Log("disabled movement send");
+                lastMove = move;
+                NetworkManager.instance.SendPacket(new SendMovementPacket(move, PlayerCam.lockMovementToCam, Camera.main.transform.eulerAngles.y).CreatePacket());
             }
         }
     }

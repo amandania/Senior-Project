@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-using DotNetty.Buffers;
+﻿using DotNetty.Buffers;
 using System;
 using System.Text;
 
@@ -14,9 +12,10 @@ public class HandlePlayerLookAt : IIncomingPacketHandler
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
             var lookAt = GameManager.instance.ServerSpawns[index];
-            if (lookAt != null) {
+            if (lookAt != null)
+            {
                 GameManager.instance.camera.GetComponent<PlayerCamera>().lookPoint = GameManager.instance.ServerSpawns[index].transform;
-            } 
+            }
         });
     }
 

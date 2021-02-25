@@ -1,13 +1,7 @@
 ﻿public enum KeyInput
 {
-    W,
-    A,
-    S,
-    D,
-    Ctrl,
-    Shift,
-    TAB,
-				LeftMouseButton,
+    F,
+    LeftMouseButton,
     //every key above count
     Count
 }

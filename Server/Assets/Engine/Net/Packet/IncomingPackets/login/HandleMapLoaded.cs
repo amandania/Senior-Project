@@ -56,5 +56,17 @@ public class HandleMapLoaded : IIncomingPackets
                 await a_player.Session.SendPacket(new SendMonsterSpawn(npc)).ConfigureAwait(true);
             });
         }
+
+        //Send everyone the tagged groundItems
+        Debug.Log("show " + m_world.GroundItems.Count);
+        for (int i = 0; i < m_world.GroundItems.Count; i++)
+        {
+            var item = m_world.GroundItems[i];
+            UnityMainThreadDispatcher.Instance().Enqueue(async () =>
+            {
+                Debug.Log("Send item: " + item.ItemName);
+                await a_player.Session.SendPacket(new SendGroundItem(item.GetComponent<ItemBase>())).ConfigureAwait(true);
+            });
+        }
     }
 }

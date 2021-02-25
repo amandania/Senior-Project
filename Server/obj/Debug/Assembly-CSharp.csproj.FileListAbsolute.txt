@@ -323,6 +323,7 @@ C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.TestRunn
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp.pdb
+C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\ICSharpCode.NRefactory.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\nunit.framework.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\nunit.framework.pdb

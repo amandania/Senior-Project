@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class MoveSync : MonoBehaviour
 {
@@ -14,20 +13,21 @@ public class MoveSync : MonoBehaviour
     public float Multipler = 15f;
 
     // Use this for initialization
-    void Start()
+    private void Start()
     {
 
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         timeStartedLerping = Time.deltaTime;
     }
 
     private void FixedUpdate()
     {
-        if (doLerp) {
+        if (doLerp)
+        {
             float lerpPercentage = (Time.deltaTime * Multipler - timeStartedLerping / lerpTime);
 
             transform.position = Vector3.Lerp(transform.position, endGoal, lerpPercentage);

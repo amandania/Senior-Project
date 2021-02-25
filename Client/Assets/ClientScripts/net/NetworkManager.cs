@@ -1,5 +1,4 @@
-﻿using Assets.ClientScripts.net;
-using DotNetty.Buffers;
+﻿using DotNetty.Buffers;
 using DotNetty.Transport.Channels;
 using System;
 using System.Collections;

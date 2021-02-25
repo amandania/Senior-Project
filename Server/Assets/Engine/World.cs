@@ -12,6 +12,8 @@ public class World : MonoBehaviour, IWorld
     public List<Player> Players { get; set; } = new List<Player>();
 
     public List<Npc> Monsters { get; set; } = new List<Npc>();
+    
+    public List<ItemBase> GroundItems { get; set; } = new List<ItemBase>();
 
     public Dictionary<GameObject, Character> AllGamobjectCharacters { get; set; } = new Dictionary<GameObject, Character>();
 
@@ -44,6 +46,50 @@ public class World : MonoBehaviour, IWorld
         while (!completed) ;
 
         return Task.CompletedTask;
+    }
+    public Task LoadGroundItems()
+    {
+        bool completed = false;
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+            GameObject[] groundItems = GameObject.FindGameObjectsWithTag("GroundItem");
+
+            for (int index = 0; index < groundItems.Length; index++)
+            {
+                GameObject model = groundItems[index].gameObject;
+                var hasComponent = model.GetComponent<ItemBase>();
+                if (hasComponent == null)
+                {
+                    hasComponent = model.AddComponent<ItemBase>();
+                    hasComponent.ItemLevel = 1;
+                    hasComponent.ItemName = model.name;
+                }
+                AddGroundItem(hasComponent);
+            }
+            completed = true;
+            //Debug.Log("Actually completed count on unity thread");
+        });
+
+        while (!completed) ;
+
+        return Task.CompletedTask;
+    }
+    public void AddGroundItem(ItemBase a_item, bool triggerSpawn = false)
+    {
+        if (triggerSpawn)
+        {
+
+        }
+        GroundItems.Add(a_item);
+    }
+    public void RemoveGroundItem(ItemBase a_item)
+    {
+        var model = a_item.transform.gameObject;
+        GroundItems.Remove(a_item);
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+            Destroy(model);
+        });
     }
 
     public void AddWorldCharacter(Character a_character)

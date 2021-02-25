@@ -1,15 +1,15 @@
-﻿using UnityEngine;
-using System.Collections;
-using DotNetty.Buffers;
+﻿using DotNetty.Buffers;
 using System;
 using System.Text;
+using UnityEngine;
 
 public class HandleDamageMessage : IIncomingPacketHandler
 {
+
     public void ExecutePacket(IByteBuffer buffer)
     {
-        int guidLength = buffer.ReadInt();
         Guid guid;
+        int guidLength = buffer.ReadInt();
         Guid.TryParse(buffer.ReadString(guidLength, Encoding.Default), out guid);
 
         int damageAmount = buffer.ReadInt();
@@ -23,7 +23,20 @@ public class HandleDamageMessage : IIncomingPacketHandler
                 var hasVal = GameManager.instance.ServerSpawns.TryGetValue(guid, out characterObject);
                 if (characterObject != null)
                 {
-                    characterObject.GetComponent<CharacterManager>().TakeDamage(damageAmount.ToString(), lifeTime);
+                    var damagePrefab = Resources.Load("Prefabs/Damage") as GameObject;
+                    var gameObj = GameObject.Instantiate(damagePrefab, characterObject.transform.position + damagePrefab.transform.position, Quaternion.identity, characterObject.transform);
+                    var comp = gameObj.GetComponent<DamageLife>();
+                    
+                    if (NetworkManager.instance.myIndex == guid)
+                    {
+                        comp.GetComponent<TextMesh>().color = Color.yellow;
+                    }
+                    if (damageAmount <= 0)
+                    {
+                        comp.GetComponent<TextMesh>().color = Color.cyan;
+                    }
+                    
+                    comp.StartDamage(damageAmount.ToString(), lifeTime);
                 }
             });
         }

@@ -1,3 +1,5 @@
+C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp-Editor.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp-Editor.csproj.CoreCompileInputs.cache
 C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\Assembly-CSharp-Editor.dll
 C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\Assembly-CSharp-Editor.pdb
 C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\Boo.Lang.dll
@@ -233,6 +235,7 @@ C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\Boo.Lang.Parser.dll
 C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\Boo.Lang.Useful.dll
 C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\Unity.ShaderGraph.Utilities.dll
 C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\Unity.CecilTools.dll
+C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\Assembly-CSharp.pdb
 C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\UnityEngine.xml
 C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\UnityEditor.xml
 C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\UnityEngine.AIModule.xml
@@ -319,9 +322,6 @@ C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\Unity.RenderPipeline
 C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\Unity.TextMeshPro.pdb
 C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\UnityEditor.UI.pdb
 C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\Unity.ShaderGraph.Utilities.pdb
-C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp-Editor.csprojAssemblyReference.cache
-C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp-Editor.csproj.CoreCompileInputs.cache
 C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp-Editor.csproj.CopyComplete
 C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp-Editor.dll
 C:\Users\Admin\Desktop\Senior-Project\Client\obj\Debug\Assembly-CSharp-Editor.pdb
-C:\Users\Admin\Desktop\Senior-Project\Client\Temp\bin\Debug\Assembly-CSharp.pdb

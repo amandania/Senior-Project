@@ -35,6 +35,10 @@ public class ChatManager : MonoBehaviour
     protected void Awake()
     {
         ActiceChatWindow = m_Tabs[0];
+        foreach (Transform t in ActiceChatWindow.content)
+        {
+            Destroy(t.gameObject);
+        }
     }
     public bool ChatActive = false;
     public void Update()
@@ -234,11 +238,14 @@ public class ChatManager : MonoBehaviour
     /// <param name="text">Recievd networkd message.</param>
     public void ReceiveChatMessage(int tabId, string text)
     {
-        TabInfo tabInfo = GetTabInfo(tabId);
+        TabInfo tabInfo = ActiceChatWindow;
 
         // Make sure we have tab info
         if (tabInfo == null || tabInfo.content == null)
+        {
+            print("returned no chat info available");
             return;
+        }
 
         // Create the text line
         GameObject obj = new GameObject("Text " + tabInfo.content.childCount.ToString(), typeof(RectTransform));

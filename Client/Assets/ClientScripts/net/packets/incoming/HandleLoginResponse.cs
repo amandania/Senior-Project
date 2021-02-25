@@ -1,10 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-using DotNetty.Buffers;
+﻿using DotNetty.Buffers;
 using System;
 using System.Text;
+using UnityEngine;
 using UnityEngine.SceneManagement;
-using Assets.ClientScripts.net.packets.outgoing;
 
 public class HandleLoginResponse : IIncomingPacketHandler
 {
@@ -13,14 +11,14 @@ public class HandleLoginResponse : IIncomingPacketHandler
         var responseCode = buffer.ReadInt();
         LoginScreen.ResponseCode = responseCode;
 
-        if(responseCode == 0)
+        if (responseCode == 0)
         {
 
             var plrIdLength = buffer.ReadInt();
             var playerguid = Guid.Parse(buffer.ReadString(plrIdLength, Encoding.Default));
 
             var usernameLength = buffer.ReadInt();
-            var username = buffer.ReadString(usernameLength, Encoding.Default); 
+            var username = buffer.ReadString(usernameLength, Encoding.Default);
 
             var Position = new Vector3(buffer.ReadFloat(), buffer.ReadFloat(), buffer.ReadFloat());
             var Rotation = Quaternion.Euler(buffer.ReadFloat(), buffer.ReadFloat(), buffer.ReadFloat());
@@ -38,7 +36,7 @@ public class HandleLoginResponse : IIncomingPacketHandler
                 };
             });
 
-								}
+        }
     }
 
 

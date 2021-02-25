@@ -1,13 +1,7 @@
-﻿using Assets.ClientScripts.net.packets.outgoing;
-using DotNetty.Transport.Channels;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.Sockets;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoginScreen : MonoBehaviour
@@ -18,18 +12,19 @@ public class LoginScreen : MonoBehaviour
     public Text username;
     public InputField password;
     public Text responseMessage;
-    private IDisposable _loginScreenSubscription;
+    private readonly IDisposable _loginScreenSubscription;
+
     // Use this for initialization
 
-    void Start()
+    private void Start()
     {
-        this.username.text = "aki";
-        this.password.text = "lol";
+        username.text = "aki";
+        password.text = "lol";
         _net = GameObject.Find("GameManager").GetComponent<NetworkManager>();
     }
     public static int ResponseCode = -1;
 
-    public async void onLogin()
+    public async void OnLogin()
     {
         var connected = false;
 
@@ -40,9 +35,7 @@ public class LoginScreen : MonoBehaviour
             _net.SendPacket(new SendLoginRequest(username.text, password.text).CreatePacket());
             connected = true;
         }
-#pragma warning disable CS0168 // The variable 'e' is declared but never used
-        catch (Exception e)
-#pragma warning restore CS0168 // The variable 'e' is declared but never used
+        catch (Exception)
         {
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
             {
@@ -54,12 +47,12 @@ public class LoginScreen : MonoBehaviour
         if (connected)
         {
             Debug.Log("running to check if response code changes..");
-            var tokenSource2    = new CancellationTokenSource();
+            var tokenSource2 = new CancellationTokenSource();
             CancellationToken ct = tokenSource2.Token;
             var tick = 0;
             await Task.Factory.StartNew(() =>
             {
-                
+
                 while (ResponseCode == -1)
                 {
                     tick++;
@@ -90,7 +83,7 @@ public class LoginScreen : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
 
     }
