@@ -5,10 +5,10 @@ public class SendActionKeys : IOutgoingPacketSender
 {
 
 
-    private readonly KeyInput m_inputKey;
-    public SendActionKeys(KeyInput a_input)
+    private readonly List<int> _keys;
+    public SendActionKeys(List<int> keys)
     {
-        m_inputKey = a_input;
+        _keys = keys;
     }
 
 
@@ -16,7 +16,12 @@ public class SendActionKeys : IOutgoingPacketSender
     {
         IByteBuffer buffer = Unpooled.Buffer();
         buffer.WriteInt((int)PacketType);
-        buffer.WriteByte((byte)m_inputKey);
+        buffer.WriteInt(_keys.Count);
+        for (int i = 0; i < _keys.Count; i++)
+        {
+            buffer.WriteByte((byte)_keys[i]);
+        }
+
         return buffer;
     }
 
