@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 
 public class Player : Character
 {
@@ -13,7 +12,7 @@ public class Player : Character
 
     public bool MenuOpen { get; set; }
 
-    public GameObject CurrentInteractGuid;
+    public string CurrentInteractGuid;
 
     public Player(PlayerSession session, IWorld world)
     {
