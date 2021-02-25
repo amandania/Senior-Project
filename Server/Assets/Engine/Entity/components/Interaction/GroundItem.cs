@@ -8,6 +8,7 @@ public class GroundItem : MonoBehaviour
     public string InteractDescription;
     public int ItemAmount;
     public int ItemLevel;
+    public bool PickedUp = false;
 
     public void Awake()
     {

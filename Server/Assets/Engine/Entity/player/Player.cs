@@ -9,7 +9,9 @@ public class Player : Character
     public PlayerSession Session { get; set; }
 
     private readonly IWorld m_world;
-    private readonly Hotkeys m_inventroy;
+
+
+    public Hotkeys HotkeyInventory;
 
     public bool MenuOpen { get; set; }
 
@@ -21,7 +23,7 @@ public class Player : Character
         UserName = "";
         Password = "";
         m_world = world;
-        m_inventroy = new Hotkeys(this, 9);
+        HotkeyInventory = new Hotkeys(this, 9);
     }
     
     public void SetupGameModel()
@@ -34,6 +36,6 @@ public class Player : Character
         var currentMoveComp = myModel.GetComponent<MovementComponent>();
         SetMoveComponent(currentMoveComp ?? myModel.AddComponent<MovementComponent>());
 
-        m_inventroy.RefrehsItems();
+        HotkeyInventory.RefrehsItems();
     }
 }

@@ -5,10 +5,16 @@ using System.Collections.Generic;
 
 public class InputController : IInputControl
 {
-    public void HandleInput(Player player, int input)
+    private readonly IWorld m_world;
+
+    public InputController(IWorld a_world)
     {
-        if (input == (int)KeyInput.F) {
-            HandleFInteract(player);
+        m_world = a_world;
+    }
+    public void HandleInput(Player a_player, int a_input)
+    {
+        if (a_input == (int)KeyInput.F) {
+            HandleFInteract(a_player);
         }
     }
 
@@ -17,19 +23,26 @@ public class InputController : IInputControl
 
     }
 
-    public void HandleFInteract(Player player)
+    public void HandleFInteract(Player a_player)
     {
-        if (player.CurrentInteractGuid == null)
+        if (a_player.CurrentInteractGuid == null)
         {
             Debug.Log("has no interact object");
             return;
         }
-        GroundItem isGroundItem = player.CurrentInteractGuid.GetComponent<GroundItem>();
-        if (isGroundItem != null)
+        GroundItem isGroundItem = a_player.CurrentInteractGuid.GetComponent<GroundItem>();
+        if (isGroundItem != null && !isGroundItem.PickedUp)
         {
-            //we are picking up the ground item that we are currently interacting with
             //we are going to have to destroy this gameobject on all clients
+
+            
+
+            //we are picking up the ground item that we are currently interacting with
             //add the ground item to our hotkeys or inventory
+            isGroundItem.PickedUp = true;
+            a_player.HotkeyInventory.AddItem(isGroundItem.GetComponent<ItemBase>());
+            a_player.HotkeyInventory.RefrehsItems();
+
             return;
         }
     }
