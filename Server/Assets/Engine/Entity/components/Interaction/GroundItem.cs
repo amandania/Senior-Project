@@ -40,7 +40,7 @@ public class GroundItem : MonoBehaviour
         {
             return;
         }
-        character.AsPlayer().CurrentInteractGuid = GetComponent<ItemBase>().InstanceGuid.ToString();
+        character.AsPlayer().CurrentInteractGuid = gameObject;
         character.AsPlayer().Session.SendPacket(new SendInteractPrompt(InteractDescription)).ConfigureAwait(false);
         //send interact prompt to player
 

@@ -7,7 +7,9 @@ public class InputController : IInputControl
 {
     public void HandleInput(Player player, int input)
     {
+        if (input == KeyInput.F) {
 
+        }
     }
 
     public void Dispose()
@@ -22,7 +24,7 @@ public class InputController : IInputControl
             Debug.Log("has no interact object");
             return;
         }
-        var isGroundItem = player.CurrentInteractGuid.GetComponent<GroundItem>();
+        GroundItem isGroundItem = player.CurrentInteractGuid.GetComponent<GroundItem>();
         if (isGroundItem != null)
         {
             //we are picking up the ground item that we are currently interacting with
