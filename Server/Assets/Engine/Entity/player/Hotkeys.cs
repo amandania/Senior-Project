@@ -22,10 +22,10 @@ public class Hotkeys : Container
 
 
     /// <summary>
-    /// This function is used to handle a players slot click.
+    /// When a player sends input key this will be used to handle appropiate item use and animations for state of use if needed
     /// </summary>
     /// <param name="slot"></param>
-    public void HandlItemClick(int slot)
+    public void HandleSlotUse(int slot)
     {
         
     }

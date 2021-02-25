@@ -24,6 +24,12 @@ public class GroundItem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (GetComponent<ItemBase>() == null)
+        {
+            print("no item base defined");
+            return;
+        }
+
         var otherCombatCollider = other.GetComponent<CombatComponent>();
         if (otherCombatCollider == null)
         {
@@ -34,7 +40,8 @@ public class GroundItem : MonoBehaviour
         {
             return;
         }
-        print("Player is going to recieve interact prompt");
+        character.AsPlayer().CurrentInteractGuid = GetComponent<ItemBase>().InstanceGuid.ToString();
+        character.AsPlayer().Session.SendPacket(new SendInteractPrompt(InteractDescription)).ConfigureAwait(false);
         //send interact prompt to player
 
     }
@@ -42,7 +49,18 @@ public class GroundItem : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-
+        var otherCombatCollider = other.GetComponent<CombatComponent>();
+        if (otherCombatCollider == null)
+        {
+            return;
+        }
+        var character = otherCombatCollider.Character;
+        if (!character.IsPlayer())
+        {
+            return;
+        }
+        character.AsPlayer().CurrentInteractGuid = null;
+        character.AsPlayer().Session.SendPacket(new SendPromptState("MessagePanel", false)).ConfigureAwait(false);
     }
 
 }

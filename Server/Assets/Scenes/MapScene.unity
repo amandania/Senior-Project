@@ -4039,7 +4039,6 @@ MonoBehaviour:
   InteractDescription: 
   ItemAmount: 0
   ItemLevel: 0
-  Collider: {fileID: 0}
 --- !u!1 &1484196535
 GameObject:
   m_ObjectHideFlags: 0
@@ -4529,6 +4528,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BigAxe
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531525226034517125, guid: 3a90c2595f11bf54bb4b9128829c286c,
+        type: 3}
+      propertyPath: m_TagString
+      value: GroundItem
       objectReference: {fileID: 0}
     - target: {fileID: 4666647331147578687, guid: 3a90c2595f11bf54bb4b9128829c286c,
         type: 3}
@@ -5108,10 +5112,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemName: BixAxe
-  InteractDescription: Pickup Weapon
+  InteractDescription: Pickup BigAxe
   ItemAmount: 1
   ItemLevel: 1
-  Collider: {fileID: 0}
 --- !u!65 &2127830898
 BoxCollider:
   m_ObjectHideFlags: 0

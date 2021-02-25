@@ -59,8 +59,21 @@ public class Container
         {
             if (ItemAtSlot.IsStackable)
             {
-
+                ItemAtSlot.Amount += item.Amount;
+                return;
+            } 
+        } else
+        {
+            var freeSlot = GetNextFreeSlot();
+            if (freeSlot != -1)
+            {
+                var EmptySlot = ContainerItems[freeSlot];
+                EmptySlot.ItemLevel = item.ItemLevel;
+                EmptySlot.ItemName = item.ItemName;
+                EmptySlot.Amount = item.Amount;
             }
+            //new item being added
+
         }
     }
 
@@ -106,5 +119,18 @@ public class Container
             }
         }
         return new SlotItem();
+    }
+
+    public int GetNextFreeSlot()
+    {
+        for (int i = 0; i < ContainerItems.Count; i++)
+        {
+            if (ContainerItems[i].Amount <= 0)
+            {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }

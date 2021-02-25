@@ -1,4 +1,6 @@
-﻿public class Player : Character
+﻿using System;
+
+public class Player : Character
 {
     public string UserName { get; set; }
     public string Password { get; set; }
@@ -9,6 +11,8 @@
     private readonly Hotkeys m_inventroy;
 
     public bool MenuOpen { get; set; }
+
+    public string CurrentInteractGuid;
 
     public Player(PlayerSession session, IWorld world)
     {

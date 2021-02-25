@@ -3,7 +3,7 @@ using System.Text;
 
 public class SendInteractPrompt : IOutGoingPackets
 {
-    public OutGoingPackets PacketType => OutGoingPackets.SEND_INTERACT_PMOMPT;
+    public OutGoingPackets PacketType => OutGoingPackets.SEND_INTERACT_MESSAGE;
     
     private readonly string m_description;
 
