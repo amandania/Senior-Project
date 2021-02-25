@@ -7,8 +7,8 @@ public class InputController : IInputControl
 {
     public void HandleInput(Player player, int input)
     {
-        if (input == KeyInput.F) {
-
+        if (input == (int)KeyInput.F) {
+            HandleFInteract(player);
         }
     }
 

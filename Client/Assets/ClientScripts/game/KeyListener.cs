@@ -86,7 +86,7 @@ public class KeyListener : MonoBehaviour
 
         if (keys.Count > 0)
         {
-            NetworkManager.instance.SendPacket(new SendActionKeys(keys).CreatePacket());
+            NetworkManager.instance.SendPacket(new SendActionKeys(keys[0]).CreatePacket());
             keys.Clear();
         }
     }
