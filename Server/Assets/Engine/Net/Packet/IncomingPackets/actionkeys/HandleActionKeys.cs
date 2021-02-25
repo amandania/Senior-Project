@@ -7,12 +7,12 @@ public class HandleActionKeys : IIncomingPackets
 {
     public IncomingPackets PacketType => IncomingPackets.ACTION_KEYS;
     //World accessor
-    private readonly IWorld m_world;
+    private readonly IInputControl m_inputControl;
 
     //Default Constrtor
-    public HandleActionKeys(IWorld a_world)
+    public HandleActionKeys(IInputControl a_inputs)
     {
-        m_world = a_world;
+        m_inputControl = a_inputs;
     }
 
     /// <summary>
@@ -26,25 +26,7 @@ public class HandleActionKeys : IIncomingPackets
     public Task ExecutePacket(Player a_player, IByteBuffer a_data)
     {
         int keyListSize = a_data.ReadInt();
-        byte[] input = new byte[keyListSize];
-        for (int i = 0; i < keyListSize; i++)
-        {
-            input[i] = a_data.ReadByte();
-        }
-
-        List<int> keys = new List<int>();
-        for (int i = 0; i < input.Length; i++)
-        {
-            keys.Add(input[i]);
-        }
-        if (keys.Contains((int)KeyInput.Tab))
-        {
-            Debug.Log("Recieved: " + keys[0]);
-        }
-        if (keys.Contains((int)KeyInput.LeftMouseButton))
-        {
-            Debug.Log("Do attack attemp");
-        }
+        byte key = a_data.ReadByte();
 
         return Task.CompletedTask;
     }

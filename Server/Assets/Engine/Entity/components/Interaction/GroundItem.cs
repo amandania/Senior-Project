@@ -18,8 +18,8 @@ public class GroundItem : MonoBehaviour
     {
         var collider = transform.gameObject.AddComponent<BoxCollider>();
         collider.isTrigger = true;
-        collider.size = new Vector3(1,1,2.2f);
-        collider.center = new Vector3(0, .5f, .8f);
+        collider.size = new Vector3(1.3f,1,3f);
+        collider.center = new Vector3(-0.38f, .2f, .43f);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,7 +40,7 @@ public class GroundItem : MonoBehaviour
         {
             return;
         }
-        character.AsPlayer().CurrentInteractGuid = GetComponent<ItemBase>().InstanceGuid.ToString();
+        character.AsPlayer().CurrentInteractGuid = gameObject;
         character.AsPlayer().Session.SendPacket(new SendInteractPrompt(InteractDescription)).ConfigureAwait(false);
         //send interact prompt to player
 
