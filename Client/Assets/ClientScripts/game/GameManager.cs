@@ -39,14 +39,29 @@ public class GameManager : MonoBehaviour
     {
 
     }
+
+    public void DestroyServerObject(Guid a_serverId)
+    {
+        GameObject outGuid;
+        ServerSpawns.TryGetValue(a_serverId, out outGuid);
+        if (outGuid != null)
+        {
+            Destroy(outGuid);
+            ServerSpawns.Remove(a_serverId);
+        }
+    }
+
     public void SpawnGroundItem(Guid a_guid, Vector3 pos, Quaternion a_rotation, GameObject resourceModel)
     {
         var groundItem = Instantiate(resourceModel);
         groundItem.transform.position = pos;
         groundItem.transform.rotation = a_rotation;
         GroundItems.Add(a_guid, groundItem);
+        ServerSpawns.Add(a_guid, groundItem);
         groundItem.SetActive(true);
     }
+
+
     public void SpawnMonster(Guid a_guid, Vector3 pos, Quaternion a_rotation, GameObject resourceModel)
     {
         var charObject = Instantiate(resourceModel);

@@ -11,7 +11,6 @@ public class HandleDestroyGameObject : IIncomingPacketHandler
         var guid = Guid.Parse(buffer.ReadString(length, Encoding.Default));
 
         //server should only authoartate this send to destroy monsters and objects not players.
-
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
             var obj = GameManager.instance.ServerSpawns[guid];
@@ -23,13 +22,11 @@ public class HandleDestroyGameObject : IIncomingPacketHandler
                 {
                     GameManager.instance.camera.GetComponent<PlayerCamera>().lookPoint = null;
                 }
-
-                GameObject.Destroy(obj);
-                GameManager.instance.ServerSpawns.Remove(guid);
+                GameManager.instance.DestroyServerObject(guid);
             }
         });
     }
 
-    public IncomingPackets PacketType => IncomingPackets.HANDLE_LOGIN_RESPONSE;
+    public IncomingPackets PacketType => IncomingPackets.HANDLE_DESTROY_OBJECT;
 
 }
