@@ -53,7 +53,9 @@ public class PlayerData : IPlayerDataLoader
 
                 if (desiralizedObj.HotkeyItems.Length > 0)
                 {
-                    Debug.Log("Load player inventory items");
+                    a_sessionPlayer.HotkeyInventory.ContainerItems.Clear();
+                    a_sessionPlayer.HotkeyInventory.ContainerItems.AddRange(desiralizedObj.HotkeyItems);
+                    a_sessionPlayer.HotkeyInventory.RefrehsItems();
                 }
                 succuess = true;
                 //Debug.Log("Correct creditonals given for " + a_playerName);
