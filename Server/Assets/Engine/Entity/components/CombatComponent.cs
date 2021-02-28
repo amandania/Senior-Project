@@ -55,13 +55,13 @@ public class CombatComponent : MonoBehaviour
             if (!WithinReach(CombatTarget.transform.position, out m_reachDistance))
             {
                 Mover.SetAgentPath(CombatTarget);
-                print("not within distance to attack");
+                //print("not within distance to attack");
                 //UnityEngine.Debug.Log("not withing distnace");
                 return;
             }
             else
             {
-                print("within distance so we attack");
+                //print("within distance so we attack");
                 Attack(CombatTarget);
             }
         }
@@ -103,7 +103,7 @@ public class CombatComponent : MonoBehaviour
         if (Time.time - LastAttack < AttackRate)
         {
             //UnityEngine.Debug.Log("Cannot attack time: " + (Time.time - LastAttack));
-            print("cant attack still because we need to pass our last attack time: " + (Time.time - LastAttack));
+            //print("cant attack still because we need to pass our last attack time: " + (Time.time - LastAttack));
             return;
         }
 

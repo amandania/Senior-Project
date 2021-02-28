@@ -84,11 +84,12 @@ public class KeyListener : MonoBehaviour
             NetworkManager.instance.SendPacket(new SendMouseLeftClick().CreatePacket());
         }
 
-        if (keys.Count > 0)
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            NetworkManager.instance.SendPacket(new SendActionKeys(keys[0]).CreatePacket());
-            keys.Clear();
+            print("Input F");
+            NetworkManager.instance.SendPacket(new SendActionKeys(KeyInput.F).CreatePacket());
         }
+
     }
 
     private Vector3 m_zeroVector = Vector3.zero;

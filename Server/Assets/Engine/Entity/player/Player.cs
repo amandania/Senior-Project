@@ -23,7 +23,7 @@ public class Player : Character
         UserName = "";
         Password = "";
         m_world = world;
-        HotkeyInventory = new Hotkeys(this, 9);
+        HotkeyInventory = new Hotkeys(this, 8);
     }
     
     public void SetupGameModel()

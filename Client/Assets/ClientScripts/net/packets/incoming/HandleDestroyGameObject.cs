@@ -17,8 +17,8 @@ public class HandleDestroyGameObject : IIncomingPacketHandler
             if (obj != null)
             {
                 //if we are looking at whats about to be destroy get rid of it as a look.
-                var currentLook = GameManager.instance.camera.GetComponent<PlayerCamera>().lookPoint;
-                if (currentLook.gameObject == obj)
+                var currentLook = Camera.main.GetComponent<PlayerCamera>().lookPoint;
+                if (currentLook != null & currentLook == obj)
                 {
                     GameManager.instance.camera.GetComponent<PlayerCamera>().lookPoint = null;
                 }

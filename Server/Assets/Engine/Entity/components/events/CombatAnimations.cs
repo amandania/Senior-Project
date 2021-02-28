@@ -10,6 +10,7 @@ public class CombatAnimations : MonoBehaviour
 
 
     private GameObject ActiveCombatCollider;
+    public List<GameObject> ObjectsHitAlready;
 
 
     // Use this for initialization
@@ -34,23 +35,24 @@ public class CombatAnimations : MonoBehaviour
         ColliderMap.TryGetValue(ColliderName, out ActiveCombatCollider);
         if (ActiveCombatCollider != null)
         {
+            ObjectsHitAlready.Clear();
             var collider = ActiveCombatCollider.GetComponent<Collider>();
             Collider[] Hits = Physics.OverlapBox(collider.bounds.center, collider.bounds.extents, collider.transform.rotation, layerMask);
             foreach (Collider targets in Hits)
             {
                 var combat = targets.transform.gameObject.GetComponent<CombatComponent>();
-                if (combat != null)
+                if (combat != null && !ObjectsHitAlready.Contains(combat.gameObject))
                 {
                     if (GetComponent<CombatComponent>().Character.IsNpc()) {
                         //print("npc is trying to attack someone.");
                     }
                     if (transform.gameObject != combat.gameObject)
                     {
-                        print((transform.position - combat.transform.position).magnitude + " distance to attack");
                         if ((transform.position - combat.transform.position).magnitude < 2)
                         {
                             //print("Hit targets: " + targets.transform.gameObject.name);
                             combat.ApplyHit(GetComponent<CombatComponent>().Character, Random.Range(combat.MinHitDamage, combat.MaxHitDamage));
+                            ObjectsHitAlready.Add(combat.gameObject);
                         }
                     }
                 }

@@ -34,10 +34,10 @@ public class PlayerData : IPlayerDataLoader
     {
         a_sessionPlayer.UserName = a_playerName;
         a_sessionPlayer.Password = a_password;
-        Debug.Log("check path: " + m_filePath);
+        //Debug.Log("check path: " + m_filePath);
 
         IEnumerable<string> files = Directory.GetFiles(m_filePath).Where(f => f.Equals(m_filePath + "\\" + a_playerName.ToLower() + ".json"));
-        Debug.Log("count of direction matching user " + files.Count());
+        //Debug.Log("count of direction matching user " + files.Count());
         if (files.Count() > 0)
         {
             //compare password validate
@@ -50,15 +50,20 @@ public class PlayerData : IPlayerDataLoader
                 a_sessionPlayer.UserName = desiralizedObj.Username;
                 a_sessionPlayer.Password = desiralizedObj.Password;
                 a_sessionPlayer.CharacterLevel = desiralizedObj.PlayerLevel;
+
+                if (desiralizedObj.HotkeyItems.Length > 0)
+                {
+                    Debug.Log("Load player inventory items");
+                }
                 succuess = true;
-                Debug.Log("Correct creditonals given for " + a_playerName);
+                //Debug.Log("Correct creditonals given for " + a_playerName);
             }
 
             return succuess;
 
         } else
         {
-            Debug.Log("New player created we will save it on logout");
+            //Debug.Log("New player created we will save it on logout");
             // create new file
             return true;
         }
@@ -75,12 +80,13 @@ public class PlayerData : IPlayerDataLoader
         serializeClass.Username = a_player.UserName;
         serializeClass.Password = a_player.Password;
         serializeClass.PlayerLevel = a_player.CharacterLevel;
+        serializeClass.HotkeyItems = a_player.HotkeyInventory.ContainerItems.ToArray();
         // serialize JSON directly to a file
         using (StreamWriter file = File.CreateText(m_filePath + "/"+a_player.UserName.ToLower() + ".json")) 
         {
             JsonSerializer serializer = new JsonSerializer();
             serializer.Serialize(file, serializeClass);
-            Debug.Log("wrote to file : " + m_filePath + "/" + a_player.UserName + ".json");
+            //Debug.Log("wrote to file : " + m_filePath + "/" + a_player.UserName + ".json");
         }
     }
 

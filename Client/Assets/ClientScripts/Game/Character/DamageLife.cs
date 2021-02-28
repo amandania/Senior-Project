@@ -40,7 +40,7 @@ public class DamageLife : MonoBehaviour
             if (progress <= 1)
             {
                 //Look vector too keep our damage rotation towards our camera view 
-                Vector3 lookDir = transform.position - (bannerLookTarget.position * 2);
+                Vector3 lookDir = transform.position - (bannerLookTarget.position);
 
                 LerpText(progress);
 
