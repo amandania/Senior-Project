@@ -10,6 +10,7 @@ public class Character
     public Vector3 Rotation { get; set; }
     public Vector3 OldRotation { get; set; }
     public int CharacterLevel { get; set; } = 1;
+    public bool IsDead { get; set; } = false;
 
     private GameObject m_characterModel;
     
@@ -17,10 +18,16 @@ public class Character
     public CombatComponent CombatComponent { get; set; }
     private bool InCombat { get { return CombatComponent.LastAttackRecieved.Elapsed.Seconds < 5;  }  }
 
+    public NetworkManager m_network;
+
 
     public Character()
     {
         m_guid = Guid.NewGuid();
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+            m_network = GameObject.Find("WorldManager").GetComponent<NetworkManager>();
+        });
     }
 
     public void SpawnWorldCharacter(GameObject a_baseModel)

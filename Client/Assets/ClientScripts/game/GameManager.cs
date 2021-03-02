@@ -39,14 +39,35 @@ public class GameManager : MonoBehaviour
     {
 
     }
+
+    public void DestroyServerObject(Guid a_serverId, bool a_isMonster = false)
+    {
+        GameObject outGuid;
+        ServerSpawns.TryGetValue(a_serverId, out outGuid);
+        if (a_isMonster)
+        {
+            NpcList.Remove(a_serverId);
+            Debug.Log("removed from client monsters");
+        }
+        ServerSpawns.Remove(a_serverId);
+        if (outGuid != null)
+        {
+            Destroy(outGuid);
+            
+        }
+    }
+
     public void SpawnGroundItem(Guid a_guid, Vector3 pos, Quaternion a_rotation, GameObject resourceModel)
     {
         var groundItem = Instantiate(resourceModel);
         groundItem.transform.position = pos;
         groundItem.transform.rotation = a_rotation;
         GroundItems.Add(a_guid, groundItem);
+        ServerSpawns.Add(a_guid, groundItem);
         groundItem.SetActive(true);
     }
+
+
     public void SpawnMonster(Guid a_guid, Vector3 pos, Quaternion a_rotation, GameObject resourceModel)
     {
         var charObject = Instantiate(resourceModel);
@@ -79,12 +100,12 @@ public class GameManager : MonoBehaviour
 
         if (a_isLocalPlayer)
         {
-            Debug.Log("Player was spawned. local player? " + a_isLocalPlayer + ", " + NetworkManager.instance.myIndex + "\n\t" + a_guid);
+            //Debug.Log("Player was spawned. local player? " + a_isLocalPlayer + ", " + NetworkManager.instance.myIndex + "\n\t" + a_guid);
             StartCoroutine(SetCameraDefaults(a_guid, a_isLocalPlayer));
         }
         else
         {
-            Debug.Log("Spawn other player" + a_guid);
+            //Debug.Log("Spawn other player" + a_guid);
         }
     }
 
@@ -96,7 +117,7 @@ public class GameManager : MonoBehaviour
             var keylistener = PlayerList[index].AddComponent<KeyListener>();
 
             var playerCam = Camera.main.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
-            Debug.Log("playercam: " + playerCam);
+            //Debug.Log("playercam: " + playerCam);
             playerCam.Follow = PlayerList[index].transform.Find("CamFollow").transform;
             var playercamcontroller = Camera.main.gameObject.AddComponent<PlayerCamera>();
             keylistener.PlayerCam = playercamcontroller;

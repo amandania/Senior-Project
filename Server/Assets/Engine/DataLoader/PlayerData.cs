@@ -23,21 +23,21 @@ public class PlayerData : IPlayerDataLoader
 
     /// <summary>
     /// Triggerd by - <see cref="LoginResponsePacket.ExecutePacket"/>
-    /// Load player file and read to match password (case sensative)
-    /// We use Json to desirealize the PlayerSave struc
+    /// Load player file and compare username and pasword from the file to input. The password is case sensative.
+    /// We use Json to desirealize the save file <see cref="PlayerSave"/>
     /// </summary>
     /// <param name="a_playerName">Input Username</param>
     /// <param name="a_password">Input Password</param>
     /// <param name="a_sessionPlayer">Player Session created for packet response</param>
-    /// <returns></returns>
+    /// <returns> true, if credientials matched or new player, false otherwise.</returns>
     public bool LoadPlayerData(string a_playerName, string a_password, Player a_sessionPlayer)
     {
         a_sessionPlayer.UserName = a_playerName;
         a_sessionPlayer.Password = a_password;
-        Debug.Log("check path: " + m_filePath);
+        //Debug.Log("check path: " + m_filePath);
 
         IEnumerable<string> files = Directory.GetFiles(m_filePath).Where(f => f.Equals(m_filePath + "\\" + a_playerName.ToLower() + ".json"));
-        Debug.Log("count of direction matching user " + files.Count());
+        //Debug.Log("count of direction matching user " + files.Count());
         if (files.Count() > 0)
         {
             //compare password validate
@@ -50,15 +50,22 @@ public class PlayerData : IPlayerDataLoader
                 a_sessionPlayer.UserName = desiralizedObj.Username;
                 a_sessionPlayer.Password = desiralizedObj.Password;
                 a_sessionPlayer.CharacterLevel = desiralizedObj.PlayerLevel;
+
+                if (desiralizedObj.HotkeyItems.Length > 0)
+                {
+                    a_sessionPlayer.HotkeyInventory.ContainerItems.Clear();
+                    a_sessionPlayer.HotkeyInventory.ContainerItems.AddRange(desiralizedObj.HotkeyItems);
+                    a_sessionPlayer.HotkeyInventory.RefrehsItems();
+                }
                 succuess = true;
-                Debug.Log("Correct creditonals given for " + a_playerName);
+                //Debug.Log("Correct creditonals given for " + a_playerName);
             }
 
             return succuess;
 
         } else
         {
-            Debug.Log("New player created we will save it on logout");
+            //Debug.Log("New player created we will save it on logout");
             // create new file
             return true;
         }
@@ -66,7 +73,7 @@ public class PlayerData : IPlayerDataLoader
     }
 
     /// <summary>
-    /// Save data serializes our current player data
+    /// Save data serializes our current player data in Json format <see cref="PlayerSave"/>
     /// Its called durinng logout <see cref="Player.HandleLogout"/>
     /// </summary>
     public void SaveData(Player a_player)
@@ -75,22 +82,28 @@ public class PlayerData : IPlayerDataLoader
         serializeClass.Username = a_player.UserName;
         serializeClass.Password = a_player.Password;
         serializeClass.PlayerLevel = a_player.CharacterLevel;
+        serializeClass.HotkeyItems = a_player.HotkeyInventory.ContainerItems.ToArray();
+
+        serializeClass.CurrentHealth = a_player.CombatComponent.CurrentHealth;
+        serializeClass.MaxHealth = a_player.CombatComponent.MaxHealth;
+
+        //Debug.Log(a_player.CombatComponent.MaxHealth + " max health on log");
         // serialize JSON directly to a file
         using (StreamWriter file = File.CreateText(m_filePath + "/"+a_player.UserName.ToLower() + ".json")) 
         {
             JsonSerializer serializer = new JsonSerializer();
             serializer.Serialize(file, serializeClass);
-            Debug.Log("wrote to file : " + m_filePath + "/" + a_player.UserName + ".json");
+            //Debug.Log("wrote to file : " + m_filePath + "/" + a_player.UserName + ".json");
         }
     }
 
-
+    //required disposables
     public void Dispose()
     {
-
+        SavesLoded.Clear();
     }
 
-
+    //required startable class
     public void Start()
     {
 

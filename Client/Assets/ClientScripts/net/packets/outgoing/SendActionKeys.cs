@@ -16,7 +16,7 @@ public class SendActionKeys : IOutgoingPacketSender
     {
         IByteBuffer buffer = Unpooled.Buffer();
         buffer.WriteInt((int)PacketType);
-        buffer.WriteByte((byte)m_inputKey);
+        buffer.WriteInt((int)m_inputKey);
         return buffer;
     }
 

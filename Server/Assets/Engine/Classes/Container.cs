@@ -55,6 +55,7 @@ public class Container
     public void AddItem(ItemBase item)
     {
         var ItemAtSlot = GetItem(item.ItemName);
+        //UnityEngine.Debug.Log("does our " + item.ItemName + " exist in our slots? " + (ItemAtSlot.Amount != -1));
         if (ItemAtSlot.Amount != -1)
         {
             if (ItemAtSlot.IsStackable)
@@ -65,12 +66,14 @@ public class Container
         } else
         {
             var freeSlot = GetNextFreeSlot();
+            //UnityEngine.Debug.Log("Next free slot is at : " + freeSlot);
             if (freeSlot != -1)
             {
                 var EmptySlot = ContainerItems[freeSlot];
                 EmptySlot.ItemLevel = item.ItemLevel;
                 EmptySlot.ItemName = item.ItemName;
                 EmptySlot.Amount = item.Amount;
+                //UnityEngine.Debug.Log("Slot : " + freeSlot + " was changed to " + EmptySlot.ItemName);
             }
             //new item being added
 
@@ -81,7 +84,7 @@ public class Container
     {
         if (slot + 1 > ContainerItems.Count)
         {
-            UnityEngine.Debug.Log("cant remove out of capacity");
+            //UnityEngine.Debug.Log("cant remove out of capacity");
             return;
         }
         if (DeleteOnRefresh)

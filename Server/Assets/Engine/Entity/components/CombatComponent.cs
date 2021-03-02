@@ -37,6 +37,10 @@ public class CombatComponent : MonoBehaviour
     private List<GameObject> TargetList { get; set; } = new List<GameObject>();
     public CombatAnimations CombatTriggers { get; set; }
 
+    public float RespawnTimer = 5f;
+
+    private Vector3 SpawnPos { get; set; }
+
     private void Awake()
     {
         instance = this;
@@ -47,21 +51,100 @@ public class CombatComponent : MonoBehaviour
         Mover = GetComponent<MovementComponent>();
         MyAnimator = GetComponent<Animator>();
         CombatTriggers = GetComponent<CombatAnimations>();
+        SpawnPos = transform.position;
     }
+
+
+    private IEnumerator DeathRespawn()
+    {
+        yield return new WaitForSeconds(RespawnTimer);
+
+        transform.position = SpawnPos;
+        Character.Position = transform.position;
+        Character.OldRotation = transform.eulerAngles;
+        Character.Position = transform.eulerAngles;
+        Character.OldRotation = transform.position;
+        Network.SendPacketToAll(new SendMonsterSpawn(Character.AsNpc())).ConfigureAwait(false);
+        Mover.enabled = true;
+        MyAnimator.enabled = true;
+        CombatTriggers.enabled = true;
+
+
+        Character.IsDead = false;
+        print("character triggered respawn");
+        yield return null;
+    }
+
+
+    /// <summary>
+    /// This functions is triggered by TriggerDeath animation event.
+    /// </summary>
+    public void DeathCompleted()
+    {
+        if (Character.IsNpc())
+        {
+            MyAnimator.enabled = false;
+            //destroy it for now on all clients but it will still exist on server
+            print("Destroy: " + Character.GetGuid().ToString());
+            Network.SendPacketToAll(new SendDestroyGameObject(Character.GetGuid().ToString(), true)).ConfigureAwait(false);
+            transform.position = SpawnPos;
+            print("Start couroutine");
+            StartCoroutine(DeathRespawn());
+            MyAnimator.SetBool("IsDead", false);
+        }
+        else if (Character.IsPlayer())
+        {
+            // a regular player on death just respawn to normal position
+            transform.position = SpawnPos;
+            //we will just move our transform back to respawn point
+        }
+    }
+
+    public void ApplyHit(Character a_attacker, int a_damage)
+    {
+        if (CurrentHealth <= 0)
+        {
+            //no damage applying when its already dead
+            return;
+        }
+        CurrentHealth -= a_damage;
+        if (CurrentHealth <= 0)
+        {
+            Character.IsDead = true;
+            CurrentHealth = 0;
+            Network.SendPacketToAll(new SendAnimationBoolean(Character, "IsDead", true)).ConfigureAwait(false);
+            MyAnimator.SetBool("IsDead", true);
+            Mover.enabled = false;
+            CombatTriggers.enabled = false;
+            CombatTarget = null;
+        }
+        else
+        {
+            MyAnimator.SetTrigger("GotHit");
+            Network.SendPacketToAll(new SendAnimatorTrigger(Character, "GotHit")).ConfigureAwait(false);
+        }
+        LastAttackRecieved.Reset();
+        Network.SendPacketToAll(new SendDamageMessage(Character, a_damage, 1.5f)).ConfigureAwait(false);
+    }
+
     private void Update()
     {
+        if (Character.IsDead)
+        {
+            return;
+        }
         if (CombatTarget != null)
         {
             if (!WithinReach(CombatTarget.transform.position, out m_reachDistance))
             {
                 Mover.SetAgentPath(CombatTarget);
-                print("not within distance to attack");
+                //print("not within distance to attack");
                 //UnityEngine.Debug.Log("not withing distnace");
                 return;
             }
             else
             {
-                print("within distance so we attack");
+                //print("within distance so we attack");
                 Attack(CombatTarget);
             }
         }
@@ -103,7 +186,7 @@ public class CombatComponent : MonoBehaviour
         if (Time.time - LastAttack < AttackRate)
         {
             //UnityEngine.Debug.Log("Cannot attack time: " + (Time.time - LastAttack));
-            print("cant attack still because we need to pass our last attack time: " + (Time.time - LastAttack));
+            //print("cant attack still because we need to pass our last attack time: " + (Time.time - LastAttack));
             return;
         }
 
@@ -148,15 +231,7 @@ public class CombatComponent : MonoBehaviour
 
         yield return null;
     }
-
-    public void ApplyHit(Character a_attacker, int a_damage)
-    {
-        Network.SendPacketToAll(new SendAnimatorTrigger(Character, "GotHit")).ConfigureAwait(false);
-        Network.SendPacketToAll(new SendDamageMessage(Character, a_damage, 1.5f)).ConfigureAwait(false);
-        MyAnimator.SetTrigger("GotHit");
-        LastAttackRecieved.Reset();
-    }
-
+    
 
     public bool WithinReach(Vector3 targetPosition, out float distance)
     {

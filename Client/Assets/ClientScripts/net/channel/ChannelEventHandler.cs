@@ -15,12 +15,12 @@ public class ChannelEventHandler : ChannelHandlerAdapter
         try
         {
             InitalizeMessages();
-            Debug.Log("Client connected.");
+            //Debug.Log("Client connected.");
 
         }
         catch (Exception e)
         {
-            Debug.Log(e.Message);
+            //Debug.Log(e.Message);
         }
     }
 
@@ -44,6 +44,7 @@ public class ChannelEventHandler : ChannelHandlerAdapter
                 { (int)IncomingPackets.HANDLE_PLAYER_LOOKAT, new HandlePlayerLookAt() },
                 { (int)IncomingPackets.HANDLE_DESTROY_OBJECT, new HandleDestroyGameObject() },
                 { (int)IncomingPackets.HANDLE_ANIMATOR_TRIGGER, new HandleAnimatorTrigger() },
+                { (int)IncomingPackets.HANDLE_ANIMATION_BOOL, new HandleAnimatorBoolean() },
                 { (int)IncomingPackets.HANDLE_CHAT_MESSAGE, new HandleChatMessage() },
                 { (int)IncomingPackets.HANDLE_DAMAGE_MESSAGE, new HandleDamageMessage() },
                 { (int)IncomingPackets.HANDLE_CONTAINER_REFRESH, new HandleContainerRefresh() },
@@ -62,7 +63,7 @@ public class ChannelEventHandler : ChannelHandlerAdapter
             int packetId = buffer.ReadInt();
             if (packetId != 5)
             {
-                //Debug.Log("Packet: " + packetId);
+                ////Debug.Log("Packet: " + packetId);
             }
             HandleDataPackets(packetId, buffer);
             buffer.Release();
@@ -79,7 +80,7 @@ public class ChannelEventHandler : ChannelHandlerAdapter
         }
         else
         {
-            Debug.Log("Unhandled Packet " + packetId);
+            //Debug.Log("Unhandled Packet " + packetId);
         }
 
     }

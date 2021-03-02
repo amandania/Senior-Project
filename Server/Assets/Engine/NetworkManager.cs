@@ -6,28 +6,22 @@ using Engine.DataLoader;
 using Engine.Entity.pathfinding;
 using Serilog;
 using Serilog.Extensions.Logging;
+using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 
-/*NetworkManager*/
-/*
-				NAME: 
-												NetworkManager
-				
-				Description:
-													Networkmanager is the heart of the network
-													Its a Monobehavior class because thats how unity triggers a startup file
-													The purpose of this class is to build the container with all dependencies the game relies on
-													Dependcies include all our Interafaces
-*/
-
+/// <summary>
+/// Networkmanager is the heart of the servers game builder and network creation.
+/// Its a Monobehavior class because thats how unity triggers a startup file
+/// The purpose of this class is to build the container with all dependencies the game relies on
+/// Dependcies include all our Interafaces
+/// </summary>
 public class NetworkManager : MonoBehaviour
 {
 
     public IWorld World { get; set; }
 
     public static IChannel channel { get; set; }
-
     
 
     /// <summary>
@@ -77,15 +71,17 @@ public class NetworkManager : MonoBehaviour
         builder.RegisterType<World>().As<IWorld>().As<IStartable>().SingleInstance();
         builder.RegisterType<NetworkBuilder>().As<IServerTCP>().As<IStartable>().SingleInstance();
 
-        builder.RegisterType<PathFinding>().As<IPathFinding>().SingleInstance();
 
-
+        //Networking instances
         builder.RegisterType<ChannelEventHandler>().SingleInstance();
+        builder.RegisterType<ChannelPipeLineHandler>().As<IConnectionManager>().SingleInstance();
         builder.RegisterType<ChannelPipeLineHandler>().As<IConnectionManager>().SingleInstance();
         //builder.RegisterType<NPCMovement>().As<INPCMovement>().SingleInstance();
 
-        //Extra
+        //Utility Dependencies
+        builder.RegisterType<PathFinding>().As<IPathFinding>().SingleInstance();
         builder.RegisterType<PacketHandler>().As<IPacketHandler>().SingleInstance();
+        builder.RegisterType<InputController>().As<IInputControl>().SingleInstance();
 
         //Packets
         builder.RegisterType<HandleMapLoaded>().As<IIncomingPackets>();
@@ -114,7 +110,7 @@ public class NetworkManager : MonoBehaviour
             }
         }
     }
-
+    
     // Update is called once per frame
     private void Update()
     {

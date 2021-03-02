@@ -25,7 +25,7 @@ public class HandleAnimatorTrigger : IIncomingPacketHandler
             GameObject player = GameManager.instance.ServerSpawns[index];
             Animator animator = player.GetComponent<Animator>();
             animator.SetTrigger(triggerName);
-            Debug.Log("Trigge animator " + triggerName);
+            ////Debug.Log("Trigge animator " + triggerName);
         });
 
     }

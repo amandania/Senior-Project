@@ -43,10 +43,10 @@ public class LoginScreen : MonoBehaviour
             });
         }
 
-        Debug.Log("Connected: " + connected);
+        //Debug.Log("Connected: " + connected);
         if (connected)
         {
-            Debug.Log("running to check if response code changes..");
+            //Debug.Log("running to check if response code changes..");
             var tokenSource2 = new CancellationTokenSource();
             CancellationToken ct = tokenSource2.Token;
             var tick = 0;

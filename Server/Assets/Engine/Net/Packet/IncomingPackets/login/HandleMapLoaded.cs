@@ -47,7 +47,7 @@ public class HandleMapLoaded : IIncomingPackets
 
         //await a_player.Session.SendPacket(new SendMonsterSpawn(npc)).ConfigureAwait(false);
 
-        Debug.Log("show " + m_world.Monsters.Count);
+        //Debug.Log("show " + m_world.Monsters.Count);
         for (int i = 0; i < m_world.Monsters.Count; i++)
         {
             var npc = m_world.Monsters[i];
@@ -58,7 +58,7 @@ public class HandleMapLoaded : IIncomingPackets
         }
 
         //Send everyone the tagged groundItems
-        Debug.Log("show " + m_world.GroundItems.Count);
+        //Debug.Log("show " + m_world.GroundItems.Count);
         for (int i = 0; i < m_world.GroundItems.Count; i++)
         {
             var item = m_world.GroundItems[i];

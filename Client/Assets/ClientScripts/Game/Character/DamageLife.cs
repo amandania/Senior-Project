@@ -15,7 +15,7 @@ public class DamageLife : MonoBehaviour
     private void Awake()
     {
         enabled = false;
-        Debug.Log("turned off after instance");
+        //Debug.Log("turned off after instance");
         bannerLookTarget = Camera.main.transform;
     }
 
@@ -36,11 +36,11 @@ public class DamageLife : MonoBehaviour
         {
             //percentage of life traveled 
             float progress = (Time.time - StartTime) / LifeTime;
-            //print("progress : " + progress);
+            ////print("progress : " + progress);
             if (progress <= 1)
             {
                 //Look vector too keep our damage rotation towards our camera view 
-                Vector3 lookDir = transform.position - (bannerLookTarget.position * 2);
+                Vector3 lookDir = transform.position - (bannerLookTarget.position);
 
                 LerpText(progress);
 

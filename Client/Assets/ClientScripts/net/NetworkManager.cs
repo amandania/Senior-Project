@@ -39,7 +39,7 @@ public class NetworkManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        Debug.Log("Application quit.");
+        //Debug.Log("Application quit.");
         if (networkStream != null)
         {
             networkStream.CloseAsync();

@@ -80,15 +80,16 @@ public class KeyListener : MonoBehaviour
         var mouseButton1Down = Input.GetMouseButtonDown(0);
         if (mouseButton1Down && !EventSystem.current.IsPointerOverGameObject())
         {
-            Debug.Log("mouse clicked");
+            //Debug.Log("mouse clicked");
             NetworkManager.instance.SendPacket(new SendMouseLeftClick().CreatePacket());
         }
 
-        if (keys.Count > 0)
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            NetworkManager.instance.SendPacket(new SendActionKeys(keys).CreatePacket());
-            keys.Clear();
+            //print("Input F");
+            NetworkManager.instance.SendPacket(new SendActionKeys(KeyInput.F).CreatePacket());
         }
+
     }
 
     private Vector3 m_zeroVector = Vector3.zero;
@@ -111,11 +112,11 @@ public class KeyListener : MonoBehaviour
             {
                 move = m_zeroVector;
             }
-            //Debug.Log(move.magnitude / (isSprinting ? 1 : 2) );
+            ////Debug.Log(move.magnitude / (isSprinting ? 1 : 2) );
             Vector3 relativeInput = transform.InverseTransformDirection(move);
 
 
-            //Debug.Log("Horizontal :" + relativeInput.x + ", Vertical:" + relativeInput.z);
+            ////Debug.Log("Horizontal :" + relativeInput.x + ", Vertical:" + relativeInput.z);
             _animator.SetBool("IsStrafing", PlayerCam.lockMovementToCam);
             _animator.SetFloat("HorizontalInput", relativeInput.x);
             _animator.SetFloat("VerticalInput", relativeInput.z);
@@ -123,7 +124,7 @@ public class KeyListener : MonoBehaviour
 
             if (NetworkManager.networkStream.IsWritable)
             {
-                //Debug.Log("disabled movement send");
+                ////Debug.Log("disabled movement send");
                 lastMove = move;
                 NetworkManager.instance.SendPacket(new SendMovementPacket(move, PlayerCam.lockMovementToCam, Camera.main.transform.eulerAngles.y).CreatePacket());
             }

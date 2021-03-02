@@ -32,8 +32,8 @@ public class ExportGameObjectData : ScriptableObject
             }
         }
 
-        Debug.Log("Total Objects = " + totalGameObjects);
-        Debug.Log("Total Objects = " + children.Count);
+        //Debug.Log("Total Objects = " + totalGameObjects);
+        //Debug.Log("Total Objects = " + children.Count);
 
         List<ExportData> data = new List<ExportData>(totalGameObjects);
         for (int i = 0; i < totalGameObjects; i++)
@@ -94,7 +94,7 @@ public class ExportGameObjectData : ScriptableObject
             }
 
         }
-        Debug.Log("Finished export of " + data.Count + " objects.");
+        //Debug.Log("Finished export of " + data.Count + " objects.");
 
 
 

@@ -25,7 +25,7 @@ public class HandleActionKeys : IIncomingPackets
     /// <returns>awaited asynchrnous task <see cref="ChannelEventHandler.ChannelRead0" </returns>
     public Task ExecutePacket(Player a_player, IByteBuffer a_data)
     {
-        byte keySent = a_data.ReadByte();
+        int keySent = a_data.ReadInt();
         m_inputControl.HandleInput(a_player, keySent);
         return Task.CompletedTask;
     }

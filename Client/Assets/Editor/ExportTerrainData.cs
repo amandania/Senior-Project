@@ -24,11 +24,11 @@ public class ExportTerrainData : ScriptableObject
         var size = data.size;
         var width = data.heightmapResolution;
         var height = data.heightmapResolution;
-        Debug.Log("Width*height =  " + (width * height));
+        //Debug.Log("Width*height =  " + (width * height));
         List<Vector3> list = NavMesh.CalculateTriangulation().vertices.OfType<Vector3>().ToList();
         List<Vector3> terrains = list.Where(point => point.y > 50.0f).ToList();
 
-        Debug.Log("terrain size =  " + terrains.Count);
+        //Debug.Log("terrain size =  " + terrains.Count);
         TerrainDataStuff stuff = new TerrainDataStuff();
         stuff.maxLength = terrains.Count;
         stuff.x = new float[terrains.Count];

@@ -8,6 +8,7 @@ public class GroundItem : MonoBehaviour
     public string InteractDescription;
     public int ItemAmount;
     public int ItemLevel;
+    public bool PickedUp = false;
 
     public void Awake()
     {
@@ -40,8 +41,10 @@ public class GroundItem : MonoBehaviour
         {
             return;
         }
-        character.AsPlayer().CurrentInteractGuid = gameObject;
-        character.AsPlayer().Session.SendPacket(new SendInteractPrompt(InteractDescription)).ConfigureAwait(false);
+        if ((otherCombatCollider.transform.position - transform.position).magnitude < 2) { 
+            character.AsPlayer().CurrentInteractGuid = gameObject;
+            character.AsPlayer().Session.SendPacket(new SendInteractPrompt(InteractDescription)).ConfigureAwait(false);
+        }
         //send interact prompt to player
 
     }

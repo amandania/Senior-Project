@@ -41,7 +41,10 @@ public class HandleContainerRefresh : IIncomingPacketHandler
                 if (taggedContainer != null)
                 {
                     var container = taggedContainer.GetComponent<Container>();
-                    container.RefreshSlot(slotindex, itemName, itemAmount, deleteEmpty);
+                    if (container != null)
+                    {
+                        container.RefreshSlot(slotindex, itemName, itemAmount, deleteEmpty);
+                    }
                 }
             });
         }

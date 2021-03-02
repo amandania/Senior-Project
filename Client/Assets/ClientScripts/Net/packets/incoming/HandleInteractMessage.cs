@@ -24,12 +24,12 @@ public class HandleInteractMessage : IIncomingPacketHandler
         {
             GameObject PanelTag = GameObject.Find("HUD").transform.Find("MessagePanel").gameObject;//. .Find("MessagePanel");
 
-            Debug.Log("prompt message" + message + ", on panel "  + PanelTag.name);
+            //Debug.Log("prompt message" + message + ", on panel "  + PanelTag.name);
             if (PanelTag != null)
             {
                 PanelTag.transform.Find("Text").GetComponent<Text>().text = "- Press F to " + message;
                 PanelTag.SetActive(true);
-                Debug.Log("change panel");
+                //Debug.Log("change panel");
             }
           
         });
