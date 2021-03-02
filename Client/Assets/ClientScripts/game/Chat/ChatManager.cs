@@ -172,7 +172,7 @@ public class ChatManager : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.KeypadEnter))
         {
-            print("enter key");
+            //print("enter key");
         }
         /*// Make sure we have input text
         if (!string.IsNullOrEmpty(text))
@@ -180,7 +180,7 @@ public class ChatManager : MonoBehaviour
             // Make sure the return key is pressed
             if (Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter))
             {
-                print("enter key sent");
+                //print("enter key sent");
                 // Send the message
                 SendChatMessage(text);
             }
@@ -221,7 +221,7 @@ public class ChatManager : MonoBehaviour
         // Clear the input field
         if (InputField != null)
         {
-            Debug.Log("Clicked?");
+            //Debug.Log("Clicked?");
 
 
             NetworkManager.instance.SendPacket(new SendChatMessage(text).CreatePacket());
@@ -243,7 +243,7 @@ public class ChatManager : MonoBehaviour
         // Make sure we have tab info
         if (tabInfo == null || tabInfo.content == null)
         {
-            print("returned no chat info available");
+            //print("returned no chat info available");
             return;
         }
 

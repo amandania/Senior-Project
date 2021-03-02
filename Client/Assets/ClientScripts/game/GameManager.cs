@@ -94,12 +94,12 @@ public class GameManager : MonoBehaviour
 
         if (a_isLocalPlayer)
         {
-            Debug.Log("Player was spawned. local player? " + a_isLocalPlayer + ", " + NetworkManager.instance.myIndex + "\n\t" + a_guid);
+            //Debug.Log("Player was spawned. local player? " + a_isLocalPlayer + ", " + NetworkManager.instance.myIndex + "\n\t" + a_guid);
             StartCoroutine(SetCameraDefaults(a_guid, a_isLocalPlayer));
         }
         else
         {
-            Debug.Log("Spawn other player" + a_guid);
+            //Debug.Log("Spawn other player" + a_guid);
         }
     }
 
@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
             var keylistener = PlayerList[index].AddComponent<KeyListener>();
 
             var playerCam = Camera.main.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
-            Debug.Log("playercam: " + playerCam);
+            //Debug.Log("playercam: " + playerCam);
             playerCam.Follow = PlayerList[index].transform.Find("CamFollow").transform;
             var playercamcontroller = Camera.main.gameObject.AddComponent<PlayerCamera>();
             keylistener.PlayerCam = playercamcontroller;

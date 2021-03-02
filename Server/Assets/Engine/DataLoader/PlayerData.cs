@@ -23,13 +23,13 @@ public class PlayerData : IPlayerDataLoader
 
     /// <summary>
     /// Triggerd by - <see cref="LoginResponsePacket.ExecutePacket"/>
-    /// Load player file and read to match password (case sensative)
-    /// We use Json to desirealize the PlayerSave struc
+    /// Load player file and compare username and pasword from the file to input. The password is case sensative.
+    /// We use Json to desirealize the save file <see cref="PlayerSave"/>
     /// </summary>
     /// <param name="a_playerName">Input Username</param>
     /// <param name="a_password">Input Password</param>
     /// <param name="a_sessionPlayer">Player Session created for packet response</param>
-    /// <returns></returns>
+    /// <returns> true, if credientials matched or new player, false otherwise.</returns>
     public bool LoadPlayerData(string a_playerName, string a_password, Player a_sessionPlayer)
     {
         a_sessionPlayer.UserName = a_playerName;
@@ -73,7 +73,7 @@ public class PlayerData : IPlayerDataLoader
     }
 
     /// <summary>
-    /// Save data serializes our current player data
+    /// Save data serializes our current player data in Json format <see cref="PlayerSave"/>
     /// Its called durinng logout <see cref="Player.HandleLogout"/>
     /// </summary>
     public void SaveData(Player a_player)
@@ -83,6 +83,11 @@ public class PlayerData : IPlayerDataLoader
         serializeClass.Password = a_player.Password;
         serializeClass.PlayerLevel = a_player.CharacterLevel;
         serializeClass.HotkeyItems = a_player.HotkeyInventory.ContainerItems.ToArray();
+
+        serializeClass.CurrentHealth = a_player.CombatComponent.CurrentHealth;
+        serializeClass.MaxHealth = a_player.CombatComponent.MaxHealth;
+
+        //Debug.Log(a_player.CombatComponent.MaxHealth + " max health on log");
         // serialize JSON directly to a file
         using (StreamWriter file = File.CreateText(m_filePath + "/"+a_player.UserName.ToLower() + ".json")) 
         {
@@ -92,13 +97,13 @@ public class PlayerData : IPlayerDataLoader
         }
     }
 
-
+    //required disposables
     public void Dispose()
     {
-
+        SavesLoded.Clear();
     }
 
-
+    //required startable class
     public void Start()
     {
 

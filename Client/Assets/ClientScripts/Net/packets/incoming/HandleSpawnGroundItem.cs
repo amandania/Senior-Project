@@ -20,7 +20,7 @@ public class HandleSpawnGroundItem : IIncomingPacketHandler
         {
             var resourceModel = Resources.Load("ItemResources/ItemModels/" + itemName) as GameObject;
             GameManager.instance.SpawnGroundItem(Guid.Parse(groundItemId), position, rotation, resourceModel);
-            Debug.Log("Spawned model " + resourceModel.name);
+            //Debug.Log("Spawned model " + resourceModel.name);
         });
     }
 

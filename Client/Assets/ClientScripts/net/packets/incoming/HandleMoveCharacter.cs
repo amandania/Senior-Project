@@ -41,7 +41,7 @@ public class HandleMoveCharacter : IIncomingPacketHandler
     {
         if (a_player == null)
         {
-            UnityEngine.Debug.Log("error no character: ", a_player);
+            //UnityEngine.Debug.Log("error no character: ", a_player);
             return;
         }
         float timeStartedLerping = Time.deltaTime;
@@ -50,7 +50,7 @@ public class HandleMoveCharacter : IIncomingPacketHandler
 
         if (animator != null && index.ToString() != NetworkManager.instance.myIndex.ToString())
         {
-            //Debug.Log("non local player speed changed for animator");
+            ////Debug.Log("non local player speed changed for animator");
             animator.SetBool("IsStrafing", strafe);
             animator.SetFloat("Speed", a_moveSpeed);
             animator.SetFloat("HorizontalInput", a_horizontal);

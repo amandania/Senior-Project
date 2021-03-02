@@ -9,7 +9,8 @@ namespace Engine.DataLoader
     {
         private Dictionary<Tuple<short, short>, long> m_mapIndexData = new Dictionary<Tuple<short, short>, long>();
         private BinaryReader m_mapDataFileReader;
-        Node[,] m_grid { get; set; }
+
+        private Node[,] m_grid { get; set; }
         public int m_penaltyMin = int.MaxValue;
         public int m_penaltyMax = int.MinValue;
         public const int m_gridSizeX = 500;
@@ -68,8 +69,8 @@ namespace Engine.DataLoader
                     if (x == 0 && y == 0)
                         continue;
 
-                    short checkX = (short) (node.m_gridX + x);
-                    short checkY = (short) (node.m_gridY + y);
+                    short checkX = (short)(node.m_gridX + x);
+                    short checkY = (short)(node.m_gridY + y);
 
                     if (checkX >= 0 && checkX < m_gridSizeX && checkY >= 0 && checkY < m_gridSizeY)
                     {
@@ -117,7 +118,7 @@ namespace Engine.DataLoader
             public int gCost;
             public int hCost;
             public Node parent;
-            int heapIndex;
+            private int heapIndex;
 
             public DataStuff(bool _walkable, float _worldPosX, float _worldPosY, float _worldPosZ, short _gridX, short _gridY, int _penalty)
             {
@@ -169,7 +170,6 @@ namespace Engine.DataLoader
                 var movementPenalty = m_mapDataFileReader.ReadInt32();
                 m_grid[x, y] = new Node(walkable,
                     new Vector3(worldPositionX, 0, worldPositionY), x, y, movementPenalty);
-																Debug.Log(x + ", " + y + " is walkable:" + walkable);
             }
         }
 

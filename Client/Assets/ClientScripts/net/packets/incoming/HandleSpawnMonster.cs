@@ -17,7 +17,7 @@ public class HandleSpawnMonster : IIncomingPacketHandler
 
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            Debug.Log("spawn monster on client " + charName);
+            //Debug.Log("spawn monster on client " + charName);
             var resourceModel = Resources.Load("MonsterModels/" + charName) as GameObject;
             GameManager.instance.SpawnMonster(Guid.Parse(charGuid), position, rotation, resourceModel);
         });

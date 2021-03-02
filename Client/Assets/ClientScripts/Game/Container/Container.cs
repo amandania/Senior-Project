@@ -23,7 +23,7 @@ public class Container : MonoBehaviour
         {
             changeSlot = Instantiate(SlotPrefab, transform);
             SlotsCreated.Add(slotIndex, changeSlot);
-            print("added slot to: " + slotIndex + " size: " + SlotsCreated.Count);
+            //print("added slot to: " + slotIndex + " size: " + SlotsCreated.Count);
         }
         
         if (slotItemAmount == -1)
@@ -34,7 +34,7 @@ public class Container : MonoBehaviour
                 SlotsCreated.Remove(slotIndex); ;
                 Destroy(slot);
             } else {
-                print(SlotsCreated.Count + " , slot: "+ slotIndex);
+                //print(SlotsCreated.Count + " , slot: "+ slotIndex);
 
 
 
@@ -54,7 +54,7 @@ public class Container : MonoBehaviour
             var itemImage = Resources.Load("ItemResources/ItemImages/" + slotItemName) as Texture;
 
             var slotDetails = SlotsCreated[slotIndex];
-            Debug.Log(" Change item at slot :" + slotIndex + " has obj: " + slotDetails);
+            //Debug.Log(" Change item at slot :" + slotIndex + " has obj: " + slotDetails);
             if (slotDetails != null)
             {
                 var border = slotDetails.transform.Find("Border");
@@ -78,7 +78,7 @@ public class Container : MonoBehaviour
 
     public void SlotClick(Button clicked)
     {
-        print("clicked button: " + clicked.name);
+        //print("clicked button: " + clicked.name);
     }
 }
 

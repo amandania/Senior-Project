@@ -17,10 +17,16 @@ public class Character
     public CombatComponent CombatComponent { get; set; }
     private bool InCombat { get { return CombatComponent.LastAttackRecieved.Elapsed.Seconds < 5;  }  }
 
+    public NetworkManager m_network;
+
 
     public Character()
     {
         m_guid = Guid.NewGuid();
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+            m_network = GameObject.Find("WorldManager").GetComponent<NetworkManager>();
+        });
     }
 
     public void SpawnWorldCharacter(GameObject a_baseModel)

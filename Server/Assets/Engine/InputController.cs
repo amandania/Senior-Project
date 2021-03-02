@@ -13,7 +13,7 @@ public class InputController : IInputControl
     }
     public void HandleInput(Player a_player, int a_input)
     {
-        Debug.Log("handle input type:" + a_input + " for player " + a_player.UserName);
+       // Debug.Log("handle input type:" + a_input + " for player " + a_player.UserName);
         if (a_input == (int)KeyInput.F) {
             HandleFInteract(a_player);
         }
@@ -28,7 +28,7 @@ public class InputController : IInputControl
     {
         if (a_player.CurrentInteractGuid == null)
         {
-            Debug.Log("has no interact object");
+            //Debug.Log("has no interact object");
             return;
         }
 

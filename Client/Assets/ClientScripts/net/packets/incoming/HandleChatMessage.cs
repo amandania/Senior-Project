@@ -18,7 +18,7 @@ public class HandleChatMessage : IIncomingPacketHandler
         int messageLength = buffer.ReadInt();
         string message = buffer.ReadString(messageLength, Encoding.Default);
 
-        Debug.Log("Recieved message: " + message);
+        //Debug.Log("Recieved message: " + message);
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
             var comp = GameObject.Find("HUD").transform.Find("Chat").GetComponent<ChatManager>();

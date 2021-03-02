@@ -1985,7 +1985,7 @@ MonoBehaviour:
     FloatValue: 0.85
   - Key: MaxHealth
     BoolValue: 0
-    IntValue: 100
+    IntValue: 1
     FloatValue: 0
   - Key: MinHitDamage
     BoolValue: 0
@@ -2016,6 +2016,7 @@ MonoBehaviour:
   LeftHandCollision: {fileID: 1230416527}
   RightHandCollision: {fileID: 870371878}
   TransformsHit: []
+  ObjectsHitAlready: []
 --- !u!114 &629212274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2059,6 +2060,8 @@ MonoBehaviour:
   MaxCombos: 3
   CurrentAttackCombo: 0
   IsAggresiveTrigger: 0
+  RespawnTimer: 25
+  IsDead: 0
 --- !u!95 &629212276
 Animator:
   serializedVersion: 3
@@ -4039,6 +4042,7 @@ MonoBehaviour:
   InteractDescription: 
   ItemAmount: 0
   ItemLevel: 0
+  PickedUp: 0
 --- !u!1 &1484196535
 GameObject:
   m_ObjectHideFlags: 0
@@ -5115,6 +5119,7 @@ MonoBehaviour:
   InteractDescription: Pickup BigAxe
   ItemAmount: 1
   ItemLevel: 1
+  PickedUp: 0
 --- !u!65 &2127830898
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -50,7 +50,7 @@ public class HandleChatMessage : IIncomingPackets
         var message = a_buffer.ReadString(messageLength, Encoding.Default);
 
         //send message to everyone including sending with our valid username
-        Debug.Log("Send Message: " + a_player.UserName + ": " + message);
+        //Debug.Log("Send Message: " + a_player.UserName + ": " + message);
         await a_player.Session.SendPacketToAll(new SendChatMessage(a_player.UserName + ": " + message)).ConfigureAwait(false);
 
         await Task.CompletedTask;

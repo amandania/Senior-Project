@@ -54,7 +54,7 @@ public class ChannelEventHandler : SimpleChannelInboundHandler<IByteBuffer>
 
     public override void ChannelInactive(IChannelHandlerContext a_context)
     {
-        Debug.Log("inactive.");
+        //Debug.Log("inactive.");
     }
 
     protected override void ChannelRead0(IChannelHandlerContext a_context, IByteBuffer a_message)

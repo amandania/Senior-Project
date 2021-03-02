@@ -22,6 +22,7 @@ public class HandleDestroyGameObject : IIncomingPacketHandler
                 {
                     GameManager.instance.camera.GetComponent<PlayerCamera>().lookPoint = null;
                 }
+                //Debug.Log("Game object destroyed on client.");
                 GameManager.instance.DestroyServerObject(guid);
             }
         });

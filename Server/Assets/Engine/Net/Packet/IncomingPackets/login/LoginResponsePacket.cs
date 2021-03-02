@@ -34,7 +34,7 @@ public class LoginResponsePacket : IIncomingPackets
         int response_code = 0;
 
         bool hasLoad = m_playerData.LoadPlayerData(username, password, a_player);
-        Debug.Log("player has load?" + hasLoad);
+        //Debug.Log("player has load?" + hasLoad);
         if (!hasLoad)
         {
             response_code = 1;

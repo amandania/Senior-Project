@@ -13,7 +13,7 @@ public class SendMovementPacket : IOutgoingPacketSender
         _moveVector = moveVector;
         m_isStrafing = a_isStrafing;
         m_mouseAngle = a_mouseAngle;
-        //Debug.Log(moveVector + " is being sent");
+        ////Debug.Log(moveVector + " is being sent");
     }
     
 

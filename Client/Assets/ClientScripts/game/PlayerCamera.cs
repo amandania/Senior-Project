@@ -52,7 +52,7 @@ public class PlayerCamera : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1) && !lockMovementToCam)
         {
-            Debug.Log("right click ");
+            //Debug.Log("right click ");
             lockMovementToCam = true;
         }
         if (Input.GetMouseButtonUp(1) && lockMovementToCam)

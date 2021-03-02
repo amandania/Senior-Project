@@ -15,7 +15,7 @@ public class HandleDamageMessage : IIncomingPacketHandler
         int damageAmount = buffer.ReadInt();
 
         float lifeTime = buffer.ReadFloat();
-        UnityEngine.Debug.Log("DAMAGE IS BEING POPPED");
+        //UnityEngine.Debug.Log("DAMAGE IS BEING POPPED");
         if (guid != null)
         {
             UnityMainThreadDispatcher.Instance().Enqueue(() =>

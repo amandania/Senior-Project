@@ -6,6 +6,7 @@ using Engine.DataLoader;
 using Engine.Entity.pathfinding;
 using Serilog;
 using Serilog.Extensions.Logging;
+using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -109,7 +110,7 @@ public class NetworkManager : MonoBehaviour
             }
         }
     }
-
+    
     // Update is called once per frame
     private void Update()
     {
