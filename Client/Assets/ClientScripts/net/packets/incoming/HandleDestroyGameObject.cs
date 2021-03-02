@@ -9,7 +9,7 @@ public class HandleDestroyGameObject : IIncomingPacketHandler
     {
         var length = buffer.ReadInt();
         var guid = Guid.Parse(buffer.ReadString(length, Encoding.Default));
-
+        var isMonster = buffer.ReadBoolean();
         //server should only authoartate this send to destroy monsters and objects not players.
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
@@ -23,7 +23,7 @@ public class HandleDestroyGameObject : IIncomingPacketHandler
                     GameManager.instance.camera.GetComponent<PlayerCamera>().lookPoint = null;
                 }
                 //Debug.Log("Game object destroyed on client.");
-                GameManager.instance.DestroyServerObject(guid);
+                GameManager.instance.DestroyServerObject(guid, isMonster);
             }
         });
     }

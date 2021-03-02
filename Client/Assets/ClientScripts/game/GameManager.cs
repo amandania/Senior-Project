@@ -40,14 +40,20 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void DestroyServerObject(Guid a_serverId)
+    public void DestroyServerObject(Guid a_serverId, bool a_isMonster = false)
     {
         GameObject outGuid;
         ServerSpawns.TryGetValue(a_serverId, out outGuid);
+        if (a_isMonster)
+        {
+            NpcList.Remove(a_serverId);
+            Debug.Log("removed from client monsters");
+        }
+        ServerSpawns.Remove(a_serverId);
         if (outGuid != null)
         {
             Destroy(outGuid);
-            ServerSpawns.Remove(a_serverId);
+            
         }
     }
 

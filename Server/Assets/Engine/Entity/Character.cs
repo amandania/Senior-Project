@@ -10,6 +10,7 @@ public class Character
     public Vector3 Rotation { get; set; }
     public Vector3 OldRotation { get; set; }
     public int CharacterLevel { get; set; } = 1;
+    public bool IsDead { get; set; } = false;
 
     private GameObject m_characterModel;
     

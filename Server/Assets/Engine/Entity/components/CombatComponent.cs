@@ -37,10 +37,9 @@ public class CombatComponent : MonoBehaviour
     private List<GameObject> TargetList { get; set; } = new List<GameObject>();
     public CombatAnimations CombatTriggers { get; set; }
 
-    public float RespawnTimer = 25f;
+    public float RespawnTimer = 5f;
 
     private Vector3 SpawnPos { get; set; }
-    public bool IsDead = false;
 
     private void Awake()
     {
@@ -60,16 +59,18 @@ public class CombatComponent : MonoBehaviour
     {
         yield return new WaitForSeconds(RespawnTimer);
 
-        Mover.enabled = true;
-        MyAnimator.enabled = true;
-        CombatTriggers.enabled = true;
-        
         transform.position = SpawnPos;
         Character.Position = transform.position;
         Character.OldRotation = transform.eulerAngles;
         Character.Position = transform.eulerAngles;
         Character.OldRotation = transform.position;
         Network.SendPacketToAll(new SendMonsterSpawn(Character.AsNpc())).ConfigureAwait(false);
+        Mover.enabled = true;
+        MyAnimator.enabled = true;
+        CombatTriggers.enabled = true;
+
+
+        Character.IsDead = false;
         print("character triggered respawn");
         yield return null;
     }
@@ -85,10 +86,11 @@ public class CombatComponent : MonoBehaviour
             MyAnimator.enabled = false;
             //destroy it for now on all clients but it will still exist on server
             print("Destroy: " + Character.GetGuid().ToString());
-            Network.SendPacketToAll(new SendDestroyGameObject(Character.GetGuid().ToString())).ConfigureAwait(false);
+            Network.SendPacketToAll(new SendDestroyGameObject(Character.GetGuid().ToString(), true)).ConfigureAwait(false);
             transform.position = SpawnPos;
             print("Start couroutine");
             StartCoroutine(DeathRespawn());
+            MyAnimator.SetBool("IsDead", false);
         }
         else if (Character.IsPlayer())
         {
@@ -108,12 +110,13 @@ public class CombatComponent : MonoBehaviour
         CurrentHealth -= a_damage;
         if (CurrentHealth <= 0)
         {
-            IsDead = true;
+            Character.IsDead = true;
             CurrentHealth = 0;
             Network.SendPacketToAll(new SendAnimationBoolean(Character, "IsDead", true)).ConfigureAwait(false);
             MyAnimator.SetBool("IsDead", true);
             Mover.enabled = false;
             CombatTriggers.enabled = false;
+            CombatTarget = null;
         }
         else
         {
@@ -126,7 +129,7 @@ public class CombatComponent : MonoBehaviour
 
     private void Update()
     {
-        if (IsDead)
+        if (Character.IsDead)
         {
             return;
         }

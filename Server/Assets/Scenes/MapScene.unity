@@ -2053,8 +2053,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CombatTarget: {fileID: 0}
   TargetTransform: {fileID: 0}
-  MaxHealth: 100
-  CurrentHealth: 100
+  MaxHealth: 20
+  CurrentHealth: 20
   MinHitDamage: 1
   MaxHitDamage: 3
   MaxCombos: 3

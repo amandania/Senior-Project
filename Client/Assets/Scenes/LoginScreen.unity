@@ -376,6 +376,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5983468451319831053, guid: 9716704150e37204ea6e94c4bfa0a277,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 5983468451319831053, guid: 9716704150e37204ea6e94c4bfa0a277,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983468451319831053, guid: 9716704150e37204ea6e94c4bfa0a277,
+        type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5983468451818694374, guid: 9716704150e37204ea6e94c4bfa0a277,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
