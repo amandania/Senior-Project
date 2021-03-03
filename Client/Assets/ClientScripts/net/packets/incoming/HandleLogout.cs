@@ -17,12 +17,17 @@ public class HandleLogout : IIncomingPacketHandler
 
         var plrIdLength = buffer.ReadInt();
         var playerguid = Guid.Parse(buffer.ReadString(plrIdLength, Encoding.Default));
-
+        var sessionLogged = buffer.ReadBoolean();
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
             var gameobject = GameManager.instance.PlayerList[playerguid];
             GameManager.instance.DestroyServerObject(playerguid);
             GameManager.instance.PlayerList.Remove(playerguid);
+
+            if (!sessionLogged)
+            {
+                //We exited the game manually so we return back to login screen here
+            }
         });
 
     }

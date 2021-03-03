@@ -13,7 +13,7 @@ public class MovementComponent : MonoBehaviour
     
     public Character Character { get; set; }
 
-    private Vector3 Zero = Vector3.zero;
+    public Vector3 Zero = Vector3.zero;
 
     //Pathfinding data
     public NavMeshAgent NavAgent { get; set; }
@@ -44,6 +44,7 @@ public class MovementComponent : MonoBehaviour
     {
         NavAgent.destination = alwaysPath.transform.position;
         CurrentForcePathTo = alwaysPath;
+        NavAgent.isStopped = false;
     }
 
 
@@ -74,7 +75,7 @@ public class MovementComponent : MonoBehaviour
         {
             //UnityEngine.Debug.Log("locked time: " + lockedAtTime);
             if (Time.time - lockedAtTime > 1) {
-                print("release from last hit locked movement");
+                //print("release from last hit locked movement");
                 DidCombatHit = false;
                 LockedMovement = false;
             }

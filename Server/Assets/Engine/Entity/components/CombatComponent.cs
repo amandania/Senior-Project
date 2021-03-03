@@ -15,8 +15,8 @@ public class CombatComponent : MonoBehaviour
 
     public Character Character { get; set; } // Gameobject character owner set during compoent addition/set
 
-    public int MaxHealth = 100;
-    public int CurrentHealth = 100;
+    public int MaxHealth = 25;
+    public int CurrentHealth = 25;
 
     public int MinHitDamage = 1;
     public int MaxHitDamage = 3;
@@ -61,17 +61,19 @@ public class CombatComponent : MonoBehaviour
 
         transform.position = SpawnPos;
         Character.Position = transform.position;
+        Character.OldPosition = transform.position;
+
+        Character.Rotation = transform.eulerAngles;
         Character.OldRotation = transform.eulerAngles;
-        Character.Position = transform.eulerAngles;
-        Character.OldRotation = transform.position;
-        Network.SendPacketToAll(new SendMonsterSpawn(Character.AsNpc())).ConfigureAwait(false);
+        CurrentHealth = MaxHealth;
+        Character.IsDead = false;
         Mover.enabled = true;
         MyAnimator.enabled = true;
         CombatTriggers.enabled = true;
 
+        Network.SendPacketToAll(new SendMonsterSpawn(Character.AsNpc())).ConfigureAwait(false);
 
-        Character.IsDead = false;
-        print("character triggered respawn");
+        //print("character triggered respawn");
         yield return null;
     }
 
@@ -85,10 +87,10 @@ public class CombatComponent : MonoBehaviour
         {
             MyAnimator.enabled = false;
             //destroy it for now on all clients but it will still exist on server
-            print("Destroy: " + Character.GetGuid().ToString());
+            //print("Destroy: " + Character.GetGuid().ToString());
             Network.SendPacketToAll(new SendDestroyGameObject(Character.GetGuid().ToString(), true)).ConfigureAwait(false);
             transform.position = SpawnPos;
-            print("Start couroutine");
+            //print("Start couroutine");
             StartCoroutine(DeathRespawn());
             MyAnimator.SetBool("IsDead", false);
         }
@@ -96,6 +98,8 @@ public class CombatComponent : MonoBehaviour
         {
             // a regular player on death just respawn to normal position
             transform.position = SpawnPos;
+            CurrentHealth = MaxHealth;
+            Character.AsPlayer().Session.SendPacket(new SendHealthChanged(Character, true, CurrentHealth, MaxHealth)).ConfigureAwait(false);
             //we will just move our transform back to respawn point
         }
     }
@@ -108,15 +112,28 @@ public class CombatComponent : MonoBehaviour
             return;
         }
         CurrentHealth -= a_damage;
+        if (Character.IsPlayer())
+        {
+            Character.AsPlayer().Session.SendPacket(new SendHealthChanged(Character, true, CurrentHealth, MaxHealth)).ConfigureAwait(false);
+        } else
+        {
+            //Do we have a special bar to display if the attacker is a player?
+
+        }
         if (CurrentHealth <= 0)
         {
             Character.IsDead = true;
             CurrentHealth = 0;
             Network.SendPacketToAll(new SendAnimationBoolean(Character, "IsDead", true)).ConfigureAwait(false);
-            MyAnimator.SetBool("IsDead", true);
-            Mover.enabled = false;
-            CombatTriggers.enabled = false;
+           
+            TargetList.Clear();
             CombatTarget = null;
+            Mover.CurrentForcePathTo = null;
+            Mover.NavAgent.destination = Mover.Zero;
+            Mover.NavAgent.isStopped = true;
+            MyAnimator.SetBool("IsDead", true);
+            CombatTriggers.enabled = false;
+            Mover.enabled = false;
         }
         else
         {
@@ -129,11 +146,11 @@ public class CombatComponent : MonoBehaviour
 
     private void Update()
     {
-        if (Character.IsDead)
+        if (Character == null || Character.IsDead)
         {
             return;
         }
-        if (CombatTarget != null)
+        if (CombatTarget != null && !Character.IsDead)
         {
             if (!WithinReach(CombatTarget.transform.position, out m_reachDistance))
             {

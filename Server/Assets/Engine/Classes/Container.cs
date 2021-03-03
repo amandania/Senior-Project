@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 
-public class SlotItem  {
+public class SlotItem
+{
 
     public string ItemName { get; set; }
     public int Amount { get; set; }
     public int ItemLevel { get; set; }
-    public bool IsStackable  { get; set; }
+    public bool IsStackable { get; set; }
 
     public SlotItem()
     {
@@ -28,7 +29,7 @@ public class Container
     public List<SlotItem> ContainerItems { get; set; }
 
     public bool DeleteOnRefresh { get; set; }
-   
+
 
     /// <summary>
     /// Dynamic container changes. This is the only constructor that should delete on refresh
@@ -54,74 +55,46 @@ public class Container
 
     public void AddItem(ItemBase item)
     {
-        var ItemAtSlot = GetItem(item.ItemName);
-        //UnityEngine.Debug.Log("does our " + item.ItemName + " exist in our slots? " + (ItemAtSlot.Amount != -1));
-        if (ItemAtSlot.Amount != -1)
+        bool isStackable = item.IsStackable;
+        int slotToAdd = GetNextFreeSlot();
+        if (ContainsItem(item) && item.IsStackable)
         {
-            if (ItemAtSlot.IsStackable)
+            var slot = GetSlotForItem(item.ItemName);
+            if (slot != -1)
             {
-                ItemAtSlot.Amount += item.Amount;
-                return;
-            } 
+                slotToAdd = slot;
+            }
+        }
+
+        if(item.IsStackable)
+        {
+            ContainerItems[slotToAdd].Amount += item.Amount;
         } else
         {
-            var freeSlot = GetNextFreeSlot();
-            //UnityEngine.Debug.Log("Next free slot is at : " + freeSlot);
-            if (freeSlot != -1)
-            {
-                var EmptySlot = ContainerItems[freeSlot];
-                EmptySlot.ItemLevel = item.ItemLevel;
-                EmptySlot.ItemName = item.ItemName;
-                EmptySlot.Amount = item.Amount;
-                //UnityEngine.Debug.Log("Slot : " + freeSlot + " was changed to " + EmptySlot.ItemName);
-            }
-            //new item being added
-
+            ContainerItems[slotToAdd].ItemLevel = item.ItemLevel;
+            ContainerItems[slotToAdd].Amount = item.Amount;
+            ContainerItems[slotToAdd].ItemName = item.ItemName;
+            ContainerItems[slotToAdd].IsStackable = item.IsStackable;
         }
+
+    }
+    public void RemoveItem(int slot)
+    {
+        ContainerItems[slot].ItemName = "empty";
+        ContainerItems[slot].ItemLevel = -1;
+        ContainerItems[slot].Amount = -1;
     }
 
-    public void RemoteItem(int slot)
+    public bool ContainsItem(ItemBase a_item)
     {
-        if (slot + 1 > ContainerItems.Count)
+        foreach (SlotItem item in ContainerItems)
         {
-            //UnityEngine.Debug.Log("cant remove out of capacity");
-            return;
-        }
-        if (DeleteOnRefresh)
-        {
-            ContainerItems.RemoveAt(slot);
-        }
-    }
-    public void RemoveItem(SlotItem a_item)
-    {
-        if (ContainsItem(a_item))
-        {
-            var myItem = GetItem(a_item.ItemName);
-            ContainerItems.Remove(myItem);
-        }
-    }
-
-    public bool ContainsItem(SlotItem a_item)
-    {
-        foreach(SlotItem item in ContainerItems) {
             if (item.ItemName.ToLower().Equals(a_item.ItemName.ToLower()))
             {
                 return true;
             }
         }
         return false;
-    }
-
-    public SlotItem GetItem(string a_name)
-    {
-        foreach (SlotItem item in ContainerItems)
-        {
-            if (item.ItemName.ToLower().Equals(a_name.ToLower()))
-            {
-                return item;
-            }
-        }
-        return new SlotItem();
     }
 
     public int GetNextFreeSlot()
@@ -134,6 +107,18 @@ public class Container
             }
         }
 
+        return -1;
+    }
+
+    public int GetSlotForItem(string itemName)
+    {
+        for (int i = 0; i < ContainerItems.Count;i++)
+        {
+            if (itemName.ToLower().Equals(ContainerItems[i].ItemName.ToLower()))
+            {
+                return i;
+            }
+        }
         return -1;
     }
 }

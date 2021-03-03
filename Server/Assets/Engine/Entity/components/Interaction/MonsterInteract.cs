@@ -21,6 +21,10 @@ public class MonsterInteract : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (MyCombat == null || MyCombat.Character.IsDead)
+        {
+            return;
+        }
         var otherCombatCollider = other.GetComponent<CombatComponent>();
         if (otherCombatCollider == null)
         {
@@ -30,6 +34,7 @@ public class MonsterInteract : MonoBehaviour
         if (character.IsNpc()) {
             return;
         }
+
         //now we can trigger combat of this monster
         MyCombat.AddToPossibleTargets(otherCombatCollider.gameObject);
         

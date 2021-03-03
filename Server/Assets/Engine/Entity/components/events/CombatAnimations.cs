@@ -45,11 +45,23 @@ public class CombatAnimations : MonoBehaviour
                 {
                     if (GetComponent<CombatComponent>().Character.IsNpc()) {
                         //print("npc is trying to attack someone.");
+                    }else
+                    {
                     }
                     if (transform.gameObject != combat.gameObject)
                     {
+                        if (GetComponent<CombatComponent>().Character.IsPlayer())
+                        {
+                            print(transform.gameObject.name + " hit " + combat.gameObject.name);
+                        }
+
                         if ((transform.position - combat.transform.position).magnitude < 2)
                         {
+                            if (GetComponent<CombatComponent>().Character.IsPlayer())
+                            {
+                                print("IN DISTANCE:");
+                                print(transform.gameObject.name + " hit " + combat.gameObject.name);
+                            }
                             //print("Hit targets: " + targets.transform.gameObject.name);
                             combat.ApplyHit(GetComponent<CombatComponent>().Character, Random.Range(combat.MinHitDamage, combat.MaxHitDamage));
                             ObjectsHitAlready.Add(combat.gameObject);
@@ -57,6 +69,9 @@ public class CombatAnimations : MonoBehaviour
                     }
                 }
             }
+        } else
+        {
+            print("no active combat collider");
         }
 
     }
