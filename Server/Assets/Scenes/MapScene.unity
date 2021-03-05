@@ -2030,6 +2030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c345d5125cdeb4baf589112a8e7acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Zero: {x: 0, y: 0, z: 0}
   State: 0
   RotationSpeed: 1
   MovementSpeed: 2
@@ -2061,7 +2062,6 @@ MonoBehaviour:
   CurrentAttackCombo: 0
   IsAggresiveTrigger: 0
   RespawnTimer: 25
-  IsDead: 0
 --- !u!95 &629212276
 Animator:
   serializedVersion: 3

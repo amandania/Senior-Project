@@ -27,13 +27,16 @@ public class Hotkeys : Container
     /// <param name="slot"></param>
     public void HandleSlotUse(int slot)
     {
+        Debug.Log("Use slot: " + slot);
+        var item = ContainerItems[slot];
+        Debug.Log("itemname :" + item.ItemName + " at slot " + slot);
         
     }
 
     public void RefrehsItems()
     {
         m_player.Session.SendPacket(new SendRefreshContainer(CONTAINER_NAME, DeleteOnRefresh, ContainerItems));
-        Debug.Log(m_player.UserName + " is refreshing : " + CONTAINER_NAME);
+        //Debug.Log(m_player.UserName + " is refreshing : " + CONTAINER_NAME);
     }
 
     

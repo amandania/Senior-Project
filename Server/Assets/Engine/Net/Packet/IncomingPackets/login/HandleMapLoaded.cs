@@ -64,7 +64,7 @@ public class HandleMapLoaded : IIncomingPackets
             var item = m_world.GroundItems[i];
             UnityMainThreadDispatcher.Instance().Enqueue(async () =>
             {
-                Debug.Log("Send item: " + item.ItemName);
+                //Debug.Log("Send item: " + item.ItemName);
                 await a_player.Session.SendPacket(new SendGroundItem(item.GetComponent<ItemBase>())).ConfigureAwait(true);
             });
         }

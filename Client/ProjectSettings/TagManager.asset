@@ -7,6 +7,8 @@ TagManager:
   - Inventory
   - Hotkeys
   - InteractMessage
+  - MessagePanel
+  - LocalHealthBar
   layers:
   - Default
   - TransparentFX

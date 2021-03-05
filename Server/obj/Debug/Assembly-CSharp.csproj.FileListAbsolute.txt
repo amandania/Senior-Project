@@ -1,4 +1,3 @@
-C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Assembly-CSharp.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Assembly-CSharp.pdb
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Autofac.dll
@@ -320,11 +319,8 @@ C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEditor.UI.pdb
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEditor.TestRunner.pdb
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\Unity.ShaderGraph.Utilities.pdb
 C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\UnityEngine.TestRunner.pdb
+C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp.dll
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp.pdb
 C:\Users\Admin\Desktop\Senior-Project\Server\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\ICSharpCode.NRefactory.dll
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\nunit.framework.dll
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\nunit.framework.pdb
-C:\Users\Admin\Desktop\Senior-Project\Server\Temp\bin\Debug\nunit.framework.xml

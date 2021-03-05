@@ -83,7 +83,41 @@ public class KeyListener : MonoBehaviour
             //Debug.Log("mouse clicked");
             NetworkManager.instance.SendPacket(new SendMouseLeftClick().CreatePacket());
         }
-
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            NetworkManager.instance.SendPacket(new SendActionKeys(KeyInput.HOTKEY1).CreatePacket());
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            NetworkManager.instance.SendPacket(new SendActionKeys(KeyInput.HOTKEY2).CreatePacket());
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            NetworkManager.instance.SendPacket(new SendActionKeys(KeyInput.HOTKEY3).CreatePacket());
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            NetworkManager.instance.SendPacket(new SendActionKeys(KeyInput.HOTKEY4).CreatePacket());
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            NetworkManager.instance.SendPacket(new SendActionKeys(KeyInput.HOTKEY5).CreatePacket());
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            NetworkManager.instance.SendPacket(new SendActionKeys(KeyInput.HOTKEY6).CreatePacket());
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            NetworkManager.instance.SendPacket(new SendActionKeys(KeyInput.HOTKEY7).CreatePacket());
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            NetworkManager.instance.SendPacket(new SendActionKeys(KeyInput.HOTKEY8).CreatePacket());
+        } else if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            NetworkManager.instance.SendPacket(new SendActionKeys(KeyInput.HOTKEY9).CreatePacket());
+        }
         if (Input.GetKeyDown(KeyCode.F))
         {
             //print("Input F");

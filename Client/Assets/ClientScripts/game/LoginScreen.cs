@@ -70,12 +70,17 @@ public class LoginScreen : MonoBehaviour
                 {
                     responseMessage.text = "Logging in...";
                 });
-            }
-            if (ResponseCode == 1)
+            }else if (ResponseCode == 1)
             {
                 UnityMainThreadDispatcher.Instance().Enqueue(() =>
                 {
                     responseMessage.text = "Invalid Credentials.";
+                });
+            }else if (ResponseCode == 1)
+            {
+                UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                {
+                    responseMessage.text = "Invalid Username";
                 });
             }
         }

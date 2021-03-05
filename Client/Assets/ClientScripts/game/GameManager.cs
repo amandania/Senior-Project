@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         if (a_isMonster)
         {
             NpcList.Remove(a_serverId);
-            Debug.Log("removed from client monsters");
+           // Debug.Log("removed from client monsters");
         }
         ServerSpawns.Remove(a_serverId);
         if (outGuid != null)

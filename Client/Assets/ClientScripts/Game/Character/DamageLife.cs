@@ -50,7 +50,7 @@ public class DamageLife : MonoBehaviour
             {
                 Destroy(transform.gameObject);
             }
-
+            
         }
 
     }
