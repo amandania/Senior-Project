@@ -40,10 +40,18 @@ public class MovementComponent : MonoBehaviour
     public float SendRate = 15f;
     public bool TriggeredSend { get; set; } =  false;
 
+    public bool IsRetreating = false;
+
     public void SetAgentPath(GameObject alwaysPath)
     {
+        NavAgent.isStopped = false;
         NavAgent.destination = alwaysPath.transform.position;
         CurrentForcePathTo = alwaysPath;
+    }
+    public void SetAgentPath(Vector3 position)
+    {
+        CurrentForcePathTo = null;
+        NavAgent.destination = position;
         NavAgent.isStopped = false;
     }
 
@@ -71,6 +79,16 @@ public class MovementComponent : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if(IsRetreating)
+        {
+            //print(NavAgent.remainingDistance + " remaing distance");
+            if (NavAgent.remainingDistance < 1)
+            {
+                print("reached retreat");
+                NavAgent.destination = Zero;
+                IsRetreating = false;
+            }
+        }
         if (DidCombatHit && LockedMovement)
         {
             //UnityEngine.Debug.Log("locked time: " + lockedAtTime);
@@ -80,19 +98,25 @@ public class MovementComponent : MonoBehaviour
                 LockedMovement = false;
             }
         }
-
+       
 
         if (Character != null && Character.IsNpc())
         {
+            Vector3 moveVector = Zero;
+            var use = false;
             if (CurrentForcePathTo !=  null)
             {
-                //var currentTransformDirection = transform.TransformDirection(Mover.CurrentForcePathTo.position);
-                //var distanceVector = currentTransformDirection - transform.position; //- currentTransformDirection;
-
-                var distance = (CurrentForcePathTo.transform.position - transform.position);
-                var direction = distance.normalized;
-                Move(direction, Strafe, 0);
+                moveVector = (CurrentForcePathTo.transform.position - transform.position);
+                use = true;
+            }else if(IsRetreating && NavAgent.destination != null && NavAgent.destination != Zero)
+            {
+                moveVector = NavAgent.destination - transform.position;
+                use = true;
             }
+
+            var direction = use ? moveVector.normalized : moveVector;
+            //print("npc moving: " + moveVector);
+            Move(direction, Strafe, 0);
         }
 
     }

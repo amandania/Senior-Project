@@ -25,6 +25,9 @@ public class MonsterInteract : MonoBehaviour
         {
             return;
         }
+        if (MyCombat.Mover.IsRetreating) {
+            return;
+        }
         var otherCombatCollider = other.GetComponent<CombatComponent>();
         if (otherCombatCollider == null)
         {

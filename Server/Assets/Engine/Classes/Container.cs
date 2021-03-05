@@ -7,6 +7,7 @@ public class SlotItem
     public int Amount { get; set; }
     public int ItemLevel { get; set; }
     public bool IsStackable { get; set; }
+    public bool IsActive { get; set; } = false;
 
     public SlotItem()
     {

@@ -27,6 +27,9 @@ public class Hotkeys : Container
     /// <param name="slot"></param>
     public void HandleSlotUse(int slot)
     {
+        Debug.Log("Use slot: " + slot);
+        var item = ContainerItems[slot];
+        Debug.Log("itemname :" + item.ItemName + " at slot " + slot);
         
     }
 

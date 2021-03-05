@@ -32,7 +32,7 @@ public class CombatComponent : MonoBehaviour
 
     public NetworkManager Network { get; set; }
     private CombatComponent instance;
-    private MovementComponent Mover { get; set; }
+    public MovementComponent Mover { get; set; }
 
     private List<GameObject> TargetList { get; set; } = new List<GameObject>();
     public CombatAnimations CombatTriggers { get; set; }
@@ -40,6 +40,9 @@ public class CombatComponent : MonoBehaviour
     public float RespawnTimer = 5f;
 
     private Vector3 SpawnPos { get; set; }
+
+    public float DistanceToRetreat = 15f;
+    public bool ListenForRetreat = false;
 
     private void Awake()
     {
@@ -52,6 +55,62 @@ public class CombatComponent : MonoBehaviour
         MyAnimator = GetComponent<Animator>();
         CombatTriggers = GetComponent<CombatAnimations>();
         SpawnPos = transform.position;
+    }
+    
+    /// <summary>
+    /// This functio is called every frame to check for constant data changes such as being able to attack, setting paths if not withing distance and retreating.
+    /// </summary>
+    private void Update()
+    {
+        if (Character == null || Character.IsDead)
+        {
+            return;
+        }
+        if (ListenForRetreat)
+        {
+            if (!Mover.IsRetreating && (transform.position - SpawnPos).magnitude > DistanceToRetreat)
+            {
+                print("set retreating");
+                Mover.SetAgentPath(SpawnPos);
+                Mover.IsRetreating = true;
+                ListenForRetreat = false;
+                CombatTarget = null;
+                TargetList.Clear();
+            }
+        }
+        if(Mover.IsRetreating)
+        {
+            //dont do this
+            return;
+        }
+        if (CombatTarget != null && !Character.IsDead)
+        {
+            if (!WithinReach(CombatTarget.transform.position, out m_reachDistance))
+            {
+
+                Mover.SetAgentPath(CombatTarget);
+                //print("not within distance to attack");
+                //UnityEngine.Debug.Log("not withing distnace");
+                return;
+            }
+            else
+            {
+                //print("within distance so we attack");
+                if(!ListenForRetreat)
+                {
+                    ListenForRetreat = true;
+                }
+                Attack(CombatTarget);
+            }
+        }
+        else
+        {
+            if (TargetList.Contains(CombatTarget))
+            {
+                TargetList.Remove(CombatTarget);
+                //UnityEngine.Debug.Log("Removed target from my list cause it doesnt exist anymore");
+            }
+        }
     }
 
 
@@ -142,37 +201,6 @@ public class CombatComponent : MonoBehaviour
         }
         LastAttackRecieved.Reset();
         Network.SendPacketToAll(new SendDamageMessage(Character, a_damage, 1.5f)).ConfigureAwait(false);
-    }
-
-    private void Update()
-    {
-        if (Character == null || Character.IsDead)
-        {
-            return;
-        }
-        if (CombatTarget != null && !Character.IsDead)
-        {
-            if (!WithinReach(CombatTarget.transform.position, out m_reachDistance))
-            {
-                Mover.SetAgentPath(CombatTarget);
-                //print("not within distance to attack");
-                //UnityEngine.Debug.Log("not withing distnace");
-                return;
-            }
-            else
-            {
-                //print("within distance so we attack");
-                Attack(CombatTarget);
-            }
-        }
-        else
-        {
-            if (TargetList.Contains(CombatTarget))
-            {
-                TargetList.Remove(CombatTarget);
-                //UnityEngine.Debug.Log("Removed target from my list cause it doesnt exist anymore");
-            }
-        }
     }
     
     public void Attack()
