@@ -52,6 +52,7 @@ public class ChannelEventHandler : ChannelHandlerAdapter
                 { (int)IncomingPackets.HANDLE_PROMPT_STATE, new HandlePromptState() },
                 { (int)IncomingPackets.HANDLE_GROUND_ITEM_SPAWN, new HandleSpawnGroundItem() },
                 { (int)IncomingPackets.HANDLE_HEALTH_CHANGED, new HandleHealthChange() },
+                { (int)IncomingPackets.HANDLE_EQUIPMENT, new HandleEquipment() },
             };
     }
 

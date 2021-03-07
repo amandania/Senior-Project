@@ -11,12 +11,11 @@ public class GroundItem : MonoBehaviour
     public bool PickedUp = false;
 
     public List<Player> PlayersShowingInteract;
-
-    public void Awake()
+    public void Start()
     {
-        
+        PlayersShowingInteract = new List<Player>();
     }
-    
+
     public void SetCollider()
     {
         var collider = transform.gameObject.AddComponent<BoxCollider>();
@@ -87,6 +86,23 @@ public class GroundItem : MonoBehaviour
             PlayersShowingInteract.Remove(character.AsPlayer());
         }
         character.AsPlayer().CurrentInteractGuid = null;
+    }
+
+    /// <summary>
+    /// Main fucnction to handle a player picking up a ground item. This is triggered by a incoming interact packet
+    /// This function adds the item to a players hotkey space, refreshes the hotkey and destroys the game object on all clients + server
+    /// <see cref="InputController.HandleFInteract(Player)"/>
+    /// </summary>
+    /// <param name="a_player">The player picking up the item</param>
+    /// <param name="a_groundItemBase">Details on items model such as name and level and amount</param>
+    public void PickupItem(Player a_player, ItemBase a_groundItemBase)
+    {
+        PickedUp = true;
+        a_player.HotkeyInventory.AddItem(a_groundItemBase);
+        a_player.HotkeyInventory.RefrehsItems();
+        a_player.Session.SendPacketToAll(new SendDestroyGameObject(a_groundItemBase.InstanceGuid.ToString())).ConfigureAwait(false);
+        a_player.AsPlayer().Session.SendPacket(new SendPromptState("MessagePanel", false)).ConfigureAwait(false);
+        Destroy(a_groundItemBase.gameObject);
     }
 
 }

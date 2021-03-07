@@ -8,6 +8,7 @@ public class SlotItem
     public int ItemLevel { get; set; }
     public bool IsStackable { get; set; }
     public bool IsActive { get; set; } = false;
+    public string TrasnformParentName { get; set; }
 
     public SlotItem()
     {
@@ -15,6 +16,7 @@ public class SlotItem
         Amount = -1;
         ItemLevel = -1;
         IsStackable = false;
+        TrasnformParentName = "";
     }
     public SlotItem(string a_name = "empty", int a_amount = -1, int a_level = -1, bool a_isStackable = false)
     {
@@ -76,6 +78,7 @@ public class Container
             ContainerItems[slotToAdd].Amount = item.Amount;
             ContainerItems[slotToAdd].ItemName = item.ItemName;
             ContainerItems[slotToAdd].IsStackable = item.IsStackable;
+            ContainerItems[slotToAdd].TrasnformParentName = item.TrasnformParentName;
         }
 
     }

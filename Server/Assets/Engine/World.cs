@@ -63,6 +63,7 @@ public class World : MonoBehaviour, IWorld
                     hasComponent = model.AddComponent<ItemBase>();
                     hasComponent.ItemLevel = 1;
                     hasComponent.ItemName = model.name;
+
                 }
                 AddGroundItem(hasComponent);
             }
