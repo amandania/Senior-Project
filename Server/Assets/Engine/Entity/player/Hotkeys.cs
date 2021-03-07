@@ -27,14 +27,38 @@ public class Hotkeys : Container
     /// <param name="slot"></param>
     public void HandleSlotUse(int slot)
     {
-        Debug.Log("Use slot: " + slot);
+        if (slot <= 0)
+        {
+            return;
+        }
+        //slot should come in from 1-9 so we index -1.
+        slot -= 1;
         var item = ContainerItems[slot];
-        Debug.Log("itemname :" + item.ItemName + " at slot " + slot);
+
+        if (item.IsActive)
+        {
+            if (item.TrasnformParentName.Length > 0)
+            {
+                m_player.Session.SendPacketToAll(new SendEquipmentAction(m_player, "UnEquip", item.ItemName, item.TrasnformParentName)).ConfigureAwait(false);
+                Debug.Log("itemname :" + item.ItemName + " at slot " + slot);
+            }
+        } else
+        {
+            if (item.TrasnformParentName.Length > 0)
+            {
+                m_player.Session.SendPacketToAll(new SendEquipmentAction(m_player, "EquipItem", item.ItemName, item.TrasnformParentName)).ConfigureAwait(false);
+                Debug.Log("itemname :" + item.ItemName + " at slot " + slot);
+            }
+        }
+        item.IsActive = !item.IsActive;
+
         
+       
     }
 
     public void RefrehsItems()
     {
+       
         m_player.Session.SendPacket(new SendRefreshContainer(CONTAINER_NAME, DeleteOnRefresh, ContainerItems));
         //Debug.Log(m_player.UserName + " is refreshing : " + CONTAINER_NAME);
     }

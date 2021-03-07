@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
         charObject.transform.position = pos;
         charObject.transform.rotation = a_rotation;
         charObject.AddComponent<MoveSync>();
+        charObject.AddComponent<Equipment>();
         NpcList.Add(a_guid, charObject);
         ServerSpawns.Add(a_guid, charObject);
     }
@@ -95,6 +96,7 @@ public class GameManager : MonoBehaviour
             Camera camera = Camera.main;
         }
 
+        playerObj.AddComponent<Equipment>();
         PlayerList.Add(a_guid, playerObj);
         ServerSpawns.Add(a_guid, playerObj);
 

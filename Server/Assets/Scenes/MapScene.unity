@@ -2037,6 +2037,7 @@ MonoBehaviour:
   JumpSpeed: 7
   Gravity: 600
   SendRate: 15
+  IsRetreating: 0
   timeBetweenMovementStart: 0
   timeBetweenMovementEnd: 0
 --- !u!114 &629212275
@@ -2062,6 +2063,8 @@ MonoBehaviour:
   CurrentAttackCombo: 0
   IsAggresiveTrigger: 0
   RespawnTimer: 25
+  DistanceToRetreat: 15
+  ListenForRetreat: 0
 --- !u!95 &629212276
 Animator:
   serializedVersion: 3
@@ -4528,6 +4531,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7090876908558889589, guid: 3a90c2595f11bf54bb4b9128829c286c,
+        type: 3}
+      propertyPath: ResourcePefab
+      value: 
+      objectReference: {fileID: 1531525226034517125, guid: 3a90c2595f11bf54bb4b9128829c286c,
+        type: 3}
     - target: {fileID: 1531525226034517125, guid: 3a90c2595f11bf54bb4b9128829c286c,
         type: 3}
       propertyPath: m_Name

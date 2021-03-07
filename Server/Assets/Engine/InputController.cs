@@ -51,23 +51,10 @@ public class InputController : IInputControl
             if (isGroundItem != null && !isGroundItem.PickedUp)
             {
                 //we are going to have to destroy this gameobject on all clients
-
-                var groundItemBase = isGroundItem.GetComponent<ItemBase>();
-
-
                 //we are picking up the ground item that we are currently interacting with
-                //add the ground item to our hotkeys or inventory
-                isGroundItem.PickedUp = true;
-                a_player.HotkeyInventory.AddItem(groundItemBase);
-                a_player.HotkeyInventory.RefrehsItems();
-                a_player.Session.SendPacketToAll(new SendDestroyGameObject(groundItemBase.InstanceGuid.ToString())).ConfigureAwait(false);
-                a_player.AsPlayer().Session.SendPacket(new SendPromptState("MessagePanel", false)).ConfigureAwait(false);
-                UnityMainThreadDispatcher.Instance().Enqueue(() =>
-                {
-                    Object.Destroy(groundItemBase.gameObject);
-                });
-
-
+                //add the ground item to our hotkeys or inventorylients
+                var groundItemBase = isGroundItem.GetComponent<ItemBase>();
+                isGroundItem.PickupItem(a_player, groundItemBase);
                 return;
             }
         });
