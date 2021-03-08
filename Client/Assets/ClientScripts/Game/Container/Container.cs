@@ -16,7 +16,7 @@ public class Container : MonoBehaviour
         
     }
 
-    public void RefreshSlot(int slotIndex, string slotItemName = null, int slotItemAmount = -1, bool destroyInstance = false)
+    public void RefreshSlot(int slotIndex, string slotItemName = null, int slotItemAmount = -1, bool a_slotActive = false, bool destroyInstance = false)
     {
         GameObject changeSlot = null;
         if (!SlotsCreated.ContainsKey(slotIndex))

@@ -102,23 +102,7 @@ public class Character
     {
         Rotation = a_rotation;
     }
-
-    public MovementState GetMoveState()
-    {
-        if (MovementComponent != null)
-        {
-            return MovementComponent.State;
-        }
-        return MovementState.IDLE;
-    }
-
-    public void SetMoveState(MovementState moveState)
-    {
-        if (MovementComponent != null)
-        {
-            MovementComponent.State = moveState;
-        }
-    }
+    
 
     public MovementComponent GetMovementComponent()
     {

@@ -31,6 +31,7 @@ public class SendRefreshContainer : IOutGoingPackets
             buffer.WriteInt(slot.ItemName.Length);
             buffer.WriteString(slot.ItemName, Encoding.Default);
             buffer.WriteInt(slot.Amount);
+            buffer.WriteBoolean(slot.IsActive);
         }
 
         return buffer;
