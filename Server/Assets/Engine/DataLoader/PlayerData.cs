@@ -4,6 +4,10 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// This class is used for Player session saving and loading. We serialize the data and save it a .json text file. We also deserialize it the same way and initalize the respective player session channel data
+/// This class is also a dependecy build which means we can pass it as a instance container in any other Constructors in the container build. <seealso cref="NetworkManager.RegisterDependencies(Autofac.ContainerBuilder)"/>
+/// </summary>
 public class PlayerData : IPlayerDataLoader
 {
 
@@ -50,12 +54,16 @@ public class PlayerData : IPlayerDataLoader
                 a_sessionPlayer.UserName = desiralizedObj.Username;
                 a_sessionPlayer.Password = desiralizedObj.Password;
                 a_sessionPlayer.CharacterLevel = desiralizedObj.PlayerLevel;
-
+                a_sessionPlayer.HotkeyInventory.LastActiveSlot = desiralizedObj.CurrentSlotEquipped;
                 if (desiralizedObj.HotkeyItems.Length > 0)
                 {
                     a_sessionPlayer.HotkeyInventory.ContainerItems.Clear();
                     a_sessionPlayer.HotkeyInventory.ContainerItems.AddRange(desiralizedObj.HotkeyItems);
                     a_sessionPlayer.HotkeyInventory.RefrehsItems();
+                }
+                if (desiralizedObj.CurrentSlotEquipped != -1)
+                {
+
                 }
                 succuess = true;
                 //Debug.Log("Correct creditonals given for " + a_playerName);
@@ -86,6 +94,7 @@ public class PlayerData : IPlayerDataLoader
 
         serializeClass.CurrentHealth = a_player.CombatComponent.CurrentHealth;
         serializeClass.MaxHealth = a_player.CombatComponent.MaxHealth;
+        serializeClass.CurrentSlotEquipped = a_player.HotkeyInventory.LastActiveSlot;
 
         //Debug.Log(a_player.CombatComponent.MaxHealth + " max health on log");
         // serialize JSON directly to a file
@@ -96,8 +105,11 @@ public class PlayerData : IPlayerDataLoader
             //Debug.Log("wrote to file : " + m_filePath + "/" + a_player.UserName + ".json");
         }
     }
-
-    //required disposables
+    
+    /// <summary>
+    /// Required for IDisposable
+    /// Acts as a deconstructor
+    /// </summary>
     public void Dispose()
     {
         SavesLoded.Clear();

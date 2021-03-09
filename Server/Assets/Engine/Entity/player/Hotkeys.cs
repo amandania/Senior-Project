@@ -10,6 +10,8 @@ public class Hotkeys : Container
 
     private int m_lastActiveSlot = -1;
 
+    public int LastActiveSlot { get => m_lastActiveSlot; set => m_lastActiveSlot = value; }
+
     public Hotkeys(Player a_player, int a_size)
     {
         DeleteOnRefresh = false;
@@ -39,10 +41,10 @@ public class Hotkeys : Container
 
         if (item.IsActive)
         {
-            if (m_lastActiveSlot != -1 && m_lastActiveSlot != slot)
+            if (LastActiveSlot != -1 && LastActiveSlot != slot)
             {
                 //unequip last item if it was a transform type
-                var lastSlotItem = ContainerItems[m_lastActiveSlot];
+                var lastSlotItem = ContainerItems[LastActiveSlot];
                 if (lastSlotItem.TrasnformParentName.Length > 0)
                 {
                     lastSlotItem.IsActive = false;
@@ -53,23 +55,25 @@ public class Hotkeys : Container
 
             if (item.TrasnformParentName.Length > 0)
             {
-                m_player.Session.SendPacketToAll(new SendEquipmentAction(m_player, "UnEquip", item.ItemName, item.TrasnformParentName)).ConfigureAwait(false);
-                Debug.Log("itemname :" + item.ItemName + " at slot " + slot);
-                m_player.Session.SendPacketToAll(new SendAnimatorFloat(m_player, "MovementState", 1)).ConfigureAwait(false);
+                m_player.Session.SendPacketToAll(new SendEquipmentAction(m_player, "UnEquip", item.ItemName, item.TrasnformParentName)).ConfigureAwait(false); Debug.Log("itemname :" + item.ItemName + " at slot " + slot);
+                m_player.Session.SendPacketToAll(new SendAnimatorFloat(m_player, "MovementState", 0f)).ConfigureAwait(false);
             }
         } else
         {
             if (item.TrasnformParentName.Length > 0)
             {
                 m_player.Session.SendPacketToAll(new SendEquipmentAction(m_player, "EquipItem", item.ItemName, item.TrasnformParentName)).ConfigureAwait(false);
-                Debug.Log("itemname :" + item.ItemName + " at slot " + slot);
+                Debug.Log("itemname :" + item.ItemName + " at slot " + slot); Debug.Log("itemname :" + item.ItemName + " at slot " + slot);
+                m_player.Session.SendPacketToAll(new SendAnimatorFloat(m_player, "MovementState", 1f)).ConfigureAwait(false);
             }
         }
         item.IsActive = !item.IsActive;
         if (item.IsActive) {
-            m_lastActiveSlot = slot;
+            LastActiveSlot = slot;
         }
     }
+
+
 
     public void RefrehsItems()
     {

@@ -3,7 +3,7 @@ using System.Text;
 
 public class SendAnimatorFloat : IOutGoingPackets
 {
-    public OutGoingPackets PacketType => OutGoingPackets.SEND_ANIMATOR_TRIGGER;
+    public OutGoingPackets PacketType => OutGoingPackets.SEND_ANIMATOR_FLOAT;
 
     private readonly Character m_character;
     private readonly string m_floatName;
