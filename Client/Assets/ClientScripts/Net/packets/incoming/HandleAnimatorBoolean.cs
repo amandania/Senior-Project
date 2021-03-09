@@ -9,9 +9,9 @@ using UnityEngine;
 public class HandleAnimatorBoolean : IIncomingPacketHandler
 {
     /// <summary>
-    /// This functions reads our game object Id as a Guid, our boolean paramater name, and the sate to set it too.
+    /// This functions reads our game object Id as a string and we convert it into a Guid. We read the boolean paramater name for the animator to handle, and the sate to set it too. Finally we execute the changes on the main thread to the actual game object
     /// </summary>
-    /// <param name="buffer">Contains object id and trigger name</param>
+    /// <param name="buffer">Contains animators parent model game object id and the state data to set</param>
     public void ExecutePacket(IByteBuffer buffer)
     {
         int guidLength = buffer.ReadInt();
@@ -26,10 +26,10 @@ public class HandleAnimatorBoolean : IIncomingPacketHandler
             Animator animator = player.GetComponent<Animator>();
             animator.SetBool(triggerName, triggerStae);
         });
-
     }
+
     /// <summary>
-    /// Packet Id used to refrence incoming packet handling
+    /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
     /// <see cref="ChannelEventHandler.HandleDataPackets"/>
     /// <return>Packet Id</return>
     /// </summary>

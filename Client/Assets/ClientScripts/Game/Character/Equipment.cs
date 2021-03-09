@@ -8,7 +8,7 @@ using UnityEngine;
 public class Equipment : MonoBehaviour
 {
     //Map of transform name and current equipmodel
-    public Dictionary<Transform, Transform> ItemToTransformMap;
+    public Dictionary<Transform, GameObject> ItemToTransformMap;
 
 
     //Map of loadedTransform names;
@@ -18,7 +18,7 @@ public class Equipment : MonoBehaviour
     private void Start()
     {
         TransformMap = new Dictionary<string, Transform>();
-        ItemToTransformMap = new Dictionary<Transform, Transform>();
+        ItemToTransformMap = new Dictionary<Transform, GameObject>();
     }
 
     // Update is called once per frame
@@ -51,9 +51,9 @@ public class Equipment : MonoBehaviour
             return;
         }
         //Destroy an existing item if we have one. We shouldn't though because unequip should remove from list..
-        Transform CurrentItemTransform = null;
-        ItemToTransformMap.TryGetValue(parentTransform, out CurrentItemTransform);
-        if (CurrentItemTransform != null)
+        GameObject CurrentItemInTransform = null;
+        ItemToTransformMap.TryGetValue(parentTransform, out CurrentItemInTransform);
+        if (CurrentItemInTransform != null)
         {
             UnEquip(a_itemName, a_parentName);
         }
@@ -61,11 +61,13 @@ public class Equipment : MonoBehaviour
         if (ObjectForEquip != null)
         {
             ObjectForEquip.SetActive(true);
-            Instantiate(ObjectForEquip, parentTransform);
+            ItemToTransformMap[parentTransform] = Instantiate(ObjectForEquip, parentTransform);
+            
         }
 
         print("Client is equipping item:" + a_itemName);
     }
+    
 
     /// <summary>
     /// This is invoked when we get an equipment packet. Since we have Equip using the same invoke, we pass the same paramter requirements even tho we dont use it.
@@ -82,10 +84,16 @@ public class Equipment : MonoBehaviour
             //doesnt exist
             return;
         }
+        Destroy(ItemToTransformMap[parentTransform]);
         ItemToTransformMap[parentTransform] = null;
-        Destroy(parentTransform.gameObject);
+        
     }
 
+    /// <summary>
+    /// This function checks our resource library and see if we have a specific gameobject with this name
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns>The game object found one or null.</returns>
     private GameObject GetModelForName(string name)
     {
         var gameObject = Resources.Load(("ItemResources/ItemModels/" + name)) as GameObject;
@@ -97,10 +105,10 @@ public class Equipment : MonoBehaviour
     }
 
     /// <summary>
-    /// This is a function used to find a decendant. We use Brith first search to find a child containing matching name. Case Sensative
+    /// This is a function used to find a decendant. We use Brith First Search to find a child containing matching name. Case Sensative
     /// </summary>
     /// <param name="a_childName">ChildName used to match search</param>
-    /// <returns></returns>
+    /// <returns>Descendant GameObject</returns>
     public Transform FindDeepChild(string a_childName)
     {
         Queue<Transform> queue = new Queue<Transform>();

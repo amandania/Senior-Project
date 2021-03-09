@@ -2,14 +2,23 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// This class is used to represent anythign with slot data and ItemActions
+/// Currently we only add this class to a the Hotkey UI gameobjects. Our main packet to control a container is just used to refresh all the items with what the server has each time the slot is update.
+/// The reason we update all slots and not just 1 is because a client can have changed visual representations of another slot but perform the server authorative update on 1 slot only. So we just do all slots. 
+/// Most if not all containers are very small size under 500 so the refresh time is not long.
+/// <seealso cref="HandleContainerRefresh"/>
+/// </summary>
 public class Container : MonoBehaviour
 {
+
+    //Contaienr data which is preset but reregisterd on server awakes.
     public int ContainerSize = 6;
     public string ContainerName = "";
     public GameObject SlotPrefab;
     public Dictionary<int, GameObject> SlotsCreated = new Dictionary<int, GameObject>();
 
-
+    //Default Slot Gamobject
     private void Awake()
     {
         SlotPrefab = Resources.Load("Slot") as GameObject;

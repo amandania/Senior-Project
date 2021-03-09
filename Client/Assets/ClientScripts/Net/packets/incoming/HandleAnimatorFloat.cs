@@ -24,7 +24,9 @@ public class HandleAnimatorFloat : IIncomingPacketHandler
         {
             GameObject player = GameManager.instance.ServerSpawns[index];
             Animator animator = player.GetComponent<Animator>();
+            Debug.Log("Setting animator float: " + floatName);
             if (GameManager.instance.AnimatorHasParamter(animator, floatName)) {
+                Debug.Log("found animator float: " + floatName);
                 animator.SetFloat(floatName, value);
             }
         });
@@ -32,7 +34,7 @@ public class HandleAnimatorFloat : IIncomingPacketHandler
     }
 
     /// <summary>
-    /// Packet Id used to refrence incoming packet handling
+    /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
     /// <see cref="ChannelEventHandler.HandleDataPackets"/>
     /// <return>Enum ordinal for animator packet</return>
     /// </summary>

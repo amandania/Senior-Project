@@ -3,13 +3,22 @@ using DotNetty.Transport.Channels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+/// <summary>
+/// This class is an adapater inherited class of DotNettys ChanelHandlerAdapter
+/// This class is used to register the channel signals for a server and client comunication. This includes the inital network register, packets available map definitions, The ReadChannelEvent and Unregistering the channel
+/// <seealso cref="ChannelBuilder"/> for instance setup details.
+/// </summary>
 
 public class ChannelEventHandler : ChannelHandlerAdapter
 {
 
     public override bool IsSharable => true;
 
+    /// <summary>
+    /// When our channel is attempted to login he will have to register first and then send then packet to client
+    /// This is used to register the client anytime he wants to reconnect.
+    /// </summary>
+    /// <param name="channel"></param>
     public override void ChannelRegistered(IChannelHandlerContext channel)
     {
         try
@@ -18,22 +27,23 @@ public class ChannelEventHandler : ChannelHandlerAdapter
             //Debug.Log("Client connected.");
 
         }
-        catch (Exception e)
+        catch (Exception)
         {
             //Debug.Log(e.Message);
         }
     }
 
-    public Dictionary<int, IIncomingPacketHandler> packets = new Dictionary<int, IIncomingPacketHandler>();
+    //Global list of packets available to read and execute. Created on startup.
+    public Dictionary<int, IIncomingPacketHandler> Packets = new Dictionary<int, IIncomingPacketHandler>();
 
 
     /// <summary>
-    /// Called on startup tto initalize our packet map. Packet numbers are assigned to respective class definitions
+    /// Called on startup to initalize our packet map. Keys are IncomingPacket Enums with classes mapped respectively to server.
     /// </summary>
     public void InitalizeMessages()
     {
         //Key Value pairing for <opcode, listener>.
-        packets = new Dictionary<int, IIncomingPacketHandler>()
+        Packets = new Dictionary<int, IIncomingPacketHandler>()
             {
                 { (int)IncomingPackets.HANDLE_LOGIN_RESPONSE, new HandleLoginResponse() },
                 { (int)IncomingPackets.HANDLE_MOVE_CHARACTER, new HandleMoveCharacter() },
@@ -53,27 +63,34 @@ public class ChannelEventHandler : ChannelHandlerAdapter
                 { (int)IncomingPackets.HANDLE_GROUND_ITEM_SPAWN, new HandleSpawnGroundItem() },
                 { (int)IncomingPackets.HANDLE_HEALTH_CHANGED, new HandleHealthChange() },
                 { (int)IncomingPackets.HANDLE_EQUIPMENT, new HandleEquipment() },
+                { (int)IncomingPackets.HANDLE_FLOAT_ANIMATOR, new HandleAnimatorFloat() },
             };
     }
 
-
+    /// <summary>
+    /// This function handles reading the buffer message starting with the Packet Id. We use the first int byte to map to our lits of packets for an avaialble class with a packet task.
+    /// </summary>
+    /// <param name="context">Current open network channel</param>
+    /// <param name="message">Buffer containing bytes for our packet data</param>
     public override void ChannelRead(IChannelHandlerContext context, object message)
     {
         if (message is IByteBuffer)
         {
             var buffer = (IByteBuffer)message;
             int packetId = buffer.ReadInt();
-            if (packetId != 5)
-            {
-                ////Debug.Log("Packet: " + packetId);
-            }
             HandleDataPackets(packetId, buffer);
             buffer.Release();
         }
     }
+    
+    /// <summary>
+    /// This function is called after we have a packet id recieved. We find the class with key of packetId to call ExecutePacket
+    /// </summary>
+    /// <param name="packetId">Packet id to try and find our task to execute</param>
+    /// <param name="buffer">The buffer to pass into our execute task defined in the packet class</param>
     private void HandleDataPackets(int packetId, IByteBuffer buffer)
     {
-        var packetToExecute = packets.FirstOrDefault(packet => (int)packet.Value.PacketType == packetId).Value;
+        var packetToExecute = Packets.FirstOrDefault(packet => (int)packet.Value.PacketType == packetId).Value;
 
 
         if (packetToExecute != null)
@@ -87,6 +104,11 @@ public class ChannelEventHandler : ChannelHandlerAdapter
 
     }
 
+    /// <summary>
+    /// Handle channel exceptions
+    /// </summary>
+    /// <param name="context">Connected network channel</param>
+    /// <param name="exception">Which exception in the network</param>
     public override void ExceptionCaught(IChannelHandlerContext context, Exception exception)
     {
         Console.WriteLine("Exception: " + exception);
