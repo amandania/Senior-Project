@@ -45,6 +45,8 @@ public class Player : Character
         //UnityEngine.Debug.Log("set combat compont " + currentCombatComp);
         var currentMoveComp = myModel.GetComponent<MovementComponent>();
         SetMoveComponent(currentMoveComp ?? myModel.AddComponent<MovementComponent>());
+
+        SetEquipmentComponent(myModel.AddComponent<Equipment>());
         HotkeyInventory.RefrehsItems();
         currentCombatComp.CurrentHealth = m_currentHealth == -1 ? 100 : m_currentHealth;
         currentCombatComp.MaxHealth = m_maxHealth == -1 ? 100 : m_maxHealth;

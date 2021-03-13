@@ -23,6 +23,20 @@ public class CombatAnimations : MonoBehaviour
 
     }
 
+    public void ToggleNewCollider(string Name, GameObject colliderObj, bool isActive = false)
+    {
+        if (!isActive)
+        {
+            ColliderMap.Add("LeftHand", LeftHandCollision);
+            ColliderMap.Add("RightHand", RightHandCollision);
+        } else
+        {
+            ColliderMap.Clear();
+            ColliderMap.Add(Name, colliderObj);
+        }
+    }
+
+
     // Update is called once per frame
     void Update()
     {
@@ -32,6 +46,29 @@ public class CombatAnimations : MonoBehaviour
     public void ActivateCombatImpacts(string ColliderName)
     {
         int layerMask = 1 << 8;
+        if (ColliderName == "ActiveWeapon")
+        {
+            var combatComponent = gameObject.GetComponent<CombatComponent>();
+            Character character = null;
+            if (combatComponent != null) {
+               character = combatComponent.Character;
+            }
+            if (character != null)
+            {
+                //get our active wepaon for type.
+                if(character.IsPlayer())
+                {
+                    var hotkeys = character.AsPlayer().HotkeyInventory;
+                    if (hotkeys.LastActiveSlot != -1) {
+                        var activeWep = hotkeys.ContainerItems[hotkeys.LastActiveSlot];
+                        //We are going to use the weapon name to find our descendant child.
+                        ColliderName = activeWep.ItemName;
+                    }
+                }
+
+            }
+        }
+
         ColliderMap.TryGetValue(ColliderName, out ActiveCombatCollider);
         if (ActiveCombatCollider != null)
         {

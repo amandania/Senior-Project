@@ -16,6 +16,7 @@ public class Character
     
     public MovementComponent MovementComponent { get; set; }
     public CombatComponent CombatComponent { get; set; }
+    public Equipment Equipment;
     private bool InCombat { get { return CombatComponent.LastAttackRecieved.Elapsed.Seconds < 5;  }  }
 
     public NetworkManager m_network;
@@ -103,23 +104,21 @@ public class Character
         Rotation = a_rotation;
     }
     
-
-    public MovementComponent GetMovementComponent()
+    public void SetMoveComponent(MovementComponent a_mover)
     {
-        return MovementComponent;
+        a_mover.Character = this;
+        MovementComponent = a_mover;
     }
 
-    public void SetMoveComponent(MovementComponent a_comp)
+    public void SetCombatComponent(CombatComponent a_combat)
     {
-        a_comp.Character = this;
-        MovementComponent = a_comp;
-    }
-
-    public void SetCombatComponent(CombatComponent a_comp)
-    {
-        a_comp.Character = this;
-        CombatComponent = a_comp;
+        a_combat.Character = this;
+        CombatComponent = a_combat;
         
+    }
+    public void SetEquipmentComponent(Equipment a_equipment)
+    {
+        Equipment = a_equipment;
     }
 
     public GameObject GetCharModel()

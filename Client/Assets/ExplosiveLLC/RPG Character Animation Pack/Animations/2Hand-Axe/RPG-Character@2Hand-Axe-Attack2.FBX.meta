@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 5382c9f3a528413448fc27554dd73d74
 ModelImporter:
-  serializedVersion: 25
+  serializedVersion: 19301
   internalIDToNameTable:
   - first:
       1: 100000
@@ -371,7 +371,7 @@ ModelImporter:
     second: ImportLogs
   externalObjects: {}
   materials:
-    importMaterials: 0
+    materialImportMode: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 0
@@ -382,35 +382,24 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: Motion
     rigImportErrors: 
-    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
-      copied configuration does not match position in animation file:\n\t'B_L_Thigh'
-      : position error = 78.190971 mm\n\t'B_L_Calf' : position error = 397.036560
-      mm\n\t'B_L_Foot' : position error = 399.298553 mm\n\t'B_L_Toe0' : position error
-      = 191.194199 mm\n\t'B_R_Thigh' : position error = 78.190971 mm\n\t'B_R_Calf'
-      : position error = 397.036621 mm\n\t'B_R_Foot' : position error = 399.298492
-      mm\n\t'B_R_Toe0' : position error = 191.194199 mm\n"
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
-      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
-      improve retargeting quality.\n\t'B_Spine' has translation animation that will
-      be discarded.\n"
-    animationRetargetingWarnings: "\nRetargeting quality report for clip 'Take 001':\n\tLeftLowerLeg
-      average position error 440.4 mm and maximum position error 455.5 mm at time
-      1: 8 (79.2%) Frame 38\n\tLeftFoot average position error 745.2 mm and maximum
-      position error 803.7 mm at time 0:14 (29.2%) Frame 14\n\tRightLowerLeg average
-      position error 431.1 mm and maximum position error 454.9 mm at time 0:10 (20.8%)
-      Frame 10\n\tRightFoot average position error 739.0 mm and maximum position error
-      821.7 mm at time 0: 2 (4.2%) Frame 2\n\tLeftUpperArm average position error
-      469.2 mm and maximum position error 494.1 mm at time 1:15 (93.8%) Frame 45\n\tLeftLowerArm
-      average position error 358.8 mm and maximum position error 541.6 mm at time
-      0:19 (39.6%) Frame 19\n\tLeftHand average position error 442.8 mm and maximum
-      position error 686.0 mm at time 0:19 (39.6%) Frame 19\n\tRightUpperArm average
-      position error 504.1 mm and maximum position error 566.7 mm at time 0:13 (27.1%)
-      Frame 13\n\tRightLowerArm average position error 560.5 mm and maximum position
-      error 652.8 mm at time 0: 2 (4.2%) Frame 2\n\tRightHand average position error
-      609.3 mm and maximum position error 860.3 mm at time 0: 2 (4.2%) Frame 2\n\tHead
-      average position error 633.2 mm and maximum position error 639.9 mm at time
-      1:12 (87.5%) Frame 42\n"
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'B_Spine' has translation animation that
+      will be discarded.\n"
+    animationRetargetingWarnings: "\nRetargeting quality report for clip 'Take 001':\n\tRightLowerLeg
+      average position error 0.2 mm and maximum position error 1.5 mm at time 0:
+      4 (8.3%) Frame 4\n\tLeftUpperArm average position error 5.3 mm and maximum
+      position error 15.7 mm at time 0:13 (27.1%) Frame 13\n\tLeftLowerArm average
+      position error 5.3 mm and maximum position error 15.7 mm at time 0:13 (27.1%)
+      Frame 13\n\tLeftHand average position error 5.3 mm and maximum position error
+      15.7 mm at time 0:13 (27.1%) Frame 13\n\tRightUpperArm average position error
+      5.3 mm and maximum position error 15.7 mm at time 0:13 (27.1%) Frame 13\n\tRightLowerArm
+      average position error 5.3 mm and maximum position error 15.7 mm at time 0:13
+      (27.1%) Frame 13\n\tRightHand average position error 5.3 mm and maximum position
+      error 15.7 mm at time 0:13 (27.1%) Frame 13\n\tHead average position error
+      5.3 mm and maximum position error 15.7 mm at time 0:13 (27.1%) Frame 13\n"
     animationDoRetargetingWarnings: 1
     importAnimatedCustomProperties: 0
     importConstraints: 0
@@ -446,14 +435,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.41649497
-        functionName: Hit
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -465,10 +447,12 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 0
     importBlendShapes: 0
     importCameras: 0
     importLights: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -495,7 +479,6 @@ ModelImporter:
     normalSmoothingSource: 0
   referencedClips: []
   importAnimation: 1
-  copyAvatar: 1
   humanDescription:
     serializedVersion: 3
     human:
@@ -1218,8 +1201,10 @@ ModelImporter:
     skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: e57e9b8cd5e115f4f8d7736473e5c7fd,
     type: 3}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
+  avatarSetup: 2
   additionalBone: 0
   userData: 
   assetBundleName: 

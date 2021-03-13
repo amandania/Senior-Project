@@ -206,9 +206,9 @@ public class ChatManager : MonoBehaviour
     /// <summary>
     /// Adds a chat message to the specified tab.
     /// </summary>
-    /// <param name="tabId">Filter id (Defaulted to 0) </param>
     /// <param name="text">Recievd networkd message.</param>
-    public void ReceiveChatMessage(int tabId = 0, string text)
+    /// <param name="tabId">Filter id (Defaulted to 0) </param>
+    public void ReceiveChatMessage(string text, int tabId = 0)
     {
         TabInfo tabInfo = ActiceChatWindow;
 

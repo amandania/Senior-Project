@@ -41,9 +41,15 @@ public class Hotkeys : Container
 
         if (item.IsActive)
         {
+            if (item.TrasnformParentName.Length > 0)
+            {
+                ToggleEquip(item, false);
+            }
+        } else
+        {
+            // we dont call toggle here because we just want to send visual packet change before new equip
             if (LastActiveSlot != -1 && LastActiveSlot != slot)
             {
-                //unequip last item if it was a transform type
                 var lastSlotItem = ContainerItems[LastActiveSlot];
                 if (lastSlotItem.TrasnformParentName.Length > 0)
                 {
@@ -55,16 +61,7 @@ public class Hotkeys : Container
 
             if (item.TrasnformParentName.Length > 0)
             {
-                m_player.Session.SendPacketToAll(new SendEquipmentAction(m_player, "UnEquip", item.ItemName, item.TrasnformParentName)).ConfigureAwait(false); Debug.Log("itemname :" + item.ItemName + " at slot " + slot);
-                m_player.Session.SendPacketToAll(new SendAnimatorFloat(m_player, "MovementState", 0f)).ConfigureAwait(false);
-            }
-        } else
-        {
-            if (item.TrasnformParentName.Length > 0)
-            {
-                m_player.Session.SendPacketToAll(new SendEquipmentAction(m_player, "EquipItem", item.ItemName, item.TrasnformParentName)).ConfigureAwait(false);
-                Debug.Log("itemname :" + item.ItemName + " at slot " + slot); Debug.Log("itemname :" + item.ItemName + " at slot " + slot);
-                m_player.Session.SendPacketToAll(new SendAnimatorFloat(m_player, "MovementState", 1f)).ConfigureAwait(false);
+                ToggleEquip(item, true);
             }
         }
         item.IsActive = !item.IsActive;
@@ -73,7 +70,24 @@ public class Hotkeys : Container
         }
     }
 
+    public void ToggleEquip(SlotItem a_item, bool a_isActive)
+    {
+        if (a_isActive)
+        {
+            m_player.Session.SendPacketToAll(new SendEquipmentAction(m_player, "EquipItem", a_item.ItemName, a_item.TrasnformParentName)).ConfigureAwait(false);
+            m_player.Session.SendPacketToAll(new SendAnimatorFloat(m_player, "MovementState", 1f)).ConfigureAwait(false);
 
+            UnityMainThreadDispatcher.Instance().Enqueue(() =>
+            {
+                m_player.Equipment.EquipItem(a_item.ItemName, a_item.TrasnformParentName);
+            });
+        }
+        else
+        {
+            m_player.Session.SendPacketToAll(new SendEquipmentAction(m_player, "UnEquip", a_item.ItemName, a_item.TrasnformParentName)).ConfigureAwait(false);
+            m_player.Session.SendPacketToAll(new SendAnimatorFloat(m_player, "MovementState", 0f)).ConfigureAwait(false);
+        }
+    }
 
     public void RefrehsItems()
     {

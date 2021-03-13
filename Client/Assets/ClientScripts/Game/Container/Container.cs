@@ -25,6 +25,16 @@ public class Container : MonoBehaviour
         
     }
 
+
+    /// <summary>
+    /// This function is the main use of this class. We refresh a each slot one at a time based on the packet data we recieved for all the items in our entry.
+    /// <see cref=""/>
+    /// </summary>
+    /// <param name="slotIndex"></param>
+    /// <param name="slotItemName"></param>
+    /// <param name="slotItemAmount"></param>
+    /// <param name="a_slotActive"></param>
+    /// <param name="destroyInstance"></param>
     public void RefreshSlot(int slotIndex, string slotItemName = null, int slotItemAmount = -1, bool a_slotActive = false, bool destroyInstance = false)
     {
         GameObject changeSlot = null;
