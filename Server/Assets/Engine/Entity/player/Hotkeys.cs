@@ -8,6 +8,10 @@ public class Hotkeys : Container
 
     private readonly Player m_player;
 
+    private int m_lastActiveSlot = -1;
+
+    public int LastActiveSlot { get => m_lastActiveSlot; set => m_lastActiveSlot = value; }
+
     public Hotkeys(Player a_player, int a_size)
     {
         DeleteOnRefresh = false;
@@ -39,21 +43,50 @@ public class Hotkeys : Container
         {
             if (item.TrasnformParentName.Length > 0)
             {
-                m_player.Session.SendPacketToAll(new SendEquipmentAction(m_player, "UnEquip", item.ItemName, item.TrasnformParentName)).ConfigureAwait(false);
-                Debug.Log("itemname :" + item.ItemName + " at slot " + slot);
+                ToggleEquip(item, false);
             }
         } else
         {
+            // we dont call toggle here because we just want to send visual packet change before new equip
+            if (LastActiveSlot != -1 && LastActiveSlot != slot)
+            {
+                var lastSlotItem = ContainerItems[LastActiveSlot];
+                if (lastSlotItem.TrasnformParentName.Length > 0)
+                {
+                    lastSlotItem.IsActive = false;
+                    m_player.Session.SendPacketToAll(new SendEquipmentAction(m_player, "UnEquip", lastSlotItem.ItemName, lastSlotItem.TrasnformParentName)).ConfigureAwait(false);
+                    Debug.Log("unequip lastactive :" + lastSlotItem.ItemName + " at slot " + lastSlotItem);
+                }
+            }
+
             if (item.TrasnformParentName.Length > 0)
             {
-                m_player.Session.SendPacketToAll(new SendEquipmentAction(m_player, "EquipItem", item.ItemName, item.TrasnformParentName)).ConfigureAwait(false);
-                Debug.Log("itemname :" + item.ItemName + " at slot " + slot);
+                ToggleEquip(item, true);
             }
         }
         item.IsActive = !item.IsActive;
+        if (item.IsActive) {
+            LastActiveSlot = slot;
+        }
+    }
 
-        
-       
+    public void ToggleEquip(SlotItem a_item, bool a_isActive)
+    {
+        if (a_isActive)
+        {
+            m_player.Session.SendPacketToAll(new SendEquipmentAction(m_player, "EquipItem", a_item.ItemName, a_item.TrasnformParentName)).ConfigureAwait(false);
+            m_player.Session.SendPacketToAll(new SendAnimatorFloat(m_player, "MovementState", 1f)).ConfigureAwait(false);
+
+            UnityMainThreadDispatcher.Instance().Enqueue(() =>
+            {
+                m_player.Equipment.EquipItem(a_item.ItemName, a_item.TrasnformParentName);
+            });
+        }
+        else
+        {
+            m_player.Session.SendPacketToAll(new SendEquipmentAction(m_player, "UnEquip", a_item.ItemName, a_item.TrasnformParentName)).ConfigureAwait(false);
+            m_player.Session.SendPacketToAll(new SendAnimatorFloat(m_player, "MovementState", 0f)).ConfigureAwait(false);
+        }
     }
 
     public void RefrehsItems()

@@ -21,11 +21,6 @@ public class Equipment : MonoBehaviour
         ItemToTransformMap = new Dictionary<Transform, GameObject>();
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-
-    }
     /// <summary>
     /// This function is invoked by our Handle Equipment packet. <see cref="HandleEquipment"/>
     /// </summary>
@@ -65,7 +60,7 @@ public class Equipment : MonoBehaviour
             
         }
 
-        print("Client is equipping item:" + a_itemName);
+        print("Server is equipping item:" + a_itemName + " on character: " + gameObject.name);
     }
     
 
@@ -96,7 +91,7 @@ public class Equipment : MonoBehaviour
     /// <returns>The game object found one or null.</returns>
     private GameObject GetModelForName(string name)
     {
-        var gameObject = Resources.Load(("ItemResources/ItemModels/" + name)) as GameObject;
+        var gameObject = Resources.Load(("ItemModels/" + name)) as GameObject;
         if (gameObject)
         {
             return gameObject;

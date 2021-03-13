@@ -34,6 +34,7 @@ public class HandleContainerRefresh : IIncomingPacketHandler
             int itemNameLength = buffer.ReadInt();
             string itemName = buffer.ReadString(itemNameLength, Encoding.Default);
             int itemAmount = buffer.ReadInt();
+            bool isActive = buffer.ReadBoolean();
             var slotindex = i;
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
             {
@@ -43,13 +44,11 @@ public class HandleContainerRefresh : IIncomingPacketHandler
                     var container = taggedContainer.GetComponent<Container>();
                     if (container != null)
                     {
-                        container.RefreshSlot(slotindex, itemName, itemAmount, deleteEmpty);
+                        container.RefreshSlot(slotindex, itemName, itemAmount, isActive, deleteEmpty);
                     }
                 }
             });
         }
-        
-
     }
 
 }

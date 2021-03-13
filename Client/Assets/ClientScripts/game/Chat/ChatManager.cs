@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class ChatManager : MonoBehaviour
 {
-
+    /// <summary>
+    /// Unity field display
+    /// </summary>
     [System.Serializable]
     public class TabInfo
     {
@@ -14,24 +16,25 @@ public class ChatManager : MonoBehaviour
         public ScrollRect scrollRect;
     }
 
+    //Player Input Fields
     public InputField InputField;
     public Button SubmitBtn;
 
+    //Chat views, currently only display default category index 0
     [SerializeField] private List<TabInfo> m_Tabs = new List<TabInfo>();
 
+    //Chat Settings
     public Font TextFont = FontData.defaultFontData.font;
     public int FontSize = FontData.defaultFontData.fontSize;
     public float LineSpacing = FontData.defaultFontData.lineSpacing;
     public Color TextColor = Color.white;
-
-    /// <summary>
-    /// Fired when the clients sends a chat message.
-    /// First paramenter - int tabId.
-    /// Second parameter - string messageText.
-    /// </summary>
-
+    
+    //Curent Tab category View
     public TabInfo ActiceChatWindow;
 
+    /// <summary>
+    /// Cleanup the chat so its empty on startup
+    /// </summary>
     protected void Awake()
     {
         ActiceChatWindow = m_Tabs[0];
@@ -40,7 +43,12 @@ public class ChatManager : MonoBehaviour
             Destroy(t.gameObject);
         }
     }
+
+    //Chat State
     public bool ChatActive = false;
+    /// <summary>
+    /// Every frame we listen for the input requirements to triget a chat and  enter the actual input.
+    /// </summary>
     public void Update()
     {
 
@@ -65,23 +73,10 @@ public class ChatManager : MonoBehaviour
             ChatActive = false;
         }
     }
-    protected void OnEnable()
-    {
-        // Hook the submit button click event
-        /*if (this.m_Submit != null)
-        {
-            SubmitBtn.onClick.AddListener(OnSubmitClick);
-        }*/
 
-        // Hook the input field end edit event
-        if (InputField != null)
-        {
-
-            //InputField.onEndEdit.AddListener(OnInputEndEdit);
-        }
-
-    }
-
+    /// <summary>
+    /// Disable the events created 
+    /// </summary>
     protected void OnDisable()
     {
         // Unhook the submit button click event
@@ -164,35 +159,12 @@ public class ChatManager : MonoBehaviour
         // Scroll to bottom
         ActiceChatWindow.scrollRect.verticalNormalizedPosition = 0f;
     }
-    /// <summary>
-    /// Fired when the input field is submitted.
-    /// </summary>
-    /// <param name="text"></param>
-    public void OnInputEndEdit(string text)
-    {
-        if (Input.GetKey(KeyCode.KeypadEnter))
-        {
-            //print("enter key");
-        }
-        /*// Make sure we have input text
-        if (!string.IsNullOrEmpty(text))
-        {
-            // Make sure the return key is pressed
-            if (Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter))
-            {
-                //print("enter key sent");
-                // Send the message
-                SendChatMessage(text);
-            }
-        }*/
-
-    }
 
     /// <summary>
     /// Gets the tab info for the specified tab by id.
     /// </summary>
-    /// <param name="tabId">Tab id.</param>
-    /// <returns></returns>
+    /// <param name="tabId">Tab id</param>
+    /// <returns>TabInfo of current id containg all the chat view data like messages</returns>
     public TabInfo GetTabInfo(int tabId)
     {
         // If we have tabs
@@ -234,9 +206,9 @@ public class ChatManager : MonoBehaviour
     /// <summary>
     /// Adds a chat message to the specified tab.
     /// </summary>
-    /// <param name="tabId">Filter id (Defaulted to 0) </param>
     /// <param name="text">Recievd networkd message.</param>
-    public void ReceiveChatMessage(int tabId, string text)
+    /// <param name="tabId">Filter id (Defaulted to 0) </param>
+    public void ReceiveChatMessage(string text, int tabId = 0)
     {
         TabInfo tabInfo = ActiceChatWindow;
 

@@ -24,7 +24,7 @@ public class HandleChatMessage : IIncomingPacketHandler
             var comp = GameObject.Find("HUD").transform.Find("Chat").GetComponent<ChatManager>();
             if (comp != null)
             {
-                comp.ReceiveChatMessage(0, message);
+                comp.ReceiveChatMessage(message, 0);
             }
         });
     }

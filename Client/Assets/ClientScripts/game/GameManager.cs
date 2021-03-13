@@ -128,6 +128,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
     public float WrapAngle(float angle)
     {
         angle %= 360;
@@ -135,5 +136,12 @@ public class GameManager : MonoBehaviour
             return angle - 360;
         return angle;
     }
-
+    public bool AnimatorHasParamter(Animator _Anim, string _ParamName)
+    {
+        foreach (AnimatorControllerParameter param in _Anim.parameters)
+        {
+            if (param.name == _ParamName) return true;
+        }
+        return false;
+    }
 }

@@ -25,20 +25,19 @@ namespace Engine.DataLoader
                 return m_gridSizeX * m_gridSizeY;
             }
         }
+
         public Node NodeFromWorldPoint(Vector3 worldPosition)
         {
-
-
             float percentX = (worldPosition.x + m_gridWorldSize.X / 2) / m_gridWorldSize.X;
             float percentY = (worldPosition.z + m_gridWorldSize.Y / 2) / m_gridWorldSize.Y;
             percentX = Clamp01(percentX);
             percentY = Clamp01(percentY);
 
-
             short x = (short)Math.Round((double)(m_gridSizeX - 1) * percentX);
             short y = (short)Math.Round((double)(m_gridSizeX - 1) * percentY);
             return GetOrLoadGrid(x, y);
         }
+
         public float Clamp01(float value)
         {
             if ((double)value < 0.0)
@@ -80,7 +79,6 @@ namespace Engine.DataLoader
             }
             return neighbours;
         }
-
 
         public int Clamp(int value, int min, int max)
         {
