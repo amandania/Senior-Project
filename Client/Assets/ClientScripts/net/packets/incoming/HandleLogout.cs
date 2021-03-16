@@ -35,6 +35,11 @@ public class HandleLogout : IIncomingPacketHandler
                         SceneManager.UnloadSceneAsync("MapScene").completed += (t2) =>
                         {
                             NetworkManager.networkStream.CloseAsync();
+                            GameManager.instance.ServerSpawns.Clear();
+                            GameManager.instance.GroundItems.Clear();
+                            GameManager.instance.PlayerList.Clear();
+                            GameManager.instance.NpcList.Clear();
+                            GameObject.Destroy(Camera.main.gameObject.GetComponent<PlayerCamera>());
                         };
                     };
                 });
