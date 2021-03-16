@@ -16,6 +16,7 @@ public class NetworkManager : MonoBehaviour
 
 
     public static NetworkManager instance;
+    public GameObject LocalPlayerGameObject;
 
     private ChannelBuilder m_channelBuilder;
     public static IChannel networkStream;

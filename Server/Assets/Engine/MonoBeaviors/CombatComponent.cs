@@ -6,7 +6,6 @@ using UnityEngine;
 public class CombatComponent : MonoBehaviour
 {
     private float m_reachDistance;
-    private Animator MyAnimator;
     private Vector3 DefaultForwardAttack = new Vector3(0, 0, 10);
 
     [Header("Combat Target Data")]
@@ -15,6 +14,7 @@ public class CombatComponent : MonoBehaviour
 
     public Character Character { get; set; } // Gameobject character owner set during compoent addition/set
 
+    public Animator MyAnimator;
     public int MaxHealth = 25;
     public int CurrentHealth = 25;
 

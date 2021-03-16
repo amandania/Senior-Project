@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
         if (a_isLocalPlayer == true)
         {
             NetworkManager.instance.myIndex = a_guid;
+            NetworkManager.instance.LocalPlayerGameObject = playerObj;
             LocalPlrObj = playerObj;
         }
         playerObj.name = "Player: " + a_playerName;

@@ -9,6 +9,7 @@ TagManager:
   - InteractMessage
   - MessagePanel
   - LocalHealthBar
+  - EscapePanel
   layers:
   - Default
   - TransparentFX

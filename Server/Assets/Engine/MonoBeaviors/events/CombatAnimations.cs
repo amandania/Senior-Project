@@ -108,7 +108,7 @@ public class CombatAnimations : MonoBehaviour
             }
         } else
         {
-            print("no active combat collider");
+            print("no active combat collider for colliderNAme: " + ColliderName);
         }
 
     }

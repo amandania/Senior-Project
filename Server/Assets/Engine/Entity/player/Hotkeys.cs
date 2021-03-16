@@ -56,6 +56,10 @@ public class Hotkeys : Container
                     lastSlotItem.IsActive = false;
                     m_player.Session.SendPacketToAll(new SendEquipmentAction(m_player, "UnEquip", lastSlotItem.ItemName, lastSlotItem.TrasnformParentName)).ConfigureAwait(false);
                     Debug.Log("unequip lastactive :" + lastSlotItem.ItemName + " at slot " + lastSlotItem);
+                    UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                    {
+                        m_player.Equipment.UnEquip(lastSlotItem.ItemName, lastSlotItem.TrasnformParentName);
+                    });
                 }
             }
 
@@ -79,6 +83,7 @@ public class Hotkeys : Container
 
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
             {
+                m_player.CombatComponent.MyAnimator.SetFloat("MovementState", 1f);
                 m_player.Equipment.EquipItem(a_item.ItemName, a_item.TrasnformParentName);
             });
         }
@@ -86,6 +91,11 @@ public class Hotkeys : Container
         {
             m_player.Session.SendPacketToAll(new SendEquipmentAction(m_player, "UnEquip", a_item.ItemName, a_item.TrasnformParentName)).ConfigureAwait(false);
             m_player.Session.SendPacketToAll(new SendAnimatorFloat(m_player, "MovementState", 0f)).ConfigureAwait(false);
+            UnityMainThreadDispatcher.Instance().Enqueue(() =>
+            {
+                m_player.CombatComponent.MyAnimator.SetFloat("MovementState", 1f);
+                m_player.Equipment.UnEquip(a_item.ItemName, a_item.TrasnformParentName);
+            });
         }
     }
 

@@ -63,6 +63,15 @@ public class PlayerCamera : MonoBehaviour
 
     private void LateUpdate()
     {
+        if(NetworkManager.instance.LocalPlayerGameObject == null) {
+            return;
+        }
+        if (!NetworkManager.instance.LocalPlayerGameObject.GetComponent<KeyListener>().mIsControlEnabled)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            return;
+        }
+
         Cursor.lockState = CursorLockMode.Locked;
         if (!followPart)
             return;

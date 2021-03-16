@@ -83,13 +83,14 @@ public class NetworkManager : MonoBehaviour
         builder.RegisterType<PacketHandler>().As<IPacketHandler>().SingleInstance();
         builder.RegisterType<InputController>().As<IInputControl>().SingleInstance();
 
-        //Packets
+        //Incoming Packets
         builder.RegisterType<HandleMapLoaded>().As<IIncomingPackets>();
         builder.RegisterType<LoginResponsePacket>().As<IIncomingPackets>();
         builder.RegisterType<HandleLeftMouseClick>().As<IIncomingPackets>();
         builder.RegisterType<HandleMovementInput>().As<IIncomingPackets>();
         builder.RegisterType<HandleActionKeys>().As<IIncomingPackets>();
         builder.RegisterType<HandleChatMessage>().As<IIncomingPackets>();
+        builder.RegisterType<HandleLogoutRequest>().As<IIncomingPackets>();
 
         //Player startables we want to make sure all the other dependencies are built
         builder.RegisterType<PlayerData>().As<IPlayerDataLoader>().As<IStartable>().SingleInstance();
