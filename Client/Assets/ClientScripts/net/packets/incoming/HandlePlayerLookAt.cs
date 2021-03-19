@@ -11,10 +11,10 @@ public class HandlePlayerLookAt : IIncomingPacketHandler
 
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            var lookAt = GameManager.instance.ServerSpawns[index];
+            var lookAt = GameManager.Instance.ServerSpawns[index];
             if (lookAt != null)
             {
-                GameManager.instance.camera.GetComponent<PlayerCamera>().lookPoint = GameManager.instance.ServerSpawns[index].transform;
+                GameManager.Instance.camera.GetComponent<PlayerCamera>().lookPoint = GameManager.Instance.ServerSpawns[index].transform;
             }
         });
     }

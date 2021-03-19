@@ -79,7 +79,10 @@ public class Npc : Character
         var currentMoveComp = myModel.GetComponent<MovementComponent>();
         SetMoveComponent(currentMoveComp ?? myModel.AddComponent<MovementComponent>());
 
-        if (currentDefs.isAttackable)
+        if (currentDefs.InteractType == InteractTypes.NpcInteract) {
+
+
+        }else if (currentDefs.isAttackable)
         {
             var currentCombatComp = myModel.GetComponent<CombatComponent>();
             SetCombatComponent(currentCombatComp ?? myModel.AddComponent<CombatComponent>());

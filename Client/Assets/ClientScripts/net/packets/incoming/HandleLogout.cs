@@ -2,8 +2,9 @@
 using System;
 using System.Text;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 /// <summary>
-/// This class desroys a player gameobject during logout
+/// This class desroys a player gameobject during logout (if othere players discconect it will only destroy the game object here)
 /// </summary>
 public class HandleLogout : IIncomingPacketHandler
 {
@@ -17,15 +18,31 @@ public class HandleLogout : IIncomingPacketHandler
 
         var plrIdLength = buffer.ReadInt();
         var playerguid = Guid.Parse(buffer.ReadString(plrIdLength, Encoding.Default));
-        var sessionLogged = buffer.ReadBoolean();
+        var returnPlayerToScreen = buffer.ReadBoolean();
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            var gameobject = GameManager.instance.PlayerList[playerguid];
-            GameManager.instance.DestroyServerObject(playerguid);
-            GameManager.instance.PlayerList.Remove(playerguid);
+            var gameobject = GameManager.Instance.PlayerList[playerguid];
+            GameManager.Instance.DestroyServerObject(playerguid);
+            GameManager.Instance.PlayerList.Remove(playerguid);
 
-            if (!sessionLogged)
+            if (returnPlayerToScreen)
             {
+                Debug.Log("Logout the player to main screen");
+                UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                {
+                    SceneManager.LoadSceneAsync("LoginScreen", LoadSceneMode.Additive).completed += (t) =>
+                    {
+                        SceneManager.UnloadSceneAsync("MapScene").completed += (t2) =>
+                        {
+                            NetworkManager.networkStream.CloseAsync();
+                            GameManager.Instance.ServerSpawns.Clear();
+                            GameManager.Instance.GroundItems.Clear();
+                            GameManager.Instance.PlayerList.Clear();
+                            GameManager.Instance.NpcList.Clear();
+                            GameObject.Destroy(Camera.main.gameObject.GetComponent<PlayerCamera>());
+                        };
+                    };
+                });
                 //We exited the game manually so we return back to login screen here
             }
         });

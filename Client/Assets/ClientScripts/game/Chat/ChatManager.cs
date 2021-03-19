@@ -38,9 +38,12 @@ public class ChatManager : MonoBehaviour
     protected void Awake()
     {
         ActiceChatWindow = m_Tabs[0];
-        foreach (Transform t in ActiceChatWindow.content)
+        if (ActiceChatWindow != null && ActiceChatWindow.content != null)
         {
-            Destroy(t.gameObject);
+            foreach (Transform t in ActiceChatWindow.content)
+            {
+                Destroy(t.gameObject);
+            }
         }
     }
 

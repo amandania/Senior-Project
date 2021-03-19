@@ -13,17 +13,17 @@ public class HandleDestroyGameObject : IIncomingPacketHandler
         //server should only authoartate this send to destroy monsters and objects not players.
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            var obj = GameManager.instance.ServerSpawns[guid];
+            var obj = GameManager.Instance.ServerSpawns[guid];
             if (obj != null)
             {
                 //if we are looking at whats about to be destroy get rid of it as a look.
                 var currentLook = Camera.main.GetComponent<PlayerCamera>().lookPoint;
                 if (currentLook != null & currentLook == obj)
                 {
-                    GameManager.instance.camera.GetComponent<PlayerCamera>().lookPoint = null;
+                    GameManager.Instance.camera.GetComponent<PlayerCamera>().lookPoint = null;
                 }
                 //Debug.Log("Game object destroyed on client.");
-                GameManager.instance.DestroyServerObject(guid, isMonster);
+                GameManager.Instance.DestroyServerObject(guid, isMonster);
             }
         });
     }

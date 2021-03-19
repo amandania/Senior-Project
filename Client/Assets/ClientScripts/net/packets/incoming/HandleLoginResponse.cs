@@ -30,7 +30,7 @@ public class HandleLoginResponse : IIncomingPacketHandler
                     SceneManager.UnloadSceneAsync("LoginScreen").completed += (t2) =>
                     {
 
-                        GameManager.instance.SpawnPlayer(username, playerguid, Position, Rotation, true);
+                        GameManager.Instance.SpawnPlayer(username, playerguid, Position, Rotation, true);
                         NetworkManager.instance.SendPacket(new SendMapLoaded().CreatePacket());
                     };
                 };

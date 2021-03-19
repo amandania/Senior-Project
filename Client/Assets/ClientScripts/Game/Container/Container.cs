@@ -65,6 +65,7 @@ public class Container : MonoBehaviour
                     {
                         border.transform.Find("Count").transform.GetComponent<Text>().text = "";
                         border.transform.Find("ItemImage").transform.GetComponent<RawImage>().texture = null;
+                        border.transform.Find("ItemImage").transform.GetComponent<RawImage>().color = new Color(0, 0, 0);
                     }
                 }
             }
@@ -90,6 +91,7 @@ public class Container : MonoBehaviour
                 if (itemImage != null)
                 {
                     border.transform.Find("ItemImage").transform.GetComponent<RawImage>().texture = itemImage;
+                    border.transform.Find("ItemImage").transform.GetComponent<RawImage>().color = new Color(255, 255, 255);
                 }
             }
         }

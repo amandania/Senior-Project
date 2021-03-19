@@ -52,7 +52,7 @@ public class KeyListener : MonoBehaviour
     }
 
 
-    private bool mIsControlEnabled = true;
+    public bool mIsControlEnabled = true;
 
     public void EnableControl()
     {
@@ -77,6 +77,10 @@ public class KeyListener : MonoBehaviour
 
     private void Update()
     {
+        if (!mIsControlEnabled)
+        {
+            return;
+        }
         var mouseButton1Down = Input.GetMouseButtonDown(0);
         if (mouseButton1Down && !EventSystem.current.IsPointerOverGameObject())
         {

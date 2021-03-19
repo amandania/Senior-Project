@@ -19,7 +19,7 @@ public class HandleSpawnMonster : IIncomingPacketHandler
         {
             //Debug.Log("spawn monster on client " + charName);
             var resourceModel = Resources.Load("MonsterModels/" + charName) as GameObject;
-            GameManager.instance.SpawnMonster(Guid.Parse(charGuid), position, rotation, resourceModel);
+            GameManager.Instance.SpawnMonster(Guid.Parse(charGuid), position, rotation, resourceModel);
         });
     }
 

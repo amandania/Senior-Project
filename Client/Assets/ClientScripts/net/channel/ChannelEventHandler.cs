@@ -64,6 +64,7 @@ public class ChannelEventHandler : ChannelHandlerAdapter
                 { (int)IncomingPackets.HANDLE_HEALTH_CHANGED, new HandleHealthChange() },
                 { (int)IncomingPackets.HANDLE_EQUIPMENT, new HandleEquipment() },
                 { (int)IncomingPackets.HANDLE_FLOAT_ANIMATOR, new HandleAnimatorFloat() },
+                { (int)IncomingPackets.HANDLE_DIALOGUE, new HandleDialogue() },
             };
     }
 

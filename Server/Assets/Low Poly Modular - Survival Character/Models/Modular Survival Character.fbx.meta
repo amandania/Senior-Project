@@ -1,0 +1,1382 @@
+fileFormatVersion: 2
+guid: b39e7b7dd8110814182e96cf8efd4cea
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Arrow
+    100002: Axe
+    100004: Bag
+    100006: Beard 1
+    100008: Beard 2
+    100010: Beard 3
+    100012: Beard 4
+    100014: Beard 5
+    100016: Bone Helmet
+    100018: 'Bone Kneepad Left Lower '
+    100020: 'Bone Kneepad Left Top '
+    100022: 'Bone Kneepad Right Lower '
+    100024: 'Bone Kneepad Right Top '
+    100026: Bone Knife
+    100028: Bone Plastron
+    100030: Bone Shoulderpad Left
+    100032: Bone Shoulderpad Right
+    100034: Bow
+    100036: Chest
+    100038: Cloth Kneepad Left Lower
+    100040: Cloth Kneepad Left Top
+    100042: Cloth Kneepad Right Lower
+    100044: Cloth Kneepad Right Top
+    100046: Cloth Plastron
+    100048: Cloth Shoulderpad Left
+    100050: Cloth Shoulderpad Right
+    100052: Eyes
+    100054: Face
+    100056: Hair 1
+    100058: Hair 2
+    100060: Hair 3
+    100062: Hair 4
+    100064: Hair 5
+    100066: Hair 6
+    100068: Hair 7
+    100070: Hair 8
+    100072: Head
+    100074: Head_end
+    100076: Hips
+    100078: Iron Helmet
+    100080: Iron Kneepad Left Lower
+    100082: Iron Kneepad Left Top
+    100084: Iron Kneepad Right Lower
+    100086: Iron Kneepad Right Top
+    100088: Iron Plastron
+    100090: Iron Shoulderpad Left
+    100092: Iron Shoulderpad Right
+    100094: Leather Helmet
+    100096: Leather Kneepad Left Lower
+    100098: Leather Kneepad Left Top
+    100100: Leather Kneepad Right Lower
+    100102: Leather Kneepad Right Top
+    100104: Leather Plastron
+    100106: Leather Shoulderpad Left
+    100108: Leather Shoulderpad Right
+    100110: Left_Ankle_Joint
+    100112: Left_Ankle_Joint_end
+    100114: Left_Forearm_Joint
+    100116: Left_Index_Finger_Joint_01
+    100118: Left_Index_Finger_Joint_02
+    100120: Left_Index_Finger_Joint_02_end
+    100122: Left_Knee_Joint
+    100124: Left_Middle_Finger_Joint_01
+    100126: Left_Middle_Finger_Joint_02
+    100128: Left_Middle_Finger_Joint_02_end
+    100130: Left_Ring_Finger_Joint_01
+    100132: Left_Ring_Finger_Joint_02
+    100134: Left_Ring_Finger_Joint_02_end
+    100136: Left_Shoulder_Joint
+    100138: Left_Thigh_Joint
+    100140: Left_Thumb_01
+    100142: Left_Thumb_02
+    100144: Left_Thumb_02_end
+    100146: Left_Upper_Arm_Joint
+    100148: Left_Wrist_Joint
+    100150: //RootNode
+    100152: Neck
+    100154: Pickaxe
+    100156: Quiver
+    100158: Ribs
+    100160: Rig
+    100162: Right_Ankle_Joint
+    100164: Right_Ankle_Joint_end
+    100166: Right_Forearm_Joint
+    100168: Right_Index_Finger_Joint_01
+    100170: Right_Index_Finger_Joint_02
+    100172: Right_Index_Finger_Joint_02_end
+    100174: Right_Knee_Joint
+    100176: Right_Middle_Finger_Joint_01
+    100178: Right_Middle_Finger_Joint_02
+    100180: Right_Middle_Finger_Joint_02_end
+    100182: Right_Ring_Finger_Joint_01
+    100184: Right_Ring_Finger_Joint_02
+    100186: Right_Ring_Finger_Joint_02_end
+    100188: Right_Shoulder_Joint
+    100190: Right_Thigh_Joint
+    100192: Right_Thumb_01
+    100194: Right_Thumb_02
+    100196: Right_Thumb_02_end
+    100198: Right_Upper_Arm_Joint
+    100200: Right_Wrist_Joint
+    100202: Root
+    100204: Skin
+    100206: Spear
+    100208: Wood Helmet
+    100210: Wood Kneepad Left Lower
+    100212: Wood Kneepad Left Top
+    100214: Wood Kneepad Right Lower
+    100216: Wood Kneepad Right Top
+    100218: Wood Plastron
+    100220: Wood Shoulderpad Left
+    100222: Wood Shoulderpad Right
+    400000: Arrow
+    400002: Axe
+    400004: Bag
+    400006: Beard 1
+    400008: Beard 2
+    400010: Beard 3
+    400012: Beard 4
+    400014: Beard 5
+    400016: Bone Helmet
+    400018: 'Bone Kneepad Left Lower '
+    400020: 'Bone Kneepad Left Top '
+    400022: 'Bone Kneepad Right Lower '
+    400024: 'Bone Kneepad Right Top '
+    400026: Bone Knife
+    400028: Bone Plastron
+    400030: Bone Shoulderpad Left
+    400032: Bone Shoulderpad Right
+    400034: Bow
+    400036: Chest
+    400038: Cloth Kneepad Left Lower
+    400040: Cloth Kneepad Left Top
+    400042: Cloth Kneepad Right Lower
+    400044: Cloth Kneepad Right Top
+    400046: Cloth Plastron
+    400048: Cloth Shoulderpad Left
+    400050: Cloth Shoulderpad Right
+    400052: Eyes
+    400054: Face
+    400056: Hair 1
+    400058: Hair 2
+    400060: Hair 3
+    400062: Hair 4
+    400064: Hair 5
+    400066: Hair 6
+    400068: Hair 7
+    400070: Hair 8
+    400072: Head
+    400074: Head_end
+    400076: Hips
+    400078: Iron Helmet
+    400080: Iron Kneepad Left Lower
+    400082: Iron Kneepad Left Top
+    400084: Iron Kneepad Right Lower
+    400086: Iron Kneepad Right Top
+    400088: Iron Plastron
+    400090: Iron Shoulderpad Left
+    400092: Iron Shoulderpad Right
+    400094: Leather Helmet
+    400096: Leather Kneepad Left Lower
+    400098: Leather Kneepad Left Top
+    400100: Leather Kneepad Right Lower
+    400102: Leather Kneepad Right Top
+    400104: Leather Plastron
+    400106: Leather Shoulderpad Left
+    400108: Leather Shoulderpad Right
+    400110: Left_Ankle_Joint
+    400112: Left_Ankle_Joint_end
+    400114: Left_Forearm_Joint
+    400116: Left_Index_Finger_Joint_01
+    400118: Left_Index_Finger_Joint_02
+    400120: Left_Index_Finger_Joint_02_end
+    400122: Left_Knee_Joint
+    400124: Left_Middle_Finger_Joint_01
+    400126: Left_Middle_Finger_Joint_02
+    400128: Left_Middle_Finger_Joint_02_end
+    400130: Left_Ring_Finger_Joint_01
+    400132: Left_Ring_Finger_Joint_02
+    400134: Left_Ring_Finger_Joint_02_end
+    400136: Left_Shoulder_Joint
+    400138: Left_Thigh_Joint
+    400140: Left_Thumb_01
+    400142: Left_Thumb_02
+    400144: Left_Thumb_02_end
+    400146: Left_Upper_Arm_Joint
+    400148: Left_Wrist_Joint
+    400150: //RootNode
+    400152: Neck
+    400154: Pickaxe
+    400156: Quiver
+    400158: Ribs
+    400160: Rig
+    400162: Right_Ankle_Joint
+    400164: Right_Ankle_Joint_end
+    400166: Right_Forearm_Joint
+    400168: Right_Index_Finger_Joint_01
+    400170: Right_Index_Finger_Joint_02
+    400172: Right_Index_Finger_Joint_02_end
+    400174: Right_Knee_Joint
+    400176: Right_Middle_Finger_Joint_01
+    400178: Right_Middle_Finger_Joint_02
+    400180: Right_Middle_Finger_Joint_02_end
+    400182: Right_Ring_Finger_Joint_01
+    400184: Right_Ring_Finger_Joint_02
+    400186: Right_Ring_Finger_Joint_02_end
+    400188: Right_Shoulder_Joint
+    400190: Right_Thigh_Joint
+    400192: Right_Thumb_01
+    400194: Right_Thumb_02
+    400196: Right_Thumb_02_end
+    400198: Right_Upper_Arm_Joint
+    400200: Right_Wrist_Joint
+    400202: Root
+    400204: Skin
+    400206: Spear
+    400208: Wood Helmet
+    400210: Wood Kneepad Left Lower
+    400212: Wood Kneepad Left Top
+    400214: Wood Kneepad Right Lower
+    400216: Wood Kneepad Right Top
+    400218: Wood Plastron
+    400220: Wood Shoulderpad Left
+    400222: Wood Shoulderpad Right
+    2300000: Arrow
+    2300002: Axe
+    2300004: Bag
+    2300006: Beard 1
+    2300008: Beard 2
+    2300010: Beard 3
+    2300012: Beard 4
+    2300014: Beard 5
+    2300016: Bone Helmet
+    2300018: 'Bone Kneepad Left Lower '
+    2300020: 'Bone Kneepad Left Top '
+    2300022: 'Bone Kneepad Right Lower '
+    2300024: 'Bone Kneepad Right Top '
+    2300026: Bone Knife
+    2300028: Bone Plastron
+    2300030: Bone Shoulderpad Left
+    2300032: Bone Shoulderpad Right
+    2300034: Bow
+    2300036: Cloth Kneepad Left Lower
+    2300038: Cloth Kneepad Left Top
+    2300040: Cloth Kneepad Right Lower
+    2300042: Cloth Kneepad Right Top
+    2300044: Cloth Plastron
+    2300046: Cloth Shoulderpad Left
+    2300048: Cloth Shoulderpad Right
+    2300050: Eyes
+    2300052: Face
+    2300054: Hair 1
+    2300056: Hair 2
+    2300058: Hair 3
+    2300060: Hair 4
+    2300062: Hair 5
+    2300064: Hair 6
+    2300066: Hair 7
+    2300068: Hair 8
+    2300070: Iron Helmet
+    2300072: Iron Kneepad Left Lower
+    2300074: Iron Kneepad Left Top
+    2300076: Iron Kneepad Right Lower
+    2300078: Iron Kneepad Right Top
+    2300080: Iron Plastron
+    2300082: Iron Shoulderpad Left
+    2300084: Iron Shoulderpad Right
+    2300086: Leather Helmet
+    2300088: Leather Kneepad Left Lower
+    2300090: Leather Kneepad Left Top
+    2300092: Leather Kneepad Right Lower
+    2300094: Leather Kneepad Right Top
+    2300096: Leather Plastron
+    2300098: Leather Shoulderpad Left
+    2300100: Leather Shoulderpad Right
+    2300102: Pickaxe
+    2300104: Quiver
+    2300106: Spear
+    2300108: Wood Helmet
+    2300110: Wood Kneepad Left Lower
+    2300112: Wood Kneepad Left Top
+    2300114: Wood Kneepad Right Lower
+    2300116: Wood Kneepad Right Top
+    2300118: Wood Plastron
+    2300120: Wood Shoulderpad Left
+    2300122: Wood Shoulderpad Right
+    3300000: Arrow
+    3300002: Axe
+    3300004: Bag
+    3300006: Beard 1
+    3300008: Beard 2
+    3300010: Beard 3
+    3300012: Beard 4
+    3300014: Beard 5
+    3300016: Bone Helmet
+    3300018: 'Bone Kneepad Left Lower '
+    3300020: 'Bone Kneepad Left Top '
+    3300022: 'Bone Kneepad Right Lower '
+    3300024: 'Bone Kneepad Right Top '
+    3300026: Bone Knife
+    3300028: Bone Plastron
+    3300030: Bone Shoulderpad Left
+    3300032: Bone Shoulderpad Right
+    3300034: Bow
+    3300036: Cloth Kneepad Left Lower
+    3300038: Cloth Kneepad Left Top
+    3300040: Cloth Kneepad Right Lower
+    3300042: Cloth Kneepad Right Top
+    3300044: Cloth Plastron
+    3300046: Cloth Shoulderpad Left
+    3300048: Cloth Shoulderpad Right
+    3300050: Eyes
+    3300052: Face
+    3300054: Hair 1
+    3300056: Hair 2
+    3300058: Hair 3
+    3300060: Hair 4
+    3300062: Hair 5
+    3300064: Hair 6
+    3300066: Hair 7
+    3300068: Hair 8
+    3300070: Iron Helmet
+    3300072: Iron Kneepad Left Lower
+    3300074: Iron Kneepad Left Top
+    3300076: Iron Kneepad Right Lower
+    3300078: Iron Kneepad Right Top
+    3300080: Iron Plastron
+    3300082: Iron Shoulderpad Left
+    3300084: Iron Shoulderpad Right
+    3300086: Leather Helmet
+    3300088: Leather Kneepad Left Lower
+    3300090: Leather Kneepad Left Top
+    3300092: Leather Kneepad Right Lower
+    3300094: Leather Kneepad Right Top
+    3300096: Leather Plastron
+    3300098: Leather Shoulderpad Left
+    3300100: Leather Shoulderpad Right
+    3300102: Pickaxe
+    3300104: Quiver
+    3300106: Spear
+    3300108: Wood Helmet
+    3300110: Wood Kneepad Left Lower
+    3300112: Wood Kneepad Left Top
+    3300114: Wood Kneepad Right Lower
+    3300116: Wood Kneepad Right Top
+    3300118: Wood Plastron
+    3300120: Wood Shoulderpad Left
+    3300122: Wood Shoulderpad Right
+    4300000: Skin
+    4300002: Wood Kneepad Right Top
+    4300004: Iron Kneepad Right Top
+    4300006: Cloth Kneepad Right Top
+    4300008: Leather Kneepad Right Top
+    4300010: 'Bone Kneepad Right Top '
+    4300012: Cloth Kneepad Right Lower
+    4300014: Leather Kneepad Right Lower
+    4300016: 'Bone Kneepad Right Lower '
+    4300018: Wood Kneepad Right Lower
+    4300020: Iron Kneepad Right Lower
+    4300022: Cloth Kneepad Left Top
+    4300024: Leather Kneepad Left Top
+    4300026: 'Bone Kneepad Left Top '
+    4300028: Wood Kneepad Left Top
+    4300030: Iron Kneepad Left Top
+    4300032: Leather Kneepad Left Lower
+    4300034: Cloth Kneepad Left Lower
+    4300036: 'Bone Kneepad Left Lower '
+    4300038: Wood Kneepad Left Lower
+    4300040: Iron Kneepad Left Lower
+    4300042: Wood Plastron
+    4300044: Leather Plastron
+    4300046: Iron Plastron
+    4300048: Bag
+    4300050: Cloth Plastron
+    4300052: Quiver
+    4300054: Arrow
+    4300056: Bone Plastron
+    4300058: Hair 1
+    4300060: Hair 7
+    4300062: Hair 8
+    4300064: Hair 2
+    4300066: Hair 3
+    4300068: Hair 4
+    4300070: Hair 5
+    4300072: Hair 6
+    4300074: Beard 1
+    4300076: Beard 2
+    4300078: Beard 4
+    4300080: Beard 3
+    4300082: Beard 5
+    4300084: Bone Helmet
+    4300086: Wood Helmet
+    4300088: Leather Helmet
+    4300090: Iron Helmet
+    4300092: Face
+    4300094: Eyes
+    4300096: Leather Shoulderpad Right
+    4300098: Iron Shoulderpad Right
+    4300100: Bone Shoulderpad Right
+    4300102: Wood Shoulderpad Right
+    4300104: Cloth Shoulderpad Right
+    4300106: Bone Knife
+    4300108: Bow
+    4300110: Spear
+    4300112: Pickaxe
+    4300114: Axe
+    4300116: Wood Shoulderpad Left
+    4300118: Cloth Shoulderpad Left
+    4300120: Bone Shoulderpad Left
+    4300122: Iron Shoulderpad Left
+    4300124: Leather Shoulderpad Left
+    9500000: //RootNode
+    13700000: Skin
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Atlas
+    second: {fileID: 2100000, guid: 5aef36b963bb82d408e048cd1b814ef2, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human:
+    - boneName: Rig
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Thigh_Joint
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Right_Thigh_Joint
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Knee_Joint
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Right_Knee_Joint
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Ankle_Joint
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Right_Ankle_Joint
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Hips
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Ribs
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Shoulder_Joint
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Right_Shoulder_Joint
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Upper_Arm_Joint
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Right_Upper_Arm_Joint
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Forearm_Joint
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Right_Forearm_Joint
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Wrist_Joint
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Right_Wrist_Joint
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Hair 1
+      humanName: LeftEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Hair 2
+      humanName: RightEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Beard 5
+      humanName: Jaw
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Thumb_01
+      humanName: Left Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Thumb_02
+      humanName: Left Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Index_Finger_Joint_01
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Index_Finger_Joint_02
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Middle_Finger_Joint_01
+      humanName: Left Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Middle_Finger_Joint_02
+      humanName: Left Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Ring_Finger_Joint_01
+      humanName: Left Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Ring_Finger_Joint_02
+      humanName: Left Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Right_Thumb_01
+      humanName: Right Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Right_Thumb_02
+      humanName: Right Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Right_Index_Finger_Joint_01
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Right_Index_Finger_Joint_02
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Right_Middle_Finger_Joint_01
+      humanName: Right Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Right_Middle_Finger_Joint_02
+      humanName: Right Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Right_Ring_Finger_Joint_01
+      humanName: Right Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Right_Ring_Finger_Joint_02
+      humanName: Right Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Chest
+      humanName: UpperChest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: Cubic Series - Survival Character(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Skin
+      parentName: Cubic Series - Survival Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Rig
+      parentName: Cubic Series - Survival Character(Clone)
+      position: {x: 0, y: 0, z: 0.12994689}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Right_Thigh_Joint
+      parentName: Rig
+      position: {x: 0.0019719454, y: 0.0012994685, z: 0.0071799825}
+      rotation: {x: 0.0006439454, y: 0.7207186, z: -0.69322723, w: -0.0005471619}
+      scale: {x: 1, y: 0.9999997, z: 0.99999994}
+    - name: Wood Kneepad Right Top
+      parentName: Right_Thigh_Joint
+      position: {x: 0.000009070634, y: 0.0013845789, z: -0.00061842037}
+      rotation: {x: 0.00064392964, y: 0.7207187, z: -0.69322723, w: 0.0005471616}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000005}
+    - name: Iron Kneepad Right Top
+      parentName: Right_Thigh_Joint
+      position: {x: -0.00015246257, y: 0.0013667225, z: -0.00065451366}
+      rotation: {x: 0.00064392964, y: 0.7207187, z: -0.69322723, w: 0.0005471616}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000005}
+    - name: Cloth Kneepad Right Top
+      parentName: Right_Thigh_Joint
+      position: {x: -0.000026734322, y: 0.0013406287, z: -0.00064895616}
+      rotation: {x: 0.00064392964, y: 0.7207187, z: -0.69322723, w: 0.0005471616}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000005}
+    - name: Leather Kneepad Right Top
+      parentName: Right_Thigh_Joint
+      position: {x: -0.000026032627, y: 0.0013537819, z: -0.00063949166}
+      rotation: {x: 0.00064392964, y: 0.7207187, z: -0.69322723, w: 0.0005471616}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000005}
+    - name: 'Bone Kneepad Right Top '
+      parentName: Right_Thigh_Joint
+      position: {x: -0.000023408382, y: 0.0012302948, z: -0.000661415}
+      rotation: {x: 0.00064392964, y: 0.7207187, z: -0.69322723, w: 0.0005471616}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000005}
+    - name: Right_Knee_Joint
+      parentName: Right_Thigh_Joint
+      position: {x: -1.3224052e-10, y: 0.00262926, z: -6.402843e-11}
+      rotation: {x: 0.019649155, y: 0.9996858, z: 0.0155453775, w: 0.0007195305}
+      scale: {x: 1, y: 0.9999999, z: 1}
+    - name: Cloth Kneepad Right Lower
+      parentName: Right_Knee_Joint
+      position: {x: 0.00007872238, y: 0.0012987508, z: 0.00058815983}
+      rotation: {x: 0.704203, y: -0.013659771, z: -0.01402507, w: 0.7097287}
+      scale: {x: 0.99999976, y: 0.9999999, z: 1.0000002}
+    - name: Leather Kneepad Right Lower
+      parentName: Right_Knee_Joint
+      position: {x: 0.00007934719, y: 0.0013330573, z: 0.0005789466}
+      rotation: {x: 0.704203, y: -0.013659771, z: -0.01402507, w: 0.7097287}
+      scale: {x: 0.99999976, y: 0.9999999, z: 1.0000002}
+    - name: 'Bone Kneepad Right Lower '
+      parentName: Right_Knee_Joint
+      position: {x: 0.00007700532, y: 0.001300693, z: 0.00055184396}
+      rotation: {x: 0.704203, y: -0.013659771, z: -0.01402507, w: 0.7097287}
+      scale: {x: 0.99999976, y: 0.9999999, z: 1.0000002}
+    - name: Wood Kneepad Right Lower
+      parentName: Right_Knee_Joint
+      position: {x: 0.00006822616, y: 0.0012421792, z: 0.0005474332}
+      rotation: {x: 0.704203, y: -0.013659771, z: -0.01402507, w: 0.7097287}
+      scale: {x: 0.99999976, y: 0.9999999, z: 1.0000002}
+    - name: Iron Kneepad Right Lower
+      parentName: Right_Knee_Joint
+      position: {x: 0.00020173594, y: 0.0012265831, z: 0.0005949962}
+      rotation: {x: 0.704203, y: -0.013659771, z: -0.01402507, w: 0.7097287}
+      scale: {x: 0.99999976, y: 0.9999999, z: 1.0000002}
+    - name: Right_Ankle_Joint
+      parentName: Right_Knee_Joint
+      position: {x: -4.489266e-11, y: 0.003400411, z: 1.4311809e-10}
+      rotation: {x: -0.5004446, y: 0.024383482, z: -0.016053298, w: 0.8652762}
+      scale: {x: 0.9999998, y: 0.9999999, z: 0.9999999}
+    - name: Right_Ankle_Joint_end
+      parentName: Right_Ankle_Joint
+      position: {x: -0, y: 0.0017242922, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Thigh_Joint
+      parentName: Rig
+      position: {x: -0.0019719454, y: 0.0012994685, z: 0.0071799825}
+      rotation: {x: -0.0006439454, y: 0.7207186, z: -0.69322723, w: 0.0005471619}
+      scale: {x: 1, y: 0.9999997, z: 0.99999994}
+    - name: Cloth Kneepad Left Top
+      parentName: Left_Thigh_Joint
+      position: {x: 0.000026734322, y: 0.0013406287, z: -0.00064895616}
+      rotation: {x: -0.00064392964, y: 0.7207187, z: -0.69322723, w: -0.0005471616}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000005}
+    - name: Leather Kneepad Left Top
+      parentName: Left_Thigh_Joint
+      position: {x: 0.000056640652, y: 0.0013537871, z: -0.00063954334}
+      rotation: {x: -0.00064392964, y: 0.7207187, z: -0.69322723, w: -0.0005471616}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000005}
+    - name: 'Bone Kneepad Left Top '
+      parentName: Left_Thigh_Joint
+      position: {x: 0.000014598816, y: 0.0012302933, z: -0.0006613998}
+      rotation: {x: -0.00064392964, y: 0.7207187, z: -0.69322723, w: -0.0005471616}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000005}
+    - name: Wood Kneepad Left Top
+      parentName: Left_Thigh_Joint
+      position: {x: -0.000008980483, y: 0.0013432807, z: -0.000620027}
+      rotation: {x: -0.00064392964, y: 0.7207187, z: -0.69322723, w: -0.0005471616}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000005}
+    - name: Iron Kneepad Left Top
+      parentName: Left_Thigh_Joint
+      position: {x: 0.00017936571, y: 0.0013667272, z: -0.00065455865}
+      rotation: {x: -0.00064392964, y: 0.7207187, z: -0.69322723, w: -0.0005471616}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000005}
+    - name: Left_Knee_Joint
+      parentName: Left_Thigh_Joint
+      position: {x: 1.3224052e-10, y: 0.00262926, z: -6.402843e-11}
+      rotation: {x: -0.019649155, y: 0.9996858, z: 0.0155453775, w: -0.0007195305}
+      scale: {x: 1, y: 0.9999999, z: 1}
+    - name: Leather Kneepad Left Lower
+      parentName: Left_Knee_Joint
+      position: {x: -0.00010993197, y: 0.001331859, z: 0.0005789357}
+      rotation: {x: 0.704203, y: 0.013659771, z: 0.01402507, w: 0.7097287}
+      scale: {x: 0.99999976, y: 0.9999999, z: 1.0000002}
+    - name: Cloth Kneepad Left Lower
+      parentName: Left_Knee_Joint
+      position: {x: -0.00007872238, y: 0.0012987508, z: 0.00058815983}
+      rotation: {x: 0.704203, y: 0.013659771, z: 0.01402507, w: 0.7097287}
+      scale: {x: 0.99999976, y: 0.9999999, z: 1.0000002}
+    - name: 'Bone Kneepad Left Lower '
+      parentName: Left_Knee_Joint
+      position: {x: -0.0000727123, y: 0.0012550073, z: 0.0006496426}
+      rotation: {x: 0.704203, y: 0.013659771, z: 0.01402507, w: 0.7097287}
+      scale: {x: 0.99999976, y: 0.9999999, z: 1.0000002}
+    - name: Wood Kneepad Left Lower
+      parentName: Left_Knee_Joint
+      position: {x: -0.00006994873, y: 0.0012834717, z: 0.00054711045}
+      rotation: {x: 0.704203, y: 0.013659771, z: 0.01402507, w: 0.7097287}
+      scale: {x: 0.99999976, y: 0.9999999, z: 1.0000002}
+    - name: Iron Kneepad Left Lower
+      parentName: Left_Knee_Joint
+      position: {x: -0.00022861837, y: 0.0012255297, z: 0.00059498637}
+      rotation: {x: 0.704203, y: 0.013659771, z: 0.01402507, w: 0.7097287}
+      scale: {x: 0.99999976, y: 0.9999999, z: 1.0000002}
+    - name: Left_Ankle_Joint
+      parentName: Left_Knee_Joint
+      position: {x: 4.489266e-11, y: 0.003400411, z: 1.4311809e-10}
+      rotation: {x: -0.5004446, y: -0.024383482, z: 0.016053298, w: 0.8652762}
+      scale: {x: 0.9999998, y: 0.9999999, z: 0.9999999}
+    - name: Left_Ankle_Joint_end
+      parentName: Left_Ankle_Joint
+      position: {x: -0, y: 0.0017242922, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Root
+      parentName: Rig
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.7071068, y: -0.0000000842937, z: -0.00000008429369, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hips
+      parentName: Root
+      position: {x: -3.4804076e-10, y: 0.008151393, z: -0.0014798734}
+      rotation: {x: -0.00000022072007, y: 0.1003394, z: 0.9949533, w: -0.000000053621594}
+      scale: {x: 1, y: 0.9999998, z: 0.99999577}
+    - name: Ribs
+      parentName: Hips
+      position: {x: 8.881784e-18, y: -5.587935e-10, z: -3.7252906e-11}
+      rotation: {x: 0.9509072, y: -0.00000015333926, z: 0.00000016875316, w: 0.30947632}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Chest
+      parentName: Ribs
+      position: {x: 4.1078252e-17, y: 0.0007624361, z: 1.4901161e-10}
+      rotation: {x: 0.27037814, y: 0.0000006885339, z: 0.00000010523832, w: 0.96275425}
+      scale: {x: 1, y: 0.9999999, z: 0.99999994}
+    - name: Wood Plastron
+      parentName: Chest
+      position: {x: 0.000013179733, y: 0.0051571415, z: 0.000048223137}
+      rotation: {x: -0.00000036638446, y: 0.7480043, z: 0.66369396, w: 0.0000004133238}
+      scale: {x: 1, y: 1.0000038, z: 1.0000005}
+    - name: Leather Plastron
+      parentName: Chest
+      position: {x: -8.0477547e-10, y: 0.003034809, z: 0.0007348667}
+      rotation: {x: -0.00000036638446, y: 0.7480043, z: 0.66369396, w: 0.0000004133238}
+      scale: {x: 1, y: 1.0000038, z: 1.0000005}
+    - name: Iron Plastron
+      parentName: Chest
+      position: {x: -0.000003185717, y: 0.0035541253, z: 0.00040938793}
+      rotation: {x: -0.00000036638446, y: 0.7480043, z: 0.66369396, w: 0.0000004133238}
+      scale: {x: 1, y: 1.0000038, z: 1.0000005}
+    - name: Bag
+      parentName: Chest
+      position: {x: -0.0000000054891647, y: 0.0050169737, z: 0.004978152}
+      rotation: {x: -0.00000036638446, y: 0.7480043, z: 0.66369396, w: 0.0000004133238}
+      scale: {x: 1, y: 1.0000038, z: 1.0000005}
+    - name: Cloth Plastron
+      parentName: Chest
+      position: {x: -5.137356e-10, y: 0.00346936, z: 0.00047150016}
+      rotation: {x: -0.00000036638446, y: 0.7480043, z: 0.66369396, w: 0.0000004133238}
+      scale: {x: 1, y: 1.0000038, z: 1.0000005}
+    - name: Quiver
+      parentName: Chest
+      position: {x: -0.0000000060752336, y: 0.004815577, z: 0.0055088187}
+      rotation: {x: -0.00000036638446, y: 0.7480043, z: 0.66369396, w: 0.0000004133238}
+      scale: {x: 1, y: 1.0000038, z: 1.0000005}
+    - name: Arrow
+      parentName: Chest
+      position: {x: -0.000000006423799, y: 0.0068435566, z: 0.005825464}
+      rotation: {x: -0.00000036638446, y: 0.7480043, z: 0.66369396, w: 0.0000004133238}
+      scale: {x: 1, y: 1.0000038, z: 1.0000005}
+    - name: Bone Plastron
+      parentName: Chest
+      position: {x: -0.000003059076, y: 0.0051207063, z: 0.00016662522}
+      rotation: {x: -0.0000003663844, y: 0.7480043, z: 0.66369396, w: 0.00000041332385}
+      scale: {x: 1, y: 1.0000038, z: 1.0000005}
+    - name: Neck
+      parentName: Chest
+      position: {x: 1.7533726e-11, y: 0.0069992654, z: -7.45058e-11}
+      rotation: {x: -0.16593921, y: 0.00000011553316, z: -0.00000020072294, w: 0.986136}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: Head
+      parentName: Neck
+      position: {x: 8.8262726e-17, y: 0.0020183783, z: -1.4901161e-10}
+      rotation: {x: -0.00000007406284, y: 0.9935879, z: 0.113062285, w: 0.00000066745037}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair 1
+      parentName: Head
+      position: {x: -1.5409495e-11, y: 0.0073132804, z: -0.0006435214}
+      rotation: {x: -0.7026765, y: 0.0000000010819529, z: 0.0000000022549744, w: 0.7115095}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Hair 7
+      parentName: Head
+      position: {x: -1.5409495e-11, y: 0.0073132804, z: -0.0006435214}
+      rotation: {x: -0.7026765, y: 0.0000000010819529, z: 0.0000000022549744, w: 0.7115095}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Hair 8
+      parentName: Head
+      position: {x: -1.3414411e-11, y: 0.0073080086, z: -0.00022146925}
+      rotation: {x: -0.7026765, y: 0.0000000010819529, z: 0.0000000022549744, w: 0.7115095}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Hair 2
+      parentName: Head
+      position: {x: -1.5409495e-11, y: 0.0073132804, z: -0.0006435214}
+      rotation: {x: -0.7026765, y: 0.0000000010819529, z: 0.0000000022549744, w: 0.7115095}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Hair 3
+      parentName: Head
+      position: {x: -1.5409478e-11, y: 0.00731328, z: -0.0006435178}
+      rotation: {x: -0.7026765, y: 0.0000000010819529, z: 0.0000000022549744, w: 0.7115095}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Hair 4
+      parentName: Head
+      position: {x: -1.3414391e-11, y: 0.0073080077, z: -0.00022146507}
+      rotation: {x: -0.7026765, y: 0.0000000010819529, z: 0.0000000022549744, w: 0.7115095}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Hair 5
+      parentName: Head
+      position: {x: -1.3414411e-11, y: 0.0073080086, z: -0.00022146925}
+      rotation: {x: -0.7026765, y: 0.0000000010819529, z: 0.0000000022549744, w: 0.7115095}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Hair 6
+      parentName: Head
+      position: {x: -1.3414411e-11, y: 0.0073080086, z: -0.00022146925}
+      rotation: {x: -0.7026765, y: 0.0000000010819529, z: 0.0000000022549744, w: 0.7115095}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Beard 1
+      parentName: Head
+      position: {x: 0.00002236366, y: 0.00003362715, z: -0.00031235008}
+      rotation: {x: -0.7026765, y: 0.0000000010819529, z: 0.0000000022549744, w: 0.7115095}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Beard 2
+      parentName: Head
+      position: {x: 0.00002236366, y: 0.00003362715, z: -0.00031235008}
+      rotation: {x: -0.7026765, y: 0.0000000010819529, z: 0.0000000022549744, w: 0.7115095}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Beard 4
+      parentName: Head
+      position: {x: 0.00002236366, y: 0.00003362715, z: -0.0003123504}
+      rotation: {x: -0.7026765, y: 0.0000000010819529, z: 0.0000000022549744, w: 0.7115095}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Beard 3
+      parentName: Head
+      position: {x: 0.00002236366, y: 0.00003362715, z: -0.0003123504}
+      rotation: {x: -0.7026765, y: 0.0000000010819529, z: 0.0000000022549744, w: 0.7115095}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Beard 5
+      parentName: Head
+      position: {x: 1.7092461e-11, y: -0.00004574716, z: 0.0036154955}
+      rotation: {x: -0.7026765, y: 0.0000000010819529, z: 0.0000000022549744, w: 0.7115095}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Bone Helmet
+      parentName: Head
+      position: {x: 0.000022363636, y: 0.0038386795, z: -0.00026480854}
+      rotation: {x: -0.7026765, y: 0.000000023695753, z: 0.000000024588065, w: 0.7115095}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Wood Helmet
+      parentName: Head
+      position: {x: 0.00014498709, y: 0.0042386693, z: -0.00021015554}
+      rotation: {x: -0.7026765, y: 0.0000000010819529, z: 0.0000000022549744, w: 0.7115095}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Leather Helmet
+      parentName: Head
+      position: {x: -8.822863e-12, y: 0.0041348324, z: -0.00038738755}
+      rotation: {x: -0.7026765, y: 0.0000000010819529, z: 0.0000000022549744, w: 0.7115095}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Iron Helmet
+      parentName: Head
+      position: {x: -7.9427e-12, y: 0.0040643755, z: -0.00022570386}
+      rotation: {x: -0.7026765, y: 0.0000000010819529, z: 0.0000000022549744, w: 0.7115095}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Face
+      parentName: Head
+      position: {x: 1.21962e-10, y: -0.017784972, z: 0.0013453566}
+      rotation: {x: -0.7026765, y: 0.000000023695753, z: 0.000000024588065, w: 0.7115095}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Eyes
+      parentName: Face
+      position: {x: -0, y: 0, z: -1.4851821e-21}
+      rotation: {x: -1.3877788e-17, y: 0, z: -1.8487586e-19, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head_end
+      parentName: Head
+      position: {x: -0, y: 0.0069010686, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Right_Shoulder_Joint
+      parentName: Chest
+      position: {x: 1.7533726e-11, y: 0.0069992654, z: -7.45058e-11}
+      rotation: {x: 0.5664482, y: -0.50215703, z: -0.49901712, w: -0.42184916}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Right_Upper_Arm_Joint
+      parentName: Right_Shoulder_Joint
+      position: {x: 4.6566128e-12, y: 0.0051903795, z: -9.918585e-10}
+      rotation: {x: 0.063411236, y: 0.021183511, z: -0.0048156497, w: 0.997751}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Leather Shoulderpad Right
+      parentName: Right_Upper_Arm_Joint
+      position: {x: 0.000014934092, y: 0.0018972898, z: -0.000036504825}
+      rotation: {x: -0.019536981, y: -0.030425979, z: 0.7101825, w: 0.70308846}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Iron Shoulderpad Right
+      parentName: Right_Upper_Arm_Joint
+      position: {x: 0.000011868775, y: 0.0020763958, z: -0.0000056610534}
+      rotation: {x: -0.019536981, y: -0.030425979, z: 0.7101825, w: 0.70308846}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Bone Shoulderpad Right
+      parentName: Right_Upper_Arm_Joint
+      position: {x: 0.0000051012635, y: 0.002488858, z: -0.000027294875}
+      rotation: {x: -0.019536546, y: -0.030425524, z: 0.71018255, w: 0.70308846}
+      scale: {x: 1.0000001, y: 1.0000039, z: 1.0000006}
+    - name: Wood Shoulderpad Right
+      parentName: Right_Upper_Arm_Joint
+      position: {x: -0.000054513363, y: 0.0018401658, z: -0.0000070839747}
+      rotation: {x: -0.019536981, y: -0.030425979, z: 0.7101825, w: 0.70308846}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Cloth Shoulderpad Right
+      parentName: Right_Upper_Arm_Joint
+      position: {x: 0.000010537654, y: 0.002112981, z: -0.000010138861}
+      rotation: {x: -0.019536981, y: -0.030425979, z: 0.7101825, w: 0.70308846}
+      scale: {x: 1, y: 1.0000038, z: 1.0000006}
+    - name: Right_Forearm_Joint
+      parentName: Right_Upper_Arm_Joint
+      position: {x: 3.4458936e-10, y: 0.0042073396, z: -3.632158e-10}
+      rotation: {x: 0.03944048, y: -0.6718076, z: -0.01625893, w: 0.73949623}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Right_Wrist_Joint
+      parentName: Right_Forearm_Joint
+      position: {x: -1.11758706e-10, y: 0.0043019415, z: 3.7252902e-11}
+      rotation: {x: -0.02389572, y: -0.081847936, z: 0.017190648, w: 0.99621004}
+      scale: {x: 1, y: 1.0000001, z: 0.99999994}
+    - name: Bone Knife
+      parentName: Right_Wrist_Joint
+      position: {x: -0.0011228712, y: 0.0021082212, z: -0.0018136791}
+      rotation: {x: -0.014052543, y: 0.99978024, z: 0.01545348, w: 0.001794603}
+      scale: {x: 1.0000004, y: 1, z: 1.0000038}
+    - name: Bow
+      parentName: Right_Wrist_Joint
+      position: {x: -0.0012373211, y: 0.00009426132, z: -0.00008518994}
+      rotation: {x: 0.7168641, y: -0.6970395, z: -0.009659427, w: -0.012193428}
+      scale: {x: 1, y: 1.0000005, z: 1.0000038}
+    - name: Spear
+      parentName: Right_Wrist_Joint
+      position: {x: -0.00083176716, y: 0.0013387359, z: -0.00039943575}
+      rotation: {x: 0.6970147, y: 0.71688807, z: 0.012195743, w: -0.009657759}
+      scale: {x: 1, y: 1.0000004, z: 1.0000038}
+    - name: Pickaxe
+      parentName: Right_Wrist_Joint
+      position: {x: -0.0017186361, y: 0.0020820154, z: -0.0007817237}
+      rotation: {x: 0.49969319, y: 0.49829242, z: 0.5155411, w: 0.48603374}
+      scale: {x: 1, y: 1.0000038, z: 1.0000004}
+    - name: Axe
+      parentName: Right_Wrist_Joint
+      position: {x: -0.0017940247, y: 0.0032122182, z: -0.0043317024}
+      rotation: {x: 0.6970147, y: 0.71688807, z: 0.0121958265, w: -0.009657844}
+      scale: {x: 1, y: 1.0000004, z: 1.0000038}
+    - name: Right_Index_Finger_Joint_01
+      parentName: Right_Wrist_Joint
+      position: {x: 0.000035340257, y: 0.0030806302, z: -0.0006218951}
+      rotation: {x: 0.019044887, y: 0.008026038, z: 0.028881455, w: 0.9993692}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Right_Index_Finger_Joint_02
+      parentName: Right_Index_Finger_Joint_01
+      position: {x: -4.0978193e-10, y: 0.0005768187, z: 2.5145708e-10}
+      rotation: {x: -0.0032202003, y: 0.00063935656, z: -0.0033741088, w: 0.9999889}
+      scale: {x: 0.9999999, y: 1, z: 0.99999994}
+    - name: Right_Index_Finger_Joint_02_end
+      parentName: Right_Index_Finger_Joint_02
+      position: {x: -0, y: 0.0005602991, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Right_Thumb_01
+      parentName: Right_Wrist_Joint
+      position: {x: 0.000092754206, y: 0.00093715015, z: -0.0012010722}
+      rotation: {x: -0.42306972, y: -0.25054494, z: 0.11528525, w: 0.86310405}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: Right_Thumb_02
+      parentName: Right_Thumb_01
+      position: {x: -0.0000000014161924, y: 0.00051767135, z: -2.697925e-10}
+      rotation: {x: -0.006814092, y: 0.8559329, z: 0.006141012, w: 0.51700556}
+      scale: {x: 0.99999994, y: 0.9999999, z: 1}
+    - name: Right_Thumb_02_end
+      parentName: Right_Thumb_02
+      position: {x: -0, y: 0.00038729454, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Right_Middle_Finger_Joint_01
+      parentName: Right_Wrist_Joint
+      position: {x: 0.00003356617, y: 0.0030485638, z: 0.00004230355}
+      rotation: {x: 0.019400408, y: 0.0067843054, z: 0.022504212, w: 0.9995355}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Right_Middle_Finger_Joint_02
+      parentName: Right_Middle_Finger_Joint_01
+      position: {x: 4.726462e-10, y: 0.00059442676, z: -5.5879353e-11}
+      rotation: {x: -0.0041677128, y: -0.00081182615, z: -0.0046279826, w: 0.99998033}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.99999994}
+    - name: Right_Middle_Finger_Joint_02_end
+      parentName: Right_Middle_Finger_Joint_02
+      position: {x: -0, y: 0.000564437, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Right_Ring_Finger_Joint_01
+      parentName: Right_Wrist_Joint
+      position: {x: 0.000031671938, y: 0.0030222035, z: 0.0006965705}
+      rotation: {x: 0.020348191, y: 0.007020169, z: 0.026711104, w: 0.9994114}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: Right_Ring_Finger_Joint_02
+      parentName: Right_Ring_Finger_Joint_01
+      position: {x: -9.872019e-10, y: 0.0005634418, z: 9.313225e-11}
+      rotation: {x: -0.03243375, y: 0.0067915646, z: 0.006707312, w: 0.99942833}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Right_Ring_Finger_Joint_02_end
+      parentName: Right_Ring_Finger_Joint_02
+      position: {x: -0, y: 0.0006100927, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Shoulder_Joint
+      parentName: Chest
+      position: {x: -1.2434498e-16, y: 0.0069992654, z: -7.450581e-11}
+      rotation: {x: 0.56644773, y: 0.5021575, z: 0.49901778, w: -0.4218484}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Left_Upper_Arm_Joint
+      parentName: Left_Shoulder_Joint
+      position: {x: -3.0267983e-11, y: 0.0051903785, z: 3.678724e-10}
+      rotation: {x: 0.063411266, y: -0.0211835, z: 0.0048156492, w: 0.997751}
+      scale: {x: 1, y: 0.9999999, z: 1}
+    - name: Wood Shoulderpad Left
+      parentName: Left_Upper_Arm_Joint
+      position: {x: 0.000055301636, y: 0.0019146141, z: -0.0000059599615}
+      rotation: {x: -0.019537034, y: 0.030425973, z: -0.7101825, w: 0.70308846}
+      scale: {x: 1, y: 1.0000039, z: 1.0000007}
+    - name: Cloth Shoulderpad Left
+      parentName: Left_Upper_Arm_Joint
+      position: {x: -0.000010536164, y: 0.0021129788, z: -0.0000101332735}
+      rotation: {x: -0.019537034, y: 0.030425973, z: -0.7101825, w: 0.70308846}
+      scale: {x: 1, y: 1.0000039, z: 1.0000007}
+    - name: Bone Shoulderpad Left
+      parentName: Left_Upper_Arm_Joint
+      position: {x: -0.0000050731, y: 0.002491587, z: -0.00002725168}
+      rotation: {x: -0.019536557, y: 0.030425534, z: -0.71018255, w: 0.70308846}
+      scale: {x: 1, y: 1.0000038, z: 1.0000007}
+    - name: Iron Shoulderpad Left
+      parentName: Left_Upper_Arm_Joint
+      position: {x: -0.0001411444, y: 0.0020016388, z: 0.0000023057405}
+      rotation: {x: -0.019537034, y: 0.030425973, z: -0.7101825, w: 0.70308846}
+      scale: {x: 1, y: 1.0000039, z: 1.0000007}
+    - name: Leather Shoulderpad Left
+      parentName: Left_Upper_Arm_Joint
+      position: {x: -0.000015203058, y: 0.0018717232, z: -0.000036884863}
+      rotation: {x: -0.019537034, y: 0.030425973, z: -0.7101825, w: 0.70308846}
+      scale: {x: 1, y: 1.0000039, z: 1.0000007}
+    - name: Left_Forearm_Joint
+      parentName: Left_Upper_Arm_Joint
+      position: {x: -6.519258e-11, y: 0.0042073396, z: -7.264316e-10}
+      rotation: {x: 0.039440498, y: 0.6718076, z: 0.016258907, w: 0.73949623}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Left_Wrist_Joint
+      parentName: Left_Forearm_Joint
+      position: {x: -6.705522e-10, y: 0.0043019406, z: 4.4703483e-10}
+      rotation: {x: -0.023895726, y: 0.08184803, z: -0.017190654, w: 0.99621004}
+      scale: {x: 1, y: 1.0000001, z: 0.99999994}
+    - name: Left_Index_Finger_Joint_01
+      parentName: Left_Wrist_Joint
+      position: {x: -0.000035339006, y: 0.0030806302, z: -0.0006218953}
+      rotation: {x: 0.019044885, y: -0.008026033, z: -0.028881457, w: 0.9993692}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Left_Index_Finger_Joint_02
+      parentName: Left_Index_Finger_Joint_01
+      position: {x: -7.404014e-10, y: 0.0005768174, z: -8.381903e-11}
+      rotation: {x: -0.0032202003, y: -0.0006393557, z: 0.0033741102, w: 0.9999889}
+      scale: {x: 0.9999999, y: 0.99999994, z: 0.99999994}
+    - name: Left_Index_Finger_Joint_02_end
+      parentName: Left_Index_Finger_Joint_02
+      position: {x: -0, y: 0.0005602991, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Thumb_01
+      parentName: Left_Wrist_Joint
+      position: {x: -0.00009275411, y: 0.0009371501, z: -0.0012010725}
+      rotation: {x: -0.42306924, y: 0.25055042, z: -0.11528504, w: 0.8631027}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: Left_Thumb_02
+      parentName: Left_Thumb_01
+      position: {x: 8.393545e-10, y: 0.0005176714, z: 0.0000000014770194}
+      rotation: {x: -0.006814098, y: -0.85593617, z: -0.0061410363, w: 0.51700014}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: Left_Thumb_02_end
+      parentName: Left_Thumb_02
+      position: {x: -0, y: 0.00038729454, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Middle_Finger_Joint_01
+      parentName: Left_Wrist_Joint
+      position: {x: -0.000033564873, y: 0.0030485627, z: 0.00004230329}
+      rotation: {x: 0.019400407, y: -0.0067842994, z: -0.022504216, w: 0.9995355}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Left_Middle_Finger_Joint_02
+      parentName: Left_Middle_Finger_Joint_01
+      position: {x: -5.634501e-10, y: 0.0005944278, z: -6.519258e-11}
+      rotation: {x: -0.004167714, y: 0.00081182667, z: 0.0046279845, w: 0.99998033}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: Left_Middle_Finger_Joint_02_end
+      parentName: Left_Middle_Finger_Joint_02
+      position: {x: -0, y: 0.000564437, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Ring_Finger_Joint_01
+      parentName: Left_Wrist_Joint
+      position: {x: -0.00003167063, y: 0.0030222035, z: 0.0006965701}
+      rotation: {x: 0.020348184, y: -0.0070201624, z: -0.026711097, w: 0.9994114}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.99999994}
+    - name: Left_Ring_Finger_Joint_02
+      parentName: Left_Ring_Finger_Joint_01
+      position: {x: 2.0489097e-10, y: 0.0005634421, z: -2.6077032e-10}
+      rotation: {x: -0.03243374, y: -0.0067915632, z: -0.0067073214, w: 0.99942833}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Left_Ring_Finger_Joint_02_end
+      parentName: Left_Ring_Finger_Joint_02
+      position: {x: -0, y: 0.0006100927, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 3
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -28,7 +28,7 @@ public class HandleMoveCharacter : IIncomingPacketHandler
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
             GameObject player = null;
-            var hasVal = GameManager.instance.ServerSpawns.TryGetValue(index, out player);
+            var hasVal = GameManager.Instance.ServerSpawns.TryGetValue(index, out player);
 
             if (hasVal)
             {

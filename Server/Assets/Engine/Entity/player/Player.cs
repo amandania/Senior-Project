@@ -25,6 +25,10 @@ public class Player : Character
     public bool MenuOpen { get; set; }
     public GameObject CurrentInteractGuid;
 
+    public Dialogue ActiveDialouge { get; set; }
+    public DialogueOptions MyOptionHandle { get; set; }
+    public int DialougeMessageIndex { get; set; } = 0;
+
     public Player(PlayerSession session, IWorld world)
     {
         Session = session;
@@ -50,7 +54,6 @@ public class Player : Character
         HotkeyInventory.RefrehsItems();
         currentCombatComp.CurrentHealth = m_currentHealth == -1 ? 100 : m_currentHealth;
         currentCombatComp.MaxHealth = m_maxHealth == -1 ? 100 : m_maxHealth;
-
-        
     }
+
 }

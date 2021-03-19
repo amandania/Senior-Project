@@ -22,7 +22,7 @@ public class HandleAnimatorTrigger : IIncomingPacketHandler
 
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            GameObject player = GameManager.instance.ServerSpawns[index];
+            GameObject player = GameManager.Instance.ServerSpawns[index];
             Animator animator = player.GetComponent<Animator>();
             animator.SetTrigger(triggerName);
             ////Debug.Log("Trigge animator " + triggerName);

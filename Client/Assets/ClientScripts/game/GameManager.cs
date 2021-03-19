@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
 
     //To refrance player behaviors for client.
-    public static GameManager instance;
+    public static GameManager Instance;
 
     //Link default player model for client render
     public GameObject playerModel;
@@ -25,13 +25,13 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         playerModel = Resources.Load("PlayerModel") as GameObject;
-        instance = this;
+        Instance = this;
 
     }
     private void Start()
     {
-        if (instance == null)
-            instance = this;
+        if (Instance == null)
+            Instance = this;
     }
 
     // Update is called once per frame 
@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
         if (a_isLocalPlayer == true)
         {
             NetworkManager.instance.myIndex = a_guid;
+            NetworkManager.instance.LocalPlayerGameObject = playerObj;
             LocalPlrObj = playerObj;
         }
         playerObj.name = "Player: " + a_playerName;

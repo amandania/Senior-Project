@@ -6,12 +6,12 @@ public class SendLogout : IOutGoingPackets
     public OutGoingPackets PacketType => OutGoingPackets.SEND_LOGOUT;
 
     private readonly Player m_player;
-    private bool m_sessionDisconnect;
+    private bool m_returnToMenu;
 
-    public SendLogout(Player player, bool a_sessionDisconnected)
+    public SendLogout(Player player, bool a_returnToMenu)
     {
         m_player = player;
-        m_sessionDisconnect = a_sessionDisconnected;
+        m_returnToMenu = a_returnToMenu;
     }
 
     public IByteBuffer GetPacket()
@@ -22,7 +22,7 @@ public class SendLogout : IOutGoingPackets
 
         buffer.WriteInt(guid.Length);
         buffer.WriteString(guid, Encoding.Default);
-        buffer.WriteBoolean(m_sessionDisconnect);
+        buffer.WriteBoolean(m_returnToMenu);
         return buffer;
     }
 }

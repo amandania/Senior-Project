@@ -46,10 +46,17 @@ public class InputController : IInputControl
 
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            Debug.Log("Picking up item now: " + a_player.CurrentInteractGuid.name);
+            
             GroundItem isGroundItem = a_player.CurrentInteractGuid.GetComponent<GroundItem>();
+            DialougeInteract isDialouge = a_player.CurrentInteractGuid.GetComponent<DialougeInteract>();
+            if (isDialouge != null)
+            {
+                isDialouge.OnInteract(a_player);
+                return;
+            }
             if (isGroundItem != null && !isGroundItem.PickedUp)
             {
+                Debug.Log("Picking up item now: " + a_player.CurrentInteractGuid.name);
                 //we are going to have to destroy this gameobject on all clients
                 //we are picking up the ground item that we are currently interacting with
                 //add the ground item to our hotkeys or inventorylients
