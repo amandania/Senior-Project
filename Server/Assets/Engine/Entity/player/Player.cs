@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : Character
@@ -28,6 +29,7 @@ public class Player : Character
     public Dialogue ActiveDialouge { get; set; }
     public DialogueOptions MyOptionHandle { get; set; }
     public int DialougeMessageIndex { get; set; } = 0;
+    public Dictionary<string, Quest> PlayerQuests { get; set; } = new Dictionary<string, Quest>();
 
     public Player(PlayerSession session, IWorld world)
     {

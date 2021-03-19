@@ -38,6 +38,21 @@ public class DialoguePrompt : MonoBehaviour
         DialogueMessageText.SetActive(false);
     }
 
+    public void Clear()
+    {
+        DialogueMessageText.GetComponent<Text>().text = "";
+        GetComponent<Image>().enabled = false;
+        DialogueMessageText.SetActive(false);
+        m_hasMessage = false;
+        if (OptionButtons.Count > 0)
+        {
+            foreach (GameObject obj in OptionButtons)
+            {
+                Destroy(obj);
+            }
+        }
+    }
+
     public void CreateDialouge(string a_message, string[] a_options)
     {
         if (OptionButtons.Count > 0)
@@ -65,6 +80,8 @@ public class DialoguePrompt : MonoBehaviour
 
         FinishedType = false;
         m_hasMessage = true;
+        m_lastTyped = -25;
+        Debug.Log("enable the dialogue again");
     }
 
     // Update is called once per frame

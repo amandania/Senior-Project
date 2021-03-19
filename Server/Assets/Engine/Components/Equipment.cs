@@ -57,7 +57,7 @@ public class Equipment : MonoBehaviour
         {
             ObjectForEquip.SetActive(true);
             ItemToTransformMap[parentTransform] = Instantiate(ObjectForEquip, parentTransform);
-            
+            ItemToTransformMap[parentTransform].name = a_itemName;
         }
 
         print("Server is equipping item:" + a_itemName + " on character: " + gameObject.name);

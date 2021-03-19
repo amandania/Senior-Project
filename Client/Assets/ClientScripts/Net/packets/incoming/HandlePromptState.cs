@@ -27,7 +27,16 @@ public class HandlePromptState : IIncomingPacketHandler
 
             if (PanelTag != null)
             {
-                PanelTag.SetActive(promptState);
+                if (promptState == false && promptTagName == "DialoguePrompt")
+                {
+                    DialoguePrompt.Instance.Clear();
+                } else { 
+                    PanelTag.SetActive(promptState);
+                }
+                if (!promptState)
+                {
+                    NetworkManager.instance.LocalPlayerGameObject.GetComponent<KeyListener>().mIsControlEnabled = true;
+                }
             }
           
         });

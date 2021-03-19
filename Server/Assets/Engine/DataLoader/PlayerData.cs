@@ -61,6 +61,15 @@ public class PlayerData : IPlayerDataLoader
                     a_sessionPlayer.HotkeyInventory.ContainerItems.AddRange(desiralizedObj.HotkeyItems);
                     a_sessionPlayer.HotkeyInventory.RefrehsItems();
                 }
+                if (desiralizedObj.PlayerQuests != null && desiralizedObj.PlayerQuests.Length > 0)
+                {
+                    a_sessionPlayer.PlayerQuests.Clear();
+                    var QuestList = desiralizedObj.PlayerQuests;
+                    foreach (Quest q in QuestList)
+                    {
+                        a_sessionPlayer.PlayerQuests.Add(q.QuestName, new Quest(q.QuestName, q.MaxQuestStep, q.CurrentQuestStep));
+                    }
+                }
                 if (desiralizedObj.CurrentSlotEquipped != -1)
                 {
 
@@ -91,7 +100,7 @@ public class PlayerData : IPlayerDataLoader
         serializeClass.Password = a_player.Password;
         serializeClass.PlayerLevel = a_player.CharacterLevel;
         serializeClass.HotkeyItems = a_player.HotkeyInventory.ContainerItems.ToArray();
-
+        serializeClass.PlayerQuests = a_player.PlayerQuests.Values.ToArray();
         serializeClass.CurrentHealth = a_player.CombatComponent.CurrentHealth;
         serializeClass.MaxHealth = a_player.CombatComponent.MaxHealth;
         serializeClass.CurrentSlotEquipped = a_player.HotkeyInventory.LastActiveSlot;
