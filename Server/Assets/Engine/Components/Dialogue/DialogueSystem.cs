@@ -76,11 +76,15 @@ public class DialogueSystem : MonoBehaviour
                                     QuestSystem.Instance.GiveQuest("BasicQuest", a_player);
                                     Debug.Log("gave quest");
                                     a_player.Session.SendPacket(new SendPromptState("DialoguePrompt", false)).ConfigureAwait(false);
+                                    a_player.ActiveDialouge = null;
+                                    a_player.MyOptionHandle = null;
                                 }
                             } else
                             {
                                 //close the prompt
-
+                                a_player.Session.SendPacket(new SendPromptState("DialoguePrompt", false)).ConfigureAwait(false);
+                                a_player.ActiveDialouge = null;
+                                a_player.MyOptionHandle = null;
                             }
                         })
                     });
@@ -156,6 +160,8 @@ public class DialogueSystem : MonoBehaviour
                     print("give sword reward to player");
                 }
                 a_player.Session.SendPacket(new SendPromptState("DialoguePrompt", false)).ConfigureAwait(false);
+                a_player.ActiveDialouge = null;
+                a_player.MyOptionHandle = null;
             })
         });
 

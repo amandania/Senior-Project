@@ -72,7 +72,7 @@ public class PlayerData : IPlayerDataLoader
                 }
                 if (desiralizedObj.CurrentSlotEquipped != -1)
                 {
-
+                    a_sessionPlayer.HotkeyInventory.LastActiveSlot = desiralizedObj.CurrentSlotEquipped;
                 }
                 succuess = true;
                 //Debug.Log("Correct creditonals given for " + a_playerName);
