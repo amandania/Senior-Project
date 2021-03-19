@@ -30,7 +30,7 @@ public class HandleHealthChange : IIncomingPacketHandler
             GameObject hud = null;
             if (!localHealth)
             {
-                hud = GameManager.instance.ServerSpawns[Guid.Parse(serverId)];
+                hud = GameManager.Instance.ServerSpawns[Guid.Parse(serverId)];
             } else {
                 hud = GameObject.FindGameObjectWithTag("LocalHealthBar");
             }

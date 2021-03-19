@@ -28,7 +28,7 @@ public class HandleEquipment : IIncomingPacketHandler
         Debug.Log("Incoming equipment action: " + methodName + " on item: " + weaponName);
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            GameObject player = GameManager.instance.ServerSpawns[index];
+            GameObject player = GameManager.Instance.ServerSpawns[index];
             Equipment myEquipments = player.GetComponent<Equipment>();
             if (myEquipments != null)
             {

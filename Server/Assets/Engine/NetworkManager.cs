@@ -91,6 +91,7 @@ public class NetworkManager : MonoBehaviour
         builder.RegisterType<HandleActionKeys>().As<IIncomingPackets>();
         builder.RegisterType<HandleChatMessage>().As<IIncomingPackets>();
         builder.RegisterType<HandleLogoutRequest>().As<IIncomingPackets>();
+        builder.RegisterType<HandleDialogueClick>().As<IIncomingPackets>();
 
         //Player startables we want to make sure all the other dependencies are built
         builder.RegisterType<PlayerData>().As<IPlayerDataLoader>().As<IStartable>().SingleInstance();

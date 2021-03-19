@@ -1843,6 +1843,72 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613287322}
   m_Mesh: {fileID: 4300024, guid: 8b331f7b82097114d99b13274da53c28, type: 3}
+--- !u!1 &613669867 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4175918997627360202, guid: 1ead5661d820f684fba028c6bc676405,
+    type: 3}
+  m_PrefabInstance: {fileID: 4175918998030882780}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &613669868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613669867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ee1bc16ef15282458c558dccaee25bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ModelName: QuestNpc
+  DisplayName: QuestNpc
+  InteractType: 2
+  TriggerInteractDistance: 5
+  autoActivateOnTrriger: 0
+  isAttackable: 0
+  DialougeId: 1
+  combatDefs: []
+  DisplayImageName: {fileID: 0}
+--- !u!114 &613669869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613669867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc408863662ae914b8c5782d8e936e95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractDescription: Talk To QuestNpc
+--- !u!65 &613669870
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613669867}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.8093557, z: 1.3653306}
+  m_Center: {x: -0.000000003250912, y: 1.3762097, z: -0.19057907}
+--- !u!65 &613669871
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613669867}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.8093557, z: 1.3653306}
+  m_Center: {x: -0.000000003250912, y: 1.3762097, z: -0.19057907}
 --- !u!1 &629212271
 GameObject:
   m_ObjectHideFlags: 0
@@ -1889,6 +1955,7 @@ MonoBehaviour:
   TriggerInteractDistance: 5
   autoActivateOnTrriger: 0
   isAttackable: 1
+  DialougeId: -1
   combatDefs:
   - Key: IsAggresiveTrigger
     BoolValue: 1
@@ -1970,6 +2037,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CombatTarget: {fileID: 0}
   TargetTransform: {fileID: 0}
+  MyAnimator: {fileID: 0}
   MaxHealth: 20
   CurrentHealth: 20
   MinHitDamage: 1
@@ -2726,6 +2794,12 @@ Transform:
   m_Father: {fileID: 1484196536}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &940327713 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
+    type: 3}
+  m_PrefabInstance: {fileID: 4175918998030882780}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &962058491
 GameObject:
   m_ObjectHideFlags: 0
@@ -3887,6 +3961,37 @@ Transform:
   m_Father: {fileID: 783400482}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1442385186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1442385187}
+  m_Layer: 0
+  m_Name: NpcInteracts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1442385187
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442385186}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 141.03404, y: 4.0656843, z: 44.20189}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 940327713}
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1480397342
 GameObject:
   m_ObjectHideFlags: 0
@@ -3899,6 +4004,7 @@ GameObject:
   - component: {fileID: 1480397344}
   - component: {fileID: 1480397343}
   - component: {fileID: 1480397346}
+  - component: {fileID: 1480397347}
   m_Layer: 0
   m_Name: WorldManager
   m_TagString: Untagged
@@ -3961,6 +4067,18 @@ MonoBehaviour:
   ItemAmount: 0
   ItemLevel: 0
   PickedUp: 0
+--- !u!114 &1480397347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480397342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67569708722947c4eb326f139719c72e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1484196535
 GameObject:
   m_ObjectHideFlags: 0
@@ -5057,3 +5175,77 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 2.2}
   m_Center: {x: 0, y: 0.5, z: 0.8}
+--- !u!1001 &4175918998030882780
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1442385187}
+    m_Modifications:
+    - target: {fileID: 4175918997627360202, guid: 1ead5661d820f684fba028c6bc676405,
+        type: 3}
+      propertyPath: m_Name
+      value: QuestNpc
+      objectReference: {fileID: 0}
+    - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 19.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.1023393
+      objectReference: {fileID: 0}
+    - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -14.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9590624
+      objectReference: {fileID: 0}
+    - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.28319508
+      objectReference: {fileID: 0}
+    - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 147.098
+      objectReference: {fileID: 0}
+    - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4175918997636850076, guid: 1ead5661d820f684fba028c6bc676405,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: dc61f157e1325e2489295dfbda85089e, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1ead5661d820f684fba028c6bc676405, type: 3}

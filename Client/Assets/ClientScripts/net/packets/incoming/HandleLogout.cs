@@ -21,9 +21,9 @@ public class HandleLogout : IIncomingPacketHandler
         var returnPlayerToScreen = buffer.ReadBoolean();
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            var gameobject = GameManager.instance.PlayerList[playerguid];
-            GameManager.instance.DestroyServerObject(playerguid);
-            GameManager.instance.PlayerList.Remove(playerguid);
+            var gameobject = GameManager.Instance.PlayerList[playerguid];
+            GameManager.Instance.DestroyServerObject(playerguid);
+            GameManager.Instance.PlayerList.Remove(playerguid);
 
             if (returnPlayerToScreen)
             {
@@ -35,10 +35,10 @@ public class HandleLogout : IIncomingPacketHandler
                         SceneManager.UnloadSceneAsync("MapScene").completed += (t2) =>
                         {
                             NetworkManager.networkStream.CloseAsync();
-                            GameManager.instance.ServerSpawns.Clear();
-                            GameManager.instance.GroundItems.Clear();
-                            GameManager.instance.PlayerList.Clear();
-                            GameManager.instance.NpcList.Clear();
+                            GameManager.Instance.ServerSpawns.Clear();
+                            GameManager.Instance.GroundItems.Clear();
+                            GameManager.Instance.PlayerList.Clear();
+                            GameManager.Instance.NpcList.Clear();
                             GameObject.Destroy(Camera.main.gameObject.GetComponent<PlayerCamera>());
                         };
                     };

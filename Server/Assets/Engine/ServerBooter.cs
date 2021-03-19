@@ -14,6 +14,7 @@ public class ServerBooter
     {
         var s = Task.Run(async () =>
         {
+            await world.LoadNpcInteracts();
             await world.LoadMonsters();
             await world.LoadGroundItems();
             await tcp.Initalize(5555).ConfigureAwait(false);

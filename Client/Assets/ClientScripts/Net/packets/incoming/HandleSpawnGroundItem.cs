@@ -19,7 +19,7 @@ public class HandleSpawnGroundItem : IIncomingPacketHandler
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
             var resourceModel = Resources.Load("ItemResources/ItemModels/" + itemName) as GameObject;
-            GameManager.instance.SpawnGroundItem(Guid.Parse(groundItemId), position, rotation, resourceModel);
+            GameManager.Instance.SpawnGroundItem(Guid.Parse(groundItemId), position, rotation, resourceModel);
             //Debug.Log("Spawned model " + resourceModel.name);
         });
     }

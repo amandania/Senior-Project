@@ -22,7 +22,7 @@ public class HandleAnimatorBoolean : IIncomingPacketHandler
         bool triggerStae = buffer.ReadBoolean();
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            GameObject player = GameManager.instance.ServerSpawns[index];
+            GameObject player = GameManager.Instance.ServerSpawns[index];
             Animator animator = player.GetComponent<Animator>();
             animator.SetBool(triggerName, triggerStae);
         });

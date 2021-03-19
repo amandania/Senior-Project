@@ -22,10 +22,10 @@ public class HandleAnimatorFloat : IIncomingPacketHandler
         float value = buffer.ReadFloat();
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            GameObject player = GameManager.instance.ServerSpawns[index];
+            GameObject player = GameManager.Instance.ServerSpawns[index];
             Animator animator = player.GetComponent<Animator>();
             Debug.Log("Setting animator float: " + floatName);
-            if (GameManager.instance.AnimatorHasParamter(animator, floatName)) {
+            if (GameManager.Instance.AnimatorHasParamter(animator, floatName)) {
                 Debug.Log("found animator float: " + floatName);
                 animator.SetFloat(floatName, value);
             }

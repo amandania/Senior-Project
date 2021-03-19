@@ -26,6 +26,27 @@ public class World : MonoBehaviour, IWorld
         m_savedPlayerData = a_playerData;
     }
 
+    public Task LoadNpcInteracts()
+    {
+        bool completed = false;
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+            Transform monsterListTransform = GameObject.Find("NpcInteracts").transform;
+            
+            for (int index = 0; index < monsterListTransform.childCount; index++)
+            {
+                GameObject model = monsterListTransform.GetChild(index).gameObject;
+                Npc npc = new Npc(model);
+                AddWorldCharacter(npc);
+            }
+            completed = true;
+            //Debug.Log("Actually completed count on unity thread");
+        });
+
+        while (!completed) ;
+
+        return Task.CompletedTask;
+    }
     public Task LoadMonsters()
     {
         bool completed = false;
@@ -47,6 +68,8 @@ public class World : MonoBehaviour, IWorld
 
         return Task.CompletedTask;
     }
+
+
     public Task LoadGroundItems()
     {
         bool completed = false;
@@ -75,6 +98,7 @@ public class World : MonoBehaviour, IWorld
 
         return Task.CompletedTask;
     }
+
     public void AddGroundItem(ItemBase a_item, bool triggerSpawn = false)
     {
         if (triggerSpawn)

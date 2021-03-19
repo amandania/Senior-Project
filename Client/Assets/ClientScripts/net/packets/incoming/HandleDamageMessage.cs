@@ -21,7 +21,7 @@ public class HandleDamageMessage : IIncomingPacketHandler
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
             {
                 GameObject characterObject = null;
-                var hasVal = GameManager.instance.ServerSpawns.TryGetValue(guid, out characterObject);
+                var hasVal = GameManager.Instance.ServerSpawns.TryGetValue(guid, out characterObject);
                 if (characterObject != null)
                 {
                     var damagePrefab = Resources.Load("Prefabs/Damage") as GameObject;

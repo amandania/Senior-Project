@@ -15,7 +15,7 @@ public class HandleSpawnPlayer : IIncomingPacketHandler
 
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            GameManager.instance.SpawnPlayer(username, Guid.Parse(playerId), Position, Rotation, false);
+            GameManager.Instance.SpawnPlayer(username, Guid.Parse(playerId), Position, Rotation, false);
         });
     }
 
