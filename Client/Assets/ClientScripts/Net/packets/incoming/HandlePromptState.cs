@@ -9,13 +9,18 @@ using UnityEngine.UI;
 
 public class HandlePromptState : IIncomingPacketHandler
 {
+    /// <summary>
+    /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
+    /// <see cref="ChannelEventHandler.HandleDataPackets"/>
+    /// <return>Enum ordinal for animator packet</return>
+    /// </summary>
     public IncomingPackets PacketType => IncomingPackets.HANDLE_PROMPT_STATE;
 
     /// <summary>
-    /// Read message sent by user and display it to our chat area
+    /// This function reads the panel tag name we are trying to toggle the state of
     /// <see cref="ChatManager.ReceiveChatMessage(int, string)"/>
     /// </summary>
-    /// <param name="buffer">Bytes containing username and message from user</param>
+    /// <param name="buffer">Bytes contain prompt name and boolean state value</param>
     public void ExecutePacket(IByteBuffer buffer)
     {
         int messageLength = buffer.ReadInt();

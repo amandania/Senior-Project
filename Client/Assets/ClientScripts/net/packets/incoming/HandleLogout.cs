@@ -9,6 +9,14 @@ using UnityEngine.SceneManagement;
 public class HandleLogout : IIncomingPacketHandler
 {
     /// <summary>
+    /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
+    /// <see cref="ChannelEventHandler.HandleDataPackets"/>
+    /// <return>Enum ordinal for animator packet</return>
+    /// </summary>
+    public IncomingPackets PacketType => IncomingPackets.HANDLE_LOGOUT;
+
+
+    /// <summary>
     /// Read the packet containing client who logged out
     /// Destroy the player object our client
     /// </summary>
@@ -48,7 +56,6 @@ public class HandleLogout : IIncomingPacketHandler
         });
 
     }
-
-    public IncomingPackets PacketType => IncomingPackets.HANDLE_LOGOUT;
+    
 
 }
