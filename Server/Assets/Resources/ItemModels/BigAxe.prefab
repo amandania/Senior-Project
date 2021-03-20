@@ -100,6 +100,7 @@ MonoBehaviour:
   CanPickup: 0
   dropItem: {fileID: 0}
   TrasnformParentName: B_R_Hand
+  MovementStateOnEquip: 1
   ResourcePefab: {fileID: 1531525226034517125}
 --- !u!65 &454415519
 BoxCollider:

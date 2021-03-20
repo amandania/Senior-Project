@@ -3,7 +3,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// This is the main class for our game. We use this to spawn game objects/players/and local player requirements says input controls and camera controls.
+/// Without this class the game doesnt work. 
+/// </summary>
 public class GameManager : MonoBehaviour
 {
 
@@ -40,6 +43,12 @@ public class GameManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// This function will destroy anything the server spawns and their specfic lists. If its not a monster then we just remove from the server spawns cause it means its either another player/a ground item or something else. we spawned.
+    /// We call this from the appropiate packet <see cref="HandleDestroyGameObject"/>
+    /// </summary>
+    /// <param name="a_serverId">Registered Server Id to gameobject</param>
+    /// <param name="a_isMonster">Expected Type of gameobject.</param>
     public void DestroyServerObject(Guid a_serverId, bool a_isMonster = false)
     {
         GameObject outGuid;
@@ -57,6 +66,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This function will spawn an item modol at the given positiona and rotation. <see cref="HandleSpawnGroundItem"/>
+    /// </summary>
+    /// <param name="a_guid">The id of object created by server</param>
+    /// <param name="pos">Positon recieved by the server</param>
+    /// <param name="a_rotation">Rotation recieved by the server</param>
+    /// <param name="resourceModel">The resource model loaded by the client based on the name in packet</param>
     public void SpawnGroundItem(Guid a_guid, Vector3 pos, Quaternion a_rotation, GameObject resourceModel)
     {
         var groundItem = Instantiate(resourceModel);
@@ -67,7 +83,13 @@ public class GameManager : MonoBehaviour
         groundItem.SetActive(true);
     }
 
-
+    /// <summary>
+    /// This function will spawn a Monster modol at the given positiona and rotation. <see cref="HandleSpawnMonster"/>
+    /// </summary>
+    /// <param name="a_guid">The id of object created by server</param>
+    /// <param name="pos">Positon recieved by the server</param>
+    /// <param name="a_rotation">Rotation recieved by the server</param>
+    /// <param name="resourceModel">The resource model loaded by the client based on the name in packet</param>
     public void SpawnMonster(Guid a_guid, Vector3 pos, Quaternion a_rotation, GameObject resourceModel)
     {
         var charObject = Instantiate(resourceModel);
@@ -79,6 +101,15 @@ public class GameManager : MonoBehaviour
         ServerSpawns.Add(a_guid, charObject);
     }
 
+
+    /// <summary>
+    /// This function spawns all players, and if its a local player being spaawned we will setup the input controls and camera for said model.
+    /// </summary>
+    /// <param name="a_playerName">Name of player</param>
+    /// <param name="a_guid">Id of game object for player created by serveer</param>
+    /// <param name="a_position">Spawn positon</param>
+    /// <param name="a_rotation">Spawn Rotation</param>
+    /// <param name="a_isLocalPlayer">Local player or not</param>
     public void SpawnPlayer(string a_playerName, Guid a_guid, Vector3 a_position, Quaternion a_rotation, bool a_isLocalPlayer)
     {
         GameObject playerObj = Instantiate(playerModel);
@@ -112,6 +143,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Couroutine function used to setup a regular local player object after it exists on client.
+    /// </summary>
+    /// <param name="index">Server Id of gameobject to setup</param>
+    /// <param name="a_isLocalPlayer">Make sure its local again</param>
+    /// <returns></returns>
     private IEnumerator SetCameraDefaults(Guid index, bool a_isLocalPlayer)
     {
         yield return new WaitForSeconds(0);
@@ -129,14 +166,14 @@ public class GameManager : MonoBehaviour
         }
 
     }
+    
 
-    public float WrapAngle(float angle)
-    {
-        angle %= 360;
-        if (angle > 180)
-            return angle - 360;
-        return angle;
-    }
+    /// <summary>
+    /// Utility function used to check for animator keys.
+    /// </summary>
+    /// <param name="_Anim">The aniamtor we are checking from</param>
+    /// <param name="_ParamName">The paramater to validate</param>
+    /// <returns></returns>
     public bool AnimatorHasParamter(Animator _Anim, string _ParamName)
     {
         foreach (AnimatorControllerParameter param in _Anim.parameters)

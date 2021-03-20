@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class handles input detection for our exacpe screen. This displays everything related to the logout screen. 
+/// </summary>
+
 public class EscapeKeyScreen : MonoBehaviour
 {
     public GameObject LogPanel;
@@ -24,6 +28,9 @@ public class EscapeKeyScreen : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Submit event for logout button in escape screen
+    /// </summary>
     public void HandleLogoutButton()
     {
         if (Time.time - LastClick < 2) {

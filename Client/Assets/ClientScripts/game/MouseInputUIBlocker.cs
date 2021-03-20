@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-
+/// <summary>
+/// This class is used to block ui elements from being clicked when you are hoverring other ui elements. For instance clicking on escape panel while trying to do combat in game will be blocked be cause of ui being in the way.
+/// </summary>
 [RequireComponent(typeof(EventTrigger))]
 public class MouseInputUIBlocker : MonoBehaviour
 {
@@ -8,6 +10,9 @@ public class MouseInputUIBlocker : MonoBehaviour
 
     private EventTrigger eventTrigger;
 
+    /// <summary>
+    /// Setup our event triggers on startup
+    /// </summary>
     private void Start()
     {
         eventTrigger = GetComponent<EventTrigger>();

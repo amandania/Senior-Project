@@ -4,26 +4,34 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// This class is used to handle the login screen portion of the game. Its important to realize when we are on this screen, we also dont have a valid network available.
+/// We only create the socket connection after we hit the login button and create a temporary state for the response code recieved by server to be handled appropiaely. <see cref="HandleLoginResponse"/>
+/// </summary>
+
 public class LoginScreen : MonoBehaviour
 {
-
+    //Our netwrok instance
     private NetworkManager _net;
 
+    //log input details
     public Text username;
     public InputField password;
     public Text responseMessage;
-    private readonly IDisposable _loginScreenSubscription;
-
+    
     // Use this for initialization
 
     private void Start()
     {
-        username.text = "aki";
-        password.text = "lol";
         _net = GameObject.Find("GameManager").GetComponent<NetworkManager>();
     }
     public static int ResponseCode = -1;
 
+    /// <summary>
+    /// This function is triggered by out onclick event for the login button. We attempt to connect to the server, and try to log in
+    /// When we get the packet be we either display the response code message or log in.
+    /// <see cref="HandleLoginResponse.ExecutePacket"/>
+    /// </summary>
     public async void OnLogin()
     {
         var connected = false;

@@ -18,7 +18,7 @@ public class Container : MonoBehaviour
     public GameObject SlotPrefab;
     public Dictionary<int, GameObject> SlotsCreated = new Dictionary<int, GameObject>();
 
-    //Default Slot Gamobject
+    //Monobehavior awake funciton
     private void Awake()
     {
         SlotPrefab = Resources.Load("Slot") as GameObject;
@@ -30,11 +30,11 @@ public class Container : MonoBehaviour
     /// This function is the main use of this class. We refresh a each slot one at a time based on the packet data we recieved for all the items in our entry.
     /// <see cref=""/>
     /// </summary>
-    /// <param name="slotIndex"></param>
-    /// <param name="slotItemName"></param>
-    /// <param name="slotItemAmount"></param>
-    /// <param name="a_slotActive"></param>
-    /// <param name="destroyInstance"></param>
+    /// <param name="slotIndex">The container slot index</param>
+    /// <param name="slotItemName">The item name this slot index will recieve</param>
+    /// <param name="slotItemAmount">Any amount to display if needs to display.</param>
+    /// <param name="a_slotActive">Do we have it already active, if so we change the slot color</param>
+    /// <param name="destroyInstance">Is this a container that dynamically changes its size on a slot destroy.</param>
     public void RefreshSlot(int slotIndex, string slotItemName = null, int slotItemAmount = -1, bool a_slotActive = false, bool destroyInstance = false)
     {
         GameObject changeSlot = null;
@@ -95,11 +95,6 @@ public class Container : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void SlotClick(Button clicked)
-    {
-        //print("clicked button: " + clicked.name);
     }
 }
 

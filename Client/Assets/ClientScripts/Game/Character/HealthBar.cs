@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// This class is mainly used to update the health bar UI on our client. We update it from our network packet. <see cref="HandleDamageMessage"/>
+/// </summary>
 public class HealthBar : MonoBehaviour {
 
     //Default ui map data

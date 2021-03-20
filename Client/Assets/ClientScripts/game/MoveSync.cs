@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
-
+/// <summary>
+/// This class is used to lerp all server movement for any game object. Its not perfect but it kind of works. <see cref="HandleMoveCharacter"/>
+/// We attach this to all monster or player game objects <see cref="HandleSpawnMonster"/> <seealso cref="HandleSpawnPlayer"/>
+/// </summary>
 public class MoveSync : MonoBehaviour
 {
-
+    //All movement is assigned we recieve any moveement packet
     public Vector3 endGoal;
     public Vector3 lastreal;
     public Quaternion lastrotation;
@@ -24,6 +27,9 @@ public class MoveSync : MonoBehaviour
         timeStartedLerping = Time.deltaTime;
     }
 
+    /// <summary>
+    /// This function is called after evey frame. When i did this in update it was a little jittery.
+    /// </summary>
     private void FixedUpdate()
     {
         if (doLerp)
@@ -35,6 +41,7 @@ public class MoveSync : MonoBehaviour
         }
     }
 
+    //
     public void StartLerp()
     {
         timeStartedLerping = Time.deltaTime;

@@ -67,7 +67,9 @@ public class PlayerData : IPlayerDataLoader
                     var QuestList = desiralizedObj.PlayerQuests;
                     foreach (Quest q in QuestList)
                     {
+                        Debug.Log("has qust load step: " + q.CurrentQuestStep);
                         a_sessionPlayer.PlayerQuests.Add(q.QuestName, new Quest(q.QuestName, q.MaxQuestStep, q.CurrentQuestStep));
+                        a_sessionPlayer.PlayerQuests[q.QuestName].Claimed = q.Claimed;
                     }
                 }
                 if (desiralizedObj.CurrentSlotEquipped != -1)
@@ -100,7 +102,13 @@ public class PlayerData : IPlayerDataLoader
         serializeClass.Password = a_player.Password;
         serializeClass.PlayerLevel = a_player.CharacterLevel;
         serializeClass.HotkeyItems = a_player.HotkeyInventory.ContainerItems.ToArray();
-        serializeClass.PlayerQuests = a_player.PlayerQuests.Values.ToArray();
+        serializeClass.PlayerQuests = new Quest[a_player.PlayerQuests.Count];
+        int quest = 0;
+        foreach(Quest q in a_player.PlayerQuests.Values)
+        {
+            Debug.Log("save quest step:" + q.CurrentQuestStep);
+            serializeClass.PlayerQuests[quest] = q;
+        }
         serializeClass.CurrentHealth = a_player.CombatComponent.CurrentHealth;
         serializeClass.MaxHealth = a_player.CombatComponent.MaxHealth;
         serializeClass.CurrentSlotEquipped = a_player.HotkeyInventory.LastActiveSlot;
@@ -110,6 +118,7 @@ public class PlayerData : IPlayerDataLoader
         using (StreamWriter file = File.CreateText(m_filePath + "/"+a_player.UserName.ToLower() + ".json")) 
         {
             JsonSerializer serializer = new JsonSerializer();
+            serializer.Formatting = Formatting.Indented;
             serializer.Serialize(file, serializeClass);
             //Debug.Log("wrote to file : " + m_filePath + "/" + a_player.UserName + ".json");
         }

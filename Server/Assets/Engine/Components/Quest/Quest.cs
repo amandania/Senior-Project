@@ -12,6 +12,7 @@ public class Quest
     {
         QuestName = a_name;
         MaxQuestStep = maxSteps;
+        CurrentQuestStep = a_currentSteps;
     }
 
     public bool IsCompleted()

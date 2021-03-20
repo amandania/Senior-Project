@@ -1,18 +1,18 @@
 {
-  "Username": "aki",
+  "Username": "alo",
   "Password": "lol",
   "PlayerLevel": 1,
   "CurrentHealth": 100,
   "MaxHealth": 100,
   "HotkeyItems": [
     {
-      "MovementStateOnEquip": 0.0,
-      "ItemName": "empty",
-      "Amount": -1,
-      "ItemLevel": -1,
+      "MovementStateOnEquip": 2.0,
+      "ItemName": "Sword",
+      "Amount": 1,
+      "ItemLevel": 1,
       "IsStackable": false,
-      "IsActive": false,
-      "TrasnformParentName": ""
+      "IsActive": true,
+      "TrasnformParentName": "B_R_Hand"
     },
     {
       "MovementStateOnEquip": 0.0,
@@ -78,6 +78,13 @@
       "TrasnformParentName": ""
     }
   ],
-  "PlayerQuests": [],
-  "CurrentSlotEquipped": -1
+  "PlayerQuests": [
+    {
+      "MaxQuestStep": 3,
+      "QuestName": "BasicQuest",
+      "CurrentQuestStep": 3,
+      "Claimed": true
+    }
+  ],
+  "CurrentSlotEquipped": 0
 }

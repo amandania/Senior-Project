@@ -9,6 +9,7 @@ public class SlotItem
     public bool IsStackable { get; set; }
     public bool IsActive { get; set; } = false;
     public string TrasnformParentName { get; set; }
+    public float MovementStateOnEquip = 0f;
 
     public SlotItem()
     {
@@ -79,6 +80,7 @@ public class Container
             ContainerItems[slotToAdd].ItemName = item.ItemName;
             ContainerItems[slotToAdd].IsStackable = item.IsStackable;
             ContainerItems[slotToAdd].TrasnformParentName = item.TrasnformParentName;
+            ContainerItems[slotToAdd].MovementStateOnEquip = item.MovementStateOnEquip;
         }
 
     }

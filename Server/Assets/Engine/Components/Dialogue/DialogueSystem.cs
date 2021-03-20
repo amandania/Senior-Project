@@ -39,6 +39,7 @@ public class DialogueSystem : MonoBehaviour
 
         if (a_objectWithDialogueId.name.Equals("QuestNpc"))
         {
+
             dialogue = HandleBasicQuestProgressPrompt(a_player, a_objectWithDialogueId, dialogue);
         }
 
@@ -149,22 +150,27 @@ public class DialogueSystem : MonoBehaviour
                         {0, new string[] {"Continue"}}
                     });
             }
+            Debug.Log("send a custmo quest npc message instead of original dialogue");
+            a_player.MyOptionHandle = CreateFromDynamic(new
+            {
+                HandleOption = new Action(() => {
+                    if (a_player.PlayerQuests["BasicQuest"].IsCompleted() && !a_player.PlayerQuests["BasicQuest"].Claimed)
+                    {
+                        print("give sword reward to player");
+                        a_player.PlayerQuests["BasicQuest"].Claimed = true;
+                        var itemBase = (Resources.Load("ItemModels/Sword") as GameObject).GetComponent<ItemBase>();
+                        if (itemBase != null)
+                        {
+                            a_player.HotkeyInventory.AddItem(itemBase);
+                            a_player.HotkeyInventory.RefrehsItems();
+                        }
+                    }
+                    a_player.Session.SendPacket(new SendPromptState("DialoguePrompt", false)).ConfigureAwait(false);
+                    a_player.ActiveDialouge = null;
+                    a_player.MyOptionHandle = null;
+                })
+            });
         }
-
-        Debug.Log("send a custmo quest npc message instead of original dialogue");
-        a_player.MyOptionHandle = CreateFromDynamic(new
-        {
-            HandleOption = new Action(() => {
-                if (a_player.PlayerQuests["BasicQuest"].IsCompleted() && a_player.PlayerQuests["BasicQuest"].Claimed)
-                {
-                    print("give sword reward to player");
-                }
-                a_player.Session.SendPacket(new SendPromptState("DialoguePrompt", false)).ConfigureAwait(false);
-                a_player.ActiveDialouge = null;
-                a_player.MyOptionHandle = null;
-            })
-        });
-
         return dialogue;
     }
 }
