@@ -10,7 +10,7 @@ public interface IPlayerDataLoader : IStartable, IDisposable
     void SaveData(Player a_player);
 }
 
-public class PlayerSave {
+public struct PlayerSave {
     public string Username { get; set; }
     public string Password { get; set; }
     public int PlayerLevel { get; set; }
@@ -20,8 +20,5 @@ public class PlayerSave {
     public Quest[] PlayerQuests { get; set; }
 
     public int CurrentSlotEquipped  { get; set; }
-    public static explicit operator PlayerSave(Type v)
-    {
-        throw new NotImplementedException();
-    }
+   
 }

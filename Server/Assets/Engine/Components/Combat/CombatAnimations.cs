@@ -1,21 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+/// <summary>
+/// Monobeavior class given to every character type object such as a player or a monster. 
+/// We controll all collider data here aswell including times when we have weapons equipped.
+/// We keep track of used transforms sort of like a cache just incase we need to use the child transform for a collision detection
+/// </summary>
 public class CombatAnimations : MonoBehaviour
 {
+    //Default colliders for combat
     public GameObject LeftHandCollision;
     public GameObject RightHandCollision;
+
+    //List of game objects hit
     public List<Transform> TransformsHit;
 
-
+    //What collider are we currently listening to
     private GameObject ActiveCombatCollider;
+
+    //gameobjects already hit in my swing
     public List<GameObject> ObjectsHitAlready;
 
 
     // Use this for initialization
     private Dictionary<string, GameObject> ColliderMap { get; set; } = new Dictionary<string, GameObject>();
 
+    /// <summary>
+    /// Startup function to set default collider map values
+    /// </summary>
     void Start()
     {
         ColliderMap.Add("LeftHand", LeftHandCollision);
@@ -62,6 +74,13 @@ public class CombatAnimations : MonoBehaviour
         }
         return null;
     }
+
+    /// <summary>
+    /// This function will be called by a animation event at a certain time in keyframe.
+    /// the animation event passes a collider name type, if there is none provided we use the default hand to hand combats.
+    /// IF we have an active combat collider we will get all the gameobjects touching my bounding box at time of event.
+    /// </summary>
+    /// <param name="ColliderName">Special collider to check against</param>
     public void ActivateCombatImpacts(string ColliderName)
     {
         int layerMask = 1 << 8;
@@ -140,6 +159,9 @@ public class CombatAnimations : MonoBehaviour
 
     }
     
+    /// <summary>
+    /// Function to disbale combat collieder and remove listen
+    /// </summary>
     public void StopCollisionListen()
     {
         if (ActiveCombatCollider != null)
