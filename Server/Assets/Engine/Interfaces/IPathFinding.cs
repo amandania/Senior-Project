@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using static Engine.Entity.pathfinding.PathFinding;
+using static PathFinding;
 
 public interface IPathFinding
 {

@@ -2,9 +2,13 @@
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.AI;
-
+/// <summary>
+/// All character game objects that move and replicate to all clients will have this movement component. It is  used to send the movement direction at a fixed network send rate. We have some basic movement data aswell.
+/// A player is driving this component based on keyboard input while a Server monster is creating its own move vector based on the target information we have. We can use relative position and goal rotations to create our move diretion to send to all clients.
+/// </summary>
 public class MovementComponent : MonoBehaviour
 {
+
     private NetworkManager Network { get; set; }
     private Rigidbody RigidBody { get; set; }
     private bool IsControlledMovement { get; set; } = false;
@@ -42,12 +46,33 @@ public class MovementComponent : MonoBehaviour
 
     public bool IsRetreating = false;
 
+
+    /// <summary>
+    /// Movement data to use with network send rate
+    /// </summary>
+    private float lastAccelerate = 0f;
+    public float timeBetweenMovementStart;
+    public float timeBetweenMovementEnd;
+    private float m_moveSpeed;
+    private Vector3 m_relativeInput;
+    private bool m_isStrafing = false;
+
+    /// <summary>
+    /// This function is used to set a path to force move too, We go to a gameobject transform position
+    /// </summary>
+    /// <param name="alwaysPath">Gameobject to path too</param>
     public void SetAgentPath(GameObject alwaysPath)
     {
         NavAgent.isStopped = false;
         NavAgent.destination = alwaysPath.transform.position;
         CurrentForcePathTo = alwaysPath;
     }
+
+
+    /// <summary>
+    /// This function is used to set a path to force move too, We go to a specific vector3 position
+    /// </summary>
+    /// <param name="position">Vector 3 goal position</param>
     public void SetAgentPath(Vector3 position)
     {
         CurrentForcePathTo = null;
@@ -68,14 +93,7 @@ public class MovementComponent : MonoBehaviour
         CharacterController = GetComponent<CharacterController>();
         Network = GameObject.Find("WorldManager").GetComponent<NetworkManager>();
     }
-
-    //apply any physics things like Force in here
-    private void FixedUpdate()
-    {
-
-        
-    }
-
+    
     // Update is called once per frame
     private void Update()
     {
@@ -120,15 +138,13 @@ public class MovementComponent : MonoBehaviour
         }
 
     }
-    private float lastAccelerate = 0f;
 
-    public float timeBetweenMovementStart;
-    public float timeBetweenMovementEnd;
-
-    private float m_moveSpeed;
-    private Vector3 m_relativeInput;
-    private bool m_isStrafing = false;
-
+    /// <summary>
+    /// This function takes a movevector depending on either keyboard input or move direction to goal. We send the movement every 200 ms just so we dont send every possible movement data but only bigger gaps for client to interpolate to.
+    /// </summary>
+    /// <param name="a_moveVector">Desire move vector</param>
+    /// <param name="isStrafing">Strafe input if we have any</param>
+    /// <param name="rotatOnMouse">If a player is rotating the player with right mouse button</param>
     public void Move(Vector3 a_moveVector, bool isStrafing, float rotatOnMouse)
     {
 
@@ -226,13 +242,20 @@ public class MovementComponent : MonoBehaviour
         //.SendPacketToAll(new SendMoveCharacter(m_character, moveSpeed)).ConfigureAwait(false);
     }
     
-
+    /// <summary>
+    /// Couroutiune function executed to send movements with timestamps
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator SendAtRate()
     {
         timeBetweenMovementStart = Time.time;
         yield return new WaitForSeconds((1 / SendRate));
         SendMovement();
     }
+
+    /// <summary>
+    /// Actual send function which is sent after movements functions are updated.
+    /// </summary>
     private void SendMovement()
     {
         timeBetweenMovementEnd = Time.time;

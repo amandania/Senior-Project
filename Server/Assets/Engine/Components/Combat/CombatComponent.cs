@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
-
 /// <summary>
 /// This is a class used for all characters that allowed to perform combat behaviors. This includes Players and Monsters. 
 /// We keep track of all combat related data including max combos for the animation tree to cyle through. Damage data, and we also have a list of possible targets to filter trough when we want.
