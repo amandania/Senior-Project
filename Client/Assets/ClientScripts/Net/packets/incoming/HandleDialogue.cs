@@ -3,15 +3,22 @@ using System;
 using System.Text;
 using UnityEngine;
 /// <summary>
-/// This packet is used to set any boolean paramater value by name for specific game object id s' Animation Controller
+/// This class is used to setup any dialouges that being prompted to our local player. We read in the the options needed for the buttons too.
 /// </summary>
 
 public class HandleDialogue : IIncomingPacketHandler
 {
     /// <summary>
-    /// This functions reads our game object Id as a string and we convert it into a Guid. We read the boolean paramater name for the animator to handle, and the sate to set it too. Finally we execute the changes on the main thread to the actual game object
+    /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
+    /// <see cref="ChannelEventHandler.HandleDataPackets"/>
+    /// <return>Enum ordinal for animator packet</return>
     /// </summary>
-    /// <param name="buffer">Contains animators parent model game object id and the state data to set</param>
+    public IncomingPackets PacketType => IncomingPackets.HANDLE_DIALOGUE;
+
+    /// <summary>
+    /// This function will read the message we need to type write and the options to display after we finish typing.
+    /// </summary>
+    /// <param name="buffer">Buffer message containg dilogue information</param>
     public void ExecutePacket(IByteBuffer buffer)
     {
         int messageLength = buffer.ReadInt();
@@ -30,11 +37,6 @@ public class HandleDialogue : IIncomingPacketHandler
         });
     }
 
-    /// <summary>
-    /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
-    /// <see cref="ChannelEventHandler.HandleDataPackets"/>
-    /// <return>Packet Id</return>
-    /// </summary>
-    public IncomingPackets PacketType => IncomingPackets.HANDLE_DIALOGUE;
+
 
 }
