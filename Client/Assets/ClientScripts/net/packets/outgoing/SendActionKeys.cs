@@ -13,7 +13,7 @@ public class SendActionKeys : IOutgoingPacketSender
     /// <summary>
     /// Constructor packet to ensure each key packet is being sent
     /// </summary>
-    /// <param name="a_input"></param>
+    /// <param name="a_input">Input being sent</param>
     public SendActionKeys(KeyInput a_input)
     {
         m_inputKey = a_input;
@@ -34,7 +34,7 @@ public class SendActionKeys : IOutgoingPacketSender
 
     /// <summary>
     /// Packet Id used to refrence the mapping on server to handle incoming packets.
-    /// <return>Enum ordinal for Action Key packet</return>
+    /// <return>Enum ordinal for outgoing Action Key packet</return>
     /// </summary>
     public OutgoingPackets PacketType => OutgoingPackets.SEND_ACTION_KEYS;
 
