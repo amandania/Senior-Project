@@ -30,9 +30,9 @@ public class HandleAnimatorTrigger : IIncomingPacketHandler
 
     }
     /// <summary>
-    /// Aniamtion Trigger Packet Id used to refrence incoming packet handling
+    /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
     /// <see cref="ChannelEventHandler.HandleDataPackets"/>
-    /// <return>Packet Id</return>
+    /// <return>Enum ordinal for animator trigger packet</return>
     /// </summary>
     public IncomingPackets PacketType => IncomingPackets.HANDLE_ANIMATOR_TRIGGER;
 

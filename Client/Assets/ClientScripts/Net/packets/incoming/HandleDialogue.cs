@@ -11,7 +11,7 @@ public class HandleDialogue : IIncomingPacketHandler
     /// <summary>
     /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
     /// <see cref="ChannelEventHandler.HandleDataPackets"/>
-    /// <return>Enum ordinal for animator packet</return>
+    /// <return>Enum ordinal for handle dialouge packet packet</return>
     /// </summary>
     public IncomingPackets PacketType => IncomingPackets.HANDLE_DIALOGUE;
 

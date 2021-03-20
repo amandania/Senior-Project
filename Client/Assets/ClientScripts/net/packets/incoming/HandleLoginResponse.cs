@@ -11,7 +11,7 @@ public class HandleLoginResponse : IIncomingPacketHandler
     /// <summary>
     /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
     /// <see cref="ChannelEventHandler.HandleDataPackets"/>
-    /// <return>Enum ordinal for animator packet</return>
+    /// <return>Enum ordinal for Login response packet</return>
     /// </summary>
     public IncomingPackets PacketType => IncomingPackets.HANDLE_LOGIN_RESPONSE;
 

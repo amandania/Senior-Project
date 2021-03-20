@@ -7,6 +7,13 @@ using UnityEngine;
 /// </summary>
 public class HandleDestroyGameObject : IIncomingPacketHandler
 {
+    /// <summary>
+    /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
+    /// <see cref="ChannelEventHandler.HandleDataPackets"/>
+    /// <return>Enum ordinal for destry gameobject packet</return>
+    /// </summary>
+    public IncomingPackets PacketType => IncomingPackets.HANDLE_DESTROY_OBJECT;
+
 
     /// <summary>
     /// This function is executed and reads the buffer containg game object id to destroy and its type (monster/other)
@@ -35,11 +42,6 @@ public class HandleDestroyGameObject : IIncomingPacketHandler
         });
     }
 
-    /// <summary>
-    /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
-    /// <see cref="ChannelEventHandler.HandleDataPackets"/>
-    /// <return>Enum ordinal for animator packet</return>
-    /// </summary>
-    public IncomingPackets PacketType => IncomingPackets.HANDLE_DESTROY_OBJECT;
+   
 
 }

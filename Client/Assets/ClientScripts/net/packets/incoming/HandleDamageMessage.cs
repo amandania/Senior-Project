@@ -9,6 +9,13 @@ public class HandleDamageMessage : IIncomingPacketHandler
 {
 
     /// <summary>
+    /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
+    /// <see cref="ChannelEventHandler.HandleDataPackets"/>
+    /// <return>Enum ordinal for damage message packet</return>
+    /// </summary>
+    public IncomingPackets PacketType => IncomingPackets.HANDLE_DAMAGE_MESSAGE;
+
+    /// <summary>
     /// This function is executed when we recieve this packet. The buffer has the id for the game object getting the damage life and the damage amount to display
     /// </summary>
     /// <param name="buffer">message buffer used to assign damage life class to the game.</param>
@@ -48,6 +55,5 @@ public class HandleDamageMessage : IIncomingPacketHandler
             });
         }
     }
-
 
 }
