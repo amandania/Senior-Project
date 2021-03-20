@@ -16,9 +16,7 @@ public class HandleLoginResponse : IIncomingPacketHandler
     public IncomingPackets PacketType => IncomingPackets.HANDLE_LOGIN_RESPONSE;
 
     /// <summary>
-    /// This function performs a valid response message only which means your login credentials where perfect
-    /// We get our player id, the username and spawn position and rotation. We then handle this login appropiately by spawning a player as a local player
-    /// This packet is only recieved for local actions
+    /// This function will get our local player id, the username, spawn position and rotation. We then handle this login appropiately by spawning a player as a local player
     /// </summary>
     /// <param name="buffer">Buffer message containing login message</param>
     public void ExecutePacket(IByteBuffer buffer)
