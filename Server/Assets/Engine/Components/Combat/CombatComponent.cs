@@ -280,18 +280,6 @@ public class CombatComponent : MonoBehaviour
         MyAnimator.SetTrigger("TriggerAttack");
         Network.SendPacketToAll(new SendCharacterCombatStage(Character, CurrentAttackCombo)).ConfigureAwait(false);
     }
-    private IEnumerator HandleDash(float DashDistance)
-    {
-        float startTime = Time.time;
-        while (Time.time < startTime + .25)
-        {
-            Mover.CharacterController.Move(transform.forward * DashDistance * Time.deltaTime);
-            yield return null;
-        }
-        Mover.LockedMovement = false;
-
-        yield return null;
-    }
     
 
     public bool WithinReach(Vector3 targetPosition, out float distance)

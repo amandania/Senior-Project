@@ -1,38 +1,14 @@
 ﻿using System.Collections.Generic;
-
-public class SlotItem
-{
-
-    public string ItemName { get; set; }
-    public int Amount { get; set; }
-    public int ItemLevel { get; set; }
-    public bool IsStackable { get; set; }
-    public bool IsActive { get; set; } = false;
-    public string TrasnformParentName { get; set; }
-    public float MovementStateOnEquip = 0f;
-
-    public SlotItem()
-    {
-        ItemName = "empty";
-        Amount = -1;
-        ItemLevel = -1;
-        IsStackable = false;
-        TrasnformParentName = "";
-    }
-    public SlotItem(string a_name = "empty", int a_amount = -1, int a_level = -1, bool a_isStackable = false)
-    {
-        ItemName = a_name;
-        Amount = a_amount;
-        ItemLevel = a_level;
-        IsStackable = a_isStackable;
-    }
-}
-
+/// <summary>
+/// This class is used to manage any group of Slot Items. We only implment this class currently with Hotkeys. <see cref="Hotkeys"/> A container adds/removes, and refeshes.
+/// We also listen for unique slot clicks in the implementation <seealso cref="Hotkeys.HandleSlotUse(int)"/>
+/// </summary>
 public class Container
 {
     public List<SlotItem> ContainerItems { get; set; }
 
-    public bool DeleteOnRefresh { get; set; }
+    //Is this container deleting the space in visuals on client? Default is set to false
+    public bool DeleteOnRefresh { get; set; } = false;
 
 
     /// <summary>
@@ -57,6 +33,10 @@ public class Container
         DeleteOnRefresh = false;
     }
 
+    /// <summary>
+    /// This function is used to add an item base to our slots. 
+    /// </summary>
+    /// <param name="item">Item to add into slot</param>
     public void AddItem(ItemBase item)
     {
         bool isStackable = item.IsStackable;
@@ -84,6 +64,11 @@ public class Container
         }
 
     }
+
+    /// <summary>
+    /// This function will remove an item at a specfic slot
+    /// </summary>
+    /// <param name="slot"></param>
     public void RemoveItem(int slot)
     {
         ContainerItems[slot].ItemName = "empty";
@@ -91,6 +76,11 @@ public class Container
         ContainerItems[slot].Amount = -1;
     }
 
+    /// <summary>
+    /// This function will check if we already have an item with the same name in our slots.
+    /// </summary>
+    /// <param name="a_item">Item to match against</param>
+    /// <returns>True if it item was found already otherwise false.</returns>
     public bool ContainsItem(ItemBase a_item)
     {
         foreach (SlotItem item in ContainerItems)
@@ -103,6 +93,11 @@ public class Container
         return false;
     }
 
+
+    /// <summary>
+    /// Tihs functon will return the next slot that has a less than 0 value for item amount
+    /// </summary>
+    /// <returns>Slot index that is free to use</returns>
     public int GetNextFreeSlot()
     {
         for (int i = 0; i < ContainerItems.Count; i++)
@@ -116,6 +111,11 @@ public class Container
         return -1;
     }
 
+    /// <summary>
+    /// Find the slot where an item name exists
+    /// </summary>
+    /// <param name="itemName"></param>
+    /// <returns>slot of itemname if we found or -1 for nothing.</returns>
     public int GetSlotForItem(string itemName)
     {
         for (int i = 0; i < ContainerItems.Count;i++)
