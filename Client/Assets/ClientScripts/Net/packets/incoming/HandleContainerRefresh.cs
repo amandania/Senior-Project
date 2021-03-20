@@ -1,6 +1,4 @@
 ﻿using DotNetty.Buffers;
-using System;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 /// <summary>
@@ -9,9 +7,11 @@ using UnityEngine;
 public class HandleContainerRefresh : IIncomingPacketHandler
 {
 
+
     /// <summary>
-    /// 
-    ///
+    /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
+    /// <see cref="ChannelEventHandler.HandleDataPackets"/>
+    /// <return>Enum ordinal for animator packet</return>
     /// </summary>
     public IncomingPackets PacketType => IncomingPackets.HANDLE_CONTAINER_REFRESH;
 

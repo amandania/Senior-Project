@@ -2,10 +2,16 @@
 using System;
 using System.Text;
 using UnityEngine;
-
+/// <summary>
+/// This class is used to start the life of a damage text prab. A damage text prfab has the DamageLife mono behavior class. <see cref="DamageLife"/>
+/// </summary>
 public class HandleDamageMessage : IIncomingPacketHandler
 {
 
+    /// <summary>
+    /// This function is executed when we recieve this packet. The buffer has the id for the game object getting the damage life and the damage amount to display
+    /// </summary>
+    /// <param name="buffer">message buffer used to assign damage life class to the game.</param>
     public void ExecutePacket(IByteBuffer buffer)
     {
         Guid guid;
@@ -43,7 +49,5 @@ public class HandleDamageMessage : IIncomingPacketHandler
         }
     }
 
-
-    public IncomingPackets PacketType => IncomingPackets.HANDLE_DAMAGE_MESSAGE;
 
 }

@@ -9,6 +9,14 @@ using UnityEngine;
 public class HandleAnimatorFloat : IIncomingPacketHandler
 {
     /// <summary>
+    /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
+    /// <see cref="ChannelEventHandler.HandleDataPackets"/>
+    /// <return>Enum ordinal for animator packet</return>
+    /// </summary>
+    public IncomingPackets PacketType => IncomingPackets.HANDLE_DAMAGE_MESSAGE;
+
+
+    /// <summary>
     /// This functions reads our game object Id as a Guid, our boolean paramater name, and the float value to set it too.
     /// </summary>
     /// <param name="buffer">Contains object id and trigger name</param>

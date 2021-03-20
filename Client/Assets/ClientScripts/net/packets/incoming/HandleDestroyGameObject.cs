@@ -2,9 +2,16 @@
 using System;
 using System.Text;
 using UnityEngine;
-
+/// <summary>
+/// This class is used to destroy any server game object including other players (not local)
+/// </summary>
 public class HandleDestroyGameObject : IIncomingPacketHandler
 {
+
+    /// <summary>
+    /// This function is executed and reads the buffer containg game object id to destroy and its type (monster/other)
+    /// </summary>
+    /// <param name="buffer">Buffer Message</param>
     public void ExecutePacket(IByteBuffer buffer)
     {
         var length = buffer.ReadInt();
@@ -28,6 +35,11 @@ public class HandleDestroyGameObject : IIncomingPacketHandler
         });
     }
 
+    /// <summary>
+    /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
+    /// <see cref="ChannelEventHandler.HandleDataPackets"/>
+    /// <return>Enum ordinal for animator packet</return>
+    /// </summary>
     public IncomingPackets PacketType => IncomingPackets.HANDLE_DESTROY_OBJECT;
 
 }
