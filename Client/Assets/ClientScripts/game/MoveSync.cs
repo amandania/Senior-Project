@@ -18,13 +18,13 @@ public class MoveSync : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-
+        timeStartedLerping = Time.deltaTime;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        timeStartedLerping = Time.deltaTime;
+        //timeStartedLerping = Time.deltaTime;
     }
 
     /// <summary>
@@ -41,7 +41,9 @@ public class MoveSync : MonoBehaviour
         }
     }
 
-    //
+    /// <summary>
+    /// This function is called when we recieved any movement packet data <see cref="HandleMoveCharacter.Lerp(System.Guid, GameObject, Vector3, Vector3, Quaternion, Quaternion, float, float, float, bool, float)"/>
+    /// </summary>
     public void StartLerp()
     {
         timeStartedLerping = Time.deltaTime;
