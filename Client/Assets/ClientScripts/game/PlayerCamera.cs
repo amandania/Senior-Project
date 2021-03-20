@@ -102,11 +102,7 @@ public class PlayerCamera : MonoBehaviour
         rotation.y += Input.GetAxis("Mouse X") * rotationSpeed;
         rotation.x -= Input.GetAxis("Mouse Y") * rotationSpeed;
         rotation.x = Mathf.Clamp(rotation.x, xMinAngle, xMaxAngle);
-
-
-
-
-
+        
 
         Quaternion camRotation = Quaternion.Euler(rotation.x, rotation.y, 0);
         followPart.transform.rotation = camRotation;

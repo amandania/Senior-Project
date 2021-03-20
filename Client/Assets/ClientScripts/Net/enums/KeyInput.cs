@@ -1,4 +1,7 @@
-﻿public enum KeyInput
+﻿/// <summary>
+/// List of input key identefiers used. We use this to let server know what keys are being inputted.
+/// </summary>
+public enum KeyInput
 {
     F = 1,
     LeftMouseButton,

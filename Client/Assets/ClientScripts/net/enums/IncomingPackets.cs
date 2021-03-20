@@ -1,4 +1,7 @@
-﻿public enum IncomingPackets : int
+﻿/// <summary>
+/// List of packet identefiers used to map to inherited IincomingPcketHandler classes.
+/// </summary>
+public enum IncomingPackets : int
 {
     HANDLE_LOGIN_RESPONSE = 1,
     HANDLE_MOVE_CHARACTER,
