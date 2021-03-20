@@ -3,8 +3,23 @@ using System;
 using System.Text;
 using UnityEngine;
 
+/// <summary>
+/// This class is used to spawn all monster models. We load all the resources on runtime on the main unity thread in this class.
+/// </summary>
 public class HandleSpawnMonster : IIncomingPacketHandler
-{
+{ 
+    /// <summary>
+    /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
+    /// <see cref="ChannelEventHandler.HandleDataPackets"/>
+    /// <return>Enum ordinal for animator packet</return>
+    /// </summary>
+    public IncomingPackets PacketType => IncomingPackets.HANDLE_SPAWN_MONSTER;
+
+    /// <summary>
+    /// This function is used to assign our monster game object that we are trying to spawn with all the valid server data it is tagged with
+    /// We read the the id, the name of the object model to load, and the spawn position/rotation
+    /// </summary>
+    /// <param name="buffer">Bytes containg monster spawn information</param>
     public void ExecutePacket(IByteBuffer buffer)
     {
         var length = buffer.ReadInt();
@@ -25,6 +40,5 @@ public class HandleSpawnMonster : IIncomingPacketHandler
 
 
 
-    public IncomingPackets PacketType => IncomingPackets.HANDLE_SPAWN_MONSTER;
 
 }
