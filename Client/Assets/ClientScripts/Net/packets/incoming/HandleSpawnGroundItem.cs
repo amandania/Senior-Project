@@ -10,7 +10,7 @@ public class HandleSpawnGroundItem : IIncomingPacketHandler
     /// <summary>
     /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
     /// <see cref="ChannelEventHandler.HandleDataPackets"/>
-    /// <return>Enum ordinal for animator packet</return>
+    /// <return>Enum ordinal for ground item spawn packet</return>
     /// </summary>
     public IncomingPackets PacketType => IncomingPackets.HANDLE_GROUND_ITEM_SPAWN;
 

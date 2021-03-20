@@ -31,7 +31,7 @@ public class HandleAnimatorBoolean : IIncomingPacketHandler
     /// <summary>
     /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
     /// <see cref="ChannelEventHandler.HandleDataPackets"/>
-    /// <return>Packet Id</return>
+    /// <return>Enum ordinal for animator boolean packet change</return>
     /// </summary>
     public IncomingPackets PacketType => IncomingPackets.HANDLE_ANIMATION_BOOL;
 
