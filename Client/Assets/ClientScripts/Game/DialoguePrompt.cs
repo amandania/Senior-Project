@@ -5,30 +5,41 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 
+/// <summary>
+/// This class handles any dialouge prompts we recieve from the server. We also setup the option buttons here for the server to handle respectively to the dialouge.
+/// </summary>
 public class DialoguePrompt : MonoBehaviour
 {
+
+    //Static instance assigned on startup, used to refrence by packets or other game modules.
     public static DialoguePrompt Instance;
 
+    //The gameobject holding the text object
     public GameObject DialogueMessageText;
 
+    //The parent gameobject containing the grid for option buttons to be arranged in.
     public Transform OptionsParent;
 
+    //Gameobject to use for tor option button prompt
     public GameObject OptionSlotClone;
 
+    //List of current options buttons for current dialouge. This is cleaned evertime we have new dialogues
     public List<GameObject> OptionButtons;
 
+    //The main panel containing our image background for dialouge
     public GameObject MainPanel;
 
+    //Active Dialogue settings used to update the visuals
     public string TypedMessage = "";
     public string FullMessage;
     public bool SkipTypeWriter = false;
     public bool FinishedType = false;
-    
-
     private bool m_hasMessage = false;
-    private float m_typeSpeed = .05f;
+
+    private float m_typeSpeed = .08f;
     private float m_lastTyped = -25;
     private int m_typeIndex = 0;
+
     // Use this for initialization
     void Start()
     {
@@ -38,6 +49,29 @@ public class DialoguePrompt : MonoBehaviour
         DialogueMessageText.SetActive(false);
     }
 
+    /// <summary>
+    /// Clear our current dialouge or clean after dialouge is exited
+    /// </summary>
+    public void Clear()
+    {
+        DialogueMessageText.GetComponent<Text>().text = "";
+        GetComponent<Image>().enabled = false;
+        DialogueMessageText.SetActive(false);
+        m_hasMessage = false;
+        if (OptionButtons.Count > 0)
+        {
+            foreach (GameObject obj in OptionButtons)
+            {
+                Destroy(obj);
+            }
+        }
+    }
+
+    /// <summary>
+    /// This function is used to initate the start of a dialogue prompt. We dont clean just because we dont want to hide the old dialogue background if its a "Next Dialouge" to transition to.
+    /// </summary>
+    /// <param name="a_message">The message to type out</param>
+    /// <param name="a_options">Option names</param>
     public void CreateDialouge(string a_message, string[] a_options)
     {
         if (OptionButtons.Count > 0)
@@ -65,9 +99,13 @@ public class DialoguePrompt : MonoBehaviour
 
         FinishedType = false;
         m_hasMessage = true;
+        m_lastTyped = -25;
+        Debug.Log("enable the dialogue again");
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// This function is used to type write the full dialogue message. Once we reached the end we display our buttons and add our custom listeners.
+    /// </summary>
     void Update()
     {
         if (!FinishedType && m_hasMessage && FullMessage.Length > 0 && m_typeIndex < FullMessage.Length)
@@ -97,6 +135,11 @@ public class DialoguePrompt : MonoBehaviour
     }
 
     public float lastClick = -25;
+
+    /// <summary>
+    /// This function is dynamically assigned on runtime to any buttons with button name as the paramater sent.
+    /// </summary>
+    /// <param name="optionClicked">The button name we clicked.</param>
     public void SendOptionClick(string optionClicked)
     {
         int option = -1;

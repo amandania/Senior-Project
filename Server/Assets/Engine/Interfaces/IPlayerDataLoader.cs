@@ -17,8 +17,9 @@ public class PlayerSave {
     public int CurrentHealth { get; set; }
     public int MaxHealth { get; set; }
     public SlotItem[] HotkeyItems { get; set; }
-    public int CurrentSlotEquipped  { get; set; }
+    public Quest[] PlayerQuests { get; set; }
 
+    public int CurrentSlotEquipped  { get; set; }
     public static explicit operator PlayerSave(Type v)
     {
         throw new NotImplementedException();

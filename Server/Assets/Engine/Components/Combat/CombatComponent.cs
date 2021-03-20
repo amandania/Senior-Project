@@ -176,7 +176,7 @@ public class CombatComponent : MonoBehaviour
             Character.AsPlayer().Session.SendPacket(new SendHealthChanged(Character, true, CurrentHealth, MaxHealth)).ConfigureAwait(false);
         } else
         {
-            //Do we have a special bar to display if the attacker is a player?
+           
 
         }
         if (CurrentHealth <= 0)
@@ -184,8 +184,23 @@ public class CombatComponent : MonoBehaviour
             Character.IsDead = true;
             CurrentHealth = 0;
             Network.SendPacketToAll(new SendAnimationBoolean(Character, "IsDead", true)).ConfigureAwait(false);
-           
             TargetList.Clear();
+
+            if (Character.IsNpc())
+            {
+                //Do we have a special bar to display if the attacker is a player?
+                if (a_attacker.IsPlayer())
+                {
+                    if (gameObject.name.Equals("UnarmedHumanMonster"))
+                    {
+                        if (a_attacker.AsPlayer().PlayerQuests.ContainsKey("BasicQuest"))
+                        {
+                            QuestSystem.Instance.IncrementQuest("BasicQuest", a_attacker.AsPlayer());
+                        }
+                    }
+                }
+            }
+
             CombatTarget = null;
             Mover.CurrentForcePathTo = null;
             Mover.NavAgent.destination = Mover.Zero;
@@ -193,6 +208,7 @@ public class CombatComponent : MonoBehaviour
             MyAnimator.SetBool("IsDead", true);
             CombatTriggers.enabled = false;
             Mover.enabled = false;
+
         }
         else
         {

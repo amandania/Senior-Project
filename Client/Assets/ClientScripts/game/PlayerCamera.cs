@@ -1,14 +1,20 @@
 ﻿using UnityEngine;
+/// <summary>
+/// This class is used to control a Players Camera. We instantite a new player camera anytime we are actually logging in. <see cref="GameManager.SpawnPlayer(string, System.Guid, UnityEngine.Vector3, UnityEngine.Quaternion, bool)"/>
+/// </summary>
 
 public class PlayerCamera : MonoBehaviour
 {
+    /// Main camera objects, these are required
     public Transform followPart;
+
+    //Optional look target to keep camera relative to
     public Transform lookPoint = null;
 
-
-    public int mouseButton = 1; // right button by default
-
+    //Strafe inputs
     public bool lockMovementToCam = false;
+
+    //Mouse Settings
     public float xMouseSensitivity = 1f;
     public float yMouseSensitivity = 1f;
     public float yMinLimit = 20f;
@@ -17,12 +23,14 @@ public class PlayerCamera : MonoBehaviour
     public float minDistance = 2;
     public float maxDistance = 4;
 
+    //Camera movement settings
     public float zoomSpeedMouse = 1;
     public float zoomSpeedTouch = 0.2f;
     public float rotationSpeed = 5f;
 
+    //Camera angle constants to prevent camera from going to high or to low relative to player.
     public float xMinAngle = -40;
-    public float xMaxAngle = 80;                                        // Target camera Field of View.
+    public float xMaxAngle = 80; 
 
 
     // the target position can be adjusted by an offset in order to foucs on a
@@ -38,11 +46,18 @@ public class PlayerCamera : MonoBehaviour
     // it back to 360 as soon as it's < 0, which makes a negative min angle impossible
     private Vector3 rotation;
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void Awake()
     {
         rotation = transform.eulerAngles;
 
     }
+
+    /// <summary>
+    /// Function ran evey frame to listen on any mouse input to change strafe inputs
+    /// </summary>
     private void Update()
     {
         if (!followPart)
@@ -61,6 +76,10 @@ public class PlayerCamera : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This function is ran after every frame
+    /// Keep our camera locked onto our mouse location relative to our player
+    /// </summary>
     private void LateUpdate()
     {
         if(NetworkManager.instance.LocalPlayerGameObject == null) {
@@ -83,11 +102,7 @@ public class PlayerCamera : MonoBehaviour
         rotation.y += Input.GetAxis("Mouse X") * rotationSpeed;
         rotation.x -= Input.GetAxis("Mouse Y") * rotationSpeed;
         rotation.x = Mathf.Clamp(rotation.x, xMinAngle, xMaxAngle);
-
-
-
-
-
+        
 
         Quaternion camRotation = Quaternion.Euler(rotation.x, rotation.y, 0);
         followPart.transform.rotation = camRotation;
@@ -106,17 +121,5 @@ public class PlayerCamera : MonoBehaviour
 
 
     }
-
-    public float ClampAngle(float angle, float min, float max)
-    {
-        do
-        {
-            if (angle < -360)
-                angle += 360;
-            if (angle > 360)
-                angle -= 360;
-        } while (angle < -360 || angle > 360);
-
-        return Mathf.Clamp(angle, min, max);
-    }
+    
 }

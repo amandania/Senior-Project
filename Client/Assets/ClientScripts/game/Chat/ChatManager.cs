@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// <summary>
+/// This is the main class to handle our chat window. We listen for player input here to send to server whichc then sends it back to everyone including myself. 
+/// Anytime we recieve messages we create a new object for its line and change the text accordingly and parent it to our chat window. <see cref="ReceiveChatMessage(string, int)"/>
+/// </summary>
 public class ChatManager : MonoBehaviour
 {
     /// <summary>

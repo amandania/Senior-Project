@@ -8,11 +8,11 @@ using UnityEngine;
 public class Equipment : MonoBehaviour
 {
     //Map of transform name and current equipmodel
-    public Dictionary<Transform, GameObject> ItemToTransformMap;
+    public Dictionary<Transform, GameObject> ItemToTransformMap = new Dictionary<Transform, GameObject>();
 
 
     //Map of loadedTransform names;
-    public Dictionary<string, Transform> TransformMap;
+    public Dictionary<string, Transform> TransformMap = new Dictionary<string, Transform>();
 
     // Use this for initialization
     private void Start()
@@ -57,7 +57,7 @@ public class Equipment : MonoBehaviour
         {
             ObjectForEquip.SetActive(true);
             ItemToTransformMap[parentTransform] = Instantiate(ObjectForEquip, parentTransform);
-            
+            ItemToTransformMap[parentTransform].name = a_itemName;
         }
 
         print("Server is equipping item:" + a_itemName + " on character: " + gameObject.name);

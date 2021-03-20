@@ -851,7 +851,7 @@ GameObject:
   - component: {fileID: 1246056337}
   m_Layer: 5
   m_Name: DialoguePanel
-  m_TagString: Untagged
+  m_TagString: DialoguePrompt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -935,6 +935,7 @@ MonoBehaviour:
   FullMessage: 
   SkipTypeWriter: 0
   FinishedType: 0
+  lastClick: -25
 --- !u!1 &1600951717
 GameObject:
   m_ObjectHideFlags: 0

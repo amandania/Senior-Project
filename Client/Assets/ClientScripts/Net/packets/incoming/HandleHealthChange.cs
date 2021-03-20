@@ -9,6 +9,13 @@ using UnityEngine;
 public class HandleHealthChange : IIncomingPacketHandler
 {
     /// <summary>
+    /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
+    /// <see cref="ChannelEventHandler.HandleDataPackets"/>
+    /// <return>Enum ordinal for animator packet</return>
+    /// </summary>
+    public IncomingPackets PacketType => IncomingPackets.HANDLE_HEALTH_CHANGED;
+
+    /// <summary>
     /// This functions executes the packet to update any heath bar. We send a bool value to see if its a player. If its not the end bytes change to a guid string to associate with an object and their health bar if present.
     /// </summary>
     /// <param name="buffer">Contains object id and trigger name</param>
@@ -45,11 +52,6 @@ public class HandleHealthChange : IIncomingPacketHandler
             }
         });
     }
-    /// <summary>
-    /// Packet Id used to refrence this class when an incoming packet type is recieved by server.
-    /// <see cref="ChannelEventHandler.HandleDataPackets"/>
-    /// <return>Packet Id</return>
-    /// </summary>
-    public IncomingPackets PacketType => IncomingPackets.HANDLE_HEALTH_CHANGED;
+    
 
 }

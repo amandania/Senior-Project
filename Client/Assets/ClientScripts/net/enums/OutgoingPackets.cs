@@ -1,4 +1,7 @@
-﻿public enum OutgoingPackets : int
+﻿/// <summary>
+/// List of outgoing packet identefiers used to map to inherited IOutgoingPcketSender classes.
+/// </summary>
+public enum OutgoingPackets : int
 {
     LOGIN_REQUEST = 1,
     SEND_MOVEMENT_KEYS,

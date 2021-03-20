@@ -1,46 +1,41 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+/// <summary>
+/// This class is added to any Local Game object <see cref="GameManager.SpawnPlayer(string, System.Guid, UnityEngine.Vector3, UnityEngine.Quaternion, bool)"/>
+/// We listen for movement keys here and send our expected move vector to the server. Thats it, we have no local movement currently because we let our server handle how we move and where we move to.
+/// We also take into account camera look vector and apply that to the movement vector so our server transforms are relative to our look move vector. 
+/// </summary>
 
 public class KeyListener : MonoBehaviour
 {
 
     #region Private Members
 
+    //Control local aniamtions before server just to perform some instant feel to animation change.
     private Animator _animator;
 
+
+    //We need to come back to this and apply local movement so our client prediction on the packet is smoother
     private CharacterController _characterController;
-
-#pragma warning disable CS0414 // The field 'KeyListener.Gravity' is assigned but its value is never used
-    private readonly float Gravity = 20.0f;
-#pragma warning restore CS0414 // The field 'KeyListener.Gravity' is assigned but its value is never used
-
-    private Vector3 _moveDirection = Vector3.zero;
-    private readonly int startHealth;
-
-    private readonly int startFood;
 
     #endregion
 
     #region Public Members
 
+    //Use this variables to apply local movement before sending the movement to server
     public float Speed = 5.0f;
-
     public float RotationSpeed = 240.0f;
-
-    public GameObject Hand;
-
-    public float JumpSpeed = 7.0f;
-
-    public bool isSprinting = false;
 
     public MouseInputUIBlocker m_uiBlocker;
 
+    //Local classes that should exist on startup for this local gameobject
     public PlayerCamera PlayerCam { get; set; }
-
     public ChatManager ChatManager;
     #endregion
 
+    //Allow movement input to be sent
+    public bool mIsControlEnabled = true;
 
     // Use this for initialization
     private void Start()
@@ -50,31 +45,19 @@ public class KeyListener : MonoBehaviour
         m_uiBlocker = GetComponent<MouseInputUIBlocker>();
         ChatManager = GameObject.Find("HUD").transform.Find("Chat").GetComponent<ChatManager>();
     }
-
-
-    public bool mIsControlEnabled = true;
-
-    public void EnableControl()
-    {
-        mIsControlEnabled = true;
-    }
-
-    public void DisableControl()
-    {
-        mIsControlEnabled = false;
-    }
-
+    
+    //TODO variables for local player etwork lerping
     public bool canSendNetworkMovement;
     public float timeBetweenMovementStart;
     public float timeBetweenMovementEnd;
     public Vector3 lastMove;
     private Vector3 MaxVector = new Vector3(1, 0, 1);
     public float networkSendRate = 5;
+    
 
-    private List<int> keys { get; set; } = new List<int>();
-
-
-
+    /// <summary>
+    /// This function listens for all input keys inlcuding special input keys such as hotkeys, and escape along with interaction keyboard input "F"
+    /// </summary>
     private void Update()
     {
         if (!mIsControlEnabled)
@@ -133,6 +116,9 @@ public class KeyListener : MonoBehaviour
     private Vector3 m_zeroVector = Vector3.zero;
 
     // Update is called once per frame data
+    /// <summary>
+    /// Update is called once per frame data and is used to send movement vector to server
+    /// </summary>
     private void FixedUpdate()
     {
         if (mIsControlEnabled && Camera.main != null)

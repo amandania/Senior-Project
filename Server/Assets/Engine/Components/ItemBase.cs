@@ -17,6 +17,7 @@ public class ItemBase : MonoBehaviour {
     public Guid InstanceGuid { get; set; }
     public GameObject dropItem;
     public string TrasnformParentName = "";
+    public float MovementStateOnEquip = 0f;
 
     public GameObject ResourcePefab;
     private void Start()

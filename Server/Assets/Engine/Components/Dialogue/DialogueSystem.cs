@@ -37,28 +37,20 @@ public class DialogueSystem : MonoBehaviour
 
         var dialogue = DialogueLists[dilogueId];
 
-        /*if (a_objectWithDialogueId.name.Equals("QuestNpc"))
+        if (a_objectWithDialogueId.name.Equals("QuestNpc"))
         {
-            //send a custom dialouge with a custom continue
-            dialogue = new Dialogue(1, "QuestNpc", new string[] { "You still need to kill some more monsters" }, new Dictionary<int, string[]>()
-            {
-                {0, new string[] {"Continue"}}
-            });
-            Debug.Log("send a custmo quest npc message instead of original dialogue");
-            a_player.MyOptionHandle = CreateFromDynamic(new {
-                HandleOption = new Action(() => {
-                    Debug.Log("clicked custom option " + a_player.ActiveDialouge.OptionClicked);
-                })
-            });
-        }*/
+
+            dialogue = HandleBasicQuestProgressPrompt(a_player, a_objectWithDialogueId, dialogue);
+        }
 
         ShowDialouge(a_player, dialogue);
     }
     
     public void ShowDialouge(Player a_player, Dialogue a_dialogue)
     {
+        a_player.DialougeMessageIndex = 0;
         a_player.ActiveDialouge = a_dialogue;
-        a_player.ActiveDialouge.ContinueDialouge(a_player);
+        a_player.ActiveDialouge.ContinueDialouge(a_player).ConfigureAwait(false);
         if (a_player.MyOptionHandle == null)
         {
             switch(a_dialogue.GetDialogueTitle())
@@ -72,11 +64,28 @@ public class DialogueSystem : MonoBehaviour
                             Debug.Log("clicked custom option " + optionClicked + " for message index: " + messageIndex);
                             if (optionClicked == 0)
                             {
-                                if (messageIndex < a_dialogue.GetDialogueMessages().Length)
+
+                                if (messageIndex < a_dialogue.GetDialogueMessages().Length-1)
                                 {
                                     //continue to next chat
-                                    a_dialogue.ContinueDialouge(a_player);
+                                    Debug.Log("contniue");
+                                    a_dialogue.ContinueDialouge(a_player).ConfigureAwait(false);
                                 }
+                                else
+                                {
+                                    //give quest
+                                    QuestSystem.Instance.GiveQuest("BasicQuest", a_player);
+                                    Debug.Log("gave quest");
+                                    a_player.Session.SendPacket(new SendPromptState("DialoguePrompt", false)).ConfigureAwait(false);
+                                    a_player.ActiveDialouge = null;
+                                    a_player.MyOptionHandle = null;
+                                }
+                            } else
+                            {
+                                //close the prompt
+                                a_player.Session.SendPacket(new SendPromptState("DialoguePrompt", false)).ConfigureAwait(false);
+                                a_player.ActiveDialouge = null;
+                                a_player.MyOptionHandle = null;
                             }
                         })
                     });
@@ -102,5 +111,66 @@ public class DialogueSystem : MonoBehaviour
             a_player.MyOptionHandle.HandleOption(a_player, a_option);
             return;
         }
+    }
+
+
+    public Dialogue HandleBasicQuestProgressPrompt(Player a_player, GameObject a_objectWithDialogueId, Dialogue dialogue)
+    {
+        //send a custom dialouge with a custom continue
+        if (a_player.PlayerQuests.ContainsKey("BasicQuest"))
+        {
+            if (a_player.PlayerQuests["BasicQuest"].IsCompleted())
+            {
+                string[] useString = null;
+                Dictionary<int, string[]> options = null;
+
+                if (a_player.PlayerQuests["BasicQuest"].Claimed)
+                {
+                    useString = new string[] { "I dont have any more quests for your at the moment." };
+                    options = new Dictionary<int, string[]>()
+                        {
+                            {0, new string[] {"Continue"}}
+                        };
+                }
+                else
+                {
+                    useString = new string[] { "Thank you for clearing the home. Heres a sword." };
+                    options = new Dictionary<int, string[]>()
+                        {
+                            {0, new string[] {"Claim"}}
+                        };
+                }
+
+                dialogue = new Dialogue(1, "QuestNpc", useString, options);
+            }
+            else
+            {
+                dialogue = new Dialogue(1, "QuestNpc", new string[] { "You still need to kill " + (a_player.PlayerQuests["BasicQuest"].MaxQuestStep - a_player.PlayerQuests["BasicQuest"].CurrentQuestStep) + " monsters" }, new Dictionary<int, string[]>()
+                    {
+                        {0, new string[] {"Continue"}}
+                    });
+            }
+            Debug.Log("send a custmo quest npc message instead of original dialogue");
+            a_player.MyOptionHandle = CreateFromDynamic(new
+            {
+                HandleOption = new Action(() => {
+                    if (a_player.PlayerQuests["BasicQuest"].IsCompleted() && !a_player.PlayerQuests["BasicQuest"].Claimed)
+                    {
+                        print("give sword reward to player");
+                        a_player.PlayerQuests["BasicQuest"].Claimed = true;
+                        var itemBase = (Resources.Load("ItemModels/Sword") as GameObject).GetComponent<ItemBase>();
+                        if (itemBase != null)
+                        {
+                            a_player.HotkeyInventory.AddItem(itemBase);
+                            a_player.HotkeyInventory.RefrehsItems();
+                        }
+                    }
+                    a_player.Session.SendPacket(new SendPromptState("DialoguePrompt", false)).ConfigureAwait(false);
+                    a_player.ActiveDialouge = null;
+                    a_player.MyOptionHandle = null;
+                })
+            });
+        }
+        return dialogue;
     }
 }

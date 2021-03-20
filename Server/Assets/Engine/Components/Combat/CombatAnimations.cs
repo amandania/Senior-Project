@@ -43,6 +43,25 @@ public class CombatAnimations : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// This is a function used to find a decendant. We use Brith First Search to find a child containing matching name. Case Sensative
+    /// </summary>
+    /// <param name="a_childName">ChildName used to match search</param>
+    /// <returns>Descendant GameObject</returns>
+    public Transform FindDeepChild(string a_childName)
+    {
+        Queue<Transform> queue = new Queue<Transform>();
+        queue.Enqueue(transform);
+        while (queue.Count > 0)
+        {
+            var c = queue.Dequeue();
+            if (c.name == a_childName)
+                return c;
+            foreach (Transform t in c)
+                queue.Enqueue(t);
+        }
+        return null;
+    }
     public void ActivateCombatImpacts(string ColliderName)
     {
         int layerMask = 1 << 8;
@@ -63,6 +82,14 @@ public class CombatAnimations : MonoBehaviour
                         var activeWep = hotkeys.ContainerItems[hotkeys.LastActiveSlot];
                         //We are going to use the weapon name to find our descendant child.
                         ColliderName = activeWep.ItemName;
+                        var transformFound = FindDeepChild(ColliderName);
+                        if (transformFound != null)
+                        {
+                            if (!ColliderMap.ContainsKey(ColliderName))
+                            {
+                                ColliderMap.Add(ColliderName, transformFound.gameObject);
+                            }
+                        }
                     }
                 }
 

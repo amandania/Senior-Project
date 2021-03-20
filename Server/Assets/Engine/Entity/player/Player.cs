@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : Character
@@ -28,6 +29,7 @@ public class Player : Character
     public Dialogue ActiveDialouge { get; set; }
     public DialogueOptions MyOptionHandle { get; set; }
     public int DialougeMessageIndex { get; set; } = 0;
+    public Dictionary<string, Quest> PlayerQuests { get; set; } = new Dictionary<string, Quest>();
 
     public Player(PlayerSession session, IWorld world)
     {
@@ -50,7 +52,17 @@ public class Player : Character
         var currentMoveComp = myModel.GetComponent<MovementComponent>();
         SetMoveComponent(currentMoveComp ?? myModel.AddComponent<MovementComponent>());
 
-        SetEquipmentComponent(myModel.AddComponent<Equipment>());
+        var equipment = myModel.AddComponent<Equipment>();
+        SetEquipmentComponent(equipment);
+        if (HotkeyInventory.LastActiveSlot != -1)
+        {
+            var slotItem = HotkeyInventory.ContainerItems[HotkeyInventory.LastActiveSlot];
+            Debug.Log("Last active slot: " + HotkeyInventory.LastActiveSlot + " slot item: "+ slotItem.ItemName);
+            Debug.Log("equip to :" + slotItem.TrasnformParentName);
+            HotkeyInventory.ToggleEquip(slotItem, true);
+            //equipment.EquipItem(slotItem.ItemName, slotItem.TrasnformParentName);
+            //Equipment.EquipItem(HotkeyInventory.ContainerItems[HotkeyInventory.LastActiveSlot].ItemName, HotkeyInventory.ContainerItems[HotkeyInventory.LastActiveSlot].TrasnformParentName);
+        }
         HotkeyInventory.RefrehsItems();
         currentCombatComp.CurrentHealth = m_currentHealth == -1 ? 100 : m_currentHealth;
         currentCombatComp.MaxHealth = m_maxHealth == -1 ? 100 : m_maxHealth;
