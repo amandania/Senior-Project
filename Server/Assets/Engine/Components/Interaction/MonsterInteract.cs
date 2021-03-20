@@ -1,8 +1,14 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// This class is used to setup an aggresive monster game object. We set a big collider around the gameobjec to trigger our collider events OnTriggerEnter and OnriggerExit
+/// </summary>
 public class MonsterInteract : MonoBehaviour
 {
+    /// <summary>
+    /// Gameobject data definitions. We assign these in the gameobject getting monster interact.
+    /// </summary>
     private NpcDefinition MyDefs { get; set; }
     private CombatComponent MyCombat { get; set; }
 
@@ -19,6 +25,11 @@ public class MonsterInteract : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// When another collider enters this collision we trigger out aggro to target and perform attacking behaviors if we can. 
+    /// <see cref="CombatComponent"/>
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (MyCombat == null || MyCombat.Character.IsDead)
@@ -43,9 +54,5 @@ public class MonsterInteract : MonoBehaviour
         
     }
 
-
-    private void OnTriggerExit(Collider other)
-    {
-        
-    }
+    
 }
