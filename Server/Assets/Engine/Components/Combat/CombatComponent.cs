@@ -3,21 +3,39 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
+/// <summary>
+/// This is a class used for all characters that allowed to perform combat behaviors. This includes Players and Monsters. 
+/// We keep track of all combat related data including max combos for the animation tree to cyle through. Damage data, and we also have a list of possible targets to filter trough when we want.
+/// </summary>
 public class CombatComponent : MonoBehaviour
 {
+    //Distance rquired to perform attacks we set these based on character definitions 
     private float m_reachDistance;
+
+    //Default offset forward distance to launch attacks 
     private Vector3 DefaultForwardAttack = new Vector3(0, 0, 10);
 
+
+    /// <summary>
+    /// Combat data used to track who ever we need to
+    /// </summary>
     [Header("Combat Target Data")]
-    public GameObject CombatTarget; // Current Main Target, (doesnt neccarily have to be used with Attack(Character))
+    public GameObject CombatTarget;
     public Transform TargetTransform;
 
-    public Character Character { get; set; } // Gameobject character owner set during compoent addition/set
+    // Gameobject character owner set during compoent addition/set
+    public Character Character { get; set; } 
 
+    //Game Animator to control based on certain input
     public Animator MyAnimator;
+
+    //Health data, a player is defaulting to 100 health every time they log in, while npcs are set through the npc defintions or default to 25.
     public int MaxHealth = 25;
     public int CurrentHealth = 25;
 
+    /// <summary>
+    /// Combat reach data
+    /// </summary>
     public int MinHitDamage = 1;
     public int MaxHitDamage = 3;
     public int MaxCombos = 3;
@@ -25,22 +43,31 @@ public class CombatComponent : MonoBehaviour
     public float MaxReachDistance { get; set; } = 1.5f;
     public bool IsAggresiveTrigger = false; // 0 or 1 for true false.
 
+
+    //Attack speed data
     public float LastAttack { get; set; }
     public float AttackRate { get; set; } = .65f; // Default: every 2 seconds we can attack 
 
     public Stopwatch LastAttackRecieved { get; set; } = new Stopwatch(); // 
 
+    //Network class used to send events to everyone or specfic clients
     public NetworkManager Network { get; set; }
+
+    //Our combat and movement compoenents that are setup by Character class on either player login or monster spawns
     private CombatComponent instance;
     public MovementComponent Mover { get; set; }
 
+    //Combat target data
     private List<GameObject> TargetList { get; set; } = new List<GameObject>();
     public CombatAnimations CombatTriggers { get; set; }
 
+    //Death timer for npcs, players respawn instantly.
     public float RespawnTimer = 5f;
 
+    // We set the spawn position at the Start() when this class is basically ready for the game to use after gamebobject using it is ready.
     private Vector3 SpawnPos { get; set; }
 
+    //Combat retreat distance after first attack is landed
     public float DistanceToRetreat = 15f;
     public bool ListenForRetreat = false;
 
@@ -113,7 +140,10 @@ public class CombatComponent : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// courotuine function that is executed after respawn timer is reached
+    /// </summary>
+    /// <returns>return null because we dont wait for a task to finish</returns>
     private IEnumerator DeathRespawn()
     {
         yield return new WaitForSeconds(RespawnTimer);
@@ -163,6 +193,11 @@ public class CombatComponent : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This function is called when another character attacks me. We apply health combat changes to our game object
+    /// </summary>
+    /// <param name="a_attacker">Attacker doing  damage</param>
+    /// <param name="a_damage"> Damage amount</param>
     public void ApplyHit(Character a_attacker, int a_damage)
     {
         if (CurrentHealth <= 0)
@@ -219,6 +254,9 @@ public class CombatComponent : MonoBehaviour
         Network.SendPacketToAll(new SendDamageMessage(Character, a_damage, 1.5f)).ConfigureAwait(false);
     }
     
+    /// <summary>
+    /// Function to attack whatever is infront of us.
+    /// </summary>
     public void Attack()
     {
         if (Character == null)
@@ -236,8 +274,11 @@ public class CombatComponent : MonoBehaviour
 
         PerformAttack(defaultTargetDistance);
     }
-
-   
+    
+    /// <summary>
+    /// This function is called to attack a specfic gameobject target
+    /// </summary>
+    /// <param name="target"></param>
     public void Attack(GameObject target)
     {
         if (Character == null)
@@ -253,6 +294,11 @@ public class CombatComponent : MonoBehaviour
 
         PerformAttack(target.transform.position);
     }
+
+    /// <summary>
+    /// This function performs an attack ignore the wait time
+    /// </summary>
+    /// <param name="target">target to attack</param>
     public void ForceAttack(GameObject target)
     {
         if (Character == null)
@@ -263,6 +309,10 @@ public class CombatComponent : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// The function to handle a valid attack to be done. This chanegs combat states and sends animation packets to everyone.
+    /// </summary>
+    /// <param name="targetGoal"></param>
     public void PerformAttack(Vector3 targetGoal)
     {
         CurrentAttackCombo += 1;
@@ -281,20 +331,22 @@ public class CombatComponent : MonoBehaviour
         Network.SendPacketToAll(new SendCharacterCombatStage(Character, CurrentAttackCombo)).ConfigureAwait(false);
     }
     
-
+    /// <summary>
+    /// This function is used to check if we are withing attack distance to a target position
+    /// </summary>
+    /// <param name="targetPosition">Position to check distance to from our current gameobject transform position</param>
+    /// <param name="distance">return value to set</param>
+    /// <returns>Boolean true value if we are within distance or false if we arent.</returns>
     public bool WithinReach(Vector3 targetPosition, out float distance)
     {
         distance = (transform.position - targetPosition).magnitude;
         return distance <= MaxReachDistance;
     }
-
-
-    public GameObject GetCharacterTarget()
-    {
-        return CombatTarget;
-    }
-
-
+    
+    /// <summary>
+    /// Add a gameobject to a list of targets we can attack. If we have none or if added target is first element we will auto path to the target.
+    /// </summary>
+    /// <param name="target"></param>
     public void AddToPossibleTargets(GameObject target)
     {
         if (TargetList.Contains(target))
@@ -310,6 +362,10 @@ public class CombatComponent : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This function is used to load the combat defintions defined in <see cref="NpcDefinition.combatDefs"/>
+    /// </summary>
+    /// <param name="combatDefs">Data types to use</param>
     public void LoadCombatDefinition(List<KeyValuePair> combatDefs)
     {
         combatDefs.ForEach(pair =>
