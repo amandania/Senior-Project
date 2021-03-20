@@ -2,7 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
+/// <summary>
+/// This class is used to represent a Dialogue. A dilogue conists of possible messages boards or a sarray of strings. Dialogues have a correspendion array of strings to represent options avaialble for message index
+/// Dialogues have a dialogue id and a dialouge title as some identifier variabls. <see cref="DialogueSystem"/> for implmentations.
+/// </summary>
 public class Dialogue
 {
     private int m_dialougeId;
@@ -23,6 +26,11 @@ public class Dialogue
         optionLists = responses;
     }
 
+    /// <summary>
+    /// This function will continue an existing dialogue to its next prompt if it has one.
+    /// </summary>
+    /// <param name="a_player">Player continuing dialogue</param>
+    /// <returns>Task to send to a player. We dont wait for it but we just treat this as a task so the network thread can be execute by a unity main thread or server thread.</returns>
     public async Task ContinueDialouge(Player a_player)
     {
         if (m_dialougeMessages.Length < a_player.DialougeMessageIndex)
@@ -46,16 +54,27 @@ public class Dialogue
         await a_player.Session.SendPacket(new SendDialogue(message, options)).ConfigureAwait(false);
     }
     
+    /// <summary>
+    /// Getter function to get dialouge id
+    /// </summary>
+    /// <returns> integer dialogue id</returns>
     public int GetDialougeId()
     {
         return m_dialougeId;
     }
-
+    /// <summary>
+    /// Getter function to get dialouge title
+    /// </summary>
+    /// <returns> string dialogue title</returns>
     public string GetDialogueTitle()
     {
         return m_dialougeTitle;
     }
    
+    /// <summary>
+    /// Get all the messages in this dialogue
+    /// </summary>
+    /// <returns>Array of strings</returns>
     public string[] GetDialogueMessages()
     {
         return m_dialougeMessages;

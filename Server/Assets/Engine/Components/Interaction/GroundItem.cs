@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// This class is used to create a ground item game object. Anytime you put this mono beavior to a gameobjects compont you can set the description. Its important to include a collider aswell on the gameobject.
+/// </summary>
 public class GroundItem : MonoBehaviour
 {
     public string ItemName;
@@ -16,14 +19,9 @@ public class GroundItem : MonoBehaviour
         PlayersShowingInteract = new List<Player>();
     }
 
-    public void SetCollider()
-    {
-        var collider = transform.gameObject.AddComponent<BoxCollider>();
-        collider.isTrigger = true;
-        collider.size = new Vector3(1,1,2.2f);
-        collider.center = new Vector3(0, .5f, .8f);
-    }
-
+    /// <summary>
+    /// When this object gets destroy remove the message prompt for anyone viewing it
+    /// </summary>
     private void OnDestroy()
     {
         foreach (Player playerShowing in PlayersShowingInteract)
@@ -33,7 +31,11 @@ public class GroundItem : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Anytime another game object with a collider enters this gameobjects collider, this function will be triggered. 
+    /// This function detects if the other collider is a player, and sends a message panel toggle on the interact prompt and send the text to change it too.
+    /// </summary>
+    /// <param name="other">The other collider entering my proximity to trigger ground item interact prompt.</param>
     private void OnTriggerEnter(Collider other)
     {
         if (GetComponent<ItemBase>() == null)
@@ -68,6 +70,11 @@ public class GroundItem : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Anytime another game object with a collider exits this gameobjects collider, this function will be triggered. 
+    /// This function detects if the other collider is a player, and sends a message panel toggle off to remove the prompt
+    /// </summary>
+    /// <param name="other">Other collider leaving this gameobjects collider</param>
     private void OnTriggerExit(Collider other)
     {
         var otherCombatCollider = other.GetComponent<CombatComponent>();

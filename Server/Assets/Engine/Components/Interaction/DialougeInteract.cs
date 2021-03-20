@@ -1,25 +1,30 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// This class is used to create a dialogue game object. Anytime you put this mono beavior to a gameobjects compont you can set the description. Its important to include a collider aswell on the gameobject.
+/// </summary>
 public class DialougeInteract : MonoBehaviour
 {
+    /// <summary>
+    /// Set this descritpion for any object that uses this mono behavior class.
+    /// </summary>
     public string InteractDescription;
 
     public List<Player> PlayersShowingInteract;
+
+    /// <summary>
+    /// Startup function
+    /// </summary>
     public void Start()
     {
         PlayersShowingInteract = new List<Player>();
     }
+    
 
-    public void SetCollider()
-    {
-        var collider = transform.gameObject.AddComponent<BoxCollider>();
-        collider.isTrigger = true;
-        collider.size = new Vector3(1, 1, 2.2f);
-        collider.center = new Vector3(0, .5f, .8f);
-    }
-
+    /// <summary>
+    /// When this object gets destroy remove the message prompt for anyone viewing it
+    /// </summary>
     private void OnDestroy()
     {
         foreach (Player playerShowing in PlayersShowingInteract)
@@ -31,6 +36,11 @@ public class DialougeInteract : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Anytime another game object with a collider enters this gameobjects collider, this function will be triggered. 
+    /// This function detects if the other collider is a player, and sends a message panel toggle on the interact prompt and send the text to change it too.
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (GetComponent<DialougeInteract>() == null)
@@ -66,7 +76,11 @@ public class DialougeInteract : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// Anytime another game object with a collider exits this gameobjects collider, this function will be triggered. 
+    /// This function detects if the other collider is a player, and sends a message panel toggle off to remove the prompt
+    /// </summary>
+    /// <param name="other">Other collider leaving this gameobjects collider</param>
     private void OnTriggerExit(Collider other)
     {
         var otherCombatCollider = other.GetComponent<CombatComponent>();
@@ -89,7 +103,7 @@ public class DialougeInteract : MonoBehaviour
 
 
     /// <summary>
-    /// Main fucnction to handle a dialouge to be triggered and sent to a player
+    /// Main function to handle a dialouge to be triggered and sent to a player
     /// We recieve this function call when we press our interact key on potenial dilouge object.
     /// <see cref="InputController.HandleFInteract(Player)"/>
     /// </summary>
