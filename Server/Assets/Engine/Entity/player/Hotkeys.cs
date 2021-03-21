@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class Hotkeys : Container
 {
@@ -10,8 +8,15 @@ public class Hotkeys : Container
 
     private int m_lastActiveSlot = -1;
 
+    //Last slot that was activated or -1 if its none. Used for saving and constant equipping between between weapon to weapon
     public int LastActiveSlot { get => m_lastActiveSlot; set => m_lastActiveSlot = value; }
 
+    /// <summary>
+    /// Construct a hotkey with a specfic size. By default we want players to have 0-9 hotkeys available at all times to use
+    /// Players can only activate slots with an actual weapon though.
+    /// </summary>
+    /// <param name="a_player"></param>
+    /// <param name="a_size"></param>
     public Hotkeys(Player a_player, int a_size)
     {
         DeleteOnRefresh = false;
@@ -73,6 +78,11 @@ public class Hotkeys : Container
         }
     }
 
+    /// <summary>
+    /// This function will toggle a weapon equip on to a player no matter the case of if i have it or not. Its mainly used for the client visual changes and server animator state changes for combat animation changes
+    /// </summary>
+    /// <param name="a_item"></param>
+    /// <param name="a_isActive"></param>
     public void ToggleEquip(SlotItem a_item, bool a_isActive)
     {
         if (a_isActive)
@@ -98,6 +108,9 @@ public class Hotkeys : Container
         }
     }
 
+    /// <summary>
+    /// This funciton sends a packet to the hotkey owner player. It will send all our container items as a array of strings
+    /// </summary>
     public void RefrehsItems()
     {
        

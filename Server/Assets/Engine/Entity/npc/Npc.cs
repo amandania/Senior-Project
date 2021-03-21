@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 /// <summary>
 /// This class is use to create any server npcs which is of type character.
-/// We inheir some base data from character such as the positions and rotations we use do send over the network
+/// We inherit some base data from character such as the positions and rotations we use do send over the network
 /// But we also have unique function calls that only behave striclty for an NPC type. Along with some game object setup details for any combat state npcs.
 /// Currentely we only have room for the combat state npc.
 /// </summary>
@@ -25,8 +25,8 @@ public class Npc : Character
         var model = SetCharModel(a_serverWorldModel);
         model.transform.position = withTransform.position;
         model.transform.rotation = withTransform.rotation;
-        SetPosition(model.transform.position);
-        SetRotation(model.transform.rotation.eulerAngles);
+        Position = (model.transform.position);
+        Rotation = (model.transform.rotation.eulerAngles);
     }
 
     /// <summary>

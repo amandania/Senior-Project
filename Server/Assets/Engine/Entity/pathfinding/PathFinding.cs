@@ -1,16 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// This class is no longer used, it is considered Deprecaed code. We use default nav mesh agent to do any pathfinding.
+/// </summary>
 public class PathFinding : IPathFinding
 {
+    /// <summary>
+    /// The container grid we load on container build
+    /// </summary>
     public ILoadMapData Grid { get; }
 
+
+    /// <summary>
+    /// We constructed pathfinding class as a single instance. <see cref="NetworkManager.RegisterDependencies(Autofac.ContainerBuilder)"/>
+    /// We have Pathfinding as a dependecy and LoadMapData. Load MapData is also a startable.
+    /// </summary>
+    /// <param name="globalGrid"></param>
     public PathFinding(ILoadMapData globalGrid)
     {
         Grid = globalGrid;
     }
 
+
+    /// <summary>
+    /// This function retrun a list of waypoints given a start position and a target position.
+    /// We use a* algorithm on a heap and sort accordingly to get our path in a O(Logn) time
+    /// </summary>
+    /// <param name="startPos">StartVector 3 position to get a NodeFromWorldPoint to</param>
+    /// <param name="targetPos">End Vector 3 position to get a NodeFromWorldPoint </param>
+    /// <returns>Path result data contain waypoints</returns>
     public PathResult FindPath(Vector3 startPos, Vector3 targetPos)
     {
         Vector3[] waypoints = new Vector3[0];
@@ -71,6 +90,9 @@ public class PathFinding : IPathFinding
         return new PathResult(waypoints, pathSuccess);
     }
 
+    /// <summary>
+    /// Class to Represent a path that is finished
+    /// </summary>
     public class PathResult
     {
         public Vector3[] path;
@@ -83,6 +105,13 @@ public class PathFinding : IPathFinding
         }
     }
 
+    /// <summary>
+    /// This function starts at the head of our list and traverse backwards to trace our path because we will have extra nodes sometimes when reaching the goal.
+    /// So we retrace the shortest path from  here.
+    /// </summary>
+    /// <param name="startNode">start node to compare end has been reachd</param>
+    /// <param name="endNode">The node to check the parent of each time till we meet start node.</param>
+    /// <returns></returns>
     private Vector3[] RetracePath(Node startNode, Node endNode)
     {
         List<Node> path = new List<Node>();
@@ -99,6 +128,11 @@ public class PathFinding : IPathFinding
 
     }
 
+    /// <summary>
+    /// This function siplyify our path so that we have the shortest directions to the the path
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
     private Vector3[] SimplifyPath(List<Node> path)
     {
         List<Vector3> waypoints = new List<Vector3>();
@@ -116,6 +150,13 @@ public class PathFinding : IPathFinding
         return waypoints.ToArray();
     }
 
+
+    /// <summary>
+    /// Historic functio used to set fcost values for pathfinding
+    /// </summary>
+    /// <param name="nodeA"></param>
+    /// <param name="nodeB"></param>
+    /// <returns></returns>
     private int GetDistance(Node nodeA, Node nodeB)
     {
         int dstX = Math.Abs(nodeA.m_gridX - nodeB.m_gridX);
