@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
+
 /// <summary>
 /// Monobeavior class given to every character type object such as a player or a monster. 
 /// We controll all collider data here aswell including times when we have weapons equipped.
@@ -35,6 +35,12 @@ public class CombatAnimations : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// This function will add a collider to a list of possible colliders to use for combat based on animation event trigger
+    /// </summary>
+    /// <param name="Name">Name of collider</param>
+    /// <param name="colliderObj">Main game object containing the collider</param>
+    /// <param name="isActive">Is this our active collider, defaults to false</param>
     public void ToggleNewCollider(string Name, GameObject colliderObj, bool isActive = false)
     {
         if (!isActive)
