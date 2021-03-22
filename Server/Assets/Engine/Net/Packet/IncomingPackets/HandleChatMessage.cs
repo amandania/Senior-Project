@@ -1,22 +1,13 @@
-﻿/**
-* \class HandleChatMessage
-*
-*
-* \brief SYNOPSIS
-*
-* This class will be used mainly to ExecutePacket and read our message buffer data.
-* Then it will attach our senders server username to the message
-* This message will then be sent to all players to display on chat
-*
-* \
-*/
-
-
+﻿
 using DotNetty.Buffers;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-
+/// <summary>
+/// This class will be used mainly to ExecutePacket and read our message buffer data.
+/// Then it will attach our senders server username to the message
+/// This message will then be sent to all players to display on chat
+/// </summary>
 public class HandleChatMessage : IIncomingPackets
 {
     /// <summary>

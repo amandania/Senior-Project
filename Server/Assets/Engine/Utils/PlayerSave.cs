@@ -1,4 +1,8 @@
-﻿public struct PlayerSave
+﻿/// <summary>
+/// This structure is used for serialization deserialization purposes. Json is the form of serialization we use to save a player file.
+/// We dont need any gameobject logic thats defined in Player class so we just have the struct represent everything we need.
+/// </summary>
+public struct PlayerSave
 {
     public string Username { get; set; }
     public string Password { get; set; }

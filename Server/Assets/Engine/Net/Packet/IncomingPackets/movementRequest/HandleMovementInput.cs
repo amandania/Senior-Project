@@ -1,33 +1,11 @@
 ﻿using DotNetty.Buffers;
 using System.Threading.Tasks;
 using UnityEngine;
-/**/
-/*
-HandleChatMessage.ExecutePacket()
-
-NAME
-
-        HandleMovementInput.ExecutePacket - Read the chat message buffer
-
-SYNOPSIS
-
-        Task HandleMovementInput.ExecutePacket(Player a_player, Buffer a_buffer);
-            a_player             --> Player who is sending the movement packet.
-            a_buffer             --> buffer containg move vector and strafing keys (right mouse toggled)
-
-DESCRIPTION
-
-        This function will handle player input
-        Takes the input and applies move vector movement to server Gameobject
-        
-Note: This function is always being executed because we are sending the request from client with a zero vector aswell (idle)
-
-RETURNS
-
-        Returns await Task.CompletedTask
-*/
-/*HandleChatMessage.ExecutePacket()*/
-
+/// <summary>
+/// Anytime a client has sent a move vector we will be using this class to read the movevector values. 
+/// We execute the gameobject movement on the UnityMainThread using the Dispatcher. <see cref="UnityMainThreadDispatcher.Instance"/>
+/// <seealso cref="MovementComponent.Move(UnityEngine.Vector3, bool, float)"/>
+/// </summary>
 public class HandleMovementInput : IIncomingPackets
 {
 

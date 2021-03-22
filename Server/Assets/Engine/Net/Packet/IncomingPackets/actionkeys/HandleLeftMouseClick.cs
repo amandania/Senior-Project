@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class HandleLeftMouseClick : IIncomingPackets
 {
+    /// <summary>
+    /// Packet Identifer used to map incoming header bytes to left click packet.
+    /// </summary>
     public IncomingPackets PacketType => IncomingPackets.HANDLE_LEFT_MOUSE_CLICK;
 
     private readonly IWorld _world;
@@ -13,7 +16,7 @@ public class HandleLeftMouseClick : IIncomingPackets
         _world = world;
     }
     /// <summary>
-    /// 
+    /// This class will execute a default combat attack anytime we have a left click triggered. IF we have a menu nothign happens.
     /// </summary>
     /// <param name="player"></param>
     /// <param name="data"></param>
@@ -23,17 +26,14 @@ public class HandleLeftMouseClick : IIncomingPackets
         //Debug.Log("incoming player left click");
         if (player.MenuOpen)
         {
-           //possibly a ui click
-           
-        } else
-        {
-            //Debug.Log("perform attack");
-            // has to be attack input
-            UnityMainThreadDispatcher.Instance().Enqueue(() =>
-            {
-                player.CombatComponent.Attack();
-            });
+            return Task.CompletedTask;
         }
+        //Debug.Log("perform attack");
+        // has to be attack input
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+            player.CombatComponent.Attack();
+        });
         return Task.CompletedTask;
     }
 }

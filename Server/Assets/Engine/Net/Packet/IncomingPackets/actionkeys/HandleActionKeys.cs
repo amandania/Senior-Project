@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-
+/// <summary>
+/// This class is used to handle action keys such as all the keyboard numbers (1-9) and escape key. 
+/// </summary>
 public class HandleActionKeys : IIncomingPackets
 {
+    /// <summary>
+    /// Packet Identifer used to map incoming header packet id to our Execute function.
+    /// </summary>
     public IncomingPackets PacketType => IncomingPackets.ACTION_KEYS;
+
     //World accessor
     private readonly IInputControl m_inputControl;
 
