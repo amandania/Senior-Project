@@ -73,7 +73,6 @@ public class NetworkManager : MonoBehaviour
         //Networking instances
         builder.RegisterType<ChannelEventHandler>().SingleInstance();
         builder.RegisterType<ChannelPipeLineHandler>().As<IConnectionManager>().SingleInstance();
-        builder.RegisterType<ChannelPipeLineHandler>().As<IConnectionManager>().SingleInstance();
         //builder.RegisterType<NPCMovement>().As<INPCMovement>().SingleInstance();
 
         //Utility Dependencies
