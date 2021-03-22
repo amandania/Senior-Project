@@ -58,6 +58,12 @@ public class NetworkManager : MonoBehaviour
         container.Resolve<ServerBooter>();
     }
 
+    /// <summary>
+    /// This function is going to register everything the server treats as a container depency. Or a single instance pointer or a pointer to a pointer.
+    /// All single instance are treated a pointer
+    /// The incomingpackets are the only thing treated as Global Type to execute from. These are never passed into consrctors because that are executing to a player.
+    /// </summary>
+    /// <param name="builder">Main server container to build too</param>
     private void RegisterDependencies(ContainerBuilder builder)
     {
         // Boot
@@ -95,6 +101,12 @@ public class NetworkManager : MonoBehaviour
 
     }
 
+
+    /// <summary>
+    /// This function is used universally on that Unity Main Thread. Its to allow unity thread to send packet changes to everyone connected to the server. Apply global changes.
+    /// </summary>
+    /// <param name="packet"></param>
+    /// <returns></returns>
     public async Task SendPacketToAll(IOutGoingPackets packet)
     {
         var buffer = Unpooled.Buffer();
@@ -116,6 +128,9 @@ public class NetworkManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Clean up funciton
+    /// </summary>
     private void OnApplicationQuit()
     {
         if (channel != null)

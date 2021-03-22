@@ -2,22 +2,46 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-
+/// <summary>
+/// The world class is to control everyhting going on in the world. We also boot up the server with our 3 tasks defined. We havve to do these tasks before we start up a server.
+/// </summary>
 public class World : MonoBehaviour, IWorld
 {
+    /// <summary>
+    /// The refrence prefab model for all players
+    /// </summary>
     private GameObject m_playerModel;
 
+    /// <summary>
+    /// Inital spawn position we set on Start()
+    /// </summary>
     public Transform SpawnTransform { get; set; }
 
+    /// <summary>
+    /// List of connected players
+    /// </summary>
     public List<Player> Players { get; set; } = new List<Player>();
 
+
+    /// <summary>
+    /// List of all monsters
+    /// </summary>
     public List<Npc> Monsters { get; set; } = new List<Npc>();
     
+    /// <summary>
+    /// All possible interactable ground items
+    /// </summary>
     public List<ItemBase> GroundItems { get; set; } = new List<ItemBase>();
 
+
+    /// <summary>
+    /// Collection of all our characters
+    /// </summary>
     public Dictionary<GameObject, Character> AllGamobjectCharacters { get; set; } = new Dictionary<GameObject, Character>();
     
-
+    /// <summary>
+    /// refrence to our IPlayer Dependency
+    /// </summary>
     private readonly IPlayerDataLoader m_savedPlayerData;
 
     public World(IPlayerDataLoader a_playerData)
@@ -25,6 +49,13 @@ public class World : MonoBehaviour, IWorld
         m_savedPlayerData = a_playerData;
     }
 
+    /// <summary>
+    /// This function is a task to load all our possible interacatable npcs
+    /// This is different from loadMonsters
+    /// We send these interacts to all clients
+    /// </summary>
+    /// </summary>
+    /// <returns>Awaited task</returns>
     public Task LoadNpcInteracts()
     {
         bool completed = false;
@@ -46,6 +77,13 @@ public class World : MonoBehaviour, IWorld
 
         return Task.CompletedTask;
     }
+
+
+    /// <summary>
+    /// Task to register all defualt monsters spawned by server on startup.
+    /// We send these monsters to all clients
+    /// </summary>
+    /// <returns></returns>
     public Task LoadMonsters()
     {
         bool completed = false;
@@ -69,6 +107,11 @@ public class World : MonoBehaviour, IWorld
     }
 
 
+    /// <summary>
+    /// Task to register all default ground item interacts spawned by server on startup.
+    /// We send these ground item interacts to all clients
+    /// </summary>
+    /// <returns></returns>
     public Task LoadGroundItems()
     {
         bool completed = false;
@@ -98,14 +141,21 @@ public class World : MonoBehaviour, IWorld
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Add a item to the wold 
+    /// Todo add resource loading and spawn on the world
+    /// </summary>
+    /// <param name="a_item"></param>
+    /// <param name="triggerSpawn"></param>
     public void AddGroundItem(ItemBase a_item, bool triggerSpawn = false)
     {
         if (triggerSpawn)
         {
-
         }
         GroundItems.Add(a_item);
     }
+
+    //Remove a ground item and destroy the object on server.
     public void RemoveGroundItem(ItemBase a_item)
     {
         var model = a_item.transform.gameObject;
@@ -116,6 +166,13 @@ public class World : MonoBehaviour, IWorld
         });
     }
 
+
+    /// <summary>
+    /// Add a character class to the world including NPC and Player
+    /// We also setup the character model based on the type of Character
+    /// <see cref="Character.AsNpc"/> <seealso cref="Character.AsPlayer"/>
+    /// </summary>
+    /// <param name="a_character">The character too ad to the world</param>
     public void AddWorldCharacter(Character a_character)
     {
         if (a_character.IsPlayer())
@@ -138,7 +195,10 @@ public class World : MonoBehaviour, IWorld
         
     }
 
-
+    /// <summary>
+    /// Remove any world character and destroy the game object attached to it and send it to ev eryone.
+    /// </summary>
+    /// <param name="a_character"></param>
     public void RemoveWorldCharacter(Character a_character)
     {
         if (a_character.IsPlayer())
@@ -157,6 +217,9 @@ public class World : MonoBehaviour, IWorld
         });
     }
 
+    /// <summary>
+    /// Called on startup when server awakes
+    /// </summary>
     public void Start()
     {
         SpawnTransform = GameObject.Find("SpawnPart").transform;
@@ -164,6 +227,9 @@ public class World : MonoBehaviour, IWorld
         
     }
 
+    /// <summary>
+    /// cleanup function to remove resources from unity thread
+    /// </summary>
     public void Dispose()
     {
         //_subscription.Dispose();
