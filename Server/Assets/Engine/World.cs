@@ -228,7 +228,7 @@ public class World : MonoBehaviour, IWorld
     }
 
     /// <summary>
-    /// cleanup function to remove resources from unity thread
+    /// Cleanup function to remove resources from unity thread
     /// </summary>
     public void Dispose()
     {
