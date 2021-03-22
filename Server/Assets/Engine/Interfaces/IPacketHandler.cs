@@ -4,8 +4,6 @@
 /// </summary>
 public interface IPacketHandler
 {
-    //Generate a session key for a specific playersession created
-    AttributeKey<PlayerSession> SESSION_KEY { get; set; }
 
     //Return the packet handler for an incoming packet.
     IIncomingPackets GetPacketForType(IncomingPackets packets);

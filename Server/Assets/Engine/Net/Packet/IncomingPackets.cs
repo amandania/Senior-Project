@@ -1,4 +1,7 @@
-﻿public enum IncomingPackets : int
+﻿/// <summary>
+/// This is just an enum list of incoming packet types, the order doesnt matter, it just has to match on the client aswell.
+/// </summary>
+public enum IncomingPackets : int
 {
     CONNECT_RESPONSE = 1,
     MOVEMENT_KEYS ,

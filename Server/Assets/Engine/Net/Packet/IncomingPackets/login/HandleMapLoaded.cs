@@ -1,11 +1,15 @@
 ﻿using DotNetty.Buffers;
-using System;
-using System.Collections;
 using System.Threading.Tasks;
-using UnityEngine;
 
+/// <summary>
+/// This handleMapLaoded packet is execeuted after our client has logged in succuesfully and the event is sent from the client to indicate our map scene is done loading all the game objects it needs.
+/// Once we know the map is loaded we can spawn all our current players to their client along with ground objects server has spawned, and all the monsters.
+/// </summary>
 public class HandleMapLoaded : IIncomingPackets
-{
+{  
+    /// <summary>
+   /// Packet Identifer used to map incoming header bytes to when we recieve our map loaded packet.
+   /// </summary>
     public IncomingPackets PacketType => IncomingPackets.HANDLE_MAP_LOADED;
 
     private readonly IWorld m_world;

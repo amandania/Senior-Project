@@ -1,4 +1,7 @@
-﻿public enum OutGoingPackets : int
+﻿/// <summary>
+/// This is just an enum list of outgoing packet types, the order doesnt matter. It just has to match on the client aswell.
+/// </summary>
+public enum OutGoingPackets : int
 {
     RESPOSNE_VERIFY = 1,
     MOVE_CHARACTER,

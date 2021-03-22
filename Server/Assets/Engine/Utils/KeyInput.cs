@@ -1,4 +1,7 @@
-﻿public enum KeyInput : int
+﻿/// <summary>
+/// List of valid special ke inputs that trigger some sort of server response.
+/// </summary>
+public enum KeyInput : int
 {
     F = 1,
     LeftMouseButton,
