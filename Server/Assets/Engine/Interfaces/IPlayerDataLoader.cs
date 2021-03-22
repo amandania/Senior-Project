@@ -2,22 +2,15 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// This interface is used as a signal instance depency for our server container.
+/// </summary>
 public interface IPlayerDataLoader : IStartable, IDisposable
 {
+    //Funciton that will return true if the player logging in was valid or not
     bool LoadPlayerData(string a_playerName, string a_password, Player a_sessionPlayer);
+
+    //Called on logout to write player data to json format
     void SaveData(Player a_player);
 }
 
-public struct PlayerSave {
-    public string Username { get; set; }
-    public string Password { get; set; }
-    public int PlayerLevel { get; set; }
-    public int CurrentHealth { get; set; }
-    public int MaxHealth { get; set; }
-    public SlotItem[] HotkeyItems { get; set; }
-    public Quest[] PlayerQuests { get; set; }
-
-    public int CurrentSlotEquipped  { get; set; }
-   
-}

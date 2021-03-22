@@ -2,7 +2,9 @@
 using DotNetty.Transport.Channels;
 using System;
 using UnityEngine;
-
+/// <summary>
+/// This class implements our Dotnety class. Its a required implementation for the framework channel.
+/// </summary>
 public class ChannelPipeLineHandler : ChannelInitializer<IChannel>, IConnectionManager
 {
 
@@ -10,7 +12,6 @@ public class ChannelPipeLineHandler : ChannelInitializer<IChannel>, IConnectionM
     {
 
     }
-
 
     /// <summary>
     /// Main Server Bind

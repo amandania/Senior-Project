@@ -16,8 +16,7 @@ public class World : MonoBehaviour, IWorld
     public List<ItemBase> GroundItems { get; set; } = new List<ItemBase>();
 
     public Dictionary<GameObject, Character> AllGamobjectCharacters { get; set; } = new Dictionary<GameObject, Character>();
-
-    public Dictionary<InteractTypes, Type> InteractTypeDefs { get; set; } = new Dictionary<InteractTypes, Type>();
+    
 
     private readonly IPlayerDataLoader m_savedPlayerData;
 
@@ -162,8 +161,7 @@ public class World : MonoBehaviour, IWorld
     {
         SpawnTransform = GameObject.Find("SpawnPart").transform;
         m_playerModel = Resources.Load("PlayerModel") as GameObject;
-
-        InteractTypeDefs.Add(InteractTypes.Monster, typeof(MonsterInteract));
+        
     }
 
     public void Dispose()
