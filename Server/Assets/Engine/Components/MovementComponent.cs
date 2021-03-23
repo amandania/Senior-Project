@@ -9,10 +9,8 @@ using UnityEngine.AI;
 public class MovementComponent : MonoBehaviour
 {
 
+    //Game Network
     private NetworkManager Network { get; set; }
-    private Rigidbody RigidBody { get; set; }
-    private bool IsControlledMovement { get; set; } = false;
-
     public CharacterController CharacterController { get; set; } // this should be created for the character on the inspector
     
     public Character Character { get; set; }
@@ -21,7 +19,6 @@ public class MovementComponent : MonoBehaviour
 
     //Pathfinding data
     public NavMeshAgent NavAgent { get; set; }
-    public Vector3 PathGoal { get; set; }
 
     //Main movement related data
     [Header("Movement Data")]
@@ -33,26 +30,34 @@ public class MovementComponent : MonoBehaviour
     public bool Strafe { get; set; } = false;
     public bool LockedMovement { get; set; } = false;
 
+    /// <summary>
+    /// Prevent movement for 1 second after we do a combat hit
+    /// </summary>
     public bool DidCombatHit { get; set; } = false;
+    public float HitAtTime { get; set; } = -1;
 
-    public float lockedAtTime { get; set; } = -1;
-
-
+    /// <summary>
+    /// For Path data
+    /// </summary>
     public GameObject CurrentForcePathTo { get; set; }
     private bool InMovement {get; set;} = false;
 
+    /// <summary>
+    /// Network sendrate
+    /// </summary>
     public float SendRate = 15f;
     public bool TriggeredSend { get; set; } =  false;
 
+    //When true, gameobejct is returning to spawn position
     public bool IsRetreating = false;
 
 
     /// <summary>
     /// Movement data to use with network send rate
     /// </summary>
-    private float lastAccelerate = 0f;
-    public float timeBetweenMovementStart;
-    public float timeBetweenMovementEnd;
+    private float m_lastAccelerate = 0f;
+    public float m_timeBetweenMovementStart;
+    public float m_timeBetweenMovementEnd;
     private float m_moveSpeed;
     private Vector3 m_relativeInput;
     private bool m_isStrafing = false;
@@ -110,7 +115,7 @@ public class MovementComponent : MonoBehaviour
         if (DidCombatHit && LockedMovement)
         {
             //UnityEngine.Debug.Log("locked time: " + lockedAtTime);
-            if (Time.time - lockedAtTime > 1) {
+            if (Time.time - HitAtTime > 1) {
                 //print("release from last hit locked movement");
                 DidCombatHit = false;
                 LockedMovement = false;
@@ -143,9 +148,9 @@ public class MovementComponent : MonoBehaviour
     /// This function takes a movevector depending on either keyboard input or move direction to goal. We send the movement every 200 ms just so we dont send every possible movement data but only bigger gaps for client to interpolate to.
     /// </summary>
     /// <param name="a_moveVector">Desire move vector</param>
-    /// <param name="isStrafing">Strafe input if we have any</param>
-    /// <param name="rotatOnMouse">If a player is rotating the player with right mouse button</param>
-    public void Move(Vector3 a_moveVector, bool isStrafing, float rotatOnMouse)
+    /// <param name="a_isStrafing">Strafe input if we have any</param>
+    /// <param name="a_rotatOnMouse">If a player is rotating the player with right mouse button</param>
+    public void Move(Vector3 a_moveVector, bool a_isStrafing, float a_rotatOnMouse)
     {
 
         if (CharacterController == null)
@@ -172,7 +177,7 @@ public class MovementComponent : MonoBehaviour
 
             if (Character.IsNpc())
             {
-                moveSpeed = (lastAccelerate + .02f);
+                moveSpeed = (m_lastAccelerate + .02f);
                 if (moveSpeed > 1)
                 {
                     moveSpeed = 1;
@@ -186,7 +191,7 @@ public class MovementComponent : MonoBehaviour
 
         Character.OldRotation = Character.Position;
         Character.OldRotation = Character.OldRotation;
-        if (!isStrafing)
+        if (!a_isStrafing)
         {
             Vector3 rotation = transform.InverseTransformDirection(a_moveVector);
 
@@ -206,7 +211,7 @@ public class MovementComponent : MonoBehaviour
             }
         } else
         {
-            transform.rotation = Quaternion.Euler(0, rotatOnMouse, 0);
+            transform.rotation = Quaternion.Euler(0, a_rotatOnMouse, 0);
         }
 
         a_moveVector.y -= Gravity * Time.deltaTime;
@@ -227,11 +232,11 @@ public class MovementComponent : MonoBehaviour
 
         Vector3 relativeInput = transform.InverseTransformDirection(a_moveVector);
 
-        lastAccelerate = moveSpeed;
+        m_lastAccelerate = moveSpeed;
 
         m_moveSpeed = moveSpeed;
         m_relativeInput = relativeInput;
-        m_isStrafing = isStrafing;
+        m_isStrafing = a_isStrafing;
 
         if (!TriggeredSend)
         {
@@ -248,7 +253,7 @@ public class MovementComponent : MonoBehaviour
     /// <returns></returns>
     private IEnumerator SendAtRate()
     {
-        timeBetweenMovementStart = Time.time;
+        m_timeBetweenMovementStart = Time.time;
         yield return new WaitForSeconds((1 / SendRate));
         SendMovement();
     }
@@ -258,12 +263,12 @@ public class MovementComponent : MonoBehaviour
     /// </summary>
     private void SendMovement()
     {
-        timeBetweenMovementEnd = Time.time;
+        m_timeBetweenMovementEnd = Time.time;
         Network.SendPacketToAll(new SendMoveCharacter(
             Character,
             LockedMovement ? 0 : m_moveSpeed,
             LockedMovement ? 0 : m_relativeInput.z,
-            LockedMovement ? 0 : m_relativeInput.x, m_isStrafing, timeBetweenMovementEnd- timeBetweenMovementStart) 
+            LockedMovement ? 0 : m_relativeInput.x, m_isStrafing, m_timeBetweenMovementEnd- m_timeBetweenMovementStart) 
         ).ConfigureAwait(false);
         TriggeredSend = false;
     }

@@ -17,21 +17,21 @@ public class CustomHeap<T> where T : IItem<T>
     /// <summary>
     /// Constructor to create a fixed heap size list
     /// </summary>
-    /// <param name="maxHeapSize"></param>
-    public CustomHeap(int maxHeapSize)
+    /// <param name="a_heapSize"></param>
+    public CustomHeap(int a_heapSize)
     {
-        _Items = new T[maxHeapSize];
+        _Items = new T[a_heapSize];
     }
 
     /// <summary>
     /// This function will add an item to our heap and sortup from the insert position. 
     /// </summary>
-    /// <param name="item"></param>
-    public void Add(T item)
+    /// <param name="a_item"></param>
+    public void Add(T a_item)
     {
-        item.m_index = _CurrentItemCount;
-        _Items[_CurrentItemCount] = item;
-        SortUp(item);
+        a_item.m_index = _CurrentItemCount;
+        _Items[_CurrentItemCount] = a_item;
+        SortUp(a_item);
         _CurrentItemCount++;
     }
 
@@ -52,10 +52,10 @@ public class CustomHeap<T> where T : IItem<T>
     /// <summary>
     /// Sortup based on current heap item.
     /// </summary>
-    /// <param name="item">Item in heap</param>
-    public void UpdateItem(T item)
+    /// <param name="a_item">Item in heap</param>
+    public void UpdateItem(T a_item)
     {
-        SortUp(item);
+        SortUp(a_item);
     }
 
     public int Count
@@ -69,11 +69,11 @@ public class CustomHeap<T> where T : IItem<T>
     /// <summary>
     /// Function to check if our item is in our heap
     /// </summary>
-    /// <param name="item">Item to check against</param>
+    /// <param name="a_item">Item to check against</param>
     /// <returns>true if its item exist or false</returns>
-    public bool Contains(T item)
+    public bool Contains(T a_item)
     {
-        return Equals(_Items[item.m_index], item);
+        return Equals(_Items[a_item.m_index], a_item);
     }
 
     /// <summary>
@@ -82,13 +82,13 @@ public class CustomHeap<T> where T : IItem<T>
     /// We use our Node.CompareTo function to check the condtion to sort by. In pathfinding its used for fcost distance check. Distance to to goal
     /// We perform swaps if match the condition to check against.
     /// </summary>
-    /// <param name="item">Item to sort down by.</param>
-    private void SortDown(T item)
+    /// <param name="a_item">Item to sort down by.</param>
+    private void SortDown(T a_item)
     {
         while (true)
         {
-            int childLeftIndex = item.m_index * 2 + 1;
-            int childRightIndex = item.m_index * 2 + 2;
+            int childLeftIndex = a_item.m_index * 2 + 1;
+            int childRightIndex = a_item.m_index * 2 + 2;
             int swapId = 0;
 
             if (childLeftIndex < _CurrentItemCount)
@@ -103,9 +103,9 @@ public class CustomHeap<T> where T : IItem<T>
                     }
                 }
 
-                if (item.CompareTo(_Items[swapId]) < 0)
+                if (a_item.CompareTo(_Items[swapId]) < 0)
                 {
-                    Swap(item, _Items[swapId]);
+                    Swap(a_item, _Items[swapId]);
                 }
                 else
                 {
@@ -123,39 +123,39 @@ public class CustomHeap<T> where T : IItem<T>
     /// <summary>
     /// Similar to our sortdown this is doing the same thing, but going up the list starting at the leaf nodes
     /// </summary>
-    /// <param name="item">Item to sort down by.</param>
-    private void SortUp(T item)
+    /// <param name="a_item">Item to sort down by.</param>
+    private void SortUp(T a_item)
     {
-        int parent = (item.m_index - 1) / 2;
+        int parent = (a_item.m_index - 1) / 2;
 
         while (true)
         {
             T parentItem = _Items[parent];
-            if (item.CompareTo(parentItem) > 0)
+            if (a_item.CompareTo(parentItem) > 0)
             {
-                Swap(item, parentItem);
+                Swap(a_item, parentItem);
             }
             else
             {
                 break;
             }
 
-            parent = (item.m_index - 1) / 2;
+            parent = (a_item.m_index - 1) / 2;
         }
     }
 
     /// <summary>
     /// Node swapping function with copy creations 
     /// </summary>
-    /// <param name="itemA">Node A</param>
-    /// <param name="itemB">Node B</param>
-    private void Swap(T itemA, T itemB)
+    /// <param name="a_itemA">Node A</param>
+    /// <param name="a_itemB">Node B</param>
+    private void Swap(T a_itemA, T a_itemB)
     {
-        _Items[itemA.m_index] = itemB;
-        _Items[itemB.m_index] = itemA;
-        int AIndex = itemA.m_index;
-        itemA.m_index = itemB.m_index;
-        itemB.m_index = AIndex;
+        _Items[a_itemA.m_index] = a_itemB;
+        _Items[a_itemB.m_index] = a_itemA;
+        int AIndex = a_itemA.m_index;
+        a_itemA.m_index = a_itemB.m_index;
+        a_itemB.m_index = AIndex;
     }
 
 }

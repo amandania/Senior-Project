@@ -86,11 +86,11 @@ public class CombatAnimations : MonoBehaviour
     /// the animation event passes a collider name type, if there is none provided we use the default hand to hand combats.
     /// IF we have an active combat collider we will get all the gameobjects touching my bounding box at time of event.
     /// </summary>
-    /// <param name="ColliderName">Special collider to check against</param>
-    public void ActivateCombatImpacts(string ColliderName)
+    /// <param name="a_colliderName">Special collider to check against</param>
+    public void ActivateCombatImpacts(string a_colliderName)
     {
         int layerMask = 1 << 8;
-        if (ColliderName == "ActiveWeapon")
+        if (a_colliderName == "ActiveWeapon")
         {
             var combatComponent = gameObject.GetComponent<CombatComponent>();
             Character character = null;
@@ -106,13 +106,13 @@ public class CombatAnimations : MonoBehaviour
                     if (hotkeys.LastActiveSlot != -1) {
                         var activeWep = hotkeys.ContainerItems[hotkeys.LastActiveSlot];
                         //We are going to use the weapon name to find our descendant child.
-                        ColliderName = activeWep.ItemName;
-                        var transformFound = FindDeepChild(ColliderName);
+                        a_colliderName = activeWep.ItemName;
+                        var transformFound = FindDeepChild(a_colliderName);
                         if (transformFound != null)
                         {
-                            if (!ColliderMap.ContainsKey(ColliderName))
+                            if (!ColliderMap.ContainsKey(a_colliderName))
                             {
-                                ColliderMap.Add(ColliderName, transformFound.gameObject);
+                                ColliderMap.Add(a_colliderName, transformFound.gameObject);
                             }
                         }
                     }
@@ -121,7 +121,7 @@ public class CombatAnimations : MonoBehaviour
             }
         }
 
-        ColliderMap.TryGetValue(ColliderName, out ActiveCombatCollider);
+        ColliderMap.TryGetValue(a_colliderName, out ActiveCombatCollider);
         if (ActiveCombatCollider != null)
         {
             ObjectsHitAlready.Clear();
@@ -160,7 +160,7 @@ public class CombatAnimations : MonoBehaviour
             }
         } else
         {
-            print("no active combat collider for colliderNAme: " + ColliderName);
+            print("no active combat collider for colliderNAme: " + a_colliderName);
         }
 
     }

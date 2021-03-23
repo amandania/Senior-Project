@@ -36,31 +36,31 @@ public class Container
     /// <summary>
     /// This function is used to add an item base to our slots. 
     /// </summary>
-    /// <param name="item">Item to add into slot</param>
-    public void AddItem(ItemBase item)
+    /// <param name="a_item">Item to add into slot</param>
+    public void AddItem(ItemBase a_item)
     {
-        bool isStackable = item.IsStackable;
+        bool isStackable = a_item.IsStackable;
         int slotToAdd = GetNextFreeSlot();
-        if (ContainsItem(item) && item.IsStackable)
+        if (ContainsItem(a_item) && a_item.IsStackable)
         {
-            var slot = GetSlotForItem(item.ItemName);
+            var slot = GetSlotForItem(a_item.ItemName);
             if (slot != -1)
             {
                 slotToAdd = slot;
             }
         }
 
-        if(item.IsStackable)
+        if(a_item.IsStackable)
         {
-            ContainerItems[slotToAdd].Amount += item.Amount;
+            ContainerItems[slotToAdd].Amount += a_item.Amount;
         } else
         {
-            ContainerItems[slotToAdd].ItemLevel = item.ItemLevel;
-            ContainerItems[slotToAdd].Amount = item.Amount;
-            ContainerItems[slotToAdd].ItemName = item.ItemName;
-            ContainerItems[slotToAdd].IsStackable = item.IsStackable;
-            ContainerItems[slotToAdd].TrasnformParentName = item.TrasnformParentName;
-            ContainerItems[slotToAdd].MovementStateOnEquip = item.MovementStateOnEquip;
+            ContainerItems[slotToAdd].ItemLevel = a_item.ItemLevel;
+            ContainerItems[slotToAdd].Amount = a_item.Amount;
+            ContainerItems[slotToAdd].ItemName = a_item.ItemName;
+            ContainerItems[slotToAdd].IsStackable = a_item.IsStackable;
+            ContainerItems[slotToAdd].TrasnformParentName = a_item.TrasnformParentName;
+            ContainerItems[slotToAdd].MovementStateOnEquip = a_item.MovementStateOnEquip;
         }
 
     }
@@ -68,12 +68,12 @@ public class Container
     /// <summary>
     /// This function will remove an item at a specfic slot
     /// </summary>
-    /// <param name="slot"></param>
-    public void RemoveItem(int slot)
+    /// <param name="a_slot"></param>
+    public void RemoveItem(int a_slot)
     {
-        ContainerItems[slot].ItemName = "empty";
-        ContainerItems[slot].ItemLevel = -1;
-        ContainerItems[slot].Amount = -1;
+        ContainerItems[a_slot].ItemName = "empty";
+        ContainerItems[a_slot].ItemLevel = -1;
+        ContainerItems[a_slot].Amount = -1;
     }
 
     /// <summary>
@@ -114,13 +114,13 @@ public class Container
     /// <summary>
     /// Find the slot where an item name exists
     /// </summary>
-    /// <param name="itemName"></param>
+    /// <param name="a_itemName"></param>
     /// <returns>slot of itemname if we found or -1 for nothing.</returns>
-    public int GetSlotForItem(string itemName)
+    public int GetSlotForItem(string a_itemName)
     {
         for (int i = 0; i < ContainerItems.Count;i++)
         {
-            if (itemName.ToLower().Equals(ContainerItems[i].ItemName.ToLower()))
+            if (a_itemName.ToLower().Equals(ContainerItems[i].ItemName.ToLower()))
             {
                 return i;
             }

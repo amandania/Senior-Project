@@ -277,8 +277,8 @@ public class CombatComponent : MonoBehaviour
     /// <summary>
     /// This function is called to attack a specfic gameobject target
     /// </summary>
-    /// <param name="target"></param>
-    public void Attack(GameObject target)
+    /// <param name="a_target"></param>
+    public void Attack(GameObject a_target)
     {
         if (Character == null)
         {
@@ -291,39 +291,39 @@ public class CombatComponent : MonoBehaviour
             return;
         }
 
-        PerformAttack(target.transform.position);
+        PerformAttack(a_target.transform.position);
     }
 
     /// <summary>
     /// This function performs an attack ignore the wait time
     /// </summary>
-    /// <param name="target">target to attack</param>
-    public void ForceAttack(GameObject target)
+    /// <param name="a_target">target to attack</param>
+    public void ForceAttack(GameObject a_target)
     {
         if (Character == null)
         {
             return;
         }
-        PerformAttack(target.transform.position);
+        PerformAttack(a_target.transform.position);
     }
 
 
     /// <summary>
     /// The function to handle a valid attack to be done. This chanegs combat states and sends animation packets to everyone.
     /// </summary>
-    /// <param name="targetGoal"></param>
-    public void PerformAttack(Vector3 targetGoal)
+    /// <param name="a_targetGoal"></param>
+    public void PerformAttack(Vector3 a_targetGoal)
     {
         CurrentAttackCombo += 1;
         Mover.DidCombatHit = true;
         Mover.LockedMovement = true;
-        Mover.lockedAtTime = Time.time;
+        Mover.HitAtTime = Time.time;
         LastAttack = Time.time;
         if (CurrentAttackCombo > MaxCombos)
         {
             CurrentAttackCombo = 1;
         }
-        Vector3 distanceVector = (targetGoal - transform.position);
+        Vector3 distanceVector = (a_targetGoal - transform.position);
 
         MyAnimator.SetInteger("CombatState", CurrentAttackCombo);
         MyAnimator.SetTrigger("TriggerAttack");
@@ -345,29 +345,29 @@ public class CombatComponent : MonoBehaviour
     /// <summary>
     /// Add a gameobject to a list of targets we can attack. If we have none or if added target is first element we will auto path to the target.
     /// </summary>
-    /// <param name="target"></param>
-    public void AddToPossibleTargets(GameObject target)
+    /// <param name="a_target"></param>
+    public void AddToPossibleTargets(GameObject a_target)
     {
-        if (TargetList.Contains(target))
+        if (TargetList.Contains(a_target))
         {
             return;
         }
-        TargetList.Add(target);
+        TargetList.Add(a_target);
 
         if (TargetList.Count == 1)
         {
-            CombatTarget = target;
-            GetComponent<MovementComponent>().SetAgentPath(target);
+            CombatTarget = a_target;
+            GetComponent<MovementComponent>().SetAgentPath(a_target);
         }
     }
 
     /// <summary>
     /// This function is used to load the combat defintions defined in <see cref="NpcDefinition.combatDefs"/>
     /// </summary>
-    /// <param name="combatDefs">Data types to use</param>
-    public void LoadCombatDefinition(List<KeyValuePair> combatDefs)
+    /// <param name="a_combatDefs">Data types to use</param>
+    public void LoadCombatDefinition(List<KeyValuePair> a_combatDefs)
     {
-        combatDefs.ForEach(pair =>
+        a_combatDefs.ForEach(pair =>
         {
 
             switch (pair.Key)

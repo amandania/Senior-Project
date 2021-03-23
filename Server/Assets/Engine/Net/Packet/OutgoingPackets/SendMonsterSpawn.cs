@@ -2,7 +2,10 @@
 using System;
 using System.Text;
 using UnityEngine;
-
+/// <summary>
+/// Anytime the server wants to spawn a monster it will send this packet to all clients. 
+/// <see cref="World.LoadMonsters"/> for call refrence
+/// </summary>
 public class SendMonsterSpawn : IOutGoingPackets
 {
     public OutGoingPackets PacketType => OutGoingPackets.SEND_MONSTER_SPAWN;
@@ -15,7 +18,10 @@ public class SendMonsterSpawn : IOutGoingPackets
         m_npc = a_npc;
 
     }
-
+    /// <summary>
+    /// This function creates an array of bytes containing an id for the monster and the current position and rotation
+    /// </summary>
+    /// <returns>Buffer Message</returns>
     public IByteBuffer GetPacket()
     {
         var buffer = Unpooled.Buffer();

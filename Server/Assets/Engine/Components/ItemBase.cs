@@ -20,6 +20,11 @@ public class ItemBase : MonoBehaviour {
     public float MovementStateOnEquip = 0f;
 
     public GameObject ResourcePefab;
+
+    /// <summary>
+    /// Anytime a gameobject is created on the unity thread we wantt to set an Interact Id so we can uniqually refrence it based on interaction
+    /// This function will take car of that.
+    /// </summary>
     private void Start()
     {
         InstanceGuid = Guid.NewGuid();

@@ -15,9 +15,9 @@ public interface IIncomingPackets
     /// <summary>
     /// This function will read the buffer messsage based on our packet defintion
     /// </summary>
-    /// <param name="player">Player who is executing the packet</param>
-    /// <param name="buffer">The buffer message containing packet info.</param>
+    /// <param name="a_player">Player who is executing the packet</param>
+    /// <param name="a_buffer">The buffer message containing packet info.</param>
     /// <returns></returns>
-    Task ExecutePacket(Player player, IByteBuffer buffer);
+    Task ExecutePacket(Player a_player, IByteBuffer a_buffer);
 
 }

@@ -145,9 +145,9 @@ public class DialogueSystem : MonoBehaviour
     /// </summary>
     /// <param name="a_player"></param>
     /// <param name="a_objectWithDialogueId"></param>
-    /// <param name="dialogue"></param>
+    /// <param name="a_dialogue"></param>
     /// <returns></returns>
-    public Dialogue HandleBasicQuestProgressPrompt(Player a_player, GameObject a_objectWithDialogueId, Dialogue dialogue)
+    public Dialogue HandleBasicQuestProgressPrompt(Player a_player, GameObject a_objectWithDialogueId, Dialogue a_dialogue)
     {
         //send a custom dialouge with a custom continue
         if (a_player.PlayerQuests.ContainsKey("BasicQuest"))
@@ -174,11 +174,11 @@ public class DialogueSystem : MonoBehaviour
                         };
                 }
 
-                dialogue = new Dialogue(1, "QuestNpc", useString, options);
+                a_dialogue = new Dialogue(1, "QuestNpc", useString, options);
             }
             else
             {
-                dialogue = new Dialogue(1, "QuestNpc", new string[] { "You still need to kill " + (a_player.PlayerQuests["BasicQuest"].MaxQuestStep - a_player.PlayerQuests["BasicQuest"].CurrentQuestStep) + " monsters" }, new Dictionary<int, string[]>()
+                a_dialogue = new Dialogue(1, "QuestNpc", new string[] { "You still need to kill " + (a_player.PlayerQuests["BasicQuest"].MaxQuestStep - a_player.PlayerQuests["BasicQuest"].CurrentQuestStep) + " monsters" }, new Dictionary<int, string[]>()
                     {
                         {0, new string[] {"Continue"}}
                     });
@@ -204,6 +204,6 @@ public class DialogueSystem : MonoBehaviour
                 })
             });
         }
-        return dialogue;
+        return a_dialogue;
     }
 }

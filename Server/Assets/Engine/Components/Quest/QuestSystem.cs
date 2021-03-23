@@ -21,18 +21,18 @@ public class QuestSystem : MonoBehaviour
     /// <summary>
     /// Assign a quest to a player, and then this quest is now considered started and used to save and load a player data on player connects.
     /// </summary>
-    /// <param name="QuestName">The quest to give</param>
+    /// <param name="a_questName">The quest to give</param>
     /// <param name="a_player">the player getting the quest</param>
-    public void GiveQuest(string QuestName, Player a_player)
+    public void GiveQuest(string a_questName, Player a_player)
     {
-        if (PossibleQuests[QuestName] == null)
+        if (PossibleQuests[a_questName] == null)
         {
             //quest does not exist
             return;
         }
 
-        if (!a_player.PlayerQuests.ContainsKey(QuestName)) {
-            a_player.PlayerQuests.Add(QuestName, PossibleQuests[QuestName]);
+        if (!a_player.PlayerQuests.ContainsKey(a_questName)) {
+            a_player.PlayerQuests.Add(a_questName, PossibleQuests[a_questName]);
         } else
         {
             print("player already has quest");
@@ -42,11 +42,11 @@ public class QuestSystem : MonoBehaviour
     /// <summary>
     /// This function is used to increase a quest step, we call this function manually based on where the actions are needed to do be done for a step increase.
     /// </summary>
-    /// <param name="QuestName">The quest to increase</param>
+    /// <param name="a_questName">The quest to increase</param>
     /// <param name="a_player">Player completing a quest step</param>
-    public void IncrementQuest(string QuestName, Player a_player)
+    public void IncrementQuest(string a_questName, Player a_player)
     {
-        var quest = a_player.PlayerQuests[QuestName];
+        var quest = a_player.PlayerQuests[a_questName];
         if (quest == null)
         {
             return;

@@ -10,5 +10,5 @@ using UnityEngine;
 /// </summary>
 public interface IInputControl
 {
-    void HandleInput(Player player, int a_inputType);
+    void HandleInput(Player a_player, int a_inputType);
 }

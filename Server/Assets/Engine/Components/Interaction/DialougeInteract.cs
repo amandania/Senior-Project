@@ -29,7 +29,7 @@ public class DialougeInteract : MonoBehaviour
     {
         foreach (Player playerShowing in PlayersShowingInteract)
         {
-            if (playerShowing.Session != null && playerShowing.Session.m_channel.Active)
+            if (playerShowing.Session != null && playerShowing.Session.Channel.Active)
             {
                 playerShowing.Session.SendPacket(new SendPromptState("MessagePanel", false)).ConfigureAwait(false);
             }
@@ -40,8 +40,8 @@ public class DialougeInteract : MonoBehaviour
     /// Anytime another game object with a collider enters this gameobjects collider, this function will be triggered. 
     /// This function detects if the other collider is a player, and sends a message panel toggle on the interact prompt and send the text to change it too.
     /// </summary>
-    /// <param name="other"></param>
-    private void OnTriggerEnter(Collider other)
+    /// <param name="a_otherCollider"></param>
+    private void OnTriggerEnter(Collider a_otherCollider)
     {
         if (GetComponent<DialougeInteract>() == null)
         {
@@ -49,7 +49,7 @@ public class DialougeInteract : MonoBehaviour
             return;
         }
 
-        var otherCombatCollider = other.GetComponent<CombatComponent>();
+        var otherCombatCollider = a_otherCollider.GetComponent<CombatComponent>();
         if (otherCombatCollider == null)
         {
             return;
@@ -80,10 +80,10 @@ public class DialougeInteract : MonoBehaviour
     /// Anytime another game object with a collider exits this gameobjects collider, this function will be triggered. 
     /// This function detects if the other collider is a player, and sends a message panel toggle off to remove the prompt
     /// </summary>
-    /// <param name="other">Other collider leaving this gameobjects collider</param>
-    private void OnTriggerExit(Collider other)
+    /// <param name="a_otherCollider">Other collider leaving this gameobjects collider</param>
+    private void OnTriggerExit(Collider a_otherCollider)
     {
-        var otherCombatCollider = other.GetComponent<CombatComponent>();
+        var otherCombatCollider = a_otherCollider.GetComponent<CombatComponent>();
         if (otherCombatCollider == null)
         {
             return;

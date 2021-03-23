@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-
+/// <summary>
+/// Anytime we want to refresh a container we are going to send this packet. A refresh consist of an array of SlotItems.
+/// We are going to send the number of items and constructor the bytes array for what slot items exist in our contaier.
+/// We only use this class for Hotkey Items. <see cref="Hotkeys.RefrehsItems()"/>
+/// </summary>
 public class SendRefreshContainer : IOutGoingPackets
 {
+    /// <summary>
+    /// Container Frefresh Packet Header ID
+    /// </summary>
     public OutGoingPackets PacketType => OutGoingPackets.SEND_REFRESH_CONTAINER;
 
     private readonly string m_containerName;
@@ -18,6 +25,11 @@ public class SendRefreshContainer : IOutGoingPackets
         m_deleteOnEmpty = deleteOnEmpty;
     }
 
+    /// <summary>
+    /// This function will create the buffer message contain all our container items to send.
+    /// Client will handle the visual draws based on if we find the item resources models.
+    /// </summary>
+    /// <returns>Buffer message to send container refrehs</returns>
     public IByteBuffer GetPacket()
     {
         var buffer = Unpooled.Buffer();

@@ -29,8 +29,8 @@ public class MonsterInteract : MonoBehaviour
     /// When another collider enters this collision we trigger out aggro to target and perform attacking behaviors if we can. 
     /// <see cref="CombatComponent"/>
     /// </summary>
-    /// <param name="other"></param>
-    private void OnTriggerEnter(Collider other)
+    /// <param name="a_otherCollider"></param>
+    private void OnTriggerEnter(Collider a_otherCollider)
     {
         if (MyCombat == null || MyCombat.Character.IsDead)
         {
@@ -39,7 +39,7 @@ public class MonsterInteract : MonoBehaviour
         if (MyCombat.Mover.IsRetreating) {
             return;
         }
-        var otherCombatCollider = other.GetComponent<CombatComponent>();
+        var otherCombatCollider = a_otherCollider.GetComponent<CombatComponent>();
         if (otherCombatCollider == null)
         {
             return;

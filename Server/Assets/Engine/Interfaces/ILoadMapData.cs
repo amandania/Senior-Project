@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public interface ILoadMapData : IStartable, IDisposable
 {
-    Node NodeFromWorldPoint(Vector3 worldPosition);
-    List<Node> GetNeighbours(Node node);
+    Node NodeFromWorldPoint(Vector3 a_worldPosition);
+    List<Node> GetNeighbours(Node a_node);
     int MaxSize { get; }
 }

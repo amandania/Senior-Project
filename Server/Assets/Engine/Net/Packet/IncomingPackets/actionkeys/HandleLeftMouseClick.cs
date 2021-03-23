@@ -18,13 +18,13 @@ public class HandleLeftMouseClick : IIncomingPackets
     /// <summary>
     /// This class will execute a default combat attack anytime we have a left click triggered. IF we have a menu nothign happens.
     /// </summary>
-    /// <param name="player"></param>
-    /// <param name="data"></param>
+    /// <param name="a_player"></param>
+    /// <param name="a_data"></param>
     /// <returns>awaited asynchrnous task <see cref="ChannelEventHandler.ChannelRead0" </returns>
-    public Task ExecutePacket(Player player, IByteBuffer data)
+    public Task ExecutePacket(Player a_player, IByteBuffer a_data)
     {
         //Debug.Log("incoming player left click");
-        if (player.MenuOpen)
+        if (a_player.MenuOpen)
         {
             return Task.CompletedTask;
         }
@@ -32,7 +32,7 @@ public class HandleLeftMouseClick : IIncomingPackets
         // has to be attack input
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            player.CombatComponent.Attack();
+            a_player.CombatComponent.Attack();
         });
         return Task.CompletedTask;
     }

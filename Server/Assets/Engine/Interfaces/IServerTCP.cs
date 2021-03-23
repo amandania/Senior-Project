@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 public interface IServerTCP : IStartable
 {
     //Server startup task 
-    Task Initalize(int port);
+    Task Initalize(int a_port);
 }

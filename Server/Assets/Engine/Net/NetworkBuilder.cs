@@ -33,9 +33,9 @@ public class NetworkBuilder : IServerTCP
     /// <summary>
     /// This is our main server function to setup our network and all playersessions to be created on channel event invokes.
     /// </summary>
-    /// <param name="port"></param>
+    /// <param name="a_port"></param>
     /// <returns>awaited Asynchronous task</returns>
-    public async Task Initalize(int port)
+    public async Task Initalize(int a_port)
     {
         m_bootstrap.Group(m_bossgroup, m_workgroup);
         m_bootstrap.Channel<TcpServerSocketChannel>();
@@ -55,8 +55,8 @@ public class NetworkBuilder : IServerTCP
             childPipeline.AddLast(m_channelEventHandler);
         }));
         //_world.SpawnMonsters();
-        Debug.Log("Server is listening on port " + port);
-        NetworkManager.channel = await m_bootstrap.BindAsync(port);
+        Debug.Log("Server is listening on port " + a_port);
+        NetworkManager.channel = await m_bootstrap.BindAsync(a_port);
     }
 
     public void Start()

@@ -2,9 +2,14 @@
 using System;
 using System.Text;
 using UnityEngine;
-
+/// <summary>
+/// Anyime a player performs a valid login, we send him the server id generated and the position of spawn. 
+/// </summary>
 public class SendLoginResponse : IOutGoingPackets
 {
+    /// <summary>
+    /// Packet Identenfier for client to map the callback class.
+    /// </summary>
     public OutGoingPackets PacketType => OutGoingPackets.RESPOSNE_VERIFY;
 
     private readonly int m_responseCode;
@@ -16,6 +21,11 @@ public class SendLoginResponse : IOutGoingPackets
         m_responseCode = responseCode;
     }
 
+
+    /// <summary>
+    /// Function to write the bytes for a player id and their float values for position and rotation to login with
+    /// </summary>
+    /// <returns>Buffer message containing valid login response spawn details</returns>
     public IByteBuffer GetPacket()
     {
         var buffer = Unpooled.Buffer();

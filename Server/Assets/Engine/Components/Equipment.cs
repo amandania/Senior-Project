@@ -87,11 +87,11 @@ public class Equipment : MonoBehaviour
     /// <summary>
     /// This function checks our resource library and see if we have a specific gameobject with this name
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="a_itemName"></param>
     /// <returns>The game object found one or null.</returns>
-    private GameObject GetModelForName(string name)
+    private GameObject GetModelForName(string a_itemName)
     {
-        var gameObject = Resources.Load(("ItemModels/" + name)) as GameObject;
+        var gameObject = Resources.Load(("ItemModels/" + a_itemName)) as GameObject;
         if (gameObject)
         {
             return gameObject;

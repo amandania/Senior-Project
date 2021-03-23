@@ -2,9 +2,15 @@
 using System;
 using System.Text;
 using UnityEngine;
-
+/// <summary>
+/// This class is responsible for sending a ground object that is being spawned on server to all clients. Or a specifc client, currently we just have any ground object being spawned sent to everyone on the client and everyone that connects afterward also calls this packet.
+/// </summary>
 public class SendGroundItem : IOutGoingPackets
 {
+
+    /// <summary>
+    /// Packet identifer for client to execute handle function for this header.
+    /// </summary>
     public OutGoingPackets PacketType => OutGoingPackets.SEND_GROUND_ITEM;
 
     private readonly ItemBase m_item;
@@ -16,6 +22,11 @@ public class SendGroundItem : IOutGoingPackets
 
     }
 
+    /// <summary>
+    /// This function will create a buffer message containg the server id for ground item and its position values.
+    /// Client uses the infromation to spawn the visual representation
+    /// </summary>
+    /// <returns>Ground item buffer message</returns>
     public IByteBuffer GetPacket()
     {
         var buffer = Unpooled.Buffer();
