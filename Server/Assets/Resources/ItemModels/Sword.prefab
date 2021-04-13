@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3473551670750714248}
   - component: {fileID: 544602247843830407}
   - component: {fileID: -3912296908764481309}
+  - component: {fileID: 261704316145528318}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -102,3 +103,16 @@ MonoBehaviour:
   TrasnformParentName: B_R_Hand
   MovementStateOnEquip: 2
   ResourcePefab: {fileID: 3534397109851629836}
+--- !u!65 &261704316145528318
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3534397109851629836}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99380255, y: 0.23669311, z: 0.96693444}
+  m_Center: {x: -0.17061879, y: -0.005458875, z: 1.596118}

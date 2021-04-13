@@ -2020,8 +2020,8 @@ MonoBehaviour:
   Gravity: 600
   SendRate: 15
   IsRetreating: 0
-  timeBetweenMovementStart: 0
-  timeBetweenMovementEnd: 0
+  m_timeBetweenMovementStart: 0
+  m_timeBetweenMovementEnd: 0
 --- !u!114 &629212275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5213,7 +5213,7 @@ PrefabInstance:
     - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -14.5
+      value: -11.6
       objectReference: {fileID: 0}
     - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
         type: 3}
@@ -5223,7 +5223,7 @@ PrefabInstance:
     - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9590624
+      value: 0.6958235
       objectReference: {fileID: 0}
     - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
         type: 3}
@@ -5233,7 +5233,7 @@ PrefabInstance:
     - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.28319508
+      value: -0.7182129
       objectReference: {fileID: 0}
     - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
         type: 3}
@@ -5248,7 +5248,7 @@ PrefabInstance:
     - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 147.098
+      value: 271.814
       objectReference: {fileID: 0}
     - target: {fileID: 4175918997627588586, guid: 1ead5661d820f684fba028c6bc676405,
         type: 3}

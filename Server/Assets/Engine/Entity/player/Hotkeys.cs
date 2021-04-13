@@ -1,5 +1,11 @@
 ﻿using System.Collections.Generic;
-
+/// <summary>
+/// This class is used to handle player hotkey slots. It is treated like a Container. 
+/// We store items in here and we also save and load them during player login.
+/// We can trigger the slot aswell based on our inputer controller.
+/// <see cref="Container"/>
+/// <seealso cref="InputController.UseHotkey(Player, int)"/>
+/// </summary>
 public class Hotkeys : Container
 {
     private const string CONTAINER_NAME = "Hotkeys";

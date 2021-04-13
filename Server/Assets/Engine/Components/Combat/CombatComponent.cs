@@ -184,6 +184,10 @@ public class CombatComponent : MonoBehaviour
         }
         else if (Character.IsPlayer())
         {
+            MyAnimator.SetBool("IsDead", false);
+            Character.IsDead = false;
+            CurrentHealth = 100;
+            Network.SendPacketToAll(new SendAnimationBoolean(Character, "IsDead", false)).ConfigureAwait(false);
             // a regular player on death just respawn to normal position
             transform.position = SpawnPos;
             CurrentHealth = MaxHealth;
