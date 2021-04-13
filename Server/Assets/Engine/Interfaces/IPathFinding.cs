@@ -10,5 +10,5 @@ public interface IPathFinding
     ILoadMapData Grid { get; }
 
     //Function to return our path data
-    PathResult FindPath(Vector3 startPos, Vector3 targetPos);
+    PathResult FindPath(Vector3 a_startPos, Vector3 a_targetPos);
 }

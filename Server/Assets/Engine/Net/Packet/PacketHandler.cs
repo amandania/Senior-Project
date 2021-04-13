@@ -11,21 +11,21 @@ public sealed class PacketHandler : IPacketHandler
     /// List of packets defined as part of the container
     /// <see cref="NetworkManager.RegisterDependencies(Autofac.ContainerBuilder)"/>
     /// </summary>
-    private readonly IEnumerable<IIncomingPackets> _packets;
+    private readonly IEnumerable<IIncomingPackets> m_packets;
 
     public PacketHandler(IEnumerable<IIncomingPackets> packets)
     {
-        _packets = packets;
+        m_packets = packets;
     }
 
     /// <summary>
     /// Return the packet handler for an incoming packet. We use it to execute the function in ChannelEventReader
     /// <see cref="ChannelEventHandler.ChannelRead0(DotNetty.Transport.Channels.IChannelHandlerContext, DotNetty.Buffers.IByteBuffer)"/>
     /// </summary>
-    /// <param name="packets"></param>
+    /// <param name="a_packets"></param>
     /// <returns></returns>
-    public IIncomingPackets GetPacketForType(IncomingPackets packets)
+    public IIncomingPackets GetPacketForType(IncomingPackets a_packets)
     {
-        return _packets.FirstOrDefault(packet => packet.PacketType == packets);
+        return m_packets.FirstOrDefault(packet => packet.PacketType == a_packets);
     }
 }

@@ -6,5 +6,5 @@ public interface IPacketHandler
 {
 
     //Return the packet handler for an incoming packet.
-    IIncomingPackets GetPacketForType(IncomingPackets packets);
+    IIncomingPackets GetPacketForType(IncomingPackets a_packets);
 }

@@ -19,33 +19,33 @@ public class KeyValuePair
     /// <summary>
     /// Constructor for bool value 
     /// </summary>
-    /// <param name="key">name of our dictionary key</param>
-    /// <param name="value">bool value type</param>
-    public KeyValuePair(string key, bool value)
+    /// <param name="a_key">name of our dictionary key</param>
+    /// <param name="a_value">bool value type</param>
+    public KeyValuePair(string a_key, bool a_value)
     {
-        Key = key;
-        BoolValue = value;
+        Key = a_key;
+        BoolValue = a_value;
     }
    
 
     /// <summary>
     /// Constructor for int value 
     /// </summary>
-    /// <param name="key">name of our dictionary key</param>
-    /// <param name="value">int value type</param>
-    public KeyValuePair(string key, int value)
+    /// <param name="a_key">name of our dictionary key</param>
+    /// <param name="a_value">int value type</param>
+    public KeyValuePair(string a_key, int a_value)
     {
-        Key = key;
-        IntValue = value;
+        Key = a_key;
+        IntValue = a_value;
     }
     /// <summary>
     /// Constructor for float value 
     /// </summary>
-    /// <param name="key">name of our dictionary key</param>
-    /// <param name="value">float value type</param>
-    public KeyValuePair(string key, float value)
+    /// <param name="a_key">name of our dictionary key</param>
+    /// <param name="a_value">float value type</param>
+    public KeyValuePair(string a_key, float a_value)
     {
-        Key = key;
-        FloatValue = value;
+        Key = a_key;
+        FloatValue = a_value;
     }
 }

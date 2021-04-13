@@ -10,14 +10,14 @@ public class ServerBooter
     //Main constructor
     //its important to remember unity game objects are on a different thread
     /// <cref cref="IServerTCP.Initalize"/> is running on a different thread.
-    public ServerBooter(IWorld world, IServerTCP tcp)
+    public ServerBooter(IWorld a_world, IServerTCP a_tcp)
     {
         var s = Task.Run(async () =>
         {
-            await world.LoadNpcInteracts();
-            await world.LoadMonsters();
-            await world.LoadGroundItems();
-            await tcp.Initalize(5555).ConfigureAwait(false);
+            await a_world.LoadNpcInteracts();
+            await a_world.LoadMonsters();
+            await a_world.LoadGroundItems();
+            await a_tcp.Initalize(5555).ConfigureAwait(false);
         });
     }
 }

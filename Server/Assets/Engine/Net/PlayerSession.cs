@@ -12,9 +12,9 @@ using UnityEngine;
 public class PlayerSession
 {
 
-    public readonly IChannel m_channel;
-    public readonly IWorld m_world;
-    public readonly Player m_player;
+    public readonly IChannel Channel;
+    public readonly IWorld World;
+    public readonly Player Player;
 
     /// <summary>
     /// Main constructor for a sesson. We assign our dependecies  here and all spawn positions.
@@ -24,49 +24,49 @@ public class PlayerSession
     /// <param name="a_playerLoader">The PlayerLoader depency to check login validations and loads.</param>
     public PlayerSession(IChannel a_channel, IWorld a_world, IPlayerDataLoader a_playerLoader)
     {
-        m_channel = a_channel;
-        m_world = a_world;
+        Channel = a_channel;
+        World = a_world;
 
         Vector3 pos;
         Vector3 rot;
-        m_player = new Player(this, a_world);
+        Player = new Player(this, a_world);
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            var transform = m_world.SpawnTransform;
+            var transform = World.SpawnTransform;
             pos = transform.position;
             rot = transform.rotation.eulerAngles;
-            m_player.Position = pos;
-            m_player.Rotation = rot;
+            Player.Position = pos;
+            Player.Rotation = rot;
         });
     }
 
     /// <summary>
     /// This function is used to send any packet to our stream so the client can know what to do.
     /// </summary>
-    /// <param name="packet">Packet to send</param>
+    /// <param name="a_packet">Packet to send</param>
     /// <returns>Task funcito that is not awaited for unless we need it. We decide that on runtime.</returns>
-    public Task SendPacket(IOutGoingPackets packet)
+    public Task SendPacket(IOutGoingPackets a_packet)
     {
         var buffer = Unpooled.Buffer();
-        buffer.WriteInt((int)packet.PacketType);
-        buffer.WriteBytes(packet.GetPacket());
+        buffer.WriteInt((int)a_packet.PacketType);
+        buffer.WriteBytes(a_packet.GetPacket());
         return WriteToChannel(buffer);
     }
 
     /// <summary>
     /// This function will send a packet to everyone thats connect including myself.
     /// </summary>
-    /// <param name="packet">The packet to send.</param>
+    /// <param name="a_packet">The packet to send.</param>
     /// <returns>Task funcito that is not awaited for unless we need it. We decide that on runtime.</returns>
-    public async Task SendPacketToAll(IOutGoingPackets packet)
+    public async Task SendPacketToAll(IOutGoingPackets a_packet)
     {
         var buffer = Unpooled.Buffer();
-        buffer.WriteInt((int)packet.PacketType);
-        buffer.WriteBytes(packet.GetPacket());
+        buffer.WriteInt((int)a_packet.PacketType);
+        buffer.WriteBytes(a_packet.GetPacket());
 
-        foreach (var player in m_world.Players)
+        foreach (var player in World.Players)
         {
-            if (player.Session.m_channel.Active && player.Session.m_channel.IsWritable)
+            if (player.Session.Channel.Active && player.Session.Channel.IsWritable)
             {
                 await player.Session.WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);
             }
@@ -76,15 +76,15 @@ public class PlayerSession
     /// <summary>
     /// This function will send a packet to everyone thats connect excluding myself.
     /// </summary>
-    /// <param name="packet">The packet to send.</param>
+    /// <param name="a_packet">The packet to send.</param>
     /// <returns>Task funcito that is not awaited for unless we need it. We decide that on runtime.</returns>
-    public async Task SendPacketToAllButMe(IOutGoingPackets packet)
+    public async Task SendPacketToAllButMe(IOutGoingPackets a_packet)
     {
         var buffer = Unpooled.Buffer();
-        buffer.WriteInt((int)packet.PacketType);
-        buffer.WriteBytes(packet.GetPacket());
+        buffer.WriteInt((int)a_packet.PacketType);
+        buffer.WriteBytes(a_packet.GetPacket());
 
-        var otherPlayers = m_world.Players.Where(otherPlayer => otherPlayer.GetGuid() != m_player.GetGuid());
+        var otherPlayers = World.Players.Where(otherPlayer => otherPlayer.GetGuid() != Player.GetGuid());
         foreach (var player in otherPlayers)
         {
             await player.Session.WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);
@@ -94,10 +94,10 @@ public class PlayerSession
     /// <summary>
     /// Context writing. We clear our channel of any messages so new messages can come after we send whatever it is we are sending.
     /// </summary>
-    /// <param name="data">Message to send to channel</param>
+    /// <param name="a_data">Message to send to channel</param>
     /// <returns>Task funcito that is not awaited for unless we need it. We decide that on runtime.</returns>
-    public Task WriteToChannel(IByteBuffer data)
+    public Task WriteToChannel(IByteBuffer a_data)
     {
-        return m_channel.WriteAndFlushAsync(data);
+        return Channel.WriteAndFlushAsync(a_data);
     }
 }

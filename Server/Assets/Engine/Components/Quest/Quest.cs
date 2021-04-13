@@ -19,10 +19,10 @@ public class Quest
     //Did we claim the reward if we have one?
     public bool Claimed { get; set; } = false;
 
-    public Quest(string a_name, int maxSteps = 1, int a_currentSteps = 0)
+    public Quest(string a_name, int a_maxSteps = 1, int a_currentSteps = 0)
     {
         QuestName = a_name;
-        MaxQuestStep = maxSteps;
+        MaxQuestStep = a_maxSteps;
         CurrentQuestStep = a_currentSteps;
     }
 

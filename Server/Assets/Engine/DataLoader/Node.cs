@@ -6,32 +6,40 @@
 public class Node : IItem<Node>
 {
 
-    public bool m_walkable;
-    public Vector3 m_worldPosition;
+    public bool Walkable;
+    public Vector3 WorldPosition;
 
-    public short m_gridX;
-    public short m_gridY;
-    public int m_movementPenalty;
+    public short GridX;
+    public short GridY;
+    public int MovementPenalty;
 
-    public int m_gCost;
-    public int m_hCost;
-    public int m_heapIndex;
-    internal Node m_parent;
+    public int GCost;
+    public int HCost;
+    public int HeapIndex;
+    public Node Parent;
 
-    public Node(bool _walkable, Vector3 _worldPos, short _gridX, short _gridY, int _penalty)
+    /// <summary>
+    /// Constrctor for node flag
+    /// </summary>
+    /// <param name="a_walkable">Is this grid position blocked by an obstacle</param>
+    /// <param name="a_worldPos">World position of node</param>
+    /// <param name="a_gridX">List index X</param>
+    /// <param name="a_gridY">List index Y</param>
+    /// <param name="a_penalty">Distance penalty</param>
+    public Node(bool a_walkable, Vector3 a_worldPos, short a_gridX, short a_gridY, int a_penalty)
     {
-        m_walkable = _walkable;
-        m_worldPosition = _worldPos;
-        m_gridX = _gridX;
-        m_gridY = _gridY;
-        m_movementPenalty = _penalty;
+        Walkable = a_walkable;
+        WorldPosition = a_worldPos;
+        GridX = a_gridX;
+        GridY = a_gridY;
+        MovementPenalty = a_penalty;
     }
-
+    
     public int m_fCost
     {
         get
         {
-            return m_gCost + m_hCost;
+            return GCost + HCost;
         }
     }
 
@@ -39,11 +47,11 @@ public class Node : IItem<Node>
     {
         get
         {
-            return m_heapIndex;
+            return HeapIndex;
         }
         set
         {
-            m_heapIndex = value;
+            HeapIndex = value;
         }
     }
 
@@ -57,7 +65,7 @@ public class Node : IItem<Node>
         int compare = m_fCost.CompareTo(nodeToCompare.m_fCost);
         if (compare == 0)
         {
-            compare = m_hCost.CompareTo(nodeToCompare.m_hCost);
+            compare = HCost.CompareTo(nodeToCompare.HCost);
         }
         return -compare;
     }

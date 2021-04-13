@@ -63,41 +63,41 @@ public class NetworkManager : MonoBehaviour
     /// All single instance are treated a pointer
     /// The incomingpackets are the only thing treated as Global Type to execute from. These are never passed into consrctors because that are executing to a player.
     /// </summary>
-    /// <param name="builder">Main server container to build too</param>
-    private void RegisterDependencies(ContainerBuilder builder)
+    /// <param name="a_builder">Main server container to build too</param>
+    private void RegisterDependencies(ContainerBuilder a_builder)
     {
         // Boot
-        builder.RegisterType<ServerBooter>();
+        a_builder.RegisterType<ServerBooter>();
 
         //Auto Startables
         //transform.gameObject.AddComponent<World>();
-        builder.RegisterType<MapData>().As<ILoadMapData>().As<IStartable>().SingleInstance();
-        builder.RegisterType<World>().As<IWorld>().As<IStartable>().SingleInstance();
-        builder.RegisterType<NetworkBuilder>().As<IServerTCP>().As<IStartable>().SingleInstance();
+        a_builder.RegisterType<MapData>().As<ILoadMapData>().As<IStartable>().SingleInstance();
+        a_builder.RegisterType<World>().As<IWorld>().As<IStartable>().SingleInstance();
+        a_builder.RegisterType<NetworkBuilder>().As<IServerTCP>().As<IStartable>().SingleInstance();
 
 
         //Networking instances
-        builder.RegisterType<ChannelEventHandler>().SingleInstance();
-        builder.RegisterType<ChannelPipeLineHandler>().As<IConnectionManager>().SingleInstance();
+        a_builder.RegisterType<ChannelEventHandler>().SingleInstance();
+        a_builder.RegisterType<ChannelPipeLineHandler>().As<IConnectionManager>().SingleInstance();
         //builder.RegisterType<NPCMovement>().As<INPCMovement>().SingleInstance();
 
         //Utility Dependencies
-        builder.RegisterType<PathFinding>().As<IPathFinding>().SingleInstance();
-        builder.RegisterType<PacketHandler>().As<IPacketHandler>().SingleInstance();
-        builder.RegisterType<InputController>().As<IInputControl>().SingleInstance();
+        a_builder.RegisterType<PathFinding>().As<IPathFinding>().SingleInstance();
+        a_builder.RegisterType<PacketHandler>().As<IPacketHandler>().SingleInstance();
+        a_builder.RegisterType<InputController>().As<IInputControl>().SingleInstance();
 
         //Incoming Packets
-        builder.RegisterType<HandleMapLoaded>().As<IIncomingPackets>();
-        builder.RegisterType<LoginResponsePacket>().As<IIncomingPackets>();
-        builder.RegisterType<HandleLeftMouseClick>().As<IIncomingPackets>();
-        builder.RegisterType<HandleMovementInput>().As<IIncomingPackets>();
-        builder.RegisterType<HandleActionKeys>().As<IIncomingPackets>();
-        builder.RegisterType<HandleChatMessage>().As<IIncomingPackets>();
-        builder.RegisterType<HandleLogoutRequest>().As<IIncomingPackets>();
-        builder.RegisterType<HandleDialogueClick>().As<IIncomingPackets>();
+        a_builder.RegisterType<HandleMapLoaded>().As<IIncomingPackets>();
+        a_builder.RegisterType<LoginResponsePacket>().As<IIncomingPackets>();
+        a_builder.RegisterType<HandleLeftMouseClick>().As<IIncomingPackets>();
+        a_builder.RegisterType<HandleMovementInput>().As<IIncomingPackets>();
+        a_builder.RegisterType<HandleActionKeys>().As<IIncomingPackets>();
+        a_builder.RegisterType<HandleChatMessage>().As<IIncomingPackets>();
+        a_builder.RegisterType<HandleLogoutRequest>().As<IIncomingPackets>();
+        a_builder.RegisterType<HandleDialogueClick>().As<IIncomingPackets>();
 
         //Player startables we want to make sure all the other dependencies are built
-        builder.RegisterType<PlayerData>().As<IPlayerDataLoader>().As<IStartable>().SingleInstance();
+        a_builder.RegisterType<PlayerData>().As<IPlayerDataLoader>().As<IStartable>().SingleInstance();
 
     }
 
@@ -105,17 +105,17 @@ public class NetworkManager : MonoBehaviour
     /// <summary>
     /// This function is used universally on that Unity Main Thread. Its to allow unity thread to send packet changes to everyone connected to the server. Apply global changes.
     /// </summary>
-    /// <param name="packet"></param>
+    /// <param name="a_packet"></param>
     /// <returns></returns>
-    public async Task SendPacketToAll(IOutGoingPackets packet)
+    public async Task SendPacketToAll(IOutGoingPackets a_packet)
     {
         var buffer = Unpooled.Buffer();
-        buffer.WriteInt((int)packet.PacketType);
-        buffer.WriteBytes(packet.GetPacket());
+        buffer.WriteInt((int)a_packet.PacketType);
+        buffer.WriteBytes(a_packet.GetPacket());
 
         foreach (var player in World.Players)
         {
-            if (player.Session.m_channel.Active && player.Session.m_channel.IsWritable)
+            if (player.Session.Channel.Active && player.Session.Channel.IsWritable)
             {
                 await player.Session.WriteToChannel(buffer.RetainedDuplicate()).ConfigureAwait(false);
             }

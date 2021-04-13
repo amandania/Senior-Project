@@ -60,7 +60,7 @@ public class LoginResponsePacket : IIncomingPackets
         await a_player.Session.SendPacket(new SendLoginResponse(a_player, response_code)).ConfigureAwait(false);
         if (response_code == 1)
         {
-            await a_player.Session.m_channel.CloseAsync().ConfigureAwait(false);
+            await a_player.Session.Channel.CloseAsync().ConfigureAwait(false);
         }
         if (response_code == 0)
         {

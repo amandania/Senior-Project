@@ -38,10 +38,10 @@ public class PathFinding : IPathFinding
         Node startNode = Grid.NodeFromWorldPoint(startPos);
         Node targetNode = Grid.NodeFromWorldPoint(targetPos);
 
-        startNode.m_parent = startNode;
+        startNode.Parent = startNode;
 
 
-        if (startNode.m_walkable && targetNode.m_walkable)
+        if (startNode.Walkable && targetNode.Walkable)
         {
             CustomHeap<Node> openSet = new CustomHeap<Node>(Grid.MaxSize);
             HashSet<Node> closedSet = new HashSet<Node>();
@@ -62,17 +62,17 @@ public class PathFinding : IPathFinding
 
                 foreach (Node neighbour in Grid.GetNeighbours(currentNode))
                 {
-                    if (!neighbour.m_walkable || closedSet.Contains(neighbour))
+                    if (!neighbour.Walkable || closedSet.Contains(neighbour))
                     {
                         continue;
                     }
 
-                    int newMovementCostToNeighbour = currentNode.m_gCost + GetDistance(currentNode, neighbour) + neighbour.m_movementPenalty;
-                    if (newMovementCostToNeighbour < neighbour.m_gCost || !openSet.Contains(neighbour))
+                    int newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode, neighbour) + neighbour.MovementPenalty;
+                    if (newMovementCostToNeighbour < neighbour.GCost || !openSet.Contains(neighbour))
                     {
-                        neighbour.m_gCost = newMovementCostToNeighbour;
-                        neighbour.m_hCost = GetDistance(neighbour, targetNode);
-                        neighbour.m_parent = currentNode;
+                        neighbour.GCost = newMovementCostToNeighbour;
+                        neighbour.HCost = GetDistance(neighbour, targetNode);
+                        neighbour.Parent = currentNode;
 
                         if (!openSet.Contains(neighbour))
                             openSet.Add(neighbour);
@@ -120,7 +120,7 @@ public class PathFinding : IPathFinding
         while (currentNode != startNode)
         {
             path.Add(currentNode);
-            currentNode = currentNode.m_parent;
+            currentNode = currentNode.Parent;
         }
         Vector3[] waypoints = SimplifyPath(path);
         Array.Reverse(waypoints);
@@ -140,10 +140,10 @@ public class PathFinding : IPathFinding
 
         for (int i = 1; i < path.Count; i++)
         {
-            Vector2 directionNew = new Vector2(path[i - 1].m_gridX - path[i].m_gridX, path[i - 1].m_gridY - path[i].m_gridY);
+            Vector2 directionNew = new Vector2(path[i - 1].GridX - path[i].GridX, path[i - 1].GridY - path[i].GridY);
             if (directionNew != directionOld)
             {
-                waypoints.Add(path[i].m_worldPosition);
+                waypoints.Add(path[i].WorldPosition);
             }
             directionOld = directionNew;
         }
@@ -159,8 +159,8 @@ public class PathFinding : IPathFinding
     /// <returns></returns>
     private int GetDistance(Node nodeA, Node nodeB)
     {
-        int dstX = Math.Abs(nodeA.m_gridX - nodeB.m_gridX);
-        int dstY = Math.Abs(nodeA.m_gridY - nodeB.m_gridY);
+        int dstX = Math.Abs(nodeA.GridX - nodeB.GridX);
+        int dstY = Math.Abs(nodeA.GridY - nodeB.GridY);
 
         if (dstX > dstY)
             return 6 * dstY + 2 * (dstX - dstY);

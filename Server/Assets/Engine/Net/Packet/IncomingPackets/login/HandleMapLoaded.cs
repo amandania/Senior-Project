@@ -26,9 +26,9 @@ public class HandleMapLoaded : IIncomingPackets
     /// Register our connected client to our world 
     /// </summary>
     /// <param name="a_player">Player who logged in and loaded map</param>
-    /// <param name="data">player session to replicate and add to our wolrd</param>
+    /// <param name="a_data">player session to replicate and add to our wolrd</param>
     /// <returns>awaited asynchrnous task <see cref="ChannelEventHandler.ChannelRead0" </returns>
-    public async Task ExecutePacket(Player a_player, IByteBuffer data)
+    public async Task ExecutePacket(Player a_player, IByteBuffer a_data)
     {
 
         //send me to everyone

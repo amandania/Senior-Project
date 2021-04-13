@@ -18,12 +18,12 @@ public class Dialogue
     public int OptionClicked = -1;
     
 
-    public Dialogue(int a_dialougeId, string a_dialogueTitle, string[] messages, Dictionary<int, string[]> responses)
+    public Dialogue(int a_dialougeId, string a_dialogueTitle, string[] a_messages, Dictionary<int, string[]> a_responses)
     {
         m_dialougeId = a_dialougeId;
         m_dialougeTitle = a_dialogueTitle;
-        m_dialougeMessages = messages;
-        optionLists = responses;
+        m_dialougeMessages = a_messages;
+        optionLists = a_responses;
     }
 
     /// <summary>
