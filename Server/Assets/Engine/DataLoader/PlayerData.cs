@@ -54,7 +54,8 @@ public class PlayerData : IPlayerDataLoader
                 a_sessionPlayer.UserName = desiralizedObj.Username;
                 a_sessionPlayer.Password = desiralizedObj.Password;
                 a_sessionPlayer.CharacterLevel = desiralizedObj.PlayerLevel;
-                a_sessionPlayer.HotkeyInventory.LastActiveSlot = desiralizedObj.CurrentSlotEquipped;
+                //a_sessionPlayer.HotkeyInventory.LastActiveSlot = desiralizedObj.CurrentSlotEquipped;
+
                 if (desiralizedObj.HotkeyItems.Length > 0)
                 {
                     a_sessionPlayer.HotkeyInventory.ContainerItems.Clear();
@@ -72,10 +73,11 @@ public class PlayerData : IPlayerDataLoader
                         a_sessionPlayer.PlayerQuests[q.QuestName].Claimed = q.Claimed;
                     }
                 }
+                /*
                 if (desiralizedObj.CurrentSlotEquipped != -1)
                 {
                     a_sessionPlayer.HotkeyInventory.LastActiveSlot = desiralizedObj.CurrentSlotEquipped;
-                }
+                }*/
                 succuess = true;
                 //Debug.Log("Correct creditonals given for " + a_playerName);
             }
@@ -103,6 +105,10 @@ public class PlayerData : IPlayerDataLoader
         serializeClass.PlayerLevel = a_player.CharacterLevel;
         serializeClass.HotkeyItems = a_player.HotkeyInventory.ContainerItems.ToArray();
         serializeClass.PlayerQuests = new Quest[a_player.PlayerQuests.Count];
+        foreach (SlotItem q in serializeClass.HotkeyItems)
+        {
+            q.IsActive = false;
+        }
         int quest = 0;
         foreach(Quest q in a_player.PlayerQuests.Values)
         {

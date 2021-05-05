@@ -65,18 +65,8 @@ public class Player : Character
         //UnityEngine.Debug.Log("set combat compont " + currentCombatComp);
         var currentMoveComp = myModel.GetComponent<MovementComponent>();
         SetMoveComponent(currentMoveComp ?? myModel.AddComponent<MovementComponent>());
-
         var equipment = myModel.AddComponent<Equipment>();
         SetEquipmentComponent(equipment);
-        if (HotkeyInventory.LastActiveSlot != -1)
-        {
-            var slotItem = HotkeyInventory.ContainerItems[HotkeyInventory.LastActiveSlot];
-            Debug.Log("Last active slot: " + HotkeyInventory.LastActiveSlot + " slot item: "+ slotItem.ItemName);
-            Debug.Log("equip to :" + slotItem.TrasnformParentName);
-            HotkeyInventory.ToggleEquip(slotItem, true);
-            //equipment.EquipItem(slotItem.ItemName, slotItem.TrasnformParentName);
-            //Equipment.EquipItem(HotkeyInventory.ContainerItems[HotkeyInventory.LastActiveSlot].ItemName, HotkeyInventory.ContainerItems[HotkeyInventory.LastActiveSlot].TrasnformParentName);
-        }
         HotkeyInventory.RefrehsItems();
         currentCombatComp.CurrentHealth = m_currentHealth == -1 ? 100 : m_currentHealth;
         currentCombatComp.MaxHealth = m_maxHealth == -1 ? 100 : m_maxHealth;

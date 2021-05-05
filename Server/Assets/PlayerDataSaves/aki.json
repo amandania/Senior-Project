@@ -2,7 +2,7 @@
   "Username": "aki",
   "Password": "lol",
   "PlayerLevel": 1,
-  "CurrentHealth": 97,
+  "CurrentHealth": 100,
   "MaxHealth": 100,
   "HotkeyItems": [
     {
@@ -20,7 +20,7 @@
       "Amount": 1,
       "ItemLevel": 1,
       "IsStackable": false,
-      "IsActive": true,
+      "IsActive": false,
       "TrasnformParentName": "B_R_Hand"
     },
     {
@@ -86,5 +86,5 @@
       "Claimed": true
     }
   ],
-  "CurrentSlotEquipped": 1
+  "CurrentSlotEquipped": 0
 }
