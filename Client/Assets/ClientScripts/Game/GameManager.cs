@@ -155,14 +155,20 @@ public class GameManager : MonoBehaviour
         if (a_isLocalPlayer == true)
         {
             var keylistener = PlayerList[index].AddComponent<KeyListener>();
-
-            var playerCam = Camera.main.transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
-            //Debug.Log("playercam: " + playerCam);
-            playerCam.Follow = PlayerList[index].transform.Find("CamFollow").transform;
-            var playercamcontroller = Camera.main.gameObject.AddComponent<PlayerCamera>();
-            keylistener.PlayerCam = playercamcontroller;
-            playercamcontroller.followPart = PlayerList[index].transform.Find("CamFollow").transform;
-            playercamcontroller.playerTarget = PlayerList[index].transform;
+            var mainCam = GameObject.Find("Main Camera");
+            if (mainCam)
+            {
+                var playerCam = mainCam.transform.Find("CM").GetComponent<CinemachineVirtualCamera>();
+                //Debug.Log("playercam: " + playerCam);
+                playerCam.Follow = PlayerList[index].transform.Find("CamFollow").transform;
+                var playercamcontroller = mainCam.gameObject.AddComponent<PlayerCamera>();
+                keylistener.PlayerCam = playercamcontroller;
+                playercamcontroller.followPart = PlayerList[index].transform.Find("CamFollow").transform;
+                playercamcontroller.playerTarget = PlayerList[index].transform;
+            } else
+            {
+                Debug.Log("CAnnot find main camera");
+            }
         }
 
     }

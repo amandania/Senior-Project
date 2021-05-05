@@ -38,6 +38,7 @@ public class HandleLoginResponse : IIncomingPacketHandler
 
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
             {
+
                 SceneManager.LoadSceneAsync("MapScene", LoadSceneMode.Additive).completed += (t) =>
                 {
                     SceneManager.UnloadSceneAsync("LoginScreen").completed += (t2) =>
