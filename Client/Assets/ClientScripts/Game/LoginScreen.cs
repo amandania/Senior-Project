@@ -84,11 +84,11 @@ public class LoginScreen : MonoBehaviour
                 {
                     responseMessage.text = "Invalid Credentials.";
                 });
-            }else if (ResponseCode == 1)
+            } else if (ResponseCode == 6)
             {
                 UnityMainThreadDispatcher.Instance().Enqueue(() =>
                 {
-                    responseMessage.text = "Invalid Username";
+                    responseMessage.text = "Already logged in";
                 });
             }
         }

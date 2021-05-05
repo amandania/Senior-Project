@@ -48,11 +48,22 @@ public class LoginResponsePacket : IIncomingPackets
         {
             response_code = 2;
         } else { 
-            bool hasLoad = m_playerData.LoadPlayerData(username, password, a_player);
-            //Debug.Log("player has load?" + hasLoad);
-            if (!hasLoad)
+           
+            foreach (Player p in m_world.Players)
             {
-                response_code = 1;
+                if (p.UserName.ToLower().Equals(username.ToLower()))
+                {
+                    response_code = 6;
+                }
+            }
+            if (response_code != 6)
+            {
+                bool hasLoad = m_playerData.LoadPlayerData(username, password, a_player);
+                //Debug.Log("player has load?" + hasLoad);
+                if (!hasLoad)
+                {
+                    response_code = 1;
+                }
             }
         }
        
